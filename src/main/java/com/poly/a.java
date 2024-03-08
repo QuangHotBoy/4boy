@@ -11,6 +11,7 @@ public class a {
 	}
 	@RequestMapping("shop/a")
 	public String a1() {
-		return "pages/forms/basic_elements";
+		 return "pages/forms/basic_elements";
+		
 	}
 }
