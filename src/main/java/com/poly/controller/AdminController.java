@@ -13,4 +13,8 @@ public class AdminController {
 	public String voucher() {
 		return "admin/voucher/voucher";
 	}
+	@RequestMapping("shop/admin/order")
+	public String order() {
+		return "admin/order/order";
+	}
 }
