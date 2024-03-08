@@ -10,8 +10,8 @@ public class HomeController {
 		return "shop/index";
 	}
 	
-	@RequestMapping("shop/home")
+	@RequestMapping("shop/product")
 	public String list() {
-		return "product/list";
+		return "shop/list";
 	}
 }
