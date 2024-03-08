@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/shop/layout/head :: head">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="/shop/layout/navigation :: nav"></div>
+
+    <main style="height: max-content;" class="container rounded-3 mt-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="d-flex flex-column flex-shrink-0 p-2 bg-secondary bg-gradient rounded-2"
+                    style="height: 620px;">
+                    <a href="#" class="text-center text-decoration-none text-light fs-3 mt-2 ">
+                        TÀI KHOẢN
+                    </a>
+                    <hr class="text-light">
+                    <ul class="nav nav-pills flex-column mb-auto ">
+                        <li><a href="/user/index" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2"> TỔNG
+                                QUAN</a></li>
+                        <li class="actives"><a href="/user/information" class="nav-link link-primary fw-bold p-7 mt-2 mb-2"> THÔNG TIN
+                                TÀI KHOẢN </a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">
+                                ĐỊA CHỈ</a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">
+                                ĐƠN HÀNG </a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">SẢN PHẨM YÊU
+                                THÍCH </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card border" style="width: 1000px; height: max-content;">
+                    <div class="card-header bg-light">
+                        <h3>Thông tin cá nhân</h3>
+                    </div>
+                    <form action="" method="post" enctype="multipart/form-data" id="infor-form">
+                        <div class="card-body">
+                            <div class="container row">
+                                <div class="col-lg-3">
+                                    <div class="form-label pt-1 mt-3 ps-4 fs-5 fw-bold text-end">Tên
+                                        đăng nhập</div>
+                                    <div class="form-label pt-1 mt-3 ps-4 fs-5 fw-bold text-end">Họ
+                                        tên</div>
+                                    <div class="form-label pt-1 mt-4 ps-4 fs-5 fw-bold text-end">Email
+                                    </div>
+                                    <div class="form-label pt-1 mt-3 ps-4 fs-5 fw-bold text-end">Số
+                                        điện thoại</div>
+                                    <div class="form-label pt-1 mt-4 ps-4 fs-5 fw-bold text-end">Ngày
+                                        sinh</div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control mt-3" name="tenDangNhap" style="width: 80%;"
+                                        value="Baovhg" readonly>
+                                    <input class="form-control mt-3" name="hoTen" style="width: 80%;" value="Gia Bảo"
+                                        id="hoTen">
+                                    <input class="form-control mt-3" name="email" style="width: 80%;"
+                                        value="Baovhgpc03549@fpt.edu.vn" readonly>
+                                    <input class="form-control mt-3" name="sdt" style="width: 80%;" value="0357100604"
+                                        id="sdt">
+                                    <input class="form-control mt-3" name="ngaySinh" type="date" style="width: 80%;"
+                                        value="16/08/2003" id="date">
+                                </div>
+                            </div>
+                            <div class="ms-4 mt-4">
+                                <a type="button" href="/shop/information/changepassword/${thongtintk.tenDangNhap}"
+                                    class="btn btn-primary">Đổi
+                                    mật khẩu</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary ms-4 mt-2 ">Lưu</button>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script th:src="@{/shop/js/scripts.js}"></script>
+</body>
+
+</html>

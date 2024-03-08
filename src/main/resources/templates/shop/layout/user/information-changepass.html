@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/shop/layout/head :: head">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="/shop/layout/navigation :: nav"></div>
+
+    <main style="height: max-content;" class="container rounded-3 mt-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="d-flex flex-column flex-shrink-0 p-2 bg-secondary bg-gradient rounded-2"
+                    style="height: 620px;">
+                    <a href="#" class="text-center text-decoration-none text-light fs-3 mt-2 ">
+                        TÀI KHOẢN
+                    </a>
+                    <hr class="text-light">
+                    <ul class="nav nav-pills flex-column mb-auto ">
+                        <li><a href="/user/index" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2"> TỔNG
+                                QUAN</a></li>
+                        <li class="actives"><a href="/user/information"
+                                class="nav-link link-primary fw-bold p-7 mt-2 mb-2"> THÔNG TIN
+                                TÀI KHOẢN </a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">
+                                ĐỊA CHỈ</a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">
+                                ĐƠN HÀNG </a></li>
+                        <li><a href="#" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">SẢN PHẨM YÊU
+                                THÍCH </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card border" style="width: 1000px; height: max-content;">
+                    <div class="card-header p-2" style="height: 60px;">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="/shop/auth/information/detail"
+                                        class="text-dark text-decoration-none text-center fs-4 ">Tài khoản</a>
+                                </li>
+                                <li class="breadcrumb-item fs-4 " aria-current="page"><a href=""
+                                        class="text-dark text-decoration-none fs-4">Đổi mật khẩu</a></li>
+
+                            </ol>
+                        </nav>
+                    </div>
+                    <form action="/capnhapmk" method="post" enctype="multipart/form-data" id="infor-form">
+                        <div class="card-body">
+                            <div class="container row">
+                                <div class="col-lg-4">
+                                    <div class="form-label pt-1 mt-3 ps-4 fs-5 fw-bold text-end">Nhập
+                                        mật khẩu hiện tại</div>
+                                    <div class="form-label pt-1 mt-3 ps-4 fs-5 fw-bold text-end">Nhập
+                                        mật khẩu mới</div>
+                                    <div class="form-label pt-1 mt-4 ps-4 fs-5 fw-bold text-end">Xác
+                                        nhân mật khẩu mới</div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="password" class="form-control mt-3" name="matKhau" id="pass">
+                                    <input type="password" class="form-control mt-3" name="matKhauMoi" id="pass-new">
+                                    <input type="password" class="form-control mt-3" name="matKhauMoi1"
+                                        id="cfm-pass-new">
+                                    <input type="text" class="form-control mt-3" name="tenDangNhap"
+                                        value="${capnhapMK.tenDangNhap}" hidden>
+                                </div>
+                            </div>
+                            <div class="ms-4 mt-4">
+                                <button type="submit" class="btn btn-primary">Đổi
+                                    mật khẩu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script th:src="@{/shop/js/scripts.js}"></script>
+</body>
+
+</html>
