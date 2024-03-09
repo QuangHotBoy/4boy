@@ -7,7 +7,6 @@ public class AdminController {
     @RequestMapping("shop/admin")
 	public String index() {
 		return "index";
-
 	}
 	@RequestMapping("shop/admin/voucher")
 	public String voucher() {
