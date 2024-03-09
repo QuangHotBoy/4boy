@@ -33,28 +33,26 @@
             <div th:replace="admin/menu :: menu"></div>
 
             <!-- Bootstrap JavaScript Libraries -->
-            <div class="main-panel">
             <div class="col-10 px-0">
                 <div class="container">
-                    div
                     <div class="col-md-12">
                         <div class="card">
                             <div class="" style="height: 90px;">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb mb-0">
                                         <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Sách</a></li>
-                                    </ol>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="/admin/supplier">Nhà
+											xuất bản</a></li>
                                 </nav>
                             </div>
 
                             <div class="">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                    <a href="/admin/product/add-new"><button type="button"
+                                    <a href="/admin/supplier/add-new-suppliers"><button type="button"
                                             class="btn btn-warning bi bi-plus">Thêm mới</button></a>
                                     <div style="margin-top: 20px;" class="d-flex align-items-center">
-                                        <h5 class="mb-0">Danh sách sản phẩm</h5> <br>
+                                        <h5 class="mb-0">Danh sách nhà xuất bản</h5> <br>
                                     </div>
                                     <p th:text="${message}"></p>
                                     <br>
@@ -126,7 +124,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
         <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>

@@ -19,7 +19,59 @@
 </head>
 
 <style>
+    #tableContainer {
+        height: 300px;
+        /* Set the height as needed */
+        overflow-y: auto;
+    }
 
+    #table1 {
+        width: 100%;
+    }
+
+    #table1 thead {
+        position: sticky;
+        top: 0;
+        background-color: #f1f1f1;
+        /* Set the background color as needed */
+        z-index: 1;
+    }
+
+
+    /* Breadcrumb container */
+    .breadcrumb-container {
+        background-color: #f8f9fa;
+        /* Light gray background */
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+        /* Light border color */
+    }
+
+    /* Breadcrumb list */
+    .breadcrumb {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Breadcrumb items */
+    .breadcrumb-item {
+        display: inline-block;
+        margin-right: 1px;
+    }
+
+    /* Breadcrumb links */
+    .breadcrumb-item a {
+        color: #007bff;
+        /* Blue link color */
+        text-decoration: none;
+    }
+
+    /* Active breadcrumb item */
+    .breadcrumb-item.active {
+        color: #495057;
+        /* Dark text color for active item */
+    }
 </style>
 
 <body>
@@ -33,10 +85,8 @@
             <div th:replace="admin/menu :: menu"></div>
 
             <!-- Bootstrap JavaScript Libraries -->
-            <div class="main-panel">
             <div class="col-10 px-0">
                 <div class="container">
-                    div
                     <div class="col-md-12">
                         <div class="card">
                             <div class="" style="height: 90px;">
@@ -51,10 +101,10 @@
                             <div class="">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                    <a href="/admin/product/add-new"><button type="button"
+                                    <a href="/admin/product-series/add-new"><button type="button"
                                             class="btn btn-warning bi bi-plus">Thêm mới</button></a>
                                     <div style="margin-top: 20px;" class="d-flex align-items-center">
-                                        <h5 class="mb-0">Danh sách sản phẩm</h5> <br>
+                                        <h5 class="mb-0">Danh sách bộ sách</h5> <br>
                                     </div>
                                     <p th:text="${message}"></p>
                                     <br>
@@ -63,12 +113,12 @@
                                             <table class="table table-bordered" id="table1">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 350px;">Tên sách</th>
-                                                        <th style="width: 100px;">Đơn giá</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Tình trạng</th>
+                                                        <th>Mã bộ sách</th>
+                                                        <th>Tên bộ sách</th>
+                                                        <th>Mô tả</th>
                                                         <th>Hình ảnh</th>
-                                                        <th style="width: 30px;">Edit</th>
+                                                        <th>Edit</th>
+    
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -94,27 +144,32 @@
                                                         </div>
                                                     </td>
                                                 </tr> -->
-                                                    <tr>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>
-                                                            <!-- <div
-                                                            class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                            <a th:href="'/admin/product/edit/' + ${product.isbn}"
-                                                                class="text-warning" data-bs-toggle="tooltip"
-                                                                data-bs-placement="bottom" aria-label="Edit"
-                                                                data-bs-original-title="Edit">
-                                                                <i class="mdi mdi-box-cutter"></i>
-                                                            </a>
-                                                        </div> -->
-                                                            <i class="mdi mdi-border-color mdi-24px"
-                                                                style="color: red;"></i>
+                                                <c:forEach var="bosach" items="${bosachs}">
+													<tr>
+														<td>${bosach.id}</td>
+														<td>${bosach.tenBoSach}</td>
+														<td>${bosach.moTa}</td>
 
-                                                        </td>
-                                                    </tr>
+														<td><img alt="${bosach.hinhAnh}"
+																src="/image/product/${bosach.hinhAnh}" width="400px"
+																height="500px"></td>
+														<!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
+														<td>
+															<!-- <div
+																class="table-actions d-flex align-items-center gap-3 fs-5">
+
+																<a href="/admin/product-series/edit/${bosach.id }"
+																	class="text-warning" data-bs-toggle="tooltip"
+																	data-bs-placement="bottom" aria-label="Edit"
+																	data-bs-original-title="Edit"><i
+																		class="bi bi-pencil-fill"></i></a>
+															</div> -->
+                                                            <i class="mdi mdi-border-color mdi-24px "
+                                                                style="color: red;"></i>
+														</td>
+
+													</tr>
+												</c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -126,7 +181,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
         <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>

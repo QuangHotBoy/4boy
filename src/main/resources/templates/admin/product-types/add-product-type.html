@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Sản phẩm</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div class="main-container d-flex">
+        <!-- Menu Admin -->
+        <!-- partial:partials/_navbar.html -->
+        <div th:replace="admin/navbar :: navbar"></div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <div th:replace="admin/menu :: menu"></div>
+
+            <!-- Bootstrap JavaScript Libraries -->
+            <div class="col-10 px-0">
+                <div class="container-fluid">
+
+
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <div class="" style="height: 90px;">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a
+                                                href="/admin/product-type">Loại sách</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="/admin/product-type/add">Thêm loại</a></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class=" p-"></div>
+                            <div class="card-body">
+                                <div id="bootstrap-data-table_wrapper"
+								class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+
+
+
+								<br>
+
+								<!-- <div class="row">
+                                    <div class="col-sm-12">
+                                      
+                                    </div>
+                                </div> -->
+
+
+
+								<form:form action="/admin/product-type/create-type" modelAttribute="item"
+									enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-sm-3">
+											<!-- <div class="mb-1">
+                                                <label for="collection" class="form-label">ID</label>
+                                                <form:input path="id" class="form-control" id="id" placeholder="ID"
+                                                    disabled="true" />
+                                               
+                                            </div> -->
+											<!-- readonly  khóa không cho nhập -->
+										</div>
+										<div class="col-sm-6">
+
+											<div class="d-flex align-items-center">
+												<h5 class="mb-0">Thêm loại sách</h5>
+											</div>
+											<br>
+											<div class="mb-1">
+												<label for="collection" class="form-label">Tên Loại sách</label>
+												<form:input path="tenLoai" class="form-control" id="tenLoai"
+													placeholder="Tên loại" />
+											</div>
+											<div class="mb-1">
+												<label for="collection" class="form-label">Mô tả</label>
+												<form:textarea path="moTa" class="form-control" id="mota"
+													placeholder="Mô tả" style="height: 150px;" />
+											</div>
+											<!-- Các nút và liên kết -->
+											<button type="submit" class="btn btn-primary"
+												style="margin-top: 20px; margin-bottom: 90px;">Thêm</button>&nbsp;&nbsp;
+										
+										</div>
+										<div class="col-sm-3">
+
+										</div>
+
+
+									</div>
+
+							</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+            <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+            <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                $(document).ready(function () {
+                    new DataTable('#table1');
+                });
+                /*]]>*/
+            </script>
+
+            <!-- thư viện -->
+            <!-- container-scroller -->
+            <!-- plugins:js -->
+            <script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+            <!-- endinject -->
+            <!-- Plugin js for this page -->
+            <!-- End plugin js for this page -->
+            <!-- inject:js -->
+            <script th:src="@{/assets/js/off-canvas.js}"></script>
+            <script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+            <script th:src="@{/assets/js/misc.js}"></script>
+            <!-- endinject -->
+            <!-- Custom js for this page -->
+            <!-- End custom js for this page -->
+</body>
+
+</html>

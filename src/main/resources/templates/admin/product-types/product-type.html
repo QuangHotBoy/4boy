@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Sản phẩm</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div class="main-container d-flex">
+        <!-- Menu Admin -->
+        <!-- partial:partials/_navbar.html -->
+        <div th:replace="admin/navbar :: navbar"></div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <div th:replace="admin/menu :: menu"></div>
+
+            <!-- Bootstrap JavaScript Libraries -->
+            <div class="col-10 px-0">
+                <div class="container">
+                    <div class="">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="" style="height: 90px;">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Loại sách</a></li>
+    
+                                    </ol>
+                                </nav>
+                            </div>
+
+                            <div class="">
+                                <div id="bootstrap-data-table_wrapper"
+								class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+								<a href="/admin/product-type/add"><button type="button"
+										class="btn btn-warning bi bi-plus">Thêm mới</button></a>
+                                        <div style="margin-top: 20px;" class="d-flex align-items-center">
+									<h5 class="mb-0">Danh sách loại sản phẩm</h5>
+
+								</div>
+
+								<!-- <div class="d-flex align-items-center mt-3">
+
+									<div class="me-3">
+
+										<select class="form-select" id="filterOptions">
+											<option value="all">Tất cả</option>
+											<option value="option1">Lựa chọn 1</option>
+											<option value="option2">Lựa chọn 2</option>
+											
+
+										</select>
+
+
+									</div>
+									<button type="button" class="btn btn-primary">Lọc theo loại</button>
+									<form class="ms-auto position-relative">
+										<div class="position-absolute top-50 translate-middle-y search-icon px-3">
+											<i class="bi bi-search"></i>
+										</div>
+										<input class="form-control ps-5" type="text" placeholder="search">
+									</form>
+								</div> -->
+
+
+
+								<br>
+								<div class="row">
+									<div style="height: 500px; overflow: auto;">
+										<table class="table table-bordered" id="table1">
+											<thead>
+												<tr>
+													<th>Mã loại sách</th>
+													<th>Tên loại sách</th>
+													<th>Mô tả</th>
+													<th>Edit</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="phanloai" items="${phanloais}">
+													<tr>
+														<td>${phanloai.id}</td>
+														<td>${phanloai.tenLoai}</td>
+														<td>${phanloai.moTa}</td>
+														<!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
+														<td>
+															<div
+																class="table-actions d-flex align-items-center gap-3 fs-5">
+																<a href="/admin/product-type/edit/${phanloai.id }"
+																	class="text-warning" data-bs-toggle="tooltip"
+																	data-bs-placement="bottom" aria-label="Edit"
+																	data-bs-original-title="Edit"><i
+																		class="bi bi-pencil-fill"></i></a>
+															</div>
+														</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+
+
+								</div>
+							</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $(document).ready(function () {
+                new DataTable('#table1');
+            });
+            /*]]>*/
+        </script>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        
+</body>
+
+</html>
