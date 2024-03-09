@@ -1,63 +1,104 @@
+<!-- plugins:css -->
+<link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+<link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+<!-- End layout styles -->
+<link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+<div th:fragment="menu">
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="assets/images/faces/face1.jpg" alt="profile">
+            <span class="login-status online"></span>
+            <!--change to offline or busy as needed-->
+          </div>
 
-    <div th:fragment="menu">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-              <li class="nav-item nav-profile">
-                <a href="#" class="nav-link">
-                  <div class="nav-profile-image">
-                    <img src="assets/images/faces/face1.jpg" alt="profile">
-                    <span class="login-status online"></span>
-                    <!--change to offline or busy as needed-->
-                  </div>
-                  
-                  <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                  <span class="menu-title">Bảng điều khiển</span>
-                  <i class="mdi mdi-home menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                  <span class="menu-title">Tài khoản</span>
-                  <i class="menu-arrow"></i>
-                  <i class="mdi mdi-contacts menu-icon"></i>
-                </a>
-                <div class="collapse" id="ui-basic">
-                  <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item">
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/admin">
+          <span class="menu-title">Bảng điều khiển</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <span class="menu-title">Tài khoản</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-contacts menu-icon"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+          </ul>
+        </div>
+      </li>
+      <!-- <li class="nav-item">
                 <a class="nav-link" href="pages/icons/mdi.html">
                   <span class="menu-title">Sản phẩm</span>
                   <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                   
                 </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/shop/admin/voucher">
-                    <span class="menu-title">Mã giảm giá</span>
-                    <i class="mdi mdi-medical-bag menu-icon"></i>
-                </a>
-            </li>            
-              <li class="nav-item">
-                <a class="nav-link" href="/shop/admin/order">
-                  <span class="menu-title">Đơn hàng</span>
-                  <i class="mdi mdi-table-large menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                  <span class="menu-title">Thống kê</span>
-                  <i class="menu-arrow"></i>
-                  <i class="mdi mdi-chart-bar menu-icon"></i>
-                </a>
-                
-            </ul>
-          </nav>
-    </div>
+              </li> -->
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="" aria-expanded="false" aria-controls="ui-basic">
+          <span class="menu-title">Loại sản phẩm</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        </a>
+        <div>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/admin/product">Loại sách</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/admin/product">Bộ sách</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/admin/product">Nhà xuất bản</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/admin/product">Sách</a></li>
+            
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/admin/voucher">
+          <span class="menu-title">Mã giảm giá</span>
+          <i class="mdi mdi-medical-bag menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/admin/order">
+          <span class="menu-title">Đơn hàng</span>
+          <i class="mdi mdi-table-large menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false"
+          aria-controls="general-pages">
+          <span class="menu-title">Thống kê</span>
+          <i class="menu-arrow"></i>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+        </a>
+
+    </ul>
+  </nav>
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script th:src="@{/assets/js/off-canvas.js}"></script>
+<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+<script th:src="@{/assets/js/misc.js}"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<!-- End custom js for this page -->
