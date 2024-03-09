@@ -16,7 +16,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping("shop/product")
-	public String list() {
-		return "shop/list";
+	public String detailProduct() {
+		return "shop/detail-item";
 	}
+
+	@RequestMapping("shop/auth/cart")
+	public String cart() {
+		return "shop/cart";
+	}
+	
 }

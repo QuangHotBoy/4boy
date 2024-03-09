@@ -9,48 +9,48 @@ import ch.qos.logback.core.model.Model;
 @Controller
 public class UserController {
     
-    @RequestMapping("/user/index")
+    @RequestMapping("shop/auth/index")
     public String index(Model model) {
         return "shop/layout/user/index";
     }
 
-    @RequestMapping("/user/information")
+    @RequestMapping("shop/auth/information")
     public String infomation(Model model) {
         return "shop/layout/user/information";
     }
 
-    @RequestMapping("/user/information/changepass")
+    @RequestMapping("shop/auth/information/changepass")
     public String changepass(Model model) {
         return "shop/layout/user/information-changepass";
     }
 
-    @RequestMapping("/user/address")
+    @RequestMapping("shop/auth/address")
     public String address(Model model) {
         return "shop/layout/user/address";
     }
 
-    @RequestMapping("/user/address/add-new-address")
+    @RequestMapping("shop/auth/address/add-new-address")
     public String addnewaddress(Model model) {
         return "shop/layout/user/add-new-address";
     }
 
-    @RequestMapping("/user/address/update-address")
+    @RequestMapping("hop/auth/address/update-address")
     public String updateaddress(Model model) {
         return "shop/layout/user/update-address";
     }
 
-    @RequestMapping("/user/invoice")
+    @RequestMapping("shop/auth/invoice")
     public String invoice(Model model) {
         return "shop/layout/user/invoice";
     }
 
-    @RequestMapping("/user/invoice/detail-invoice")
+    @RequestMapping("shop/auth/invoice/detail-invoice")
     public String detaiinvoice(Model model) {
         return "shop/layout/user/detail-invoice";
     }
 
 
-    @RequestMapping("/user/favorite")
+    @RequestMapping("shop/auth/favorite")
     public String favorite(Model model) {
         return "shop/layout/user/favorites";
     }
