@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/shop/layout/head :: head">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="/shop/layout/navigation :: nav"></div>
+
+    <main style="height: max-content;" class="container rounded-3 mt-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="d-flex flex-column flex-shrink-0 p-2 bg-secondary bg-gradient rounded-2"
+                    style="height: 620px;">
+                    <a href="#" class="text-center text-decoration-none text-light fs-3 mt-2 ">
+                        TÀI KHOẢN
+                    </a>
+                    <hr class="text-light">
+                    <ul class="nav nav-pills flex-column mb-auto ">
+                        <li><a href="/user/index" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2"> TỔNG
+                                QUAN</a></li>
+                        <li><a href="/user/information"
+                                class="nav-link link-primary fw-bold p-7 mt-2 mb-2  text-light"> THÔNG TIN
+                                TÀI KHOẢN </a></li>
+                        <li ><a href="/user/address" class="nav-link link-primary fw-bold p-7 mt-2 mb-2 text-light ">
+                                ĐỊA CHỈ</a></li>
+                        <li class="actives"><a href="/user/invoice" class="nav-link link-primary fw-bold p-7  mt-2 mb-2">
+                                ĐƠN HÀNG </a></li>
+                        <li><a href="/user/favorite" class="nav-link link-primary fw-bold p-7 text-light mt-2 mb-2">SẢN PHẨM YÊU
+                                THÍCH </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card border " style="width: 1000px; height: 620px">
+                    <div class="card-header bg-light">
+                        <h3>Đơn hàng</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="donhang">
+                            <table class="table  ms-1 me-2">
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Ngày mua</th>
+                                    <th>Người nhận</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                                <c:forEach var="item" items="${donhang}">
+                                    <tr>
+                                        <td>DH0110</td>
+                                        <td> 
+                                            <!-- <fmt:formatDate value="2024-02-02"
+                                            pattern="yyyy-MM-dd" /> -->
+                                            22/02/2024
+                                        </td>
+                                        <td>Gia bảo</td>
+                                        <td>
+                                            <!-- <fmt:formatNumber value="${item.tongTien}" type="number"
+                                            currencyCode="VND" maxFractionDigits="0" /> vnđ -->
+                                                188.000 VNĐ 
+                                        </td>
+                                        <td>Đang vận chuyển</td>
+                                        <td>
+                                            <a class="text-primary text-decoration-none"
+                                                href="/user/invoice/detail-invoice">
+                                                Xem chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script th:src="@{/shop/js/scripts.js}"></script>
+</body>
+
+</html>
