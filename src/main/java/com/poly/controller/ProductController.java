@@ -51,4 +51,7 @@ public class ProductController {
 	public String add_product(){
 		return "/admin/product/add-product";
 	}
+
+
+	
 }
