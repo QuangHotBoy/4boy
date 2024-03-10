@@ -17,10 +17,20 @@ public class HomeController {
 	public String shopHome() {
 		return "shop/index";
 	}
+
+	@RequestMapping("shop/list")
+	public String listProduct(){
+		return "shop/list";
+	}
 	
 	@RequestMapping("shop/product")
 	public String detailProduct() {
 		return "shop/detail-item";
+	}
+
+	@RequestMapping("shop/gallary")
+	public String detailGallary(){
+		return "shop/detail-gallary";
 	}
 
 	@RequestMapping("shop/auth/cart")
