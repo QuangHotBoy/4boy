@@ -55,5 +55,9 @@ public class UserController {
         return "shop/layout/user/favorites";
     }
 
+    @RequestMapping("shop/auth/demo")
+    public String demo(Model model) {
+        return "shop/layout/user/demo";
+    }
     
 }
