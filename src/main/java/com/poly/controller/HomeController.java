@@ -1,25 +1,38 @@
 package com.poly.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.poly.dao.SanPhamDAO;
+import com.poly.model.SanPham;
+
 
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	SanPhamDAO productDAO;
+
 	@RequestMapping("")
 	public String home() {
 		return "redirect:/shop/home";
 	}
 	
 	@RequestMapping("shop/home")
-	public String shopHome() {
+	public String shopHome(Model model) {
+		
 		return "shop/index";
 	}
 
 	@RequestMapping("shop/list")
-	public String listProduct(){
+	public String listProduct(Model model){
+		List<SanPham> list = productDAO.findAll();
+		model.addAttribute("list", list);
 		return "shop/list";
 	}
 	
