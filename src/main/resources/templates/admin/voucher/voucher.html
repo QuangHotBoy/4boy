@@ -1,5 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -192,165 +193,52 @@
                           </div>
                         </form>
                        </div>
-                        <div class="col-lg-12 grid-margin stretch-card">
-                          <div class="card">
+                       <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
                             <div class="card-body">
-                              <table class="table table-striped">
-                                <thead>
-                                  <tr>
-                                    <th> Mã giảm giá </th>
-                                    <th> Tên mã giảm giá </th>
-                                    <th> Số tiền giảm </th>
-                                    <th> Số lượng </th>
-                                    <th> Ngày bắt đầu </th>
-                                    <th> Ngày két thúc </th>
-                                    <th> Mô tả </th>
-                                    <th>Hành động</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>1 tỷ</td>
-                                    <td> Herman Beck </td>
-                                    <td>1 tỷ</td>
-                                    <td> $ 77.99 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> May 15, 2015 </td>
-                                    <td> Hé sì lô </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                
-                                
-                                </tbody>
-                              </table>
-                              <div class="btn-group my-2" style="margin-left: 30%;" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-danger">
-                                    <i class="mdi mdi-chevron-double-left"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-info">
-                                  <i class="mdi mdi-chevron-left"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-success">0
-                                </button>
-                                <button type="button" class="btn btn-outline-info">
-                                  <i class="mdi mdi-chevron-right"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger">
-                                  <i class="mdi mdi-chevron-double-right"></i>
-                                </button>
-                              </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã giảm giá</th>
+                                            <th>Tên mã giảm giá</th>
+                                            <th>Số tiền giảm</th>
+                                            <th>Số lượng</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
+                                            <th>Mô tả</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="voucher : ${vouchers}">
+                                            <!-- Các cột thông tin voucher -->
+                                            <td th:text="${voucher.id}"></td>
+                                            <td th:text="${voucher.tenMa}"></td>
+                                            
+                                            <td><!-- Thêm hành động ở đây --></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="btn-group my-2" style="margin-left: 30%;" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="mdi mdi-chevron-double-left"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info">
+                                        <i class="mdi mdi-chevron-left"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-success">0
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="mdi mdi-chevron-double-right"></i>
+                                    </button>
+                                </div>
                             </div>
-                          </div>
                         </div>
+                    </div>
+                    
                       </div>
                     </form>
                   </div>
