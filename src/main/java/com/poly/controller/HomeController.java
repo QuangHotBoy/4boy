@@ -1,11 +1,18 @@
 package com.poly.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.poly.service.QuyenService;
 
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	QuyenService quyenService;
+
 	@RequestMapping("")
 	public String home() {
 		return "redirect:/shop/home";
@@ -13,6 +20,7 @@ public class HomeController {
 	
 	@RequestMapping("shop/home")
 	public String shopHome() {
+		System.out.println(quyenService.findAll());
 		return "shop/index";
 	}
 
