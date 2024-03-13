@@ -1,17 +1,22 @@
 package com.poly.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poly.service.QuyenService;
+import com.poly.dao.SanPhamDAO;
+import com.poly.model.SanPham;
+
 
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	QuyenService quyenService;
+	SanPhamDAO productDAO;
 
 	@RequestMapping("")
 	public String home() {
@@ -19,13 +24,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping("shop/home")
-	public String shopHome() {
-		System.out.println(quyenService.findAll());
+	public String shopHome(Model model) {
+		
 		return "shop/index";
 	}
 
 	@RequestMapping("shop/list")
-	public String listProduct(){
+	public String listProduct(Model model){
+		List<SanPham> list = productDAO.findAll();
+		model.addAttribute("list", list);
 		return "shop/list";
 	}
 	
