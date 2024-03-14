@@ -1,6 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -70,120 +69,12 @@
                     <form class="form-sample">
                       <div class="row">
                         <div class="col-md-6">
-                          <button type="button" class="btn btn-gradient-primary btn-fw" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Thêm mới</button>   
-                        </div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content" style="width: 1200px; height: 500px;margin-left:-70%;">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới mã giảm giá</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Mã giảm giá</label>
-                                        <div class="col-sm-9">
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Tên mã giảm giá</label>
-                                        <div class="col-sm-9">
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Số tiền giảm</label>
-                                        <div class="col-sm-9">
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Số lượng</label>
-                                        <div class="col-sm-3">
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
-                                        <div class="col-sm-9">
-                                          <input type="date" class="form-control" placeholder="dd/mm/yyyy" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Ngày kết thúc</label>
-                                        <div class="col-sm-9">
-                                          <input type="date" class="form-control" placeholder="dd/mm/yyyy" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Mô tả</label>
-                                        <div class="col-sm-9">             
-                                          <textarea class="form-control"></textarea>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Điều kiện giảm</label>
-                                        <div class="col-sm-9">             
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Mô tả</label>
-                                        <div class="col-sm-9">             
-                                          <textarea class="form-control"></textarea>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Điều kiện giảm</label>
-                                        <div class="col-sm-9">             
-                                          <input type="text" class="form-control" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-gradient-danger btn-icon-text"data-bs-dismiss="modal">Đóng</button>
-                                <button type="button" class="btn btn-primary">Thêm mới</button>
-                              </div>
-                            </div>
-                          </div>
+                          <a href="/shop/admin/addnew_mgg"  class="btn btn-gradient-primary btn-fw">Thêm mã giảm giá</a>
                         </div>
                         </div>
                       </div>
                       <div class="row">
-                       <div >
+                        <div class="col-lg-3 grid-margin stretch-card">
                         <form class="d-flex align-items-center h-100"  style="margin-left: 70%; padding-right: 3%;" action="#">
                           <div class="input-group">
                             <div class="input-group-prepend bg-transparent">
@@ -210,14 +101,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="voucher : ${vouchers}">
-                                            <!-- Các cột thông tin voucher -->
-                                            <td th:text="${voucher.id}"></td>
-                                            <td th:text="${voucher.tenMa}"></td>
-                                            
-                                            <td><!-- Thêm hành động ở đây --></td>
-                                        </tr>
-                                    </tbody>
+                                      <tr th:each="mggs : ${mggs}">
+                                          <!-- Các cột thông tin voucher -->
+                                          <td th:text="${mggs.id}"></td>
+                                          <td th:text="${mggs.tenMa}"></td>
+                                          <td th:text="${mggs.soTienGiam}"></td>
+                                          <td th:text="${mggs.soLuong}"></td>
+                                          <td th:text="${mggs.ngayBatDau}"></td>
+                                          <td th:text="${mggs.ngayKetThuc}"></td>
+                                          <td th:text="${mggs.thongTin}"></td>
+                                          <td>
+                                            <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
+                                              <i class="mdi mdi-border-color"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
+                                              <i class="mdi mdi-delete-forever"></i>
+                                            </button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                  
                                 </table>
                                 <div class="btn-group my-2" style="margin-left: 30%;" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-danger">
@@ -226,7 +129,7 @@
                                     <button type="button" class="btn btn-outline-info">
                                         <i class="mdi mdi-chevron-left"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-success">0
+                                    <button type="button" class="btn btn-outline-success">1
                                     </button>
                                     <button type="button" class="btn btn-outline-info">
                                         <i class="mdi mdi-chevron-right"></i>
@@ -237,8 +140,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
                       </div>
                     </form>
                   </div>
