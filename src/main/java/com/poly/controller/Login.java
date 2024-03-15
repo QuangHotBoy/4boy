@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Login {
     @RequestMapping("shop/login")
 	public String login(Model model) {
-
 		return "shop/layout/login/login";
+	}
+    @RequestMapping("shop/register")
+	public String register(Model model) {
+		return "shop/layout/login/register";
 	}
 }
