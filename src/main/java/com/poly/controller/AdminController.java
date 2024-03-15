@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.MaGiamGiaDAO;
+import com.poly.model.DonDatHang;
 import com.poly.model.MaGiamGia;
 
 
@@ -27,6 +29,9 @@ public class AdminController {
 
 	@Autowired
 	MaGiamGiaDAO mggDAO;
+
+	@Autowired
+	DonDatHangDAO ddhDAO;
 
     @RequestMapping("shop/admin")
 	public String index() {
@@ -75,7 +80,9 @@ public class AdminController {
 		return "/admin/voucher/update_voucher";
 	}
 	@RequestMapping("shop/admin/order")
-	public String order() {
+	public String order(Model model) {
+		List<DonDatHang> ddhs = ddhDAO.findAll();	
+		model.addAttribute("ddhs", ddhs);
 		return "admin/order/order";
 	}
 }
