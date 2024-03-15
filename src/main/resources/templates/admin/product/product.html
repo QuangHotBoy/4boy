@@ -33,7 +33,7 @@
             <div th:replace="admin/menu :: menu"></div>
 
             <!-- Bootstrap JavaScript Libraries -->
-           
+
             <div class="col-10 px-0">
                 <div class="container">
                     div
@@ -72,49 +72,41 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- <tr th:each="product : ${products}">
-                                                    <td th:text="${product.tenSach}"></td>
-                                                    <td>
-                                                        <span th:text="${#numbers.formatDecimal(product.donGia, 0, 'NUMBER')} + ' vnđ'"></span>
-                                                    </td>
-                                                    <td th:text="${product.soLuong}"></td>
-                                                    <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
-                                                    <td><img th:src="'/image/product/' + ${product.hinhAnh}"
-                                                            th:alt="${product.hinhAnh}" width="350px" height="500px">
-                                                    </td>
-                                                    <td>
-                                                        <div
-                                                            class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                            <a th:href="'/admin/product/edit/' + ${product.isbn}"
-                                                                class="text-warning" data-bs-toggle="tooltip"
-                                                                data-bs-placement="bottom" aria-label="Edit"
-                                                                data-bs-original-title="Edit">
-                                                                <i class="bi bi-pencil-fill"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr> -->
-                                                    <tr>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>Conan</td>
-                                                        <td>
-                                                            <!-- <div
-                                                            class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                            <a th:href="'/admin/product/edit/' + ${product.isbn}"
-                                                                class="text-warning" data-bs-toggle="tooltip"
-                                                                data-bs-placement="bottom" aria-label="Edit"
-                                                                data-bs-original-title="Edit">
-                                                                <i class="mdi mdi-box-cutter"></i>
-                                                            </a>
-                                                        </div> -->
-                                                            <i class="mdi mdi-border-color mdi-24px"
-                                                                style="color: red;"></i>
 
-                                                        </td>
-                                                    </tr>
+                                                    <!-- <c:forEach var="product" items="${products}"> -->
+                                                    <div th:each="product : ${products}">
+
+
+                                                        <tr>
+                                                            <td th:utext="${product.tenSach}"></td>
+                                                            <!-- <td>${product.tacGia}</td> -->
+                                                            
+                                                                    <td th:utext="${product.donGia}"></td>
+
+                                                            <td th:utext="${product.soLuong}"></td>
+                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}"></td>
+                                                            
+                                                            <td>
+                                                                <img alt="[[${product.hinhAnh}]]"
+                                                                     th:src="@{/image/product/{hinhAnh}(hinhAnh=${product.hinhAnh})}"
+                                                                     width="350px" height="500px">
+                                                            </td>
+                                                            
+                                                            <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
+                                                            <td>
+                                                                <div
+                                                                    class="table-actions d-flex align-items-center gap-3 fs-5">
+
+                                                                    <a href="/admin/product/edit/${product.isbn }"
+                                                                        class="text-warning" data-bs-toggle="tooltip"
+                                                                        data-bs-placement="bottom" aria-label="Edit"
+                                                                        data-bs-original-title="Edit"><i
+                                                                            class="bi bi-pencil-fill"></i></a>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </div>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -128,19 +120,19 @@
         </div>
     </div>
 
-        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function () {
-                new DataTable('#table1');
-            });
-            /*]]>*/
-        </script>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
+    <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            new DataTable('#table1');
+        });
+        /*]]>*/
+    </script>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
 
 </body>
 
