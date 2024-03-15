@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -205,7 +205,7 @@
                                 <thead>
                                   <tr>
                                     <th> Mã đơn hàng </th>
-                                    <th> Tên đăng nhập</th>
+                                    <th> Tên khách hàng</th>
                                     <th> Địa chỉ nhận hàng </th>
                                     <th> Tình trạng </th>
                                     <th> Lí do hủy đơn </th>
@@ -214,39 +214,19 @@
                                   </tr>
                                 </thead>
                                 <tbody>     
-                                  <tr>
-                                    <td> DH01</td>
-                                    <td> quanghotboy0154 </td>
-                                    <td> Dubai</td>
-                                    <td><label class="badge badge-danger">Hủy đơn hàng</label></td>
-                                    <td> Thích bom hàng </td>
-                                    <td> May 15, 2015 </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td> DH02</td>
-                                    <td> quangvanratladeptrai </td>
-                                    <td> Dubai</td>
+                                  <tr th:each="ddhs : ${ddhs}">
+                                    <td th:text="${ddhs.maDonHang}"></td>
+                                    <td th:text="${ddhs.hoTen}"></td>
+                                    <td th:text="${ddhs.diaChi}"></td>
                                     <td>
                                       <select class="form-control" style="color: white; background-color: rgb(226, 154, 82);" onchange="changeStatus(this)">
                                           <option value="1" style="color: white; background-color: rgb(102, 216, 184);" selected>Chờ xác nhận</option>
                                           <option value="2" style="color: white; background-color: rgb(226, 216, 102);">Đang xử lí</option>
-                                          <option value="3" style="color: white; background-color: rgb(55, 202, 74);">Đã nhận đơn</option>
-                                          <option value="4" style="color: white; background-color: rgb(213, 108, 108);">Hủy đơn hàng</option>
+                                          <option value="3" style="color: white; background-color: rgb(55, 202, 74);">Đã nhận đơn</option>                     
                                       </select>
                                   </td>
-                                  
-                                  
-                                  
-                                    <td> </td>
-                                    <td> Hé sì lô </td>
+                                  <td th:text="${ddhs.ghiChu}"></td>
+                                  <td th:text="${ddhs.ngayDatHang}"></td>
                                     <td>
                                       <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
                                         <i class="mdi mdi-border-color"></i>
@@ -256,54 +236,7 @@
                                       </button>
                                     </td>
                                   </tr>
-                                  <tr>
-                                    <td> DH03</td>
-                                    <td> quangvanratladeptrai </td>
-                                    <td> Dubai</td>
-                                    <td><label class="badge badge-warning">Đang xử lí</label></td>
-                                    <td> </td>
-                                    <td> May 15, 2015 </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td> DH03</td>
-                                    <td> quangvanratladeptrai </td>
-                                    <td> Dubai</td>
-                                    <td><label class="badge badge-warning">Đang xử lí</label></td>
-                                    <td> </td>
-                                    <td> May 15, 2015 </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td> DH03</td>
-                                    <td> quangvanratladeptrai </td>
-                                    <td> Dubai</td>
-                                    <td><label class="badge badge-warning">Đang xử lí</label></td>
-                                    <td> </td>
-                                    <td> May 15, 2015 </td>
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                        <i class="mdi mdi-delete-forever"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
+                                 
                                 </tbody>
 
                               </table>
