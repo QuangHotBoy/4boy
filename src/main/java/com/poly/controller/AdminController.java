@@ -39,11 +39,40 @@ public class AdminController {
 		return "admin/voucher/voucher";
 	}
 	@RequestMapping("shop/admin/addnew_mgg")
-	public String add_voucher_new(@Validated @ModelAttribute("mggs") MaGiamGia mggs,
+	public String add_voucher_new(@Validated @ModelAttribute("voucher") MaGiamGia voucher,
 			BindingResult result, Model model) throws IllegalAccessException, IOException {
 			LocalDate currentDate = LocalDate.now();
 			model.addAttribute("ngayBatDau", currentDate);
 			return "admin/voucher/add_voucher";
+	}
+	@RequestMapping("shop/admin/voucher/createmgg")
+	public String add_voucher(@Validated @ModelAttribute("voucher") MaGiamGia voucher,
+							  BindingResult result, Model model) throws IllegalAccessException, IOException {
+	
+		Date ngayBatDau = voucher.getNgayBatDau();
+		Date ngayKetThuc = voucher.getNgayKetThuc();
+		System.out.println("Ngày bắt đầu: " + ngayBatDau);
+		System.out.println("Ngày kết thúc: " + ngayKetThuc);
+		mggDAO.save(voucher);
+		
+		// Clear the voucher object for a new form and redirect to the desired page
+		voucher = new MaGiamGia();
+		model.addAttribute("voucher", voucher);
+		return "redirect:/admin/voucher/add_voucher";
+	}
+	@RequestMapping("admin/voucher/edit/{id}")
+	public String edit_voucher(Model model, @PathVariable("id") String id) {
+		MaGiamGia voucher = mggDAO.findById(id).get();
+
+		model.addAttribute("voucher", voucher);
+
+		return "/admin/voucher/update_voucher";
+	}
+	@RequestMapping("admin/voucher/updatemgg")
+	public String udte_voucher(@Validated @ModelAttribute("voucher") MaGiamGia voucher,
+			BindingResult result, Model model) throws IllegalAccessException, IOException {
+
+		return "/admin/voucher/update_voucher";
 	}
 	@RequestMapping("shop/admin/order")
 	public String order() {
