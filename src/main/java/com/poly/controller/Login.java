@@ -15,4 +15,12 @@ public class Login {
 	public String register(Model model) {
 		return "shop/layout/login/register";
 	}
+	@RequestMapping("shop/forgot")
+	public String forgot(Model model) {
+		return "shop/layout/login/forgot";
+	}
+	@RequestMapping("shop/create_user")
+	public String create_user(Model model) {
+		return "shop/layout/login/create_user";
+	}
 }
