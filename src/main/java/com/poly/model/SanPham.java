@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "SanPham")
+@Table(name = "Sach")
 public class SanPham implements Serializable {
 
     @Id
@@ -61,14 +61,14 @@ public class SanPham implements Serializable {
     @Column(name = "mo_ta", columnDefinition = "NVARCHAR(MAX)")
     private String moTa;
 
-    @Column(name = "don_gia")
-    private BigDecimal donGia;
+    @Column(name = "gia_giam")
+    private BigDecimal giaGiam;
 
     @Column(name = "ti_le_giam_gia")
     private Integer tiLeGiamGia;
 
-    @Column(name = "gia_goc")
-    private BigDecimal giaGoc;
+    @Column(name = "gia_ban")
+    private BigDecimal giaBan;
 
     @Column(name = "kieu_bia", length = 150)
     private String kieuBia;
@@ -77,7 +77,7 @@ public class SanPham implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "tinh_trang")
-    private TinhTrangSanPham tinhTrangSanPham;
+    private TrangThaiSach tinhTrangSanPham;
 
     @OneToMany(mappedBy = "sanPham_yeuThich")
     private List<SachYeuThich> sanPhamYeuThich;
@@ -101,7 +101,7 @@ public class SanPham implements Serializable {
     private List<BoSach> boSachs;
 
     @Transient
-    private List<TinhTrangSanPham> tinhtrangs;
+    private List<TrangThaiSach> tinhtrangs;
 
 
 

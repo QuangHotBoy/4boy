@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,15 +18,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "TinhTrangSanPham")
-public class TinhTrangSanPham implements Serializable {
+@Table(name = "TrangThaiSach")
+public class TrangThaiSach implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", length = 4)
     private Integer id;
 
-    @Column(name = "ten_tinh_trang", length = 150)
+    @Column(name = "ten_trang_thai", length = 150)
     private String tenTinhTrang;
     
     @OneToMany(mappedBy = "tinhTrangSanPham")

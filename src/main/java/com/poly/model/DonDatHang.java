@@ -20,7 +20,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -47,8 +46,9 @@ public class DonDatHang implements Serializable {
     @Column(name = "ho_ten")
     private String hoTen;
 
-    @Column(name = "dia_chi")
-    private String diaChi;
+    @ManyToOne
+    @JoinColumn(name = "dia_chi")
+    private DiaChi_TaiKhoan diaChiNhanHang;
 
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
@@ -80,12 +80,6 @@ public class DonDatHang implements Serializable {
     
     @OneToMany(mappedBy = "donDatHang")
     private List<ChiTietDonDatHang> chiTietDonDatHang;
-    
-    @OneToMany(mappedBy = "donDatHang_COD")
-    private List<GiaoDichCOD> giaoDichCOD;
-    
-    @OneToMany(mappedBy = "donDatHang_VNPay")
-    private List<GiaoDichVNPay> giaoDichVNPay;
 
     @Transient
     private List<TinhTrangDonDatHang> tinhtrangdhds;

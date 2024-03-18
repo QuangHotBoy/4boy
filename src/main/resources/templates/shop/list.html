@@ -34,7 +34,7 @@
                                 <h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
                                 <!-- Product price-->
                                 <!-- Assuming 'number' is your variable holding the number -->
-                                <span th:text="${#numbers.formatDecimal(p.donGia, 3, 'COMMA', 0, 'POINT')} + ' vnđ'"></span>
+                                <span th:text="${#numbers.formatDecimal(p.donGia, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
 
                             </div>
                         </div>
