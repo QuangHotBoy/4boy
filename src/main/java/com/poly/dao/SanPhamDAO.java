@@ -27,8 +27,8 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
 
     List<SanPham> findByTenSachContaining(String tenSanPham);
 
-    // @Query("SELECT p FROM SanPham ORDER BY p.isbn ASC")
-    // List<SanPham> findAllSapXep();
+    @Query("SELECT p FROM SanPham p ORDER BY p.isbn DESC")
+    List<SanPham> findAllSapXep();
 
     // Thống kê sản phẩm bán được
 //     @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS soLuongBanDuoc, COALESCE(s.donGia * SUM(ctdh.soLuong), 0) AS tongDoanhSo "

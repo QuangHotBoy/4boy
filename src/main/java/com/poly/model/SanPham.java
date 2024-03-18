@@ -15,7 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -62,11 +61,13 @@ public class SanPham implements Serializable {
     @Column(name = "mo_ta", columnDefinition = "NVARCHAR(MAX)")
     private String moTa;
 
+    @Column(name = "don_gia")
     private BigDecimal donGia;
 
     @Column(name = "ti_le_giam_gia")
     private Integer tiLeGiamGia;
 
+    @Column(name = "gia_goc")
     private BigDecimal giaGoc;
 
     @Column(name = "kieu_bia", length = 150)

@@ -9,187 +9,39 @@
 			<div class="col-lg-2 text-center"></div>
 		</div>
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
+			<div th:each="g : ${top4Gallary}">
+				<div class="col mb-5">
+					<div class="card h-100">
+						<!-- Product image-->
+						<div class="image-container">
+							<img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${g.hinhAnh}|}"
+								alt="..." />
 						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div class="text-center">
+								<!-- Product name-->
+								<a th:href="@{|/shop/gallary/${g.id}|}" class="text-black text-decoration-none ht-2">
+									<h5 class="fw-bolder" th:utext="${g.tenBoSach}"></h5>
+								</a>
+							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<div class="image-container">
-						<img class="card-img-top mx-auto" th:src="@{/shop/image/product/6651_sm.jpg}" alt="..." />
-					</div>
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">Fancy Product</h5>
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" th:href="@{/shop/gallary}">View
-								options</a>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto" th:href="@{|/shop/gallary/${g.id}|}">Chi tiết</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row pb-3">
 				<div class="col-lg-10 text-center">
-					<div class="ms-3 fs-5 p-2 border border-dark rounded-3">Xem
-							thêm...</a></div>
+					<div class="ms-3 fs-5 p-2 border border-dark rounded-3"><a th:href="@{/shop/list-gallary}"
+							class="text-decoration-none text-black">Xem
+							thêm...</a></div>>
 				</div>
 			</div>
 		</div>
+	</div>
 </section>
