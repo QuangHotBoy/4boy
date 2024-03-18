@@ -4,20 +4,21 @@
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body>
+<body class="gradient-custom">
     <!-- Navigation -->
     <div th:replace="/shop/layout/navigation :: nav"></div>
 
+    <hr class="container">
     <div class="container light-style flex-grow-1 container-p-y mt-5">
-        <div class="card overflow-hidden">
+        <div class="card overflow-hidden " style="min-height: 500px">
             <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
+                <div class="col-md-3 pt-0 border-end">
                     <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                        <a class="list-group-item list-group-item-action " data-toggle="list"
                             href="/shop/auth/index">Tổng Quan</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/information">Thông tin cá nhân</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                        <a class="list-group-item list-group-item-action active" data-toggle="list"
                             href="/shop/auth/address">Địa chỉ</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/invoice">Đơn Hàng</a>
