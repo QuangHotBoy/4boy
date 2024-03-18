@@ -80,19 +80,18 @@
                                                         <tr>
                                                             <td th:utext="${product.tenSach}"></td>
                                                             <!-- <td>${product.tacGia}</td> -->
-
-                                                            <td th:utext="${product.donGia}"></td>
+                                                            
+                                                                    <td th:utext="${product.donGia}"></td>
 
                                                             <td th:utext="${product.soLuong}"></td>
-                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}">
-                                                            </td>
-
+                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}"></td>
+                                                            
                                                             <td>
                                                                 <img alt="[[${product.hinhAnh}]]"
-                                                                    th:src="@{/image/product/{hinhAnh}(hinhAnh=${product.hinhAnh})}"
-                                                                    width="350px" height="500px">
+                                                                     th:src="@{/admin/{hinhAnh}(hinhAnh=${product.hinhAnh})}"
+                                                                     width="350px" height="500px">
                                                             </td>
-
+                                                            
                                                             <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
                                                             <td>
                                                                 <div
