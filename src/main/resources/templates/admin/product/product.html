@@ -80,24 +80,24 @@
                                                         <tr>
                                                             <td th:utext="${product.tenSach}"></td>
                                                             <!-- <td>${product.tacGia}</td> -->
-                                                            
-                                                                    <td th:utext="${product.donGia}"></td>
+
+                                                            <td th:utext="${product.donGia}"></td>
 
                                                             <td th:utext="${product.soLuong}"></td>
-                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}"></td>
-                                                            
+                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}">
+                                                            </td>
+
                                                             <td>
                                                                 <img alt="[[${product.hinhAnh}]]"
-                                                                th:src="@{|/admin/image/${product.hinhAnh}|}"
-                                                                     width="350px" height="500px">
+                                                                    th:src="@{|/assets/images/products/${product.hinhAnh}|}"
+                                                                    width="350px" height="500px">
                                                             </td>
-                                                            
+
                                                             <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
                                                             <td>
                                                                 <div
                                                                     class="table-actions d-flex align-items-center gap-3 fs-5">
-
-                                                                    <a href="/admin/product/edit/${product.isbn }"
+                                                                    <a href="/admin/product-type/edit/${phanloai.id }"
                                                                         class="text-warning" data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom" aria-label="Edit"
                                                                         data-bs-original-title="Edit"><i
