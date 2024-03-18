@@ -1,5 +1,7 @@
 package com.poly.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +57,22 @@ public class HomeController {
 	public String detailProduct(Model model, @PathVariable("isbn") Long isbn) {
 
 		SanPham product = productDAO.findById(isbn).get();
+		List<SanPham> relatedNXB = productDAO.findByNhaCungCap(product.getNhaXuatBan().getId());
+		List<SanPham> relatedType = productDAO.findByPhanLoai(product.getPhanLoai().getId());
+
+		ArrayList<SanPham> relatedProducts = new ArrayList<>();
+		relatedProducts.addAll(relatedType);
+		relatedProducts.addAll(relatedNXB);
+		if(product.getBoSach() != null){
+			List<SanPham> relatedGallary = productDAO.findByBoSach(product.getBoSach().getId());
+			relatedProducts.addAll(relatedGallary);
+		}
+		
+		Collections.shuffle(relatedProducts);
 		
 
 		model.addAttribute("product", product);
+		model.addAttribute("relatedProducts", relatedProducts);
 
 		return "shop/detail-item";
 	}
