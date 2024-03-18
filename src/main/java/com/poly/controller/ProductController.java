@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,16 +13,49 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.poly.dao.BoSachDAO;
+import com.poly.dao.NhaXuatBanDAO;
+import com.poly.dao.PhanLoaiDAO;
+import com.poly.dao.SanPhamDAO;
+import com.poly.dao.TinhTrangSanPhamDAO;
+import com.poly.model.SanPham;
+
+import jakarta.servlet.ServletContext;
+
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProductController {
 
+	@Autowired
+	SanPhamDAO spDAO;
+
+	@Autowired
+	PhanLoaiDAO plDAO;
+
+	@Autowired
+	BoSachDAO bsDAO;
+
+	@Autowired
+	NhaXuatBanDAO nxbDAO;
+
+	@Autowired
+	TinhTrangSanPhamDAO tinhtrangDAO;
+	@Autowired
+	ServletContext app;
+
 	/* Sản phẩm */
 	@RequestMapping("/admin/product")
-	public String product() {
+	public String product(Model model, @RequestParam(defaultValue = "0") int page) {
 
+		List<SanPham> productPage = spDAO.findAll();
+		model.addAttribute("products", productPage);
+		// model.addAttribute("currentPage", page);
+		// model.addAttribute("totalPages", productPage.getTotalPages());
 		return "/admin/product/product";
 	}
 
@@ -48,10 +82,8 @@ public class ProductController {
 
 	// thêm sản phẩm
 	@RequestMapping("/admin/product/createsp")
-	public String add_product(){
+	public String add_product() {
 		return "/admin/product/add-product";
 	}
 
-
-	
 }
