@@ -16,10 +16,65 @@
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <!-- End layout styles -->
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+    <!-- End plugin css for this page -->
+
 </head>
 
 <style>
+    /* Apply CSS to style the table */
+    #table1 {
+        width: 100%;
+        /* Set the table width to fill its container */
+        border-collapse: collapse;
+        /* Collapse the borders between table cells */
+    }
 
+    #table1 th,
+    #table1 td {
+        padding: 10px;
+        /* Add padding to table cells */
+        text-align: left;
+        /* Align text to the left within cells */
+        border: 1px solid #ddd;
+        /* Add border to cells */
+    }
+
+    #table1 th {
+        background-color: #f2f2f2;
+        /* Add background color to header cells */
+    }
+
+    #table1 img {
+        max-width: 100%;
+        /* Ensure images fit within their containers */
+        height: 200px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
+    }
+
+    #table1 td:last-child {
+        text-align: center;
+        /* Center align content in last column */
+    }
+
+    /* CSS để di chuyển Search và phân trang sang bên phải */
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        margin-top: 10px;
+    }
 </style>
 
 <body>
@@ -32,11 +87,8 @@
             <!-- partial:partials/_sidebar.html -->
             <div th:replace="admin/menu :: menu"></div>
 
-            <!-- Bootstrap JavaScript Libraries -->
-
             <div class="col-10 px-0">
                 <div class="container">
-                    div
                     <div class="col-md-12">
                         <div class="card">
                             <div class="" style="height: 90px;">
@@ -60,56 +112,33 @@
                                     <br>
                                     <div class="row">
                                         <div style="height: 500px; overflow: auto;">
-                                            <table class="table table-bordered" id="table1">
+                                            <table class="product-table" id="table1">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 350px;">Tên sách</th>
-                                                        <th style="width: 100px;">Đơn giá</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Tình trạng</th>
-                                                        <th>Hình ảnh</th>
-                                                        <th style="width: 30px;">Edit</th>
+                                                        <th style="width: 30%;">Tên sách</th>
+                                                        <th style="width: 10%;">Đơn giá</th>
+                                                        <th style="width: 10%;">Số lượng</th>
+                                                        <th style="width: 20%;">Tình trạng</th>
+                                                        <th style="width: 10%;">Hình ảnh</th>
+                                                        <th style="width: 5%;">Sửa</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
-                                                    <!-- <c:forEach var="product" items="${products}"> -->
-                                                    <div th:each="product : ${products}">
-
-
-                                                        <tr>
-                                                            <td th:utext="${product.tenSach}"></td>
-                                                            <!-- <td>${product.tacGia}</td> -->
-
-                                                            <td th:utext="${product.giaBan}"></td>
-
-                                                            <td th:utext="${product.soLuong}"></td>
-                                                            <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}">
-                                                            </td>
-
-                                                            <td>
-                                                                <img alt="[[${product.hinhAnh}]]"
-                                                                    th:src="@{|/assets/images/products/${product.hinhAnh}|}"
-                                                                    width="350px" height="500px">
-                                                            </td>
-
-                                                            <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
-                                                            <td>
-                                                                <!-- <div
-                                                                    class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                                    <a href="/admin/product-type/edit/${phanloai.id }"
-                                                                        class="text-warning" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom" aria-label="Edit"
-                                                                        data-bs-original-title="Edit"><i
-                                                                            class="bi bi-pencil-fill"></i></a>
-                                                                </div> -->
-                                                                <i class="mdi mdi-border-color mdi-24px"
-                                                                    style="color: red;"></i>
-
-                                                            </td>
-
-                                                        </tr>
-                                                    </div>
+                                                    <!-- Loop through products -->
+                                                    <tr th:each="product : ${products}">
+                                                        <td th:text="${product.tenSach}"></td>
+                                                        <td th:text="${product.giaBan}"></td>
+                                                        <td th:text="${product.soLuong}"></td>
+                                                        <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
+                                                        <td>
+                                                            <img alt="[[${product.hinhAnh}]]"
+                                                                th:src="@{|/assets/images/products/${product.hinhAnh}|}">
+                                                        </td>
+                                                        <td>
+                                                            <i class="mdi mdi-border-color mdi-24px"
+                                                                style="color: red;"></i>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -123,20 +152,32 @@
         </div>
     </div>
 
-    <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+    <!-- Include JS scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- tiếng việt -->
+    <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+    <!-- chỉnh tiếng việt -->
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                "language": {
+                    "url": "/assets/json/vietnam.json"
+                }
+            });
+        });
+    </script>
+    <!--  -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function () {
-            new DataTable('#table1');
+            $('#table1').DataTable();
         });
         /*]]>*/
     </script>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-
+    <!--  -->
 </body>
 
 </html>

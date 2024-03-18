@@ -19,7 +19,30 @@
 </head>
 
 <style>
+    /* CSS cho nhãn (label) */
+    .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
+    /* CSS cho các phần tử select */
+    .custom-select {
+        width: 200px;
+        /* Đặt độ rộng là 200px */
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    /* Tùy chỉnh kiểu đổ bóng khi chọn select */
+    .custom-select:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
 </style>
 
 <body>
@@ -57,176 +80,143 @@
                             <div class="card-body">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
                                     <div class="d-flex align-items-center">
                                         <h5 class="mb-0">Thêm sản phẩm</h5>
-
                                     </div>
-                                    <br>
-                                    <form action="/admin/product/createsp" enctype="multipart/form-data" method="post">
-                                        <!-- Các trường đầu vào -->
-                                        <div class="row">
-                                    
-                                            <!-- Các trường thông tin sách -->
-                                            <div class="col-sm-4">
-                                                <!-- ISBN (Ẩn trường này) -->
-                                    
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Mã</label>
-                                                    <input type="text" name="isbn" class="form-control" id="isbn" placeholder="isbn" disabled="true" />
-                                                    <!-- disabled="true" khóa ko cho nhập -->
-                                                </div>
-                                    
-                                                <!-- Tên sách -->
-                                                <div class="mb-1">
-                                                    <label for="tensach" class="form-label">Tên sách</label>
-                                                    <input type="text" name="tenSach" class="form-control" id="tensach" placeholder="" />
-                                                    <!-- <form:errors path="tenSach" cssClass="mgs_errors" /> -->
-                                                </div>
-                                                <!-- Tác giả -->
-                                                <div class="mb-1">
-                                                    <label for="author" class="form-label">Tác Giả</label>
-                                                    <input type="text" name="tacGia" class="form-control" id="tacgia" placeholder="" />
-                                                </div>
-                                    
-                                    
-                                    
-                                                <!-- Mã Bộ sách -->
-                                                <!-- Mã Bộ sách -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Bộ sách</label> <br>
-                                                    <select class="custom-select" name="boSach">
-                                                        <option value="" label="Chọn Bộ Sách"></option>
-                                                        <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
-                                                    </select>
-                                                </div>
-                                    
-                                    
-                                    
-                                                <!-- Mã nhà cung cấp -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Nhà xuất bản</label>
-                                                    <select name="nhaXuatBan">
-                                                        <option value="" label="Chọn nhà xuất bản"></option>
-                                                        <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
-                                                    </select>
-                                    
-                                                </div>
-                                    
-                                    
-                                                <!-- loại sách -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Loại sách</label> <br>
-                                                    <select name="phanLoai">
-                                                        <option value="" label="Chọn loại Sách"></option>
-                                                        <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                    
-                                            <!-- Các trường thông tin khác -->
-                                            <div class="col-sm-4">
-                                    
-                                    
-                                                <!-- Tỉ lệ giảm -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Tỉ lệ giảm (%)</label>
-                                                    <input type="number" name="tiLeGiamGia" class="form-control" id="tile" placeholder="" min="0" max="100" value="0" />
-                                                </div>
-                                    
-                                                <!-- Giá gốc-->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Giá gốc</label>
-                                                    <input type="number" name="giaGoc" class="form-control" id="giaGocc" placeholder="" min="10000" step="1" />
-                                                </div>
-                                    
-                                                <!-- Số lượng -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Số lượng</label>
-                                                    <input type="number" name="soLuong" class="form-control" id="soluong" placeholder="" min="1" max="100" />
-                                                    <!-- <form:errors path="soLuong" cssClass="mgs_errors" /> -->
-                                                </div>
-                                    
-                                                <!-- Năm xuất bản -->
-                                                <div class="mb-1">
-                                                    <label for="collection" class="form-label">Năm xuất bản</label>
-                                                    <input type="number" name="namXuatBan" class="form-control" id="tinhtrang" placeholder="" min="1" />
-                                                </div>
-                                    
-                                                <!-- Loại Bìa -->
-                                                <div class="mb-1">
-                                                    <label for="coverType" class="form-label">Loại Bìa</label>
-                                                    <input type="text" name="kieuBia" class="form-control" id="loaibia" placeholder="" />
-                                                </div>
-                                    
-                                                <!-- Mô tả -->
-                                                <div class="mb-1">
-                                                    <label for="coverType" class="form-label">Mô tả</label>
-                                                    <textarea name="moTa" class="form-control" id="mota" placeholder="" style="height: 148px;"></textarea>
-                                                </div>
-                                            </div>
-                                    
-                                            <!-- Các trường hình ảnh và tác vụ -->
-                                            <div class="col-sm-4">
-                                                <!-- Hình ảnh -->
-                                    
-                                                <label for="coverType" class="form-label">Hình ảnh </label>
-                                    
-                                                <!-- Display the selected image using a div as a frame -->
-                                                <div style="width: 350px; height: 500px; border: 1px solid #ccc; overflow: hidden; position: relative;">
-                                                    <img style="width: 100%; height: 100%;" id="imgPreview" alt="" />
-                                                    <!-- Input for selecting a new image (hidden) -->
-                                                    <input type="file" accept=".jpg, .png" name="photo_file" id="imgInput" style="display: none;" onchange="previewImage()">
-                                                    <!-- Add a transparent button to trigger file selection -->
-                                                    <button type="button" onclick="selectImage()" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
-                                    
+                                </div>
+                                <br>
+
+                                <form action="/admin/product/createsp" enctype="multipart/form-data" method="post">
+                                    <!-- Các trường đầu vào -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!-- Hình ảnh -->
+                                            <div class="mb-3">
+                                                <label for="coverType" class="form-label">Hình ảnh</label>
+                                                <div
+                                                    style="width: 200px; height: 250px; border: 1px solid #ccc; overflow: hidden; position: relative;">
+                                                    <img style="width: 200px; height: 250px;" id="imgPreview" alt="" />
+                                                    <input type="file" accept=".jpg, .png" name="photo_file"
+                                                        id="imgInput" style="display: none;" onchange="previewImage()">
+                                                    <button type="button" onclick="selectImage()"
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
                                                 </div>
                                                 <div style="color: red;"></div>
-                                                <!-- Display error message -->
-                                    
-                                    
-                                                <button type="submit" style="margin-top: 25px; margin-bottom: 90px;" class="btn btn-warning bi bi-plus">Thêm mới</button>
                                             </div>
-                                    
-                                    
+                                            <!-- Mã Bộ sách -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Bộ sách</label>
+                                                <select class="custom-select" name="boSach">
+                                                    <option value="" label="Chọn Bộ Sách"></option>
+                                                    <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
+                                                </select>
+                                            </div>
+                                            <!-- Mã nhà cung cấp -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Nhà xuất bản</label>
+                                                <select class="custom-select" name="nhaXuatBan">
+                                                    <option value="" label="Chọn nhà xuất bản"></option>
+                                                    <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
+                                                </select>
+                                            </div>
+                                            <!-- Loại sách -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Loại sách</label>
+                                                <select class="custom-select" name="phanLoai">
+                                                    <option value="" label="Chọn loại Sách"></option>
+                                                    <!-- Aqui deve ser preenchido com os valores adequados vindo do servidor -->
+                                                </select>
+                                            </div>
                                         </div>
-                                    
-                                    </form>
-                                    
+                                        <div class="col-md-4">
+                                            <!-- Tên sách -->
+                                            <div class="mb-3">
+                                                <label for="tensach" class="form-label">Tên sách</label>
+                                                <input type="text" name="tenSach" class="form-control" id="tensach"
+                                                    placeholder="" />
+                                            </div>
+                                            <!-- Tác giả -->
+                                            <div class="mb-3">
+                                                <label for="author" class="form-label">Tác Giả</label>
+                                                <input type="text" name="tacGia" class="form-control" id="tacgia"
+                                                    placeholder="" />
+                                            </div>
+                                            <!-- Giá gốc -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Giá bán</label>
+                                                <input type="number" name="giaGoc" class="form-control" id="giaGocc"
+                                                    placeholder="" min="10000" step="1" />
+                                            </div>
+                                            <!-- Số lượng -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Số lượng</label>
+                                                <input type="number" name="soLuong" class="form-control" id="soluong"
+                                                    placeholder="" min="1" max="100" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- Năm xuất bản -->
+                                            <div class="mb-3">
+                                                <label for="collection" class="form-label">Năm xuất bản</label>
+                                                <input type="number" name="namXuatBan" class="form-control"
+                                                    id="tinhtrang" placeholder="" min="1" />
+                                            </div>
+                                            <!-- Loại Bìa -->
+                                            <div class="mb-3">
+                                                <label for="coverType" class="form-label">Loại Bìa</label>
+                                                <input type="text" name="kieuBia" class="form-control" id="loaibia"
+                                                    placeholder="" />
+                                            </div>
+                                            <!-- Mô tả -->
+                                            <div class="mb-3">
+                                                <label for="coverType" class="form-label">Mô tả</label>
+                                                <textarea name="moTa" class="form-control" id="mota" placeholder=""
+                                                    style="height: 148px;"></textarea>
+                                            </div>
+                                            <!-- Button Thêm mới -->
+                                            <button type="submit" class="btn btn-warning bi bi-plus">Thêm mới</button>
+                                        </div>
+                                    </div>
 
 
-                                </div>
+                                </form>
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
-            <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-            <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-            <script th:inline="javascript">
-                /*<![CDATA[*/
-                $(document).ready(function () {
-                    new DataTable('#table1');
-                });
-                /*]]>*/
-            </script>
+        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $(document).ready(function () {
+                new DataTable('#table1');
+            });
+            /*]]>*/
+        </script>
 
-            <!-- thư viện -->
-            <!-- container-scroller -->
-            <!-- plugins:js -->
-            <script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
-            <!-- endinject -->
-            <!-- Plugin js for this page -->
-            <!-- End plugin js for this page -->
-            <!-- inject:js -->
-            <script th:src="@{/assets/js/off-canvas.js}"></script>
-            <script th:src="@{/assets/js/hoverable-collapse.js}"></script>
-            <script th:src="@{/assets/js/misc.js}"></script>
-            <!-- endinject -->
-            <!-- Custom js for this page -->
-            <!-- End custom js for this page -->
+        <!-- thư viện -->
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script th:src="@{/assets/js/off-canvas.js}"></script>
+        <script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+        <script th:src="@{/assets/js/misc.js}"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <!-- End custom js for this page -->
 </body>
 
 </html>
