@@ -1,0 +1,124 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Admin - Thống kê theo Sản phẩm</title>
+	<%@include file="/WEB-INF/assets/css/admin/css-link.jsp"%>
+	<%@include file="/WEB-INF/assets/css/admin/style.jsp"%>
+	<%@include file="/WEB-INF/assets/css/admin/statistics-css.jsp"%>
+	<%@include file="/WEB-INF/assets/css/admin/adminapp.jsp"%>
+	<%@include file="/WEB-INF/assets/css/admin/tk.jsp"%>
+</head>
+<style>
+	/* Style for left-aligning the "Tên sản phẩm" column */
+	.best-selling-table table tbody td:nth-child(2) {
+		text-align: left;
+	}
+	
+        .table-scrollable {
+            max-width: 100%;
+            overflow: auto;
+            height: 500px; /* Set a fixed height or adjust as needed */
+        }
+
+        /* Style for left-aligning the "Tên sản phẩm" column */
+        .best-selling-table table tbody td:nth-child(2) {
+            text-align: left;
+        }
+    
+</style>
+
+<body>
+	<div class="main-container d-flex">
+		<!-- Menu Admin -->
+		<%@include file="/WEB-INF/views/admin/layout/menu.jsp"%>
+
+
+		<hr>
+
+		<!--Main content-->
+
+		<div class="container mt-4">
+
+			<div class="table__body">
+				<span style="font-weight: bold; color: red;"> <label>TOP SẢN PHẨM BÁN CHẠY:</label></span>
+				<div class="best-selling-table">
+					<main class="table" style="max-width: 100%; height: 80%;">
+						<table>
+							<!-- Add a class to target the table -->
+							<thead>
+								<tr>
+									<th>Mã sản phẩm <span class="icon-arrow">&UpArrow;</span></th>
+									<th>Tên sản phẩm<span class="icon-arrow">&UpArrow;</span></th>
+									<th>Số lượng bán<span class="icon-arrow">&UpArrow;</span></th>
+									<th>Doanh thu<span class="icon-arrow">&UpArrow;</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="product" items="${bestSellingProducts}">
+									<tr>
+										<td>${product[0]}</td>
+										<td>${product[1]}</td>
+										<td>${product[2]}</td>
+										<td>
+											<fmt:formatNumber value="${product[3]}" type="number" currencyCode="VND" />
+											VNĐ</td>
+
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<br> <br>
+						<!-- //////////////////////////////////////////////////////////////// -->
+					</main>
+				</div>
+
+				<span class="ag-courses-item_date" style="margin-top: 10px; display: block;">
+					<label style="font-weight: bold; color: red;">SỐ LƯỢNG SẢN PHẨM TỒN KHO: 
+					<label style="font-weight: bold; color: black;">${totalQuantity}</label>
+				</span>
+				
+				
+				<div class="best-selling-table table-scrollable">
+					<main class="table">
+						<table>
+							<thead>
+								<tr>
+									<th>Mã sản phẩm <span class="icon-arrow">&UpArrow;</span></th>
+									<th>Tên sản phẩm<span class="icon-arrow">&UpArrow;</span></th>
+									<th>Số lượng tồn <span class="icon-arrow">&UpArrow;</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="product" items="${tonkho}">
+									<tr>
+										<td>${product.isbn}</td>
+										<td>${product.tenSach}</td>
+										<td>${product.soLuong}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</main>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	</div>
+
+	<!-- Bootstrap JavaScript Libraries -->
+	<script>
+		// Chart script...
+	</script>
+
+	<%@include file="/WEB-INF/assets/js/admin/js-link.jsp"%>
+	</div>
+</body>
+
+</html>
