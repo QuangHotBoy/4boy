@@ -38,3 +38,18 @@
     color: white;
     background-color: black;
 }
+
+.img-carosel-h{
+  max-height: 380px;
+}
+
+.rounded-image {
+  border-radius: 1%; /* Sử dụng giá trị 50% để hình ảnh trở thành hình tròn */
+  object-fit: cover; /* Đảm bảo hình ảnh vẫn bảo toàn tỷ lệ khi làm tròn */
+}
+
+@media (max-width: 1024px) {
+  #bannerCTKM {
+      display: none;
+  }
+}
