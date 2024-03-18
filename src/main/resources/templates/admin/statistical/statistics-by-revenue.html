@@ -72,7 +72,53 @@
         color: #495057;
         /* Dark text color for active item */
     }
-    
+
+    /* Main table container */
+    .main-table-container {
+        overflow: auto;
+        max-height: 300px;
+    }
+
+    /* Table styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    /* Table header styles */
+    .table thead {
+        background-color: #f1f1f1;
+        /* Set the background color as needed */
+    }
+
+    /* Table header cell styles */
+    .table th {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Table body styles */
+    .table tbody {
+        background-color: #fff;
+    }
+
+    /* Table body row styles */
+    .table tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Table body cell styles */
+    .table td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* Table hover effect */
+    .table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
 </style>
 
 <body>
@@ -93,18 +139,20 @@
                             <div class="container-fluid">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="/admin/statistics/statistics-by-today">Thống
+                                        <li class="breadcrumb-item"><a
+                                                href="/admin/statistics/statistics-by-today">Thống
                                                 kê</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Doanh thu</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Doanh thu</a>
+                                        </li>
                                     </ol>
                                 </nav>
-    
-                                
+
+
                             </div>
                         </nav>
                     </div>
                     <hr>
-    
+
                     <!--Main content-->
                     <div class="container">
                         <div class="row">
@@ -114,92 +162,33 @@
                                         modelAttribute="dateRange">
                                         <div class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title">Tổng doanh thu theo ngày</div>
+                                            <div class="ag-courses-item_title">Doanh thu theo khoảng thời gian</div>
                                             <div class="ag-courses-item_date-box">
-                                                <span class="ag-courses-item_date">
-                                                    <label for="selectedDate">&nbsp;Chọn ngày:</label>
-                                                    <input type="date" id="selectedDate" name="selectedDate"
-                                                        onchange="this.form.submit()">
-                                                </span><br><br>
-                                                <button type="submit" style="padding: 8px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px;">Thống kê</button>
-                                                <span class="ag-courses-item_date">Doanh thu:  
-                                                    <!-- <fmt:formatNumber value="${totalToday}" type="number"
-                                                        currencyCode="VND" /> -->
-                                                        <fmt:formatNumber value="${totalRevenue}" type="number"
-                                                    currencyCode="VND" />
-                                              VNĐ
-                                                </span>&nbsp;&nbsp;
-                                                <!-- <fmt:formatNumber value="${totalRevenue}" type="number"
-                                                    currencyCode="VND" /> -->
-                                               
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="ag-courses_item">
-                                    <form action="/admin/statistics/statistics-by-moths" method="GET"
-                                        modelAttribute="dateRange">
-                                        <div class="ag-courses-item_link" >
-                                            <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title">Tổng doanh thu tháng</div>
-                                            <div class="ag-courses-item_date-box">
-                                                <span class="ag-courses-item_date">
-                                                    <label for="selectedMonth">&nbsp;Chọn tháng:</label>
-                                                    <input type="month" id="selectedMonth" name="selectedMonth"
-                                                        value="${selectedMonth}" onchange="this.form.submit()">
-                                                    
-                                                </span><br><br>
-                                                <button type="submit" style="padding: 8px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px;">Thống kê</button>
-    
-                                                <!-- <span class="ag-courses-item_date">Doanh thu:
-                                                    ${totalmonths}</span>&nbsp;&nbsp; -->
-                                                    <span class="ag-courses-item_date">Doanh thu:  
-                                                        <!-- <fmt:formatNumber value="${totalToday}" type="number"
-                                                            currencyCode="VND" /> -->
-                                                            <fmt:formatNumber value="${totalMonthRevenue}" type="number"
-                                                            currencyCode="VND" />
-                                                            VNĐ
-                                                  
-                                                    </span>&nbsp;&nbsp;
-                                                <!-- <fmt:formatNumber value="${totalMonthRevenue}" type="number"
-                                                  /> -->
-                                              
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="ag-courses_item">
-                                    <form action="/admin/statistics/statistics-by-years" method="GET">
-                                        <div class="ag-courses-item_link" >
-                                            <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title">Tổng doanh thu năm</div>
-                                            <div class="ag-courses-item_date-box">
-                                                <span class="ag-courses-item_date">
-                                                    <label for="selectedYear">&nbsp;Nhập năm:</label>
-                                                    <input type="number" id="selectedYear" name="selectedYear" min="2000"
-                                                        max="2099" value="${selectedYear}" onchange="this.form.submit()"
-                                                        style="width: 60%;">
-                                                </span><br><br>
-                                                 <button type="submit" style="padding: 8px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px;">Thống kê</button>
-                                                <span class="ag-courses-item_date">Doanh thu:  
-                                                    <!-- <fmt:formatNumber value="${totalToday}" type="number"
-                                                        currencyCode="VND" /> -->
-                                                        <fmt:formatNumber value="${totalNam}" type="number"
+                                                <div class="form-group">
+                                                    <label for="startDate">Từ ngày:</label>
+                                                    <input type="date" id="startDate" name="startDate">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="endDate">Đến ngày:</label>
+                                                    <input type="date" id="endDate" name="endDate">
+                                                </div>
+                                                <button type="submit"
+                                                    style="padding: 8px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px;">Thống
+                                                    kê</button>
+                                                <span class="ag-courses-item_date">Doanh thu:
+                                                    <!-- <fmt:formatNumber value="${totalRevenue}" type="number" currencyCode="VND" /> -->
+                                                    <fmt:formatNumber value="${totalRevenue}" type="number"
                                                         currencyCode="VND" />
-                                                        VNĐ
-                                              
-                                                </span>&nbsp;&nbsp;
-                                                <!-- <fmt:formatNumber value="${totalNam}" type="number" currencyCode="VND" /> -->
-                                                
+                                                    VNĐ
+                                                </span>
                                             </div>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                     <div class="container mt-4">
@@ -214,64 +203,65 @@
     
                                 </div>
                             </div> -->
-    
-                        </div>
-    
-    
-                        <div class="table__body">
-                            <main class="table">
-                                <table>
-                                    <thead class="">
-                                        <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Tổng tiền</th>
-                                            <th>Địa chỉ</th>
-                                        </tr>
-                                    </thead>
-                                    <div>
-                                        <tbody class="tbody" style="max-height: 300px; overflow: auto;">
-                                            <c:forEach var="statistic" items="${statistics}">
-                                                <tr>
-                                                    <td>${statistic.maDonHang}</td>
-                                                    <td>${statistic.hoTen}</td>
-                                                    <td>
-                                                        <fmt:formatDate value="${statistic.ngayDatHang}"
-                                                            pattern="dd/MM/yyyy" />
-                                                    </td>
-    
-                                                    <td>
-                                                        <fmt:formatNumber value="${statistic.tongTien}" type="number"
-                                                            currencyCode="VND" />
-                                                        VNĐ</td>
-                                                    <td>${statistic.diaChi}</td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </div>
-                                </table>
-                            </main>
+
                         </div>
                     </div>
-    
+
+                    
                 </div>
+
             </div>
         </div>
+        <div class="table__body">
+            <main class="table">
+                <table>
+                    <thead class="">
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Địa chỉ</th>
+                        </tr>
+                    </thead>
+                    <div>
+                        <tbody class="tbody" style="max-height: 300px; overflow: auto;">
+                            <c:forEach var="statistic" items="${statistics}">
+                                <tr>
+                                    <td>${statistic.maDonHang}</td>
+                                    <td>${statistic.hoTen}</td>
+                                    <td>
+                                        <fmt:formatDate value="${statistic.ngayDatHang}"
+                                            pattern="dd/MM/yyyy" />
+                                    </td>
 
-        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function () {
-                new DataTable('#table1');
-            });
-            /*]]>*/
-        </script>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
+                                    <td>
+                                        <fmt:formatNumber value="${statistic.tongTien}" type="number"
+                                            currencyCode="VND" />
+                                        VNĐ</td>
+                                    <td>${statistic.diaChi}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </div>
+                </table>
+            </main>
+        </div>
+    </div>
+
+    <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            new DataTable('#table1');
+        });
+        /*]]>*/
+    </script>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
 
 </body>
 
