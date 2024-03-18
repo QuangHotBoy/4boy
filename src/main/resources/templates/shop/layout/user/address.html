@@ -4,15 +4,16 @@
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body>
+<body class="gradient-custom">
     <!-- Navigation -->
     <div th:replace="/shop/layout/navigation :: nav"></div>
 
+    <hr class="container">
 
     <div class="container light-style flex-grow-1 container-p-y mt-5">
-        <div class="card overflow-hidden">
+        <div class="card overflow-hidden" style="min-height: 500px">
             <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
+                <div class="col-md-3 pt-0 border-end">
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action " data-toggle="list"
                             href="/shop/auth/index">Tổng Quan</a>
@@ -29,7 +30,7 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
-                            <div class="border-light mt-1">
+                            <div class="border-light mt-3">
                                 <a href="/shop/auth/address/add-new-address" type="button"
                                     class="btn btn-edit-address border border-warning text-dark bg-warning fw-bold"><i
                                         class="fas fa-plus pr-1"></i>Thêm địa
@@ -44,7 +45,7 @@
                                         <div class="col-12 col-md-8 ">
                                             <div class="d-flex justify-content-start">
                                                 <h6> Bảo|&nbsp;</h6>
-                                                <p>0357100604</p>
+                                                <h6>0357100604</h6>
                                             </div>
                                             <div class=" d-flex justify-content-start">
                                                 <p>Cần thơ</p>
@@ -64,7 +65,7 @@
                                         <div class="col-12 col-md-8 ">
                                             <div class="d-flex justify-content-start">
                                                 <h6> Gia bao|&nbsp;</h6>
-                                                <p>0353853303</p>
+                                                <h6>0353853303</h6>
                                             </div>
                                             <div class=" d-flex justify-content-start">
                                                 <p>Kiên Giang</p>

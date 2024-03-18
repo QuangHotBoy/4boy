@@ -34,9 +34,9 @@ public class UserController {
         return "shop/layout/user/add-new-address";
     }
 
-    @RequestMapping("hop/auth/address/update-address")
+    @RequestMapping("shop/auth/address/update-address")
     public String updateaddress(Model model) {
-        return "shop/layout/user/update-address";
+        return "shop/layout/user/add-new-address";
     }
 
     @RequestMapping("shop/auth/invoice")
