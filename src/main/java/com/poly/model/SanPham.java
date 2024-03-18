@@ -19,8 +19,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -72,11 +70,14 @@ public class SanPham implements Serializable {
 
     @Column(name = "kieu_bia", length = 150)
     private String kieuBia;
-
+    @Column(name = "so_luong")
     private Integer soLuong;
-
+    
+    // @ManyToOne
+    // @JoinColumn(name = "tinh_trang")
+    // private TrangThaiSach tinhTrangSanPham;
     @ManyToOne
-    @JoinColumn(name = "tinh_trang")
+    @JoinColumn(name = "trang_thai")
     private TrangThaiSach tinhTrangSanPham;
 
     @OneToMany(mappedBy = "sanPham_yeuThich")
@@ -103,7 +104,4 @@ public class SanPham implements Serializable {
     @Transient
     private List<TrangThaiSach> tinhtrangs;
 
-
-
-    
 }
