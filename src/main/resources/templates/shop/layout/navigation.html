@@ -1,5 +1,5 @@
 <!-- Navigation-->
-<header class="navbar navbar-expand-lg navbar-light bg-light gradient-custom" th:fragment="nav">
+<header class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded" th:fragment="nav">
 	<div class="container">
 		<!-- Logo -->
 		<div class="w-25">
@@ -9,20 +9,20 @@
 		</div>
 
 		<!-- Tìm kiếm -->
-		<form class="d-flex">
+		<form class="d-flex p-1 border border-warning rounded-2">
 			<input class="search form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-			<button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i> Tìm</button>
+			<button class="btn btn-warning fw-bold" type="submit"><i class="bi bi-search"></i></button>
 		</form>
 
 		<div class="d-flex">
 			<!-- Nút Giỏ hàng -->
-			<a class="btn btn-outline-dark" type="button" th:href="@{/shop/auth/cart}">
+			<a class="btn text-bg-warning" type="button" th:href="@{/shop/auth/cart}">
 				<i class="bi-cart-fill me-1"></i> Giỏ Hàng <span
 					class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 			</a>
 
 			<!-- Liên kết Tài khoản -->
-			<a class="btn btn-outline-dark ms-3" th:href="@{/shop/auth/index}" type="button"><i class="bi bi-person-circle"></i></a>
+			<a class="btn btn-outline-warning ms-3" th:href="@{/shop/auth/index}" type="button"><i class="bi bi-person-circle"></i></a>
 		</div>
 	</div>
 
