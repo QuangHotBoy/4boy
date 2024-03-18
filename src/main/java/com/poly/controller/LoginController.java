@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class Login {
+public class LoginController {
     @RequestMapping("shop/login")
 	public String login(Model model) {
 		return "shop/layout/login/login";
