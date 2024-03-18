@@ -207,9 +207,9 @@
                                     <th> Mã đơn hàng </th>
                                     <th> Tên khách hàng</th>
                                     <th> Địa chỉ nhận hàng </th>
-                                    <th> Tình trạng </th>
-                                    <th> Lí do hủy đơn </th>
-                                    <th> Ngày đặt hàng</th>
+                                    <th> Ngày đặt hàng</th>ư
+                                    <th> Lí do hủy đơn </th> 
+                                    <th> Trạng thái  </th>
                                     <th>Hành động</th>
                                   </tr>
                                 </thead>
@@ -218,15 +218,15 @@
                                     <td th:text="${ddhs.maDonHang}"></td>
                                     <td th:text="${ddhs.hoTen}"></td>
                                     <td th:text="${ddhs.diaChi}"></td>
+                                    <td th:text="${ddhs.ngayDatHang}"></td>
+                                    <td th:text="${ddhs.ghiChu}"></td>    
                                     <td>
                                       <select class="form-control" style="color: white; background-color: rgb(226, 154, 82);" onchange="changeStatus(this)">
                                           <option value="1" style="color: white; background-color: rgb(102, 216, 184);" selected>Chờ xác nhận</option>
                                           <option value="2" style="color: white; background-color: rgb(226, 216, 102);">Đang xử lí</option>
                                           <option value="3" style="color: white; background-color: rgb(55, 202, 74);">Đã nhận đơn</option>                     
                                       </select>
-                                  </td>
-                                  <td th:text="${ddhs.ghiChu}"></td>
-                                  <td th:text="${ddhs.ngayDatHang}"></td>
+                                  </td> 
                                     <td>
                                       <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
                                         <i class="mdi mdi-border-color"></i>
