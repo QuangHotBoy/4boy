@@ -18,6 +18,11 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
   </head>
+  <style>
+    #message-text{
+      height: 150px;
+    }
+  </style>
   <body>
     <div class="container-scroller">
       <!-- partial:../../partials/_navbar.html -->
@@ -231,9 +236,31 @@
                                       <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
                                         <i class="mdi mdi-border-color"></i>
                                       </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
+                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                                         <i class="mdi mdi-delete-forever"></i>
                                       </button>
+                                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Lí do hủy đơn</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <form>
+                                                <div class="mb-3">
+                                                  <label for="message-text" class="col-form-label">Lí do:</label>
+                                                  <textarea class="form-control" id="message-text"></textarea>
+                                                </div>
+                                              </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                              <button type="button" class="btn btn-primary">Gửi</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </td>
                                   </tr>
                                  
