@@ -10,9 +10,6 @@ import com.poly.model.SanPham;
 
 import org.springframework.data.domain.Pageable;
 
-
-
-
 public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
 
     // Các phương thức tùy chỉnh nếu cần
@@ -31,25 +28,36 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
     List<SanPham> findAllSapXep();
 
     // Thống kê sản phẩm bán được
-//     @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS soLuongBanDuoc, COALESCE(s.donGia * SUM(ctdh.soLuong), 0) AS tongDoanhSo "
-//             +
-//             "FROM SanPham s " +
-//             "LEFT JOIN ChiTietDonDatHang ctdh ON s.id = ctdh.sanPham_donDatHang " +
-//             "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
-//             "GROUP BY s.id, s.tenSach, s.donGia " +
-//             "ORDER BY soLuongBanDuoc DESC")
-//     List<Object[]> thongKeSanPhamBanDuocTop5(Pageable pageable);
+    // @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS
+    // soLuongBanDuoc, COALESCE(s.donGia * SUM(ctdh.soLuong), 0) AS tongDoanhSo "
+    // +
+    // "FROM SanPham s " +
+    // "LEFT JOIN ChiTietDonDatHang ctdh ON s.id = ctdh.sanPham_donDatHang " +
+    // "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
+    // "GROUP BY s.id, s.tenSach, s.donGia " +
+    // "ORDER BY soLuongBanDuoc DESC")
+    // List<Object[]> thongKeSanPhamBanDuocTop5(Pageable pageable);
 
-//     @Query("SELECT s.hinhAnh, s.id, s.tenSach, s.donGia, s.giaGoc, COALESCE(SUM(ctdh.soLuong), 0) AS soLuongBanDuoc "
-//             +
-//             "FROM SanPham s " +
-//             "LEFT JOIN ChiTietDonDatHang ctdh ON s.id = ctdh.sanPham_donDatHang " +
-//             "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
-//             "GROUP BY s.hinhAnh, s.id, s.tenSach, s.donGia, s.giaGoc " +
-//             "ORDER BY soLuongBanDuoc DESC")
-//     List<Object[]> thongKeSanPhamBanDuocTop8(Pageable pageable);
+    // @Query("SELECT s.hinhAnh, s.id, s.tenSach, s.donGia, s.giaGoc,
+    // COALESCE(SUM(ctdh.soLuong), 0) AS soLuongBanDuoc "
+    // +
+    // "FROM SanPham s " +
+    // "LEFT JOIN ChiTietDonDatHang ctdh ON s.id = ctdh.sanPham_donDatHang " +
+    // "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
+    // "GROUP BY s.hinhAnh, s.id, s.tenSach, s.donGia, s.giaGoc " +
+    // "ORDER BY soLuongBanDuoc DESC")
+    // List<Object[]> thongKeSanPhamBanDuocTop8(Pageable pageable);
 
     // tổng số lượng tồn
     @Query("SELECT SUM(sp.soLuong) FROM SanPham sp")
     Long getTongSoLuongSanPham();
+
+    // Thống kê sản phẩm bán được
+    // @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS soLuongBanDuoc " +
+    //         "FROM SanPham s " +
+    //         "LEFT JOIN ChiTietDonDatHang ctdh ON s.id = ctdh.sanPham_donDatHang " +
+    //         "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
+    //         "WHERE s.isbn = :id")
+    // Object[] tongSoLuongBanDuoc(Long id);
+
 }

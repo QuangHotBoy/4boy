@@ -24,15 +24,18 @@
                     <div class="card h-100">
                         <!-- Product image-->
                         <div class="image-container">
-                            <img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${p.hinhAnh}|}" alt="..." />
+                            <img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${p.hinhAnh}|}"
+                                alt="..." />
                         </div>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <h5 class="fw-bolder" th:utext="${p.tenSach}"></h5>
+                                <h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
                                 <!-- Product price-->
-                                $40.00 - $80.00
+                                <!-- Assuming 'number' is your variable holding the number -->
+                                <span th:text="${#numbers.formatDecimal(p.donGia, 3, 'COMMA', 0, 'POINT')} + ' vnđ'"></span>
+
                             </div>
                         </div>
                         <!-- Product actions-->

@@ -56,6 +56,8 @@ public class HomeController {
 	public String detailProduct(Model model, @PathVariable("isbn") Long isbn) {
 
 		SanPham product = productDAO.findById(isbn).get();
+		
+
 		model.addAttribute("product", product);
 
 		return "shop/detail-item";
