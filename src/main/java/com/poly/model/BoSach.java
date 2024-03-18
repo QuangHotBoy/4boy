@@ -42,6 +42,5 @@ public class BoSach implements Serializable {
     @OneToMany(mappedBy = "boSach")
     private List<SanPham> boSach_sanPham; 
 
-    @OneToMany(mappedBy = "maGiamGia_boSach")
-    private List<MaGiamGia> maGiamGia_boSach;
+
 }

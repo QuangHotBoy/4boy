@@ -72,14 +72,6 @@ public class MaGiamGia implements Serializable {
     @Column(name = "ket_thuc")
     private Boolean ketThuc;
 
-    @ManyToOne
-    @JoinColumn(name = "bo_sach_ap_dung")
-    private BoSach maGiamGia_boSach;
-
-    @ManyToOne
-    @JoinColumn(name = "nha_xuat_ban_ap_dung")
-    private NhaXuatBan maGiamGia_nxb;
-
     @OneToMany(mappedBy = "maGiamGia")
     private List<DonDatHang> maGiamGia;
 
