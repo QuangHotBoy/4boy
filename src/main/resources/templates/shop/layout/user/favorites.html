@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom">  
-    <!-- Navigation -->
+<body class="gradient-custom-user">  
+     
     <div th:replace="/shop/layout/navigation :: nav"></div> 
     
   <hr class="container">
@@ -42,10 +42,32 @@
       </div>
 
 
-    <!-- Bootstrap core JS-->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
+   
     <script th:src="@{/shop/js/scripts.js}"></script>
 </body>
 
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/shop/layout/head :: head">
+</head>
+<body class="gradient-custom-user">
+	<!-- Navigation -->
+	<div th:replace="/shop/layout/navigation :: nav"></div>
+  <hr class="container">
+	<!-- Section - Danh sách sản phẩm bán chạy -->
+	<div th:replace="/shop/layout/user/spyeuthich/popular :: popular"></div>
+ 
+	<!-- Footer-->
+	<div th:replace="/shop/layout/footer :: footer"></div>
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script th:src="@{/shop/js/scripts.js}"></script>
+</body>
 </html>

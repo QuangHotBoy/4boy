@@ -1,7 +1,10 @@
 package com.poly.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;  
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.poly.dao.TaiKhoanDAO; 
 
 import ch.qos.logback.core.model.Model;
 
@@ -9,8 +12,14 @@ import ch.qos.logback.core.model.Model;
 @Controller
 public class UserController {
     
+    @Autowired
+    TaiKhoanDAO TKDao;
+
+
+
+
     @RequestMapping("shop/auth/index")
-    public String index(Model model) {
+    public String index(Model model) { 
         return "shop/layout/user/index";
     }
 
@@ -36,7 +45,7 @@ public class UserController {
 
     @RequestMapping("shop/auth/address/update-address")
     public String updateaddress(Model model) {
-        return "shop/layout/user/add-new-address";
+        return "shop/layout/user/update-address";
     }
 
     @RequestMapping("shop/auth/invoice")
