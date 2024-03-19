@@ -17,28 +17,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.poly.dao.PhanLoaiDAO;
+import com.poly.model.PhanLoai;
 
 @Controller
 public class LoaiController {
-   
+    @Autowired
+    PhanLoaiDAO plDAO;
 
     /* loại Sản phẩm */
     @RequestMapping("/admin/product-type")
     public String loaisanpham(Model model, @RequestParam(defaultValue = "0") int page) {
 
-        // List<PhanLoai> productPage = plDAO.findAll();
-        // model.addAttribute("phanloais", productPage);
+        List<PhanLoai> productPage = plDAO.findAll();
+        model.addAttribute("phanloais", productPage);
 
         // List<PhanLoai> productType = plDAO.findAll();
         // model.addAttribute("phanloais", productType);
         return "/admin/product-types/product-type";
     }
 
-    
     // form loại
     @RequestMapping("/admin/product-type/add")
-    public String formloai()  {
+    public String formloai() {
         // List<PhanLoai> boSachList = plDAO.findAll();
         // System.out.println(boSachList);
 
@@ -49,7 +50,6 @@ public class LoaiController {
     // thêm loại
     @RequestMapping("/admin/product-type/create-type")
     public String add_product() {
-       
 
         return "/admin/layout/product-type/add-product-type";
     }

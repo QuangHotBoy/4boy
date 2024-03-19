@@ -16,61 +16,63 @@
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <!-- End layout styles -->
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+    <!-- End plugin css for this page -->
 </head>
 
 <style>
-    #tableContainer {
-        height: 300px;
-        /* Set the height as needed */
-        overflow-y: auto;
-    }
-
+    /* Apply CSS to style the table */
     #table1 {
         width: 100%;
+        /* Set the table width to fill its container */
+        border-collapse: collapse;
+        /* Collapse the borders between table cells */
     }
 
-    #table1 thead {
-        position: sticky;
-        top: 0;
-        background-color: #f1f1f1;
-        /* Set the background color as needed */
-        z-index: 1;
-    }
-
-
-    /* Breadcrumb container */
-    .breadcrumb-container {
-        background-color: #f8f9fa;
-        /* Light gray background */
+    #table1 th,
+    #table1 td {
         padding: 10px;
-        border-bottom: 1px solid #dee2e6;
-        /* Light border color */
+        /* Add padding to table cells */
+        text-align: left;
+        /* Align text to the left within cells */
+        border: 1px solid #ddd;
+        /* Add border to cells */
     }
 
-    /* Breadcrumb list */
-    .breadcrumb {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+    #table1 th {
+        background-color: #f2f2f2;
+        /* Add background color to header cells */
     }
 
-    /* Breadcrumb items */
-    .breadcrumb-item {
-        display: inline-block;
-        margin-right: 1px;
+    #table1 img {
+        max-width: 80%;
+        /* Ensure images fit within their containers */
+        height: 180px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
     }
 
-    /* Breadcrumb links */
-    .breadcrumb-item a {
-        color: #007bff;
-        /* Blue link color */
-        text-decoration: none;
+    #table1 td:last-child {
+        text-align: center;
+        /* Center align content in last column */
     }
 
-    /* Active breadcrumb item */
-    .breadcrumb-item.active {
-        color: #495057;
-        /* Dark text color for active item */
+    /* CSS để di chuyển Search và phân trang sang bên phải */
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        margin-top: 10px;
     }
 </style>
 
@@ -110,66 +112,33 @@
                                     <br>
                                     <div class="row">
                                         <div style="height: 500px; overflow: auto;">
-                                            <table class="table table-bordered" id="table1">
+                                            <table class="product-table" id="table1">
                                                 <thead>
                                                     <tr>
-                                                        <th>Mã bộ sách</th>
-                                                        <th>Tên bộ sách</th>
-                                                        <th>Mô tả</th>
-                                                        <th>Hình ảnh</th>
-                                                        <th>Edit</th>
-    
+                                                        <th style="width: 30%;">Mã Bộ Sách</th>
+                                                        <th style="width: 10%;">Tên Bộ Sách</th>
+                                                        <th style="width: 10%;">Mô tả</th>
+                                                       
+                                                        <th style="width: 8%;">Hình ảnh</th>
+                                                        <th style="width: 5%;">Sửa</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- <tr th:each="product : ${products}">
-                                                    <td th:text="${product.tenSach}"></td>
-                                                    <td>
-                                                        <span th:text="${#numbers.formatDecimal(product.donGia, 0, 'NUMBER')} + ' vnđ'"></span>
-                                                    </td>
-                                                    <td th:text="${product.soLuong}"></td>
-                                                    <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
-                                                    <td><img th:src="'/image/product/' + ${product.hinhAnh}"
-                                                            th:alt="${product.hinhAnh}" width="350px" height="500px">
-                                                    </td>
-                                                    <td>
-                                                        <div
-                                                            class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                            <a th:href="'/admin/product/edit/' + ${product.isbn}"
-                                                                class="text-warning" data-bs-toggle="tooltip"
-                                                                data-bs-placement="bottom" aria-label="Edit"
-                                                                data-bs-original-title="Edit">
-                                                                <i class="bi bi-pencil-fill"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr> -->
-                                                <c:forEach var="bosach" items="${bosachs}">
-													<tr>
-														<td>${bosach.id}</td>
-														<td>${bosach.tenBoSach}</td>
-														<td>${bosach.moTa}</td>
-
-														<td><img alt="${bosach.hinhAnh}"
-																src="/image/product/${bosach.hinhAnh}" width="400px"
-																height="500px"></td>
-														<!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
-														<td>
-															<!-- <div
-																class="table-actions d-flex align-items-center gap-3 fs-5">
-
-																<a href="/admin/product-series/edit/${bosach.id }"
-																	class="text-warning" data-bs-toggle="tooltip"
-																	data-bs-placement="bottom" aria-label="Edit"
-																	data-bs-original-title="Edit"><i
-																		class="bi bi-pencil-fill"></i></a>
-															</div> -->
-                                                            <i class="mdi mdi-border-color mdi-24px "
+                                                    <!-- Loop through products -->
+                                                    <tr th:each="product : ${products}">
+                                                        <td th:text="${product.tenSach}"></td>
+                                                        <td th:text="${product.giaBan}"></td>
+                                                        <td th:text="${product.soLuong}"></td>
+                                                        <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
+                                                        <td>
+                                                            <img alt="[[${product.hinhAnh}]]"
+                                                                th:src="@{|/assets/images/products/${product.hinhAnh}|}">
+                                                        </td>
+                                                        <td>
+                                                            <i class="mdi mdi-border-color mdi-24px"
                                                                 style="color: red;"></i>
-														</td>
-
-													</tr>
-												</c:forEach>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -182,20 +151,32 @@
             </div>
         </div>
 
-        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+        <!-- Include JS scripts -->
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+        <!-- tiếng việt -->
+        <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+        <!-- chỉnh tiếng việt -->
+        <script>
+            $(document).ready(function () {
+                $('#table1').DataTable({
+                    "language": {
+                        "url": "/assets/json/vietnam.json"
+                    }
+                });
+            });
+        </script>
+        <!--  -->
         <script th:inline="javascript">
             /*<![CDATA[*/
             $(document).ready(function () {
-                new DataTable('#table1');
+                $('#table1').DataTable();
             });
             /*]]>*/
         </script>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
-
+        <!--  -->
 </body>
 
 </html>

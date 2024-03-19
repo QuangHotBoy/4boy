@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin - Sản phẩm</title>
-    <!-- plugins:css -->
     <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
     <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
     <!-- endinject -->
@@ -16,11 +15,66 @@
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <!-- End layout styles -->
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+    <!-- End plugin css for this page -->
 </head>
 
 <style>
+    /* Apply CSS to style the table */
+    #table1 {
+        width: 100%;
+        /* Set the table width to fill its container */
+        border-collapse: collapse;
+        /* Collapse the borders between table cells */
+    }
 
+    #table1 th,
+    #table1 td {
+        padding: 10px;
+        /* Add padding to table cells */
+        text-align: left;
+        /* Align text to the left within cells */
+        border: 1px solid #ddd;
+        /* Add border to cells */
+    }
+
+    #table1 th {
+        background-color: #f2f2f2;
+        /* Add background color to header cells */
+    }
+
+    #table1 img {
+        max-width: 100%;
+        /* Ensure images fit within their containers */
+        height: 200px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
+    }
+
+    #table1 td:last-child {
+        text-align: center;
+        /* Center align content in last column */
+    }
+
+    /* CSS để di chuyển Search và phân trang sang bên phải */
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        margin-top: 10px;
+    }
 </style>
+
 
 <body>
     <div class="main-container d-flex">
@@ -58,63 +112,44 @@
 
 								</div>
 
-								<!-- <div class="d-flex align-items-center mt-3">
-
-									<div class="me-3">
-
-										<select class="form-select" id="filterOptions">
-											<option value="all">Tất cả</option>
-											<option value="option1">Lựa chọn 1</option>
-											<option value="option2">Lựa chọn 2</option>
-											
-
-										</select>
-
-
-									</div>
-									<button type="button" class="btn btn-primary">Lọc theo loại</button>
-									<form class="ms-auto position-relative">
-										<div class="position-absolute top-50 translate-middle-y search-icon px-3">
-											<i class="bi bi-search"></i>
-										</div>
-										<input class="form-control ps-5" type="text" placeholder="search">
-									</form>
-								</div> -->
-
-
+								
 
 								<br>
 								<div class="row">
 									<div style="height: 500px; overflow: auto;">
-										<table class="table table-bordered" id="table1">
+										<table class="product-table" id="table1">
 											<thead>
 												<tr>
-													<th>Mã loại sách</th>
-													<th>Tên loại sách</th>
-													<th>Mô tả</th>
-													<th>Edit</th>
+													<th style="width: 30%;">Mã loại sách</th>
+													<th style="width: 30%;">Tên loại sách</th>
+													<th style="width: 40%;">Mô tả</th>
+													<th style="width: 20%;">Sửa</th>
 
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="phanloai" items="${phanloais}">
-													<tr>
-														<td>${phanloai.id}</td>
-														<td>${phanloai.tenLoai}</td>
-														<td>${phanloai.moTa}</td>
+												<tr th:each="phanloai : ${phanloais}">
+													
+														<td th:text="${phanloai.id}"></td>
+														<td th:text="${phanloai.tenLoai}"></td>
+														<td th:text="${phanloai.moTa}"></td>
 														<!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
 														<td>
-															<div
+															<!-- <div
 																class="table-actions d-flex align-items-center gap-3 fs-5">
 																<a href="/admin/product-type/edit/${phanloai.id }"
 																	class="text-warning" data-bs-toggle="tooltip"
 																	data-bs-placement="bottom" aria-label="Edit"
 																	data-bs-original-title="Edit"><i
 																		class="bi bi-pencil-fill"></i></a>
-															</div>
+															</div> -->
+                                                          
+                                                                <i class="mdi mdi-border-color mdi-24px"
+                                                                    style="color: red;"></i>
+                                                           
 														</td>
-													</tr>
-												</c:forEach>
+													
+												</tr>
 											</tbody>
 										</table>
 									</div>
@@ -130,20 +165,32 @@
             </div>
         </div>
 
-        <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function () {
-                new DataTable('#table1');
+        <!-- Include JS scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- tiếng việt -->
+    <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+    <!-- chỉnh tiếng việt -->
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                "language": {
+                    "url": "/assets/json/vietnam.json"
+                }
             });
-            /*]]>*/
-        </script>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
-        
+        });
+    </script>
+    <!--  -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $('#table1').DataTable();
+        });
+        /*]]>*/
+    </script>
+    <!--  -->
 </body>
 
 </html>
