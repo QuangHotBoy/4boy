@@ -2,6 +2,7 @@ package com.poly.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class HomeController {
 	public String home() {
 		return "redirect:/shop/home";
 	}
-	
+
 	@RequestMapping("shop/home")
 	public String shopHome(Model model) {
-		
+
 		List<SanPham> products = productDAO.findAllSapXep();
 		List<SanPham> top8Product = products.subList(0, Math.min(products.size(), 8));
 
@@ -45,14 +46,14 @@ public class HomeController {
 	}
 
 	@RequestMapping("shop/list")
-	public String listProduct(Model model){
+	public String listProduct(Model model) {
 
 		List<SanPham> list = productDAO.findAllSapXep();
 		model.addAttribute("list", list);
-		
+
 		return "shop/list";
 	}
-	
+
 	@RequestMapping("shop/product/{isbn}")
 	public String detailProduct(Model model, @PathVariable("isbn") Long isbn) {
 
@@ -63,22 +64,33 @@ public class HomeController {
 		ArrayList<SanPham> relatedProducts = new ArrayList<>();
 		relatedProducts.addAll(relatedType);
 		relatedProducts.addAll(relatedNXB);
-		if(product.getBoSach() != null){
+		if (product.getBoSach() != null) {
 			List<SanPham> relatedGallary = productDAO.findByBoSach(product.getBoSach().getId());
 			relatedProducts.addAll(relatedGallary);
 		}
-		
+
+		// Loại bỏ các phần tử trùng lặp từ relatedProducts
+		HashSet<SanPham> uniqueRelatedProducts = new HashSet<>(relatedProducts);
+		relatedProducts.clear();
+		relatedProducts.addAll(uniqueRelatedProducts);
+		relatedProducts.remove(product);
+
 		Collections.shuffle(relatedProducts);
-		
+
+		if (relatedProducts.size() >= 4) {
+			List<SanPham> products = relatedProducts.subList(0, 4);
+			model.addAttribute("relatedProducts", products);
+		}else{
+			model.addAttribute("relatedProducts", relatedProducts);
+		}
 
 		model.addAttribute("product", product);
-		model.addAttribute("relatedProducts", relatedProducts);
 
 		return "shop/detail-item";
 	}
 
 	@RequestMapping("shop/gallary/{id}")
-	public String detailGallary(Model model, @PathVariable("id") Long id){
+	public String detailGallary(Model model, @PathVariable("id") Long id) {
 
 		BoSach gallary = gallaryDAO.findById(id).get();
 		List<SanPham> products = productDAO.findByBoSach(id);
@@ -94,10 +106,10 @@ public class HomeController {
 	public String cart() {
 		return "shop/cart";
 	}
-	
+
 	@RequestMapping("shop/auth/order/check-out")
 	public String checkOut() {
 		return "shop/checkout";
 	}
-	
+
 }

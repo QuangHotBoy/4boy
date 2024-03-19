@@ -10,7 +10,7 @@
                             th:src="@{|/shop/image/product/${p.hinhAnh}|}" alt="..." />
                     </div>
                     <!-- Product details-->
-                    <div class="card-body p-4">
+                    <div class="card-body p-2">
                         <div class="text-center">
                             <!-- Product name-->
                             <h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <!-- Product actions-->
-                    <div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
+                    <div class="card-footer justify-content-center border-top-0 bg-transparent d-flex">
                         <div class="text-center">
                             <a class="btn btn-outline-dark mt-auto" th:href="@{/shop/buy-now}"
                                 data-isbn="${p.isbn}">Mua ngay</a>
