@@ -13612,7 +13612,7 @@ dl {
   .table thead th {
     border-top: 0;
     border-bottom-width: 1px;
-    font-family: "ubuntu-medium", sans-serif;
+    font-family:  sans-serif;
     font-weight: initial; }
     .table thead th i {
       margin-left: 0.325rem; }
@@ -14110,7 +14110,7 @@ dl {
 .sidebar {
   min-height: calc(100vh - 70px);
   background: #ffffff;
-  font-family: "ubuntu-regular", sans-serif;
+  font-family: sans-serif ;
   padding: 0;
   width: 260px;
   z-index: 11;
@@ -14118,7 +14118,7 @@ dl {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-background-color: var(--bs-pink); }
+  background: linear-gradient(90deg, #FFC107 100%, #914fff 100%);  }
   .sidebar .nav {
     overflow: hidden;
     -ms-flex-wrap: nowrap;
@@ -14145,7 +14145,7 @@ background-color: var(--bs-pink); }
         align-items: center;
         white-space: nowrap;
         padding: 1.125rem 0 1.125rem 0;
-        color: #3e4b5b;
+        color: white;
         -webkit-transition-duration: 0.45s;
         transition-duration: 0.45s;
         transition-property: color;
@@ -14156,7 +14156,7 @@ background-color: var(--bs-pink); }
             font-size: 1.125rem;
             line-height: 1;
             margin-left: auto;
-            color: #bba8bff5; }
+            color: white; }
             .rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
               margin-left: 0;
               margin-right: auto; }
@@ -14173,8 +14173,8 @@ background-color: var(--bs-pink); }
               margin-right: auto; }
             .sidebar .nav .nav-item .nav-link i.menu-arrow:before {
               content: "\f141";
-              font-size: inherit;
-              color: inherit; }
+              font-size: var(--bs-white);
+              color: whitesmoke; }
             .sidebar .nav .nav-item .nav-link i.menu-arrow + .menu-icon {
               margin-left: .25rem; }
               .rtl .sidebar .nav .nav-item .nav-link i.menu-arrow + .menu-icon {
@@ -14194,7 +14194,7 @@ background-color: var(--bs-pink); }
       .sidebar .nav .nav-item.active {
         background: #ffffff; }
         .sidebar .nav .nav-item.active > .nav-link .menu-title {
-          color: #b66dff;
+          color: red;
           font-family: "ubuntu-medium", sans-serif; }
         .sidebar .nav .nav-item.active > .nav-link i {
           color: #b66dff; }
