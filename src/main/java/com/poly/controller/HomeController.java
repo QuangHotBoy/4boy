@@ -129,7 +129,11 @@ public class HomeController {
 	}
 
 	@RequestMapping("shop/buy-now")
-	public String buyNow() {
+	public String buyNow(Model model, @RequestParam Long isbn) {
+		SanPham product = productDAO.findById(isbn).get();
+
+		model.addAttribute("products", product);
+
 		return "shop/checkout";
 	}
 	
