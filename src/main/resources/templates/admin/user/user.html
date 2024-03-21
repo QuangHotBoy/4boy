@@ -85,24 +85,24 @@
                                             <th>Ngày sinh</th>
                                             <th>Số điện thoại</th>
                                             <th>Email</th>
-                                            <th>Hoạt động</th>
-                                            <th>Ghi chú</th>
+                                            <th>Trạng thái</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr th:each="tks : ${tks}">
+                                      <tr th:each="tk : ${tk}">
                                           <!-- Các cột thông tin voucher -->
-                                          <td th:text="${tks.tenDangNhap}"></td>
-                                          <td th:text="${tks.hoTen}"></td>
-                                          <td th:text="${tks.ngaySinh}"></td>
-                                          <td th:text="${tks.sdt}"></td>
-                                          <td th:text="${tks.email}"></td>
-                                          <td th:text="${tks.active}"></td>
+                                          <td th:text="${tk.taiKhoan_quyen.tenDangNhap}"></td>
+                                          <td th:text="${tk.taiKhoan_quyen.hoTen}"></td>
+                                          <td th:text="${#dates.format(tk.taiKhoan_quyen.ngaySinh, 'dd/MM/yyyy')}"></td>
+                                          <td th:text="${tk.taiKhoan_quyen.sdt}"></td>
+                                          <td th:text="${tk.taiKhoan_quyen.email}"></td>
+                                          <td th:text="${tk.taiKhoan_quyen.active} ?'Hoạt động':'Ngưng hoạt động'"></td>
                                           <td>
-                                            <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                              <i class="mdi mdi-border-color"></i>
-                                            </button>
-                                          </td>
+                                            <a type="button" th:href="@{|/shop/admin/edit/${tk.taiKhoan_quyen.tenDangNhap}|}" class="btn btn-gradient-danger btn-rounded btn-icon d-flex justify-content-center align-items-center">
+                                                <i class="mdi mdi-border-color"></i>
+                                            </a>
+                                        </td>
                                       </tr>
                                   </tbody>
                                   
