@@ -222,8 +222,8 @@
                                   <tr th:each="ddhs : ${ddhs}">
                                     <td th:text="${ddhs.maDonHang}"></td>
                                     <td th:text="${ddhs.hoTen}"></td>
-                                    <td th:text="${ddhs.trangThai_donDatHang.tenTrangThai}"></td>
-                                    <td th:text="${ddhs.ngayDatHang}"></td>
+                                    <td th:text="${ddhs.diaChiNhanHang.diaChi}"></td>
+                                    <td th:text="${#dates.format(ddhs.ngayDatHang, 'dd/MM/yyyy')}"></td>
                                     <td th:text="${ddhs.ghiChu}"></td>    
                                     <td>
                                       <select class="form-control" style="color: white; background-color: rgb(226, 154, 82);" onchange="changeStatus(this)">
