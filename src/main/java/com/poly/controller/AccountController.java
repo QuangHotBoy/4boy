@@ -15,13 +15,12 @@ import com.poly.model.TaiKhoan;
 @Controller
 public class AccountController {
     @Autowired
-	TaiKhoanDAO tkDAO;
+    TaiKhoanDAO tkDAO;
 
-	@Autowired
-	Quyen_TaiKhoanDAO quyenTKDao;
- 
+    @Autowired
+    Quyen_TaiKhoanDAO quyenTKDao;
 
-	@RequestMapping("shop/admin/admin")
+    @RequestMapping("shop/admin/admin")
     public String TaiKhoanAdmin(Model model) {
         int a = 2;
         List<Quyen_TaiKhoan> Staff = quyenTKDao.findbyMana();
@@ -33,7 +32,7 @@ public class AccountController {
         return ("admin/user/user");
     }
 
-	@RequestMapping("shop/admin/staff")
+    @RequestMapping("shop/admin/staff")
     public String TaiKhoanStaff(Model model) {
         int a = 2;
         List<Quyen_TaiKhoan> Staff = quyenTKDao.findbyStaff();
@@ -45,7 +44,7 @@ public class AccountController {
         return ("admin/user/user");
     }
 
-	@RequestMapping("shop/admin/user")
+    @RequestMapping("shop/admin/user")
     public String TaiKhoanUser(Model model) {
         int a = 2;
         List<Quyen_TaiKhoan> Staff = quyenTKDao.findbyMember();
@@ -57,11 +56,10 @@ public class AccountController {
         return ("admin/user/user");
     }
 
-
     @RequestMapping("shop/admin/addnew_user")
-	public String add_user_new(){
-		
-			return "admin/user/add_user";
-	}
-   
+    public String add_user_new() {
+        return "admin/user/add_user";
+    }
+    
+
 }

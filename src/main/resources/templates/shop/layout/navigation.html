@@ -1,4 +1,5 @@
-<header class="navbar navbar-expand-lg navbar-light bg-light  p-3 mb-3 bg-body rounded gradient-custom-user" th:fragment="nav">
+<header class="navbar navbar-expand-lg navbar-light bg-light  p-3 mb-3 bg-body rounded gradient-custom-user"
+	th:fragment="nav">
 	<div class="container">
 		<!-- Logo -->
 		<div class="w-25">
@@ -16,12 +17,14 @@
 		<div class="d-flex">
 			<!-- Nút Giỏ hàng -->
 			<a class="btn text-bg-warning" type="button" th:href="@{/shop/auth/cart}">
-				<i class="bi-cart-fill me-1"></i> Giỏ Hàng <span
-					class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+				<i class="bi-cart-fill me-1"></i> Giỏ Hàng <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 			</a>
 
 			<!-- Liên kết Tài khoản -->
-			<a class="btn btn-outline-warning ms-3" th:href="@{/shop/auth/index}" type="button"><i class="bi bi-person-circle"></i></a>
+			<a class="btn btn-outline-warning ms-3" th:href="@{/shop/auth/index}" type="button"><i
+					class="bi bi-person-circle"></i></a>
+			<!-- Nút yêu thích -->
+			<a class="btn btn-outline-warning ms-3" th:href="@{/shop/auth/favorite}" type="button"><i class="bi bi-heart"></i></a>
 		</div>
 	</div>
 </header>

@@ -5,81 +5,79 @@
 </head>
 
 <body class="gradient-custom-user">
-    <!-- Navigation -->
-    <div th:replace="/shop/layout/navigation :: nav"></div> 
-    
+  <!-- Navigation -->
+  <div th:replace="/shop/layout/navigation :: nav"></div>
+
   <hr class="container">
-    <div class="container light-style flex-grow-1 container-p-y mt-5">
-        <div class="card overflow-hidden" style="min-height: 500px">
-          <div class="row no-gutters row-bordered row-border-light">
-            <div class="col-md-3 pt-0 border-end">
-              <div class="list-group list-group-flush account-settings-links">
-                <a class="list-group-item list-group-item-action " data-toggle="list" href="/shop/auth/index">Tổng
-                  Quan</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/information">Thông tin
-                  cá nhân</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/address">Địa chỉ</a>
-                <a class="list-group-item list-group-item-action active" data-toggle="list" href="/shop/auth/invoice">Đơn Hàng</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/favorite">Yêu
-                  Thích</a>
-              </div>
-            </div>
-            <div class="col-md-9">
-              <div class="tab-content">
-                <div class="tab-pane fade active show" id="account-general">
-    
-                  <hr class="border-light m-0">
-                  <div class="card-body">
-                    <div id="donhang">
-                        <table class="table  ms-1 me-2">
-                            <tr>
-                                <th>Mã đơn hàng</th>
-                                <th>Ngày mua</th>
-                                <th>Người nhận</th>
-                                <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
-                                <th>Ghi chú</th>
-                            </tr>
-                            <c:forEach var="item" items="${donhang}">
-                                <tr>
-                                    <td>DH0110</td>
-                                    <td> 
-                                        <!-- <fmt:formatDate value="2024-02-02"
+  <div class="container light-style flex-grow-1 container-p-y mt-5">
+    <div class="card overflow-hidden" style="min-height: 500px">
+      <div class="row no-gutters row-bordered row-border-light">
+        <div class="col-md-3 pt-0 border-end">
+          <div class="list-group list-group-flush account-settings-links">
+            <a class="list-group-item list-group-item-action " data-toggle="list" href="/shop/auth/index">Tổng
+              Quan</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/information">Thông tin
+              cá nhân</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/address">Địa chỉ</a>
+            <a class="list-group-item list-group-item-action active" data-toggle="list" href="/shop/auth/invoice">Đơn
+              Hàng</a>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="tab-content">
+            <div class="tab-pane fade active show" id="account-general">
+
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <div id="donhang">
+                  <table class="table  ms-1 me-2">
+                    <tr>
+                      <th>Mã đơn hàng</th>
+                      <th>Ngày mua</th>
+                      <th>Người nhận</th>
+                      <th>Tổng tiền</th>
+                      <th>Trạng thái</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                    <c:forEach var="item" items="${donhang}">
+                      <tr>
+                        <td>DH0110</td>
+                        <td>
+                          <!-- <fmt:formatDate value="2024-02-02"
                                         pattern="yyyy-MM-dd" /> -->
-                                        22/02/2024
-                                    </td>
-                                    <td>Gia bảo</td>
-                                    <td>
-                                        <!-- <fmt:formatNumber value="${item.tongTien}" type="number"
+                          22/02/2024
+                        </td>
+                        <td>Gia bảo</td>
+                        <td>
+                          <!-- <fmt:formatNumber value="${item.tongTien}" type="number"
                                         currencyCode="VND" maxFractionDigits="0" /> vnđ -->
-                                            188.000 VNĐ 
-                                    </td>
-                                    <td>Đang vận chuyển</td>
-                                    <td>
-                                        <a class="text-primary text-decoration-none"
-                                            href="/shop/auth/invoice/detail-invoice">
-                                            Xem chi tiết
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                          188.000 VNĐ
+                        </td>
+                        <td>Đang vận chuyển</td>
+                        <td>
+                          <a class="text-primary text-decoration-none" href="/shop/auth/invoice/detail-invoice">
+                            Xem chi tiết
+                          </a>
+                        </td>
+                      </tr>
+                    </c:forEach>
 
-                        </table>
-                    </div>
+                  </table>
+                </div>
 
-                </div>
-    
-                </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
-    
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script th:src="@{/shop/js/scripts.js}"></script>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script th:src="@{/shop/js/scripts.js}"></script>
 </body>
 
 </html>
