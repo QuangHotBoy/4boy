@@ -33,7 +33,7 @@ public class AdminController {
 	@Autowired
 	DonDatHangDAO ddhDAO;
 
-    @RequestMapping("shop/admin")
+    @RequestMapping("shop/admin/index")
 	public String index() {
 		return "index";
 	}
