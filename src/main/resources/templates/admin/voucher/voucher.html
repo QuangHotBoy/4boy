@@ -97,8 +97,8 @@
                                           <td th:text="${mggs.tenMa}"></td>
                                           <td th:text="${mggs.soTienGiam}"></td>
                                           <td th:text="${mggs.soLuong}"></td>
-                                          <td th:text="${mggs.ngayBatDau}"></td>
-                                          <td th:text="${mggs.ngayKetThuc}"></td>
+                                          <td th:text="${#dates.format(mggs.ngayBatDau, 'dd/MM/yyyy HH:mm')}"></td>
+                                          <td th:text="${#dates.format(mggs.ngayKetThuc, 'dd/MM/yyyy HH:mm')}"></td>
                                           <td th:text="${mggs.thongTin}"></td>
                                           <td>
                                             <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
