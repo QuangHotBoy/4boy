@@ -1,14 +1,13 @@
 <!-- plugins:css -->
-
-<div th:fragment="menu" style="background-color: #FFC107;">
-  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+<div th:fragment="menu" >
+  <nav class="sidebar " id="sidebar">
     <ul class="nav">
       <li class="nav-item nav-profile">
         <a href="#" class="nav-link">
           <div class="nav-profile-image">
             <img src="assets/images/faces/face1.jpg" alt="profile">
             <span class="login-status online"></span>
-            <!--change to offline or busy as needed-->
+            
           </div>
 
           <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
@@ -34,18 +33,12 @@
           </ul>
         </div>
       </li>
-      <!-- <li class="nav-item">
-                <a class="nav-link" href="pages/icons/mdi.html">
-                  <span class="menu-title">Sản phẩm</span>
-                  <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                  
-                </a>
-              </li> -->
+     
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
           <span class="menu-title">Loại sản phẩm</span>
           <i class="menu-arrow"></i>
-          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+          <i class="mdi mdi-book-open-variant"></i>
         </a>
         <div>
           <div class="collapse" id="ui-basic1">
@@ -73,12 +66,19 @@
       <li class="nav-item">
         <a class="nav-link" href="/admin/statistical/statistics-by-revenue">
           <span class="menu-title">Thống kê</span>
-          <i class="mdi mdi-table-large menu-icon"></i>
+          <i class="mdi mdi-chart-bar menu-icon"></i>
         </a>
       </li>
 
     </ul>
   </nav>
+
+  
+
+
+
+
+
 </div>
 <!-- container-scroller -->
 <!-- plugins:js -->

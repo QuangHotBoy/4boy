@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Purple Admin</title>
+  <title>Knotrea - Quản trị</title>
   <!-- plugins:css -->
   <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
   <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
@@ -17,12 +17,25 @@
   <!-- Layout styles -->
   <link rel="stylesheet" th:href="@{/assets/css/style.css}">
   <!-- End layout styles -->
-  <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+  <link rel="shortcut icon" th:href="@{/assets/images/dashboard/img-logo-removebg-preview.png}" />
   <style>
     /* CSS cho hover màu xám nhạt */
     .nav-link:hover {
       background-color: #f0f0f0;
       /* Màu xám nhạt khi di chuột vào */
+    }
+
+    #sidebar {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 200px;
+    }
+
+    #sidebar .nav-link {
+      color: #000;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    #menu-title{
+      font-family: 'Noto Sans', sans-serif;
     }
   </style>
 </head>
@@ -49,7 +62,7 @@
                 <i class="mdi mdi-home"></i>
               </span> Bảng điều khiển
             </h3>
-          
+
           </div>
           <div class="row">
             <div class="col-md-4 stretch-card grid-margin">

@@ -16,283 +16,280 @@
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
     <!-- End layout styles -->
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- End plugin css for this page -->
+
 </head>
 
 <style>
-    #tableContainer {
-        height: 300px;
-        /* Set the height as needed */
-        overflow-y: auto;
-    }
-
+    /* Apply CSS to style the table */
     #table1 {
         width: 100%;
-    }
-
-    #table1 thead {
-        position: sticky;
-        top: 0;
-        background-color: #f1f1f1;
-        /* Set the background color as needed */
-        z-index: 1;
-    }
-
-
-    /* Breadcrumb container */
-    .breadcrumb-container {
-        background-color: #f8f9fa;
-        /* Light gray background */
-        padding: 10px;
-        border-bottom: 1px solid #dee2e6;
-        /* Light border color */
-    }
-
-    /* Breadcrumb list */
-    .breadcrumb {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Breadcrumb items */
-    .breadcrumb-item {
-        display: inline-block;
-        margin-right: 1px;
-    }
-
-    /* Breadcrumb links */
-    .breadcrumb-item a {
-        color: #007bff;
-        /* Blue link color */
-        text-decoration: none;
-    }
-
-    /* Active breadcrumb item */
-    .breadcrumb-item.active {
-        color: #495057;
-        /* Dark text color for active item */
-    }
-
-    /* Main table container */
-    .main-table-container {
-        overflow: auto;
-        max-height: 300px;
-    }
-
-    /* Table styles */
-    .table {
-        width: 100%;
+        /* Set the table width to fill its container */
         border-collapse: collapse;
-        border-spacing: 0;
+        /* Collapse the borders between table cells */
     }
 
-    /* Table header styles */
-    .table thead {
-        background-color: #f1f1f1;
-        /* Set the background color as needed */
-    }
-
-    /* Table header cell styles */
-    .table th {
-        padding: 8px;
+    #table1 th,
+    #table1 td {
+        padding: 10px;
+        /* Add padding to table cells */
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        /* Align text to the left within cells */
+        border: 1px solid #ddd;
+        /* Add border to cells */
     }
 
-    /* Table body styles */
-    .table tbody {
-        background-color: #fff;
+    #table1 th {
+        background-color: #f2f2f2;
+        /* Add background color to header cells */
     }
 
-    /* Table body row styles */
-    .table tr {
-        border-bottom: 1px solid #ddd;
+    #table1 img {
+        max-width: 80%;
+        /* Ensure images fit within their containers */
+        height: 180px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
     }
 
-    /* Table body cell styles */
-    .table td {
-        padding: 8px;
-        text-align: left;
+    #table1 td:last-child {
+        text-align: center;
+        /* Center align content in last column */
     }
 
-    /* Table hover effect */
-    .table tbody tr:hover {
-        background-color: #f5f5f5;
+    /* CSS để di chuyển Search và phân trang sang bên phải */
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
     }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
+        float: right;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        margin-top: 10px;
+    }
+    .card-body {
+    min-height: 600px; /* Đặt chiều cao tối thiểu của card-body */
+}
 </style>
 
 <body>
-    <div class="main-container d-flex">
-        <!-- Menu Admin -->
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg"
+                        alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
+                        src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+                                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                            </div>
+                            <input type="text" class="form-control bg-transparent border-0"
+                                placeholder="Search projects">
+                        </div>
+                    </form>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
         <!-- partial:partials/_navbar.html -->
         <div th:replace="admin/navbar :: navbar"></div>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <div th:replace="admin/menu :: menu"></div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
 
-            <!-- Bootstrap JavaScript Libraries -->
-            <div class="col-10 px-0">
-                <div class="container">
-                    <div>
-                        <nav class="navbar navbar-expand-lg">
-                            <div class="container-fluid">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a
-                                                href="/admin/statistics/statistics-by-today">Thống
-                                                kê</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Doanh thu</a>
-                                        </li>
-                                    </ol>
-                                </nav>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
 
-
-                            </div>
+                            </ol>
                         </nav>
                     </div>
-                    <hr>
-
-                    <!--Main content-->
-                    <div class="container">
-                        <div class="row">
-
-                            <div class="ag-courses_item">
-                                <form action="/admin/statistics/statistics-by-days" method="GET"
-                                    modelAttribute="dateRange">
-                                    <div class="ag-courses-item_link">
-                                        <div class="ag-courses-item_bg"></div>
-
-                                        <div class="container">
-                                            <div class="ag-courses-item_title">Doanh thu theo khoảng thời gian</div>
-                                            <br>
-                                            <div class="ag-courses-item_date-box row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="startDate" class="form-label">Từ ngày:</label>
-                                                        <input type="date" id="startDate" name="startDate"
-                                                            class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="endDate" class="form-label">Đến ngày:</label>
-                                                        <input type="date" id="endDate" name="endDate"
-                                                            class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary">Thống kê</button>
-                                                    <span class="ag-courses-item_date">Doanh thu:
-                                                        <fmt:formatNumber value="${totalRevenue}" type="number"
-                                                            currencyCode="VND" />
-                                                        VNĐ
-                                                    </span>
-                                                </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body ">
+                                    <div class="ag-courses-item_title">Doanh thu theo khoảng thời gian</div>
+                                    <br>
+                                    <div class="ag-courses-item_date-box row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="startDate" class="form-label">Từ ngày:</label>
+                                                <input type="date" id="startDate" name="startDate" class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            
-                        </div>
-
-
-
-
-                    </div>
-
-
-                    <br>
-
-                    <div class="container">
-                        <div class="row">
-                          
-                            <div style="height: 500px; overflow: auto;">
-                                <table class="table table-bordered" id="table1">
-                                    <thead>
-                                        <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Ngày đặt</th>
-                                            <th>Tổng tiền</th>
-                                            <th>Địa chỉ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <!-- <c:forEach var="product" items="${products}"> -->
-                                        <div th:each="product : ${products}">
-
-
-                                            <tr>
-                                                <td th:utext="${product.tenSach}"></td>
-                                                <!-- <td>${product.tacGia}</td> -->
-
-                                                <td th:utext="${product.donGia}"></td>
-
-                                                <td th:utext="${product.soLuong}"></td>
-                                                <td th:utext="${product.tinhTrangSanPham.tenTinhTrang}">
-                                                </td>
-
-                                                <td>
-                                                    <img alt="[[${product.hinhAnh}]]"
-                                                        th:src="@{|/assets/images/products/${product.hinhAnh}|}"
-                                                        width="350px" height="500px">
-                                                </td>
-
-                                                <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
-                                                <td>
-                                                    <!-- <div
-                                                                        class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                                        <a href="/admin/product-type/edit/${phanloai.id }"
-                                                                            class="text-warning" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" aria-label="Edit"
-                                                                            data-bs-original-title="Edit"><i
-                                                                                class="bi bi-pencil-fill"></i></a>
-                                                                    </div> -->
-                                                    <i class="mdi mdi-border-color mdi-24px" style="color: red;"></i>
-
-                                                </td>
-
-                                            </tr>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="endDate" class="form-label">Đến ngày:</label>
+                                                <input type="date" id="endDate" name="endDate" class="form-control">
+                                            </div>
                                         </div>
-                                    </tbody>
-                                </table>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">Thống kê</button>
+                                            <span class="ag-courses-item_date">Doanh thu:
+                                                <fmt:formatNumber value="${totalRevenue}" type="number"
+                                                    currencyCode="VND" />
+                                                VNĐ
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+
+
+
+
+
+                                    <div class="card">
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <div class="ag-courses-item_title">Doanh thu theo sản phẩm</div>
+                                                <br>
+                                                <table class="table table-bordered">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10%;">Tên sản phẩm</th>
+                                                            <th style="width: 20%;">Số lượng bán ra</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr th:each="bosach : ${bosachs}">
+                                                            <td th:text="${bosach.id}"></td>
+                                                            <td th:text="${bosach.tenBoSach}"></td>
+                                                            <td th:text="${bosach.moTa}"></td>
+                                                            <td>
+                                                                <img alt="[[${bosach.hinhAnh}]]"
+                                                                    th:src="@{|/assets/images/products/${bosach.hinhAnh}|}">
+                                                            </td>
+                                                            <td>
+                                                                <i class="mdi mdi-border-color mdi-24px"
+                                                                    style="color: red;"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                            <!--  -->
+                                            <div class="col-sm-2"></div>
+                                            <!--  -->
+                                            <div class="col-sm-5">
+                                                <div class="ag-courses-item_title">Sản phẩm bán chạy</div>
+                                                <br>
+                                                <table class="table table-bordered">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10%;">Mã Bộ Sách</th>
+                                                            <th style="width: 20%;">Tên Bộ Sách</th>
+                                                            <th style="width: 30%;">Mô tả</th>
+                                                            <th style="width: 20%;">Hình ảnh</th>
+                                                            <th style="width: 5%;">Sửa</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr th:each="bosach : ${bosachs}">
+                                                            <td th:text="${bosach.id}"></td>
+                                                            <td th:text="${bosach.tenBoSach}"></td>
+                                                            <td th:text="${bosach.moTa}"></td>
+                                                            <td>
+                                                                <img alt="[[${bosach.hinhAnh}]]"
+                                                                    th:src="@{|/assets/images/products/${bosach.hinhAnh}|}">
+                                                            </td>
+                                                            <td>
+                                                                <i class="mdi mdi-border-color mdi-24px"
+                                                                    style="color: red;"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
                             </div>
+                            </form>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
 
-
-
+        <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
     </div>
 
-    </div>
-    </div>
-
-    </div>
-
-    <div th:replace="/WEB-INF/assets/js/admin/js-link.jsp"></div>
+    <!-- Include JS scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- tiếng việt -->
+    <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+    <!-- Modal -->
+
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                "language": {
+                    "url": "/assets/json/vietnam.json"
+                }
+            });
+        });
+    </script>
+    <!--  -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function () {
-            new DataTable('#table1');
+            $('#table1').DataTable();
         });
         /*]]>*/
     </script>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-
+    <!--  -->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+</script>
 
 </html>
