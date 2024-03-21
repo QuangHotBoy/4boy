@@ -18,9 +18,10 @@
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- End plugin css for this page -->
-    
+
 </head>
 
 <style>
@@ -79,7 +80,7 @@
 </style>
 
 <body>
-    <div class="main-container d-flex">
+    <div class="main-container ">
         <!-- Menu Admin -->
         <!-- partial:partials/_navbar.html -->
         <div th:replace="admin/navbar :: navbar"></div>
@@ -89,7 +90,7 @@
             <div th:replace="admin/menu :: menu"></div>
 
             <!-- Bootstrap JavaScript Libraries -->
-            <div class="col-10 px-0">
+            
                 <div class="container">
                     <div class="col-md-12">
                         <div class="card">
@@ -105,38 +106,74 @@
                             <div class="">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Thêm mới</button>
-                                <!-- modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form>
-                                            <div class="mb-3">
-                                              <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                              <input type="text" class="form-control" id="recipient-name">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Thêm mới</button>
+                                    <!-- modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style="margin-top: 100px;" class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+
+                                                                <!-- Hình ảnh -->
+                                                                <label for="coverType" class="form-label">Hình
+                                                                    ảnh</label>
+
+                                                                <!-- Display the selected image using a div as a frame -->
+                                                                <div
+                                                                    style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
+                                                                    <img style="width: 190px; height: 220px;"
+                                                                        id="imgPreview" alt=""
+                                                                        src="/image/product/${item.hinhAnh}">
+
+                                                                    <!-- Input for selecting a new image (hidden) -->
+                                                                    <input type="file" accept=".jpg, .png"
+                                                                        name="photo_file" id="imgInput"
+                                                                        style="display: none;"
+                                                                        onchange="previewImage()">
+
+                                                                    <!-- Add a transparent button to trigger file selection -->
+                                                                    <button type="button" onclick="selectImage()"
+                                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="tenBoSach" class="form-label">Tên Bộ
+                                                                        Sách</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="tenBoSach" placeholder="">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="moTa" class="form-label">Mô tả</label>
+                                                                    <textarea class="form-control" id="moTa"
+                                                                        placeholder=""
+                                                                        style="height: 138px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Send message</button>
+                                                </div>
                                             </div>
-                                            <div class="mb-3">
-                                              <label for="message-text" class="col-form-label">Message:</label>
-                                              <textarea class="form-control" id="message-text"></textarea>
-                                            </div>
-                                          </form>
                                         </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                          <button type="button" class="btn btn-primary">Send message</button>
-                                        </div>
-                                      </div>
                                     </div>
-                                  </div>
-<!-- modal -->
-                                    <h5 class="mb-0">Danh sách bộ sách</h5> <br>
+                                    <!-- modal -->
+
                                 </div>
-                                <p th:text="${message}"></p>
+
                                 <br>
                                 <div class="row">
                                     <div style="height: 500px; overflow: auto;">
@@ -182,45 +219,51 @@
             </div>
 
         </div>
+   
 
-        <!-- Include JS scripts -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Include JS scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 
-        <!-- tiếng việt -->
-        <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
-        <!-- Modal -->
-        <script>
-            $('#exampleModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) // Button that triggered the modal
-                var recipient = button.data('whatever') // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                var modal = $(this)
-                modal.find('.modal-title').text('New message to ' + recipient)
-                modal.find('.modal-body input').val(recipient)
-            })
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#table1').DataTable({
-                    "language": {
-                        "url": "/assets/json/vietnam.json"
-                    }
-                });
+    <!-- tiếng việt -->
+    <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+    <!-- Modal -->
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                "language": {
+                    "url": "/assets/json/vietnam.json"
+                }
             });
-        </script>
-        <!--  -->
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function () {
-                $('#table1').DataTable();
-            });
-            /*]]>*/
-        </script>
-        <!--  -->
+        });
+    </script>
+    <!--  -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $('#table1').DataTable();
+        });
+        /*]]>*/
+    </script>
+    <!--  -->
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+</script>
+
 </html>
