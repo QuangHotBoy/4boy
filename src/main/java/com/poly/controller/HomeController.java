@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +82,14 @@ public class HomeController {
 			List<SanPham> products = relatedProducts.subList(0, 4);
 			model.addAttribute("relatedProducts", products);
 		}else{
+			List<SanPham> products = productDAO.findAll();
+
+			Random random = new Random();
+
+			int randomIndex = random.nextInt(products.size());
+
+			relatedProducts.add(products.get(randomIndex));
+
 			model.addAttribute("relatedProducts", relatedProducts);
 		}
 
