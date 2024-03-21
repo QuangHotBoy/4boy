@@ -20,7 +20,7 @@ public class AccountController {
     @Autowired
     Quyen_TaiKhoanDAO quyenTKDao;
 
-    @RequestMapping("shop/admin/admin")
+    @RequestMapping("shop/admin/super")
     public String TaiKhoanAdmin(Model model) {
         int a = 2;
         List<Quyen_TaiKhoan> Staff = quyenTKDao.findbyMana();

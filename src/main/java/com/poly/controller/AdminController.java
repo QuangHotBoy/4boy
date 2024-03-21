@@ -45,14 +45,12 @@ public class AdminController {
 	}
 	@RequestMapping("shop/admin/addnew_mgg")
 	public String add_voucher_new(){
-		
 			return "admin/voucher/add_voucher";
 	}
 	
 	@RequestMapping("admin/voucher/updatemgg")
 	public String udte_voucher(@Validated @ModelAttribute("voucher") MaGiamGia voucher,
 			BindingResult result, Model model) throws IllegalAccessException, IOException {
-
 		return "/admin/voucher/update_voucher";
 	}
 	@RequestMapping("shop/admin/order")
@@ -61,4 +59,9 @@ public class AdminController {
 		model.addAttribute("ddhs", ddhs);
 		return "admin/order/order";
 	}
+	@RequestMapping("shop/admin/information")
+	public String information(){
+			return "admin/information/information";
+	}
+
 }
