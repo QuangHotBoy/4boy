@@ -49,5 +49,5 @@ public class DiaChi_TaiKhoan implements Serializable {
     private Boolean macDinh;
 
     @OneToMany(mappedBy = "diaChiNhanHang")
-    List<DonDatHang> diaChiNhanHang;
+    List<DonDatHang> diaChiNhanHangs;
 }
