@@ -1,8 +1,8 @@
-<section class="py-1 bg-light" th:fragment="related">
-    <div class="container px-4 px-lg-5 mt-5">
+<section class="py-1 mb-3 bg-light container" th:fragment="related">
+    <div class=" px-3 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Danh Sách Sản Phẩm Liên Quan</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div th:each="p: ${relatedProducts}" class="col mb-5">
+            <div th:each="p: ${relatedProducts}" class="col mb-3">
                 <div class="card h-100">
                     <!-- Product image-->
                     <div class="image-container">
