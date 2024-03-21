@@ -60,6 +60,10 @@ public class AccountController {
     public String add_user_new() {
         return "admin/user/add_user";
     }
-    
+
+    @RequestMapping("shop/admin/edit")
+    public String edit_user() {
+        return "admin/user/edit_user";
+    }
 
 }
