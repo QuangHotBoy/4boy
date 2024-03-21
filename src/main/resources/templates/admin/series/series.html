@@ -19,6 +19,7 @@
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
     <!-- End plugin css for this page -->
+    
 </head>
 
 <style>
@@ -103,52 +104,63 @@
                             <div class="">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                    <a href="/admin/product-series/add-new"><button type="button"
-                                            class="btn btn-warning bi bi-plus">Thêm mới</button></a>
-                                    <div style="margin-top: 20px;" class="d-flex align-items-center">
-                                        <h5 class="mb-0">Danh sách bộ sách</h5> <br>
-                                    </div>
-                                    <p th:text="${message}"></p>
-                                    <br>
-                                    <div class="row">
-                                        <div style="height: 500px; overflow: auto;">
-                                            <table class="product-table" id="table1">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 30%;">Mã Bộ Sách</th>
-                                                        <th style="width: 10%;">Tên Bộ Sách</th>
-                                                        <th style="width: 10%;">Mô tả</th>
-                                                       
-                                                        <th style="width: 8%;">Hình ảnh</th>
-                                                        <th style="width: 5%;">Sửa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- Loop through products -->
-                                                    <tr th:each="product : ${products}">
-                                                        <td th:text="${product.tenSach}"></td>
-                                                        <td th:text="${product.giaBan}"></td>
-                                                        <td th:text="${product.soLuong}"></td>
-                                                        <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
-                                                        <td>
-                                                            <img alt="[[${product.hinhAnh}]]"
-                                                                th:src="@{|/assets/images/products/${product.hinhAnh}|}">
-                                                        </td>
-                                                        <td>
-                                                            <i class="mdi mdi-border-color mdi-24px"
-                                                                style="color: red;"></i>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                    <a href=""><button type="button" class="btn btn-warning bi bi-plus">Thêm
+                                            mới</button></a>
+
+                                    <h5 class="mb-0">Danh sách bộ sách</h5> <br>
+                                </div>
+                                <p th:text="${message}"></p>
+                                <br>
+                                <div class="row">
+                                    <div style="height: 500px; overflow: auto;">
+                                        <table class="product-table" id="table1">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10%;">Mã Bộ Sách</th>
+                                                    <th style="width: 20%;">Tên Bộ Sách</th>
+                                                    <th style="width: 30%;">Mô tả</th>
+                                                    <th style="width: 20%;">Hình ảnh</th>
+                                                    <th style="width: 5%;">Sửa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr th:each="bosach : ${bosachs}">
+
+                                                    <td th:text="${bosach.id}"></td>
+                                                    <td th:text="${bosach.tenBoSach}"></td>
+                                                    <td th:text="${bosach.moTa}"></td>
+
+                                                    <td>
+
+                                                        <img alt="[[${bosach.hinhAnh}]]"
+                                                            th:src="@{|/assets/images/products/${bosach.hinhAnh}|}">
+                                                    </td>
+
+                                                    <td>
+                                                        <i class="mdi mdi-border-color mdi-24px"
+                                                            style="color: red;"></i>
+                                                    </td>
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-body">
+                    <h5>Popover in a modal</h5>
+                    <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
+                    <hr>
+                    <h5>Tooltips in a modal</h5>
+                    <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
+                  </div>
             </div>
+
         </div>
 
         <!-- Include JS scripts -->
@@ -158,7 +170,18 @@
 
         <!-- tiếng việt -->
         <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
-        <!-- chỉnh tiếng việt -->
+        <!-- Modal -->
+        <script>
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('whatever') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-body input').val(recipient)
+            })
+        </script>
         <script>
             $(document).ready(function () {
                 $('#table1').DataTable({

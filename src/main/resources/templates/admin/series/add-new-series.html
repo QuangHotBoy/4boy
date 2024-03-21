@@ -40,7 +40,7 @@
                     <div class="col-md-12">
                         <div class="card">
 
-                            <div class="bg-light p-4 border-bottom" style="height: 90px;">
+                            <!-- <div class="bg-light p-4 border-bottom" style="height: 90px;">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb mb-0">
                                         <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a>
@@ -52,89 +52,78 @@
                                         </li>
                                     </ol>
                                 </nav>
-                            </div>
+                            </div> -->
                             <div class=" p-"></div>
                             <div class="card-body">
                                 <div id="bootstrap-data-table_wrapper"
                                     class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-    
+
                                     <div class="d-flex align-items-center">
                                         <h5 class="mb-0">Thêm bộ sách</h5>
-    
+
                                     </div>
-    
-    
-    
+
+
+
                                     <br>
                                     <form:form action="/admin/product-series/create-new" modelAttribute="item"
                                         enctype="multipart/form-data">
                                         <div class="container">
-    
                                             <div class="row">
-                                                <div class="col-sm-6">
-                                                    <!-- <label for="collection" class="form-label">ID</label>
-                                                        <form:input path="id" class="form-control" id="id" placeholder="ID"
-                                                            readonly="true" /> -->
-    
-    
-    
-                                                    <div class="mb-1">
-                                                        <label for="collection" class="form-label">Tên Bộ Sách</label>
-                                                        <form:input path="tenBoSach" class="form-control" id="tenLoai"
-                                                            placeholder="Tên bộ sách" />
+                                                <div class="col-sm-5">
+                                                    <!-- Hình ảnh -->
+                                                    <label for="coverType" class="form-label">Hình ảnh</label>
+
+                                                    <!-- Display the selected image using a div as a frame -->
+                                                    <div
+                                                        style="width: 220px; height: 260px; border: 1px solid #ccc; overflow: hidden; position: relative;">
+                                                        <img style="width: 220px; height: 260px;" id="imgPreview" alt=""
+                                                            src="/image/product/${item.hinhAnh}">
+
+                                                        <!-- Input for selecting a new image (hidden) -->
+                                                        <input type="file" accept=".jpg, .png" name="photo_file"
+                                                            id="imgInput" style="display: none;"
+                                                            onchange="previewImage()">
+
+                                                        <!-- Add a transparent button to trigger file selection -->
+                                                        <button type="button" onclick="selectImage()"
+                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
+                                                    </div>
+                                                    <!-- <span class="error">${errorHinhAnh}</span> -->
+                                                </div>
+
+                                                <div class="col-sm-7">
+                                                    <div class="mb-3">
+                                                        <label for="tenBoSach" class="form-label">Tên Bộ Sách</label>
+                                                        <input type="text" class="form-control" id="tenBoSach"
+                                                            placeholder="Nhập tên bộ sách">
                                                     </div>
                                                     <!-- Mô tả -->
-                                                    <div class="mb-1">
-                                                        <label for="coverType" class="form-label">Mô tả</label>
-                                                        <form:textarea path="moTa" class="form-control" id="mota"
-                                                            placeholder="Mô tả" style="height: 310px;" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-5">
-                                                    <div class="col-sm-5">
-                                                        <!-- Hình ảnh -->
-                                                        <label for="coverType" class="form-label">Hình ảnh</label>
-    
-                                                        <!-- Display the selected image using a div as a frame -->
-                                                        <div
-                                                            style="width:  350px;; height: 500px; border: 1px solid #ccc; overflow: hidden; position: relative;">
-                                                            <img style="width: 100%; height: 100%;" id="imgPreview" alt=""
-                                                            src="/image/product/${item.hinhAnh}">
-                                                            <!-- <c:if test="${not empty img}">
-                                                                <img style="width: 100%; height: 100%;" id="imgPreview"
-                                                                    alt="" src="/image/product/${img}">
-                                                            </c:if> -->
-                                                            
-                                                            <!-- Input for selecting a new image (hidden) -->
-                                                            <input type="file" accept=".jpg, .png" name="photo_file"
-                                                                id="imgInput" style="display: none;"
-                                                                onchange="previewImage()">
-                                                            <!-- Add a transparent button to trigger file selection -->
-                                                            <button type="button" onclick="selectImage()"
-                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
-                                                        </div>
-                                                        <span class="error">${errorHinhAnh}</span>
-    
+                                                    <div class="mb-3">
+                                                        <label for="moTa" class="form-label">Mô tả</label>
+                                                        <textarea class="form-control" id="moTa"
+                                                            placeholder="Nhập mô tả" style="height: 310px;"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <!-- Các nút và liên kết -->
-                                            <button formaction="/admin/product-series/create-new" class="btn btn-primary"
-                                                style="margin-top: 25px; margin-bottom: 90px;">Thêm</button>&nbsp;&nbsp;
-    
-    
-    
-    
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button formaction="/admin/product-series/create-new"
+                                                        class="btn btn-primary mt-3">Thêm</button>
+                                                </div>
+                                            </div>
                                         </div>
-    
-                                    <!-- </form:form> -->
-    
-    
-    
-    
-    
-    
+
+
+                                        </form:form>
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -153,6 +142,8 @@
                 });
                 /*]]>*/
             </script>
+
+            
 
             <!-- thư viện -->
             <!-- container-scroller -->
