@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin - Sản phẩm</title>
-    <!-- plugins:css -->
     <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
     <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
     <!-- endinject -->
@@ -18,10 +17,7 @@
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- End plugin css for this page -->
-
 </head>
 
 <style>
@@ -49,9 +45,9 @@
     }
 
     #table1 img {
-        max-width: 80%;
+        max-width: 100%;
         /* Ensure images fit within their containers */
-        height: 180px;
+        height: 200px;
         /* Maintain aspect ratio of images */
         display: block;
         /* Display images as block elements */
@@ -77,223 +73,106 @@
     .dataTables_wrapper .dataTables_info {
         margin-top: 10px;
     }
-
-    .breadcrumb-item:not(:last-child)::after {
-        content: '/';
-        margin: 0 5px;
-    }
-
-    .breadcrumb-item a {
-        color: #007bff;
-        /* Màu chữ */
-        text-decoration: none;
-        /* Loại bỏ gạch chân */
-    }
-
-    .breadcrumb-item a:hover {
-        color: #0056b3;
-        /* Màu chữ khi hover */
-    }
-
-    .breadcrumb-item.active {
-        color: #555;
-        /* Màu chữ của mục active */
-    }
 </style>
 
+
 <body>
-    <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
-        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg"
-                        alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-                        src="../../assets/images/logo-mini.svg" alt="logo" /></a>
-            </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-                <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" action="#">
-                        <div class="input-group">
-                            <div class="input-group-prepend bg-transparent">
-                                <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                            </div>
-                            <input type="text" class="form-control bg-transparent border-0"
-                                placeholder="Search projects">
-                        </div>
-                    </form>
-                </div>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                    data-toggle="offcanvas">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-            </div>
-        </nav>
+    <div class="main-container d-flex">
+        <!-- Menu Admin -->
         <!-- partial:partials/_navbar.html -->
         <div th:replace="admin/navbar :: navbar"></div>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <div th:replace="admin/menu :: menu"></div>
-            <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper">
 
+            <!-- Bootstrap JavaScript Libraries -->
+            <div class="col-10 px-0">
+                <div class="container">
+                    <div class="">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="" style="height: 90px;">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Loại sách</a></li>
+    
+                                    </ol>
+                                </nav>
+                            </div>
 
+                            <div class="">
+                                <div id="bootstrap-data-table_wrapper"
+								class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+								<a href="/admin/product-type/add"><button type="button"
+										class="btn btn-warning bi bi-plus">Thêm mới</button></a>
+                                        <div style="margin-top: 20px;" class="d-flex align-items-center">
+									<h5 class="mb-0">Danh sách loại sản phẩm</h5>
 
+								</div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
+								
 
-                                    <form class="form-sample">
+								<br>
+								<div class="row">
+									<div style="height: 500px; overflow: auto;">
+										<table class="product-table" id="table1">
+											<thead>
+												<tr>
+													<th style="width: 30%;">Mã loại sách</th>
+													<th style="width: 30%;">Tên loại sách</th>
+													<th style="width: 40%;">Mô tả</th>
+													<th style="width: 20%;">Sửa</th>
 
-                                        <div id="bootstrap-data-table_wrapper"
-                                            class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                           
-                                                <!-- <ol class="breadcrumb ">
-                                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản
-                                                            phẩm</a></li>
-                                                    <li class="breadcrumb-item active" aria-current="page"><a
-                                                            href="">Sách</a></li>
-
-                                                </ol> -->
-                                          
-                                            <button type="button" class="btn btn-warning bi bi-plus"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                data-bs-whatever="@mdo">Thêm mới</button>
-
-                                            <!-- modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div style="margin-top: 100px;" class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
-                                                            </h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <div class="row">
-
-
-                                                                    <div class="mb-3">
-                                                                        <label for="tenBoSach" class="form-label">Tên
-                                                                            loại sách</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="tenBoSach" placeholder="">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="moTa" class="form-label">Mô
-                                                                            tả</label>
-                                                                        <textarea class="form-control" id="moTa"
-                                                                            placeholder=""
-                                                                            style="height: 138px;"></textarea>
-                                                                    </div>
-
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button"
-                                                                class="btn btn-warning bi bi-plus">Thêm
-                                                                mới</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- modal -->
-
-                                        </div>
-
-
-                                        <div class="card">
-
-                                            <div class="card-body" style="height: 500px; overflow: auto;">
-
-                                                <table class="product-table" id="table1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 30%;">Mã loại sách</th>
-                                                            <th style="width: 30%;">Tên loại sách</th>
-                                                            <th style="width: 40%;">Mô tả</th>
-                                                            <th style="width: 20%;">Sửa</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr th:each="phanloai : ${phanloais}">
-
-                                                            <td th:text="${phanloai.id}"></td>
-                                                            <td th:text="${phanloai.tenLoai}"></td>
-                                                            <td th:text="${phanloai.moTa}"></td>
-                                                            <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
-                                                            <td>
-                                                                <!-- <div
-                                                                                class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                                                <a href="/admin/product-type/edit/${phanloai.id }"
-                                                                                    class="text-warning" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom" aria-label="Edit"
-                                                                                    data-bs-original-title="Edit"><i
-                                                                                        class="bi bi-pencil-fill"></i></a>
-                                                                            </div> -->
-
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="phanloai : ${phanloais}">
+													
+														<td th:text="${phanloai.id}"></td>
+														<td th:text="${phanloai.tenLoai}"></td>
+														<td th:text="${phanloai.moTa}"></td>
+														<!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
+														<td>
+															<!-- <div
+																class="table-actions d-flex align-items-center gap-3 fs-5">
+																<a href="/admin/product-type/edit/${phanloai.id }"
+																	class="text-warning" data-bs-toggle="tooltip"
+																	data-bs-placement="bottom" aria-label="Edit"
+																	data-bs-original-title="Edit"><i
+																		class="bi bi-pencil-fill"></i></a>
+															</div> -->
+                                                          
                                                                 <i class="mdi mdi-border-color mdi-24px"
                                                                     style="color: red;"></i>
+                                                           
+														</td>
+													
+												</tr>
+											</tbody>
+										</table>
+									</div>
 
-                                                            </td>
 
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-
-                                        </div>
-                                </div>
-                                </form>
+								</div>
+							</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:../../partials/_footer.html -->
-
-            <!-- partial -->
+            </div>
         </div>
-        <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-    </div>
 
-    <!-- Include JS scripts -->
+        <!-- Include JS scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- tiếng việt -->
     <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
-    <!-- Modal -->
-    <script>
-        $('#exampleModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('whatever') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('Thêm loại sách')
-            modal.find('.modal-body input').val(recipient)
-        })
-    </script>
+    <!-- chỉnh tiếng việt -->
     <script>
         $(document).ready(function () {
             $('#table1').DataTable({
@@ -313,11 +192,5 @@
     </script>
     <!--  -->
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-</script>
 
 </html>

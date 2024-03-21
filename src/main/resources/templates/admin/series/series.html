@@ -18,7 +18,7 @@
     <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- End plugin css for this page -->
 
@@ -80,187 +80,146 @@
 </style>
 
 <body>
-    <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
-        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg"
-                        alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-                        src="../../assets/images/logo-mini.svg" alt="logo" /></a>
-            </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-                <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" action="#">
-                        <div class="input-group">
-                            <div class="input-group-prepend bg-transparent">
-                                <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                            </div>
-                            <input type="text" class="form-control bg-transparent border-0"
-                                placeholder="Search projects">
-                        </div>
-                    </form>
-                </div>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                    data-toggle="offcanvas">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-            </div>
-        </nav>
+    <div class="main-container ">
+        <!-- Menu Admin -->
         <!-- partial:partials/_navbar.html -->
         <div th:replace="admin/navbar :: navbar"></div>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <div th:replace="admin/menu :: menu"></div>
-            <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    <div class="page-header">
 
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                               
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="form-sample">
-                                        <div id="bootstrap-data-table_wrapper"
-                                            class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                                            <button type="button" class="btn btn-warning bi bi-plus" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Thêm mới</button>
-                                            <!-- modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div style="margin-top: 100px;" class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
-                                                            </h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
+            <!-- Bootstrap JavaScript Libraries -->
+            
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="" style="height: 90px;">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản phẩm</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><a href="">Sách</a></li>
+                                    </ol>
+                                </nav>
+                            </div>
 
-                                                                        <!-- Hình ảnh -->
-                                                                        <label for="coverType" class="form-label">Hình
-                                                                            ảnh</label>
+                            <div class="">
+                                <div id="bootstrap-data-table_wrapper"
+                                    class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Thêm mới</button>
+                                    <!-- modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div style="margin-top: 100px;" class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
 
-                                                                        <!-- Display the selected image using a div as a frame -->
-                                                                        <div
-                                                                            style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
-                                                                            <img style="width: 190px; height: 220px;"
-                                                                                id="imgPreview" alt=""
-                                                                                src="/image/product/${item.hinhAnh}">
+                                                                <!-- Hình ảnh -->
+                                                                <label for="coverType" class="form-label">Hình
+                                                                    ảnh</label>
 
-                                                                            <!-- Input for selecting a new image (hidden) -->
-                                                                            <input type="file" accept=".jpg, .png"
-                                                                                name="photo_file" id="imgInput"
-                                                                                style="display: none;"
-                                                                                onchange="previewImage()">
+                                                                <!-- Display the selected image using a div as a frame -->
+                                                                <div
+                                                                    style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
+                                                                    <img style="width: 190px; height: 220px;"
+                                                                        id="imgPreview" alt=""
+                                                                        src="/image/product/${item.hinhAnh}">
 
-                                                                            <!-- Add a transparent button to trigger file selection -->
-                                                                            <button type="button"
-                                                                                onclick="selectImage()"
-                                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="mb-3">
-                                                                            <label for="tenBoSach"
-                                                                                class="form-label">Tên Bộ
-                                                                                Sách</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="tenBoSach" placeholder="">
-                                                                        </div>
-                                                                        <div class="mb-3">
-                                                                            <label for="moTa" class="form-label">Mô
-                                                                                tả</label>
-                                                                            <textarea class="form-control" id="moTa"
-                                                                                placeholder=""
-                                                                                style="height: 138px;"></textarea>
-                                                                        </div>
-                                                                    </div>
+                                                                    <!-- Input for selecting a new image (hidden) -->
+                                                                    <input type="file" accept=".jpg, .png"
+                                                                        name="photo_file" id="imgInput"
+                                                                        style="display: none;"
+                                                                        onchange="previewImage()">
+
+                                                                    <!-- Add a transparent button to trigger file selection -->
+                                                                    <button type="button" onclick="selectImage()"
+                                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="tenBoSach" class="form-label">Tên Bộ
+                                                                        Sách</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="tenBoSach" placeholder="">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="moTa" class="form-label">Mô tả</label>
+                                                                    <textarea class="form-control" id="moTa"
+                                                                        placeholder=""
+                                                                        style="height: 138px;"></textarea>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button" class="btn btn-warning bi bi-plus">Thêm
-                                                                mới</button>
-                                                        </div>
-                                                    </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Send message</button>
                                                 </div>
                                             </div>
-                                            <!-- modal -->
-
                                         </div>
-                                        
-                                            
-                                                <div class="card">
+                                    </div>
+                                    <!-- modal -->
 
-                                                    <div class="card-body" style="height: 500px; overflow: auto;">
+                                </div>
 
-                                                        <table class="product-table" id="table1">
-                                                           
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="width: 10%;">Mã Bộ Sách</th>
-                                                                        <th style="width: 20%;">Tên Bộ Sách</th>
-                                                                        <th style="width: 30%;">Mô tả</th>
-                                                                        <th style="width: 20%;">Hình ảnh</th>
-                                                                        <th style="width: 5%;">Sửa</th>
-                                                                    </tr>
-                                                                </thead>
-    
-                                                                <tbody>
-                                                                    <tr th:each="bosach : ${bosachs}">
-                                                                        <td th:text="${bosach.id}"></td>
-                                                                        <td th:text="${bosach.tenBoSach}"></td>
-                                                                        <td th:text="${bosach.moTa}"></td>
-                                                                        <td>
-                                                                            <img alt="[[${bosach.hinhAnh}]]"
-                                                                                th:src="@{|/assets/images/products/${bosach.hinhAnh}|}">
-                                                                        </td>
-                                                                        <td>
-                                                                            <i class="mdi mdi-border-color mdi-24px"
-                                                                                style="color: red;"></i>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            
-                                                        </table>
+                                <br>
+                                <div class="row">
+                                    <div style="height: 500px; overflow: auto;">
+                                        <table class="product-table" id="table1">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10%;">Mã Bộ Sách</th>
+                                                    <th style="width: 20%;">Tên Bộ Sách</th>
+                                                    <th style="width: 30%;">Mô tả</th>
+                                                    <th style="width: 20%;">Hình ảnh</th>
+                                                    <th style="width: 5%;">Sửa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                                    </div>
+                                                <tr th:each="bosach : ${bosachs}">
 
-                                                </div>
-                                            </div>
-                                    </form>
+                                                    <td th:text="${bosach.id}"></td>
+                                                    <td th:text="${bosach.tenBoSach}"></td>
+                                                    <td th:text="${bosach.moTa}"></td>
+
+                                                    <td>
+
+                                                        <img alt="[[${bosach.hinhAnh}]]"
+                                                            th:src="@{|/assets/images/products/${bosach.hinhAnh}|}">
+                                                    </td>
+
+                                                    <td>
+                                                        <i class="mdi mdi-border-color mdi-24px"
+                                                            style="color: red;"></i>
+                                                    </td>
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:../../partials/_footer.html -->
-
-                <!-- partial -->
             </div>
-            <!-- main-panel ends -->
+
         </div>
-        <!-- page-body-wrapper ends -->
-    </div>
+   
 
     <!-- Include JS scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -277,7 +236,7 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
-            modal.find('.modal-title').text('Thêm bộ sách')
+            modal.find('.modal-title').text('New message to ' + recipient)
             modal.find('.modal-body input').val(recipient)
         })
     </script>
