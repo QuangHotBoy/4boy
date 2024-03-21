@@ -16,6 +16,9 @@ import com.poly.dao.BoSachDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.model.BoSach;
 import com.poly.model.SanPham;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
@@ -42,6 +45,7 @@ public class HomeController {
 
 		model.addAttribute("top8Product", top8Product);
 		model.addAttribute("top4Gallary", top4Gallary);
+		model.addAttribute("title", "Knotrea - Trang chủ");
 
 		return "shop/index";
 	}
@@ -50,7 +54,9 @@ public class HomeController {
 	public String listProduct(Model model) {
 
 		List<SanPham> list = productDAO.findAllSapXep();
+
 		model.addAttribute("list", list);
+		model.addAttribute("title", "Knotrea - Danh sách sản phẩm");
 
 		return "shop/list";
 	}
@@ -94,6 +100,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("product", product);
+		model.addAttribute("title", product.getTenSach());
 
 		return "shop/detail-item";
 	}
@@ -120,5 +127,11 @@ public class HomeController {
 	public String checkOut() {
 		return "shop/checkout";
 	}
+
+	@RequestMapping("shop/buy-now")
+	public String buyNow() {
+		return "shop/checkout";
+	}
+	
 
 }
