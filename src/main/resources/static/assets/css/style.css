@@ -2758,7 +2758,6 @@ sup {
 }
 
 a {
-  color: #0d6efd;
   text-decoration: underline;
 }
 
@@ -20835,7 +20834,6 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #ffffff;
   font-family: "ubuntu-regular", sans-serif;
   padding: 0;
   width: 260px;
@@ -20844,6 +20842,7 @@ dl li {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
+  background-color: #F4CC70;
 }
 
 .sidebar .nav {
@@ -20903,6 +20902,7 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link i.menu-icon:before {
   vertical-align: middle;
+  color: #6AB187;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-arrow {
@@ -20910,7 +20910,7 @@ dl li {
   line-height: 1;
   font-size: 1.125rem;
   margin-left: auto;
-  color: #9e9da0;
+  color: whitesmoke;
 }
 
 .rtl .sidebar .nav .nav-item .nav-link i.menu-arrow {
@@ -20934,9 +20934,9 @@ dl li {
 }
 
 .sidebar .nav .nav-item .nav-link .menu-title {
-  color: inherit;
+  color: whitesmoke;
   display: inline-block;
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1;
   vertical-align: middle; 
  
@@ -20956,7 +20956,7 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active>.nav-link .menu-title {
-  color: #0177b5;
+  color: black;
   font-family: 'Noto Sans', sans-serif;
   
 }
@@ -20967,6 +20967,7 @@ dl li {
 
 .sidebar .nav .nav-item:hover {
   background: #fcfcfc;
+  color: #000;
 }
 
 .sidebar .nav .nav-item.nav-profile .nav-link {
