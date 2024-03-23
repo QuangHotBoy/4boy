@@ -60,8 +60,8 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to right,
-    rgb(232, 242, 168),
-    rgba(237, 226, 129, 0.134)
+    rgb(242, 248, 51),
+    rgba(233, 225, 136, 0.134)
   ); 
 }
 .account-settings-multiselect ~ .select2-container {
