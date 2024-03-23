@@ -57,7 +57,19 @@ public class HomeController {
 		List<SanPham> list = productDAO.findAllSapXep();
 
 		model.addAttribute("list", list);
+		model.addAttribute("band", "DANH SÁCH SẢN PHẨM");
 		model.addAttribute("title", "Knotrea - Danh sách sản phẩm");
+
+		return "shop/list";
+	}
+
+	@RequestMapping("shop/list-sale")
+	public String listSale(Model model){
+		List<SanPham> products = productDAO.findByTinhTrangSanPham(3);
+
+		model.addAttribute("list", products);
+		model.addAttribute("band", "GIẢM GIÁ ĐẶC BIỆT");
+		model.addAttribute("title", "Knotrea - Giám giá đặc biệt");
 
 		return "shop/list";
 	}

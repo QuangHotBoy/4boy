@@ -2,19 +2,19 @@
     <div class="container mt-5">
         <div class="row pb-3">
             <div class="col-lg-3">
-                <div class="fs-5 fw-bolder p-2 border border-dark rounded-3">SẢN PHẨM ĐANG SALE</div>
+                <div class="fs-5 fw-bolder p-2 border border-warning text-warning rounded-3 mb-3">GIẢM GIÁ ĐẶC BIỆT</div>
             </div>
             <div class="col-lg-5"></div>
             <div class="col-lg-2 text-center"></div>
         </div>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div th:each="p: ${sale}">
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Sale badge-->
                         <div th:if="${p.tiLeGiamGia > 0}">
-                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem"
-                                th:utext="'- ' + ${p.tiLeGiamGia} + '%'">
+                            <div class="badge bg-warning text-white position-absolute"
+                                style="top: 0.5rem; right: 0.5rem" th:utext="'- ' + ${p.tiLeGiamGia} + '%'">
                             </div>
                         </div>
                         <!-- Product image-->
@@ -32,12 +32,12 @@
                                 </a>
                                 <!-- Product price-->
                                 <div th:if="${p.tiLeGiamGia == 0}">
-                                    <p class="text-danger fw-bold"
+                                    <p class="text-warning fw-bold"
                                         th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
                                     </p>
                                 </div>
                                 <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
-                                    <p class="text-danger fw-bold me-3"
+                                    <p class="text-warning fw-bold me-3"
                                         th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
                                     </p>
                                     <span class="text-decoration-line-through text-gray"
@@ -66,7 +66,7 @@
             </div>
             <div class="row pb-3">
                 <div class="col-lg-10 text-center">
-                    <div class="ms-3 fs-5 p-2 border border-dark rounded-3"><a th:href="@{/shop/list}"
+                    <div class="ms-3 fs-5 p-2 border border-dark rounded-3"><a th:href="@{/shop/list-sale}"
                             class="text-decoration-none text-black">Xem
                             thêm...</a></div>
                 </div>

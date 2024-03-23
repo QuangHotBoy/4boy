@@ -58,3 +58,7 @@
   min-width: 800px;
   min-height: 180px;
 }
+
+.bg-style{
+  background-color: rgb(235, 235, 235);
+}

@@ -20,13 +20,13 @@ function sortProducts(option) {
       products.sort(function (a, b) {
         var priceA = parseFloat(
           a
-            .querySelector(".text-danger.fw-bold")
+            .querySelector(".text-warning.fw-bold")
             .textContent.replace(" vnđ", "")
             .replace(/\./g, "")
         );
         var priceB = parseFloat(
           b
-            .querySelector(".text-danger.fw-bold")
+            .querySelector(".text-warning.fw-bold")
             .textContent.replace(" vnđ", "")
             .replace(/\./g, "")
         );
@@ -37,13 +37,13 @@ function sortProducts(option) {
       products.sort(function (a, b) {
         var priceA = parseFloat(
           a
-            .querySelector(".text-danger.fw-bold")
+            .querySelector(".text-warning.fw-bold")
             .textContent.replace(" vnđ", "")
             .replace(/\./g, "")
         );
         var priceB = parseFloat(
           b
-            .querySelector(".text-danger.fw-bold")
+            .querySelector(".text-warning.fw-bold")
             .textContent.replace(" vnđ", "")
             .replace(/\./g, "")
         );
