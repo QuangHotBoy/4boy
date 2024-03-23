@@ -15,7 +15,7 @@ import com.poly.model.TaiKhoan;
 @Controller
 public class AccountController {
     @Autowired
-    TaiKhoanDAO tkDAO;
+    TaiKhoanDAO tkDAO; 
 
     @Autowired
     Quyen_TaiKhoanDAO quyenTKDao;

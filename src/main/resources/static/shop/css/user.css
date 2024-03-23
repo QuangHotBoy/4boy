@@ -53,15 +53,15 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
     to right,
-    rgb(71, 57, 57),
-    rgb(175, 153, 153)
+    rgb(235, 226, 153),
+    rgb(233, 225, 150)
   );
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to right,
-    rgb(120, 111, 111),
-    rgba(156, 139, 139, 0.134)
+    rgb(232, 242, 168),
+    rgba(237, 226, 129, 0.134)
   ); 
 }
 .account-settings-multiselect ~ .select2-container {
