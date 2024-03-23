@@ -20885,7 +20885,7 @@ dl li {
 }
 
 .sidebar .nav .nav-item .nav-link i {
-  color: inherit;
+  color: whitesmoke;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-icon {
@@ -20902,7 +20902,7 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link i.menu-icon:before {
   vertical-align: middle;
-  color: #6AB187;
+  color: whitesmoke;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-arrow {
