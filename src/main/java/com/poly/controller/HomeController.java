@@ -59,10 +59,8 @@ public class HomeController {
 	public String listProduct(Model model) {
 
 		List<SanPham> list = productDAO.findAllSapXep();
-		List<PhanLoai> types = typeDao.findAll();
 
 		model.addAttribute("list", list);
-		//ggmodel.addAttribute("types", types);
 		model.addAttribute("title", "Knotrea - Danh sách sản phẩm");
 
 		return "shop/list";
@@ -141,7 +139,7 @@ public class HomeController {
 
 		model.addAttribute("products", product);
 
-		return "shop/checkout";
+		return "shop/buy-now";
 	}
 	
 
