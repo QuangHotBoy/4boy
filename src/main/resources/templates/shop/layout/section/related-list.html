@@ -1,47 +1,61 @@
 <section class="py-1 mb-3 bg-light container" th:fragment="related">
     <div class=" px-3 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Danh Sách Sản Phẩm Liên Quan</h2>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div th:each="p: ${relatedProducts}" class="col mb-3">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <div class="image-container">
-                        <img class="card-img-top mx-auto" loading="lazy"
-                            th:src="@{|/shop/image/product/${p.hinhAnh}|}" alt="..." />
-                    </div>
-                    <!-- Product details-->
-                    <div class="card-body p-2">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
-                            <!-- Product price-->
-                            <!-- Assuming 'number' is your variable holding the number -->
-                            <div th:if="${p.tiLeGiamGia == 0}">
-                                <p class="text-danger fw-bold"
-                                    th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
-                                </p>
-                            </div>
-                            <div th:if="${p.tiLeGiamGia > 0}">
-                                <p class="text-danger fw-bold"
-                                    th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
-                                </p>
-                                <span class="text-decoration-line-through text-gray"
-                                    th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer justify-content-center border-top-0 bg-transparent d-flex">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" th:href="@{/shop/buy-now}"
-                                data-isbn="${p.isbn}">Mua ngay</a>
-                        </div>
-                        <div class="text-center ms-3">
-                            <a class="btn btn-outline-dark mt-auto" th:href="@{/shop/product/add-to-cart}"
-                                data-isbn="${p.isbn}"><i class="fas fa-cart-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div th:each="p: ${relatedProducts}">
+                <div class="col mb-3">
+					<div class="card h-100">
+						<!-- Sale badge-->
+						<div th:if="${p.tiLeGiamGia > 0}">
+							<div class="badge bg-warning text-white position-absolute" style="top: 0.5rem; right: 0.5rem"
+								th:utext="'- ' + ${p.tiLeGiamGia} + '%'">
+							</div>
+						</div>
+						<!-- Product image-->
+						<div class="image-container">
+							<img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${p.hinhAnh}|}"
+								alt="..." />
+						</div>
+						<!-- Product details-->
+						<div class="card-body p-4 h-75">
+							<div class="text-start">
+								<!-- Product name-->
+								<a th:href="@{|/shop/product/${p.isbn}|}" loading="lazy"
+									class="text-decoration-none text-black">
+									<h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
+								</a>
+								<!-- Product price-->
+								<div th:if="${p.tiLeGiamGia == 0}">
+									<p class="text-warning fw-bold"
+										th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+									</p>
+								</div>
+								<div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
+									<p class="text-warning fw-bold me-3"
+										th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+									</p>
+									<span class="text-decoration-line-through text-gray"
+										th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
+								</div>
+							</div>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
+							<div class="text-center">
+								<a class="btn btn-outline-warning mt-auto" th:href="@{/shop/buy-now}"
+									th:data-isbn="${p.isbn}">Mua ngay</a>
+							</div>
+							<div class="text-center ms-3">
+								<a class="btn btn-outline-warning mt-auto" th:href="@{/shop/product/add-to-cart}"
+									th:data-isbn="${p.isbn}"><i class="fas fa-cart-plus"></i></a>
+							</div>
+							<div class="text-center ms-3">
+								<a class="btn border border-warning mt-auto" th:href="@{|/shop/product/add-to-favorite|}"
+									th:data-isbn="${p.isbn}"><i class="far fa-heart"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </div>

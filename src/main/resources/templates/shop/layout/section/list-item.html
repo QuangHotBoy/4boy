@@ -37,7 +37,7 @@
 										th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
 									</p>
 								</div>
-								<div th:if="${p.tiLeGiamGia > 0}" class="justify-content-center d-flex">
+								<div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
 									<p class="text-danger fw-bold me-3"
 										th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
 									</p>
@@ -49,7 +49,7 @@
 						<!-- Product actions-->
 						<div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
 							<div class="text-center">
-								<a class="btn btn-outline-warning mt-auto" th:href="@{/shop/buy-now}"
+								<a class="btn btn-outline-warning mt-auto" th:href="@{/shop/buy-now(isbn=${p.isbn}, quantity=1)}"
 									th:data-isbn="${p.isbn}">Mua ngay</a>
 							</div>
 							<div class="text-center ms-3">

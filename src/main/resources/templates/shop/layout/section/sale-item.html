@@ -24,7 +24,7 @@
                         </div>
                         <!-- Product details-->
                         <div class="card-body p-4 h-75">
-                            <div class="text-center">
+                            <div class="text-start">
                                 <!-- Product name-->
                                 <a th:href="@{|/shop/product/${p.isbn}|}" loading="lazy"
                                     class="text-decoration-none text-black">
@@ -36,7 +36,7 @@
                                         th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
                                     </p>
                                 </div>
-                                <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-center d-flex">
+                                <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
                                     <p class="text-danger fw-bold me-3"
                                         th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
                                     </p>
