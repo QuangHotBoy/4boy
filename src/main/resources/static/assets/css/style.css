@@ -7111,7 +7111,7 @@ fieldset:disabled .btn {
 
 .dropdown-item.active,
 .dropdown-item:active {
-  color: #fff;
+  color: #9c1e1e;
   text-decoration: none;
   background-color: #0d6efd;
 }
@@ -7154,7 +7154,7 @@ fieldset:disabled .btn {
 
 .dropdown-menu-dark .dropdown-item:hover,
 .dropdown-menu-dark .dropdown-item:focus {
-  color: #fff;
+  color: #3d0f0f;
   background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -19574,7 +19574,7 @@ code {
 
 .dropdown .dropdown-menu .dropdown-item:hover {
   background-color: #f8f9fa;
-  color: #ffffff;
+  color: #336699;
 }
 
 /* Forms */
@@ -20885,7 +20885,9 @@ dl li {
 }
 
 .sidebar .nav .nav-item .nav-link i {
-  color: whitesmoke;
+  color: #336633;
+  width: 18px;
+  height: 18px;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-icon {
@@ -20902,7 +20904,7 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link i.menu-icon:before {
   vertical-align: middle;
-  color: whitesmoke;
+  color: #336633;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-arrow {
