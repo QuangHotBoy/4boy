@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.poly.model.SanPham;
+import com.poly.model.TrangThaiSach;
 
-import org.springframework.data.domain.Pageable;
 
 public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
 
@@ -19,13 +19,13 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
     @Query("SELECT s FROM SanPham s WHERE s.nhaXuatBan.id = :maNCC")
     List<SanPham> findByNhaCungCap(@Param("maNCC") Long mcc);
 
-    @Query("SELECT s FROM SanPham s WHERE s.boSach.id = :id")
-    List<SanPham> findByBoSach(@Param("id") Long id);
-
     List<SanPham> findByTenSachContaining(String tenSanPham);
 
     @Query("SELECT p FROM SanPham p ORDER BY p.isbn DESC")
     List<SanPham> findAllSapXep();
+
+    @Query("SELECT p FROM SanPham p WHERE p.tinhTrangSanPham.id = :id")
+    List<SanPham> findByTinhTrangSanPham(int id);
 
     // Thống kê sản phẩm bán được
     // @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS

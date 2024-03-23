@@ -1,6 +1,6 @@
 // Lấy danh sách sản phẩm
 var productList = document.querySelector(
-  ".row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center"
+  ".row.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center"
 );
 
 // Lấy tùy chọn sắp xếp từ dropdown

@@ -12,10 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poly.dao.BoSachDAO;
+import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
-import com.poly.model.BoSach;
+import com.poly.model.NhaXuatBan;
 import com.poly.model.PhanLoai;
 import com.poly.model.SanPham;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,10 +29,10 @@ public class HomeController {
 	SanPhamDAO productDAO;
 
 	@Autowired
-	BoSachDAO gallaryDAO;
+	PhanLoaiDAO typeDao;
 
 	@Autowired
-	PhanLoaiDAO typeDao;
+	NhaXuatBanDAO publisingDAO;
 
 	@RequestMapping("")
 	public String home() {
@@ -44,12 +44,11 @@ public class HomeController {
 
 		List<SanPham> products = productDAO.findAllSapXep();
 		List<SanPham> top8Product = products.subList(0, Math.min(products.size(), 8));
+		List<SanPham> productsSale = productDAO.findByTinhTrangSanPham(3);
+		List<SanPham> top8Sale = productsSale.subList(0, Math.min(productsSale.size(), 4));
 
-		List<BoSach> gallarys = gallaryDAO.findAll();
-		List<BoSach> top4Gallary = gallarys.subList(0, Math.min(gallarys.size(), 4));
-
+		model.addAttribute("sale", top8Sale);
 		model.addAttribute("top8Product", top8Product);
-		model.addAttribute("top4Gallary", top4Gallary);
 		model.addAttribute("title", "Knotrea - Trang chủ");
 
 		return "shop/index";
@@ -76,10 +75,6 @@ public class HomeController {
 		ArrayList<SanPham> relatedProducts = new ArrayList<>();
 		relatedProducts.addAll(relatedType);
 		relatedProducts.addAll(relatedNXB);
-		if (product.getBoSach() != null) {
-			List<SanPham> relatedGallary = productDAO.findByBoSach(product.getBoSach().getId());
-			relatedProducts.addAll(relatedGallary);
-		}
 
 		// Loại bỏ các phần tử trùng lặp từ relatedProducts
 		HashSet<SanPham> uniqueRelatedProducts = new HashSet<>(relatedProducts);
@@ -110,19 +105,16 @@ public class HomeController {
 		return "shop/detail-item";
 	}
 
-	@RequestMapping("shop/gallary/{id}")
-	public String detailGallary(Model model, @PathVariable("id") Long id) {
+	// @RequestMapping("shop/publishing/{id}")
+	// public String detailPublishing(Model model, @PathVariable("id") Long id) {
 
-		BoSach gallary = gallaryDAO.findById(id).get();
-		List<SanPham> products = productDAO.findByBoSach(id);
+	// 	NhaXuatBan publising = publisingDAO.findById(id).get();
 
-		model.addAttribute("gallary", gallary);
-		model.addAttribute("tacGia", products.get(0).getTacGia());
-		model.addAttribute("products", products);
+	// 	model.addAttribute("pub", publising);
 
-		return "shop/detail-gallary";
-	}
-
+	// 	return "shop/publishing";
+	// }
+	
 	@RequestMapping("shop/auth/cart")
 	public String cart() {
 		return "shop/cart";
@@ -134,9 +126,10 @@ public class HomeController {
 	}
 
 	@RequestMapping("shop/buy-now")
-	public String buyNow(Model model, @RequestParam Long isbn) {
+	public String buyNow(Model model, @RequestParam Long isbn, @RequestParam Integer quantity) {
 		SanPham product = productDAO.findById(isbn).get();
 
+		model.addAttribute("quantity", quantity);
 		model.addAttribute("products", product);
 
 		return "shop/buy-now";

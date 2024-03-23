@@ -40,10 +40,6 @@ public class SanPham implements Serializable {
     @JoinColumn(name = "nha_xuat_ban")
     private NhaXuatBan nhaXuatBan;
 
-    @ManyToOne
-    @JoinColumn(name = "ma_bo_sach")
-    private BoSach boSach;
-
     @Column(name = "hinh_anh", columnDefinition = "VARCHAR(MAX)")
     private String hinhAnh;
 
@@ -97,9 +93,6 @@ public class SanPham implements Serializable {
 
     @Transient
     private List<NhaXuatBan> nhaXuatBans;
-
-    @Transient
-    private List<BoSach> boSachs;
 
     @Transient
     private List<TrangThaiSach> tinhtrangs;

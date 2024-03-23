@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.poly.dao.BoSachDAO;
 import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
@@ -36,9 +35,6 @@ public class ProductController {
 
 	@Autowired
 	PhanLoaiDAO plDAO;
-
-	@Autowired
-	BoSachDAO bsDAO;
 
 	@Autowired
 	NhaXuatBanDAO nxbDAO;

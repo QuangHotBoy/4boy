@@ -53,3 +53,8 @@
       display: none;
   }
 }
+
+.img-w1000-h200{
+  min-width: 800px;
+  min-height: 180px;
+}
