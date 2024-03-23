@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
-import com.poly.model.NhaXuatBan;
-import com.poly.model.PhanLoai;
 import com.poly.model.SanPham;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
