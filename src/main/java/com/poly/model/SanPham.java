@@ -72,7 +72,7 @@ public class SanPham implements Serializable {
     private String kieuBia;
     @Column(name = "so_luong")
     private Integer soLuong;
-    
+
     // @ManyToOne
     // @JoinColumn(name = "tinh_trang")
     // private TrangThaiSach tinhTrangSanPham;

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.dao.BoSachDAO;
+import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.model.BoSach;
+import com.poly.model.PhanLoai;
 import com.poly.model.SanPham;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +30,9 @@ public class HomeController {
 
 	@Autowired
 	BoSachDAO gallaryDAO;
+
+	@Autowired
+	PhanLoaiDAO typeDao;
 
 	@RequestMapping("")
 	public String home() {
@@ -54,8 +59,10 @@ public class HomeController {
 	public String listProduct(Model model) {
 
 		List<SanPham> list = productDAO.findAllSapXep();
+		List<PhanLoai> types = typeDao.findAll();
 
 		model.addAttribute("list", list);
+		//ggmodel.addAttribute("types", types);
 		model.addAttribute("title", "Knotrea - Danh sách sản phẩm");
 
 		return "shop/list";
