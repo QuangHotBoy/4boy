@@ -20886,6 +20886,8 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link i {
   color: #336633;
+  width: 18px;
+  height: 18px;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-icon {
