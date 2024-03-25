@@ -32,20 +32,26 @@ public class LoaiController {
         List<PhanLoai> productPage = plDAO.findAll();
         model.addAttribute("phanloais", productPage);
 
-        // List<PhanLoai> productType = plDAO.findAll();
-        // model.addAttribute("phanloais", productType);
         return "/admin/product-types/product-type";
     }
 
-    // form loại
-    @RequestMapping("/admin/product-type/add")
-    public String formloai() {
-        // List<PhanLoai> boSachList = plDAO.findAll();
-        // System.out.println(boSachList);
+    @RequestMapping("/admin/product-type/{id}")
+    public String edit(Model model, @PathVariable("id") int id) {
+        PhanLoai phanloai = plDAO.findById(id).get();
+        model.addAttribute("phanloai", phanloai);
+        return "admin/product-types/product-type";
 
-        // model.addAttribute("listPL", boSachList);
-        return "/admin/product-types/add-product-type";
     }
+
+    // form loại
+    // @RequestMapping("/admin/product-type/add")
+    // public String formloai() {
+    // // List<PhanLoai> boSachList = plDAO.findAll();
+    // // System.out.println(boSachList);
+
+    // // model.addAttribute("listPL", boSachList);
+    // return "/admin/product-types/add-product-type";
+    // }
 
     // thêm loại
     @RequestMapping("/admin/product-type/create-type")
