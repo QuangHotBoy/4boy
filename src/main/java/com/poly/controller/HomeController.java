@@ -140,6 +140,7 @@ public class HomeController {
 
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("products", product);
+		model.addAttribute("title", "Knotrea - Thanh toán sản phẩm");
 
 		return "shop/buy-now";
 	}

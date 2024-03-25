@@ -1,7 +1,3 @@
-document.getElementById("buyNowBtn").addEventListener("click", function () {
-  window.location.href = "/shop/auth/order/check-out";
-});
-
 document.addEventListener("DOMContentLoaded", function() {
   var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
 

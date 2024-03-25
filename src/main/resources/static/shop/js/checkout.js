@@ -1,25 +1,3 @@
-// window.addEventListener("load", function () {
-//   var price = document.getElementsByName("prices")[0].value;
-//   var shipper = document.getElementById("shipper").value;
-//   console.log(price);
-//   var total = parseInt(price);
-
-//   // Kiểm tra xem có phải là số không
-//   if (!isNaN(total)) {
-//     // Định dạng tiền tệ và gán giá trị vào phần tử
-//     var formattedTongTien = total.toLocaleString("vi-VN", {
-//       style: "currency",
-//       currency: "VND",
-//     });
-//     var element = document.getElementById("total-payment-info");
-//     element.innerHTML = formattedTongTien;
-
-//     var totalPayment = this.document.getElementById("totalPayment");
-//     totalPayment.value = total;
-//   } else {
-//     console.log("Giá trị không hợp lệ");
-//   }
-// });
 window.addEventListener("load", function() {
 	// Lấy giá trị từ input
 	var prices = $("input[name='prices']").val();
