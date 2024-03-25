@@ -1,27 +1,42 @@
 package com.poly.controller.rest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.dao.MaGiamGiaDAO;
 import com.poly.model.MaGiamGia;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+@CrossOrigin("*") 
 @RestController
 public class RestCheckoutCotroller {
     
     @Autowired
     MaGiamGiaDAO voucherDAO;
 
-    @RequestMapping("shop/check-out/voucher/{id}")
-    public String checkVoucher(@PathVariable("id") String id) {
+    @PostMapping("shop/check-out/add-voucher")
+    @ResponseBody
+    public Map<String, Object> checkVoucher(@RequestParam("voucher") String id) {
+        Map<String, Object> response = new HashMap<>();
 
-        MaGiamGia voucher = voucherDAO.findById(id).get();
+        MaGiamGia voucher = voucherDAO.findById(id).orElse(null);
 
-        return new String();
+        if(voucher != null){
+            response.put("isValid", true);
+
+            response.put("discount", voucher.getSoTienGiam());
+        }else{
+            response.put("isValid", false);
+        }
+
+        return response;
     }
     
 }
