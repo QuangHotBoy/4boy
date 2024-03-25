@@ -30,8 +30,12 @@ public class RestCheckoutCotroller {
 
         if(voucher != null){
             response.put("isValid", true);
-
-            response.put("discount", voucher.getSoTienGiam());
+            if (voucher.getSoLuong() == 0 || voucher.getKetThuc()) {
+                response.put("isActive", true);
+                response.put("discount", voucher.getSoTienGiam());
+            }else{
+                response.put("isActive", false);
+            }
         }else{
             response.put("isValid", false);
         }

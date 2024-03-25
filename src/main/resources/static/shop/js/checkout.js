@@ -48,29 +48,41 @@ function submitForm() {
           showConfirmButton: false,
         });
       } else {
-        var discountAmount = response.discount;
-        $(".voucher-info").text(
-          "-" +
-            discountAmount.toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })
-        );
+        if (!response.isActive) {
+          Swal.fire({
+            title: "Knotrea Thông Báo!",
+            text: "Mã giảm giá đã kết thúc!",
+            icon: "error",
+            timer: 1000,
+            showConfirmButton: false,
+          });
+        } else {
+          $("#voucherCode").attr("readonly", true);
 
-        // Tính toán tổng thanh toán sau giảm giá
-        var totalPayment = thanhToan - discountAmount;
+          var discountAmount = response.discount;
+          $(".voucher-info").text(
+            "-" +
+              discountAmount.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })
+          );
 
-        console.log(totalPayment);
+          // Tính toán tổng thanh toán sau giảm giá
+          var totalPayment = thanhToan - discountAmount;
 
-        // Định dạng số và gán vào total-payment-info
-        var formattedTotalPayment = totalPayment.toLocaleString("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        });
-        $(".total-payment-infor").text(formattedTotalPayment);
+          console.log(totalPayment);
 
-        // Gán giá trị vào input
-        $("input[name='totalPayment']").val(totalPayment);
+          // Định dạng số và gán vào total-payment-info
+          var formattedTotalPayment = totalPayment.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          });
+          $(".total-payment-infor").text(formattedTotalPayment);
+
+          // Gán giá trị vào input
+          $("input[name='totalPayment']").val(totalPayment);
+        }
       }
     },
     error: function (error) {
