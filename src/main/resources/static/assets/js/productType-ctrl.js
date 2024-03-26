@@ -70,18 +70,19 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.form = {}
     }
     //hàm edit
-    $scope.edit = function (productId) {
-        $http.get('/rest/productsType')
+    $scope.edit = function(id) {
+        $http.get(`/rest/productsType/${id}`) // Sử dụng id để xác định sản phẩm cần lấy
             .then(resp => {
-                $scope.items = resp.data;
-                // Gán dữ liệu từ items vào form
-                $scope.form = $scope.items[0]; // Ví dụ: Lấy dữ liệu từ phần tử đầu tiên của items
+                $scope.items = resp.data; // Gán dữ liệu từ resp.data vào items
+                // Gán dữ liệu từ resp.data vào form
             })
             .catch(error => {
                 console.log("Error", error);
                 alert("Lỗi lấy dữ liệu sản phẩm!");
             });
     };
+    
+    
 
     $scope.loadData = function () {
         $http.get('/rest/productsType')
@@ -130,19 +131,28 @@ app.controller("myCtrl", function ($scope, $http) {
     }
 
 
-
+    //hàm update
     $scope.update = function () {
-        var item = angular.copy($scope.form);
-        $http.put(`/rest/productsType/${item.id}`, item).then(resp => {
-                var index = $scope.items.findIndex(p => p.id == item.id);
-                $scope.items[index] = item;
-                alert("Cập nhật sản phẩm thành công!");
+        var item = angular.copy($scope.form); // Tạo một bản sao của đối tượng form để tránh ảnh hưởng đến dữ liệu gốc
+        $http.put(`/rest/productsType/${item.id}`, item) // Gửi yêu cầu PUT để cập nhật dữ liệu sản phẩm
+            .then(resp => {
+                var index = $scope.items.findIndex(p => p.id === item.id);
+                if (index !== -1) { // Kiểm tra nếu index hợp lệ
+                    // Gán dữ liệu mới vào đối tượng tại vị trí index thay vì gán lại item vào items[index]
+                    $scope.items[index].tenLoai = item.tenLoai;
+                    $scope.items[index].moTa = item.moTa;
+                    alert("Cập nhật sản phẩm thành công!");
+                } else {
+                    alert("Không tìm thấy sản phẩm cần cập nhật trong danh sách!");
+                }
             })
             .catch(error => {
-                alert("Lỗi cập nhật sản phẩm!");
                 console.log("Error", error);
+                alert("Lỗi cập nhật sản phẩm!");
             });
-    }
+    };
+    
+
 
     $scope.delete = function (item) {
         if (confirm("Bạn muốn xóa sản phẩm này?")) {

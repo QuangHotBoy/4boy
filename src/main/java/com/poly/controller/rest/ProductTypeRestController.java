@@ -30,7 +30,7 @@ public class ProductTypeRestController {
 	public List<PhanLoai> getAll() {
 		return productTypeService.findAll();
 	}
-	@GetMapping("{id}")
+	@GetMapping("/rest/productsType/{id}")
 	public PhanLoai getOne(@PathVariable("id") Integer id) {
 		return productTypeService.findById(id);
 	}
