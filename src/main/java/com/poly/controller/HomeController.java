@@ -151,4 +151,9 @@ public class HomeController {
 		return "shop/buy-now";
 	}
 
+	@RequestMapping("shop/order/thank-for-order")
+    public String orderSuccess(Model model) {
+        return "shop/complete-order";
+    }
+
 }

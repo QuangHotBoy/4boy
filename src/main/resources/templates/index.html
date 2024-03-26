@@ -18,6 +18,8 @@
   <link rel="stylesheet" th:href="@{/assets/css/style.css}">
   <!-- End layout styles -->
   <link rel="shortcut icon" th:href="@{/assets/images/dashboard/img-logo-removebg-preview.png}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
   <style>
     /* CSS cho hover màu xám nhạt */
     .nav-link:hover {
@@ -34,13 +36,14 @@
       color: #000;
       font-family: 'Noto Sans', sans-serif;
     }
-    #menu-title{
+
+    #menu-title {
       font-family: 'Noto Sans', sans-serif;
     }
   </style>
 </head>
 
-<body>
+<body ng-app="admin-app">
   <div class="container-scroller">
     <div class="row p-0 m-0 proBanner" id="proBanner">
       <div class="col-md-12 p-0 m-0">
@@ -52,7 +55,10 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_sidebar.html -->
-      <div th:replace="admin/menu :: menu"></div>
+      <div ng-view>
+        <div th:replace="admin/menu :: menu"></div>
+      </div>
+      
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -138,7 +144,8 @@
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->
-
+  <!-- gọi js -->
+  <script src="/assets/js/productType-ctrl.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 package com.poly.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,5 +40,8 @@ public class ChiTietDonDatHang implements Serializable {
 
     @Column(name = "so_luong")
     private Integer soLuong;
+
+    @Column(name = "don_gia", precision = 10, scale = 0)
+    private BigDecimal donGia;
 
 }

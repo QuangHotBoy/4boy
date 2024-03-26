@@ -37,6 +37,11 @@ public class AdminController {
 	public String index() {
 		return "index";
 	}
+	
+    // @RequestMapping({"/admin","admin/dashboard"})
+	// public String index() {
+	// 	return "/index";
+	// }
 	@RequestMapping("shop/admin/voucher")
 	public String voucher(Model model) {
 		List<MaGiamGia> mggs = mggDAO.findAll();	
