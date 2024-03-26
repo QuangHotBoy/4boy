@@ -31,8 +31,8 @@ public class LoaiController {
     @RequestMapping("/admin/product-type")
     public String loaisanpham(Model model, @RequestParam(defaultValue = "0") int page) {
 
-        List<PhanLoai> productPage = productTypeService.findAll();
-        model.addAttribute("items", productPage);
+        List<PhanLoai> list = productTypeService.findAll();
+        model.addAttribute("items", list);
 
         return "/admin/product-types/product-type";
     }
@@ -41,7 +41,7 @@ public class LoaiController {
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		PhanLoai item = productTypeService.findById(id);
 		model.addAttribute("item", item);
-		return "product/detail";
+		return "/admin/product-types/product-type";
 	}
 
     // form loại

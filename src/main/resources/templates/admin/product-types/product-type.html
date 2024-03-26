@@ -210,19 +210,22 @@
                                                                 mới</button>
                                                             <!-- Nút "Làm trắng form" -->
                                                             <button type="button" class="btn btn-secondary"
-                                                                ng-click="clearForm()">Làm mới</button>
+                                                                ng-click="reset()">Làm mới</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- modal -->
                                             <!-- form edit -->
-                                            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div style="margin-top: 100px;" class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form>
@@ -239,15 +242,18 @@
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button" class="btn btn-warning bi bi-plus" ng-click="update()">Cập nhật</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                                ng-click="update()">Cập nhật</button>
                                                             <!-- Nút "Làm trắng form" -->
-                                                            <button type="button" class="btn btn-secondary" ng-click="clearForm()">Làm mới</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                ng-click="reset()">Làm mới</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
 
 
@@ -273,20 +279,9 @@
                                                             <td th:text="${item.moTa}"></td>
                                                             <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
                                                             <td>
-                                                                <!-- <div
-                                                                                class="table-actions d-flex align-items-center gap-3 fs-5">
-                                                                                <a href="/admin/product-type/edit/${phanloai.id }"
-                                                                                    class="text-warning" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom" aria-label="Edit"
-                                                                                    data-bs-original-title="Edit"><i
-                                                                                        class="bi bi-pencil-fill"></i></a>
-                                                                            </div> -->
-
-                                                                <!-- <i class="mdi mdi-border-color mdi-24px"
-                                                                    style="color: red;"></i> -->
                                                                 <!-- Nút "Chỉnh sửa" -->
                                                                 <button type="button" class="btn btn-primary"
-                                                                    ng-click="edit(item)" data-bs-toggle="modal"
+                                                                    ng-click="edit()" data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModal1">Chỉnh sửa</button>
 
 

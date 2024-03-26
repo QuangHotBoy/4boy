@@ -65,21 +65,41 @@ app.controller("myCtrl", function ($scope, $http) {
         });
         $scope.reset();
     }
-
+    //hàm làm mới
     $scope.reset = function () {
-        $scope.form = {
+        $scope.form = {}
+    }
+    //hàm edit
+    $scope.edit = function (productId) {
+        $http.get('/rest/productsType')
+            .then(resp => {
+                $scope.items = resp.data;
+                // Gán dữ liệu từ items vào form
+                $scope.form = $scope.items[0]; // Ví dụ: Lấy dữ liệu từ phần tử đầu tiên của items
+            })
+            .catch(error => {
+                console.log("Error", error);
+                alert("Lỗi lấy dữ liệu sản phẩm!");
+            });
+    };
 
-            available: true,
-            image: "cloud-upload.jpg"
-        }
-    }
-    // hàm lấy dữ liệu
-    $scope.edit = function(item) {
-        $scope.form = angular.copy(item);
-        $('#exampleModal1').modal('show'); // Mở modal
-    }
-    
-    
+    $scope.loadData = function () {
+        $http.get('/rest/productsType')
+            .then(resp => {
+                // Gán dữ liệu nhận được từ resp.data vào biến items trong $scope
+                $scope.items = resp.data;
+                console.log("Dữ liệu đã được tải:", $scope.items);
+            })
+            .catch(error => {
+                console.log("Lỗi khi tải dữ liệu:", error);
+                alert("Đã xảy ra lỗi khi tải dữ liệu!");
+            });
+    };
+
+
+
+
+
 
     //hàm thêm mới
     $scope.create = function () {
