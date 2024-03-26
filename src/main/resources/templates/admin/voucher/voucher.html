@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  ng-if="vouchers">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,9 +17,10 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   </head>
-  <body>
-    <div class="container-scroller">
+  <body  ng-controller="voucher-ctrl">
+    <div class="container-scroller" >
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -91,24 +92,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr th:each="mggs : ${mggs}">
-                                          <!-- Các cột thông tin voucher -->
-                                          <td th:text="${mggs.id}"></td>
-                                          <td th:text="${mggs.tenMa}"></td>
-                                          <td th:text="${mggs.soTienGiam}"></td>
-                                          <td th:text="${mggs.soLuong}"></td>
-                                          <td th:text="${#dates.format(mggs.ngayBatDau, 'dd/MM/yyyy HH:mm')}"></td>
-                                          <td th:text="${#dates.format(mggs.ngayKetThuc, 'dd/MM/yyyy HH:mm')}"></td>
-                                          <td th:text="${mggs.thongTin}"></td>
-                                          <td>
+                                      <tr ng-repeat="voucher in vouchers">
+                                        <td>{{ voucher.id }}</td>
+                                        <td>{{ voucher.tenMa }}</td>
+                                        <td>{{ voucher.soTienGiam }}</td>
+                                        <td>{{ voucher.soLuong }}</td>
+                                        <td>{{ voucher.ngayBatDau | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td>{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td>{{ voucher.thongTin }}</td>
+                                        <td>
                                             <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                              <i class="mdi mdi-border-color"></i>
+                                                <i class="mdi mdi-border-color"></i>
                                             </button>
                                             <button type="button" class="btn btn-gradient-success btn-rounded btn-icon">
-                                              <i class="mdi mdi-delete-forever"></i>
+                                                <i class="mdi mdi-delete-forever"></i>
                                             </button>
-                                          </td>
-                                      </tr>
+                                        </td>
+                                    </tr>
+                                    
+                                    
                                   </tbody>
                                   
                                 </table>
