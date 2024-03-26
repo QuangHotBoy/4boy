@@ -14,27 +14,27 @@
 				<div class="col-xl-6">
 
 					<div class="card">
-						<div class="card-body">
-							<ol class="activity-checkout mb-0 px-4 mt-3">
-								<li class="checkout-item">
-									<div class="avatar checkout-icon p-1">
-										<div class="avatar-title rounded-circle bg-primary">
-											<i class="fas fa-receipt text-white font-size-20"></i>
+						<form name="frmthanhtoan" method="post" th:action="@{/shop/order/complete}">
+							<div class="card-body">
+								<ol class="activity-checkout mb-0 px-4 mt-3">
+									<li class="checkout-item">
+										<div class="avatar checkout-icon p-1">
+											<div class="avatar-title rounded-circle bg-primary">
+												<i class="fas fa-receipt text-white font-size-20"></i>
+											</div>
 										</div>
-									</div>
-									<div class="feed-item-list">
-										<div>
-											<h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
-											<p class="text-muted text-truncate mb-4">Vui lòng điền
-												đầy đủ thông tin</p>
-											<div class="mb-3">
-												<form>
+										<div class="feed-item-list">
+											<div>
+												<h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
+												<p class="text-muted text-truncate mb-4">Vui lòng điền
+													đầy đủ thông tin</p>
+												<div class="mb-3">
 													<div>
 														<div class="row">
 															<div class="col-lg-6">
 																<div class="mb-3">
 																	<label class="form-label" for="billing-name">Họ
-																		và tên</label> <input type="text"
+																		và tên</label> <input type="text" name="hoTen"
 																		class="form-control-style" id="billing-name">
 																</div>
 															</div>
@@ -42,7 +42,8 @@
 																<div class="mb-3">
 																	<label class="form-label" for="billing-phone">Số
 																		điện thoại</label> <input type="text"
-																		class="form-control-style" id="billing-phone">
+																		name="dienThoai" class="form-control-style"
+																		id="billing-phone">
 																</div>
 															</div>
 														</div>
@@ -52,36 +53,35 @@
 																<label class="form-label"
 																	for="billing-email-address">Email</label>
 																<input type="email" class="form-control-style"
-																	id="billing-email-address">
+																	name="email" id="billing-email-address">
 															</div>
 														</div>
 
 														<div class="mb-3">
 															<label class="form-label" for="billing-address">Địa
 																chỉ nhận hàng</label>
-															<textarea class="form-control-style" id="billing-address"
-																rows="3"></textarea>
+															<textarea class="form-control-style" name="diaChi"
+																id="billing-address" rows="3"></textarea>
 														</div>
 													</div>
-												</form>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-								<li class="checkout-item">
-									<div class="avatar checkout-icon p-1">
-										<div class="avatar-title rounded-circle bg-primary">
-											<i class="fas fa-wallet text-white font-size-20"></i>
+									</li>
+									<li class="checkout-item">
+										<div class="avatar checkout-icon p-1">
+											<div class="avatar-title rounded-circle bg-primary">
+												<i class="fas fa-wallet text-white font-size-20"></i>
+											</div>
 										</div>
-									</div>
-									<div class="feed-item-list">
-										<div>
-											<h5 class="font-size-16 mb-4">Thông tin thanh toán</h5>
-										</div>
-										<div>
-											<h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
-											<div class="row">
-												<!-- <div class="col-lg-3 col-sm-6">
+										<div class="feed-item-list">
+											<div>
+												<h5 class="font-size-16 mb-4">Thông tin thanh toán</h5>
+											</div>
+											<div>
+												<h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
+												<div class="row">
+													<!-- <div class="col-lg-3 col-sm-6">
                                                     <div data-bs-toggle="collapse">
                                                         <label class="card-radio-label">
                                                             <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input">
@@ -93,58 +93,58 @@
                                                     </div>
                                                 </div> -->
 
-												<div class="col-lg-12 col-sm-12">
-													<div>
-														<label class="card-radio-label w-75"> <input type="radio"
-																name="pay-method" id="pay-methodoption2"
-																class="card-radio-input"> <span
-																class="card-radio ps-4 text-start text-truncate mb-2">
-																<img th:src="@{/shop/image/vnpay.png}"
-																	class="avatar-sm me-2" alt=""> <strong>Thanh
-																	toán qua ví VNPay</strong>
-															</span>
-														</label>
+													<div class="col-lg-12 col-sm-12">
+														<div>
+															<label class="card-radio-label w-75"> <input type="radio"
+																	name="pay-method" id="pay-methodoption2"
+																	class="card-radio-input" value="1"> <span
+																	class="card-radio ps-4 text-start text-truncate mb-2">
+																	<img th:src="@{/shop/image/vnpay.png}"
+																		class="avatar-sm me-2" alt=""> <strong>Thanh
+																		toán qua ví VNPay</strong>
+																</span>
+															</label>
+														</div>
 													</div>
-												</div>
 
-												<div class="col-lg-12 col-sm-12">
-													<div>
-														<label class="card-radio-label w-75"> <input type="radio"
-																name="pay-method" id="pay-methodoption3"
-																class="card-radio-input" checked=""> <span
-																class="card-radio ps-4 text-start text-truncate">
-																<img th:src="@{/shop/image/cod.png}"
-																	class="avatar-sm me-2" alt=""> <strong>Thanh
-																	toán khi nhận hàng</strong>
-															</span>
-														</label>
+													<div class="col-lg-12 col-sm-12">
+														<div>
+															<label class="card-radio-label w-75"> <input type="radio"
+																	name="pay-method" id="pay-methodoption3"
+																	class="card-radio-input" checked="" value="2"> <span
+																	class="card-radio ps-4 text-start text-truncate">
+																	<img th:src="@{/shop/image/cod.png}"
+																		class="avatar-sm me-2" alt=""> <strong>Thanh
+																		toán khi nhận hàng</strong>
+																</span>
+															</label>
+														</div>
 													</div>
-												</div>
 
+												</div>
 											</div>
 										</div>
+									</li>
+									<div class="row my-4">
+										<div class="col">
+											<a th:href="@{/shop/home}" class="btn btn-link text-muted"> <i
+													class="fas fa-arrow-left me-1"></i> Tiếp tục mua hàng
+											</a>
+										</div>
+										<!-- end col -->
+										<div class="col">
+											<div class="text-end mt-2 mt-sm-0">
+												<button class="btn btn-success" type="submit"> <i
+														class="mdi mdi-cart-outline me-1"></i> Thanh toán
+												</button>
+											</div>
+										</div>
+										<!-- end col -->
 									</div>
-								</li>
-							</ol>
-						</div>
+								</ol>
+							</div>
 					</div>
 
-					<div class="row my-4">
-						<div class="col">
-							<a th:href="@{/shop/home}" class="btn btn-link text-muted"> <i
-									class="fas fa-arrow-left me-1"></i> Tiếp tục mua hàng
-							</a>
-						</div>
-						<!-- end col -->
-						<div class="col">
-							<div class="text-end mt-2 mt-sm-0">
-								<button class="btn btn-success" id="payment-infor"> <i
-										class="mdi mdi-cart-outline me-1"></i> Thanh toán
-								</button>
-							</div>
-						</div>
-						<!-- end col -->
-					</div>
 					<!-- end row-->
 				</div>
 				<div class="col-xl-6">
@@ -152,7 +152,7 @@
 						<div class="card-body">
 							<div class="p-3 bg-light mb-3 d-flex">
 								<div class="font-size-16 mb-0 mr-auto">Đơn Hàng Của Bạn</div>
-								<a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a>
+								<!-- <a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a> -->
 							</div>
 
 							<ul class="list-group mb-3">
@@ -181,7 +181,8 @@
 											</small>
 										</div>
 										<div class="col-sm-2 col-md-2" th:utext="'x ' +${quantity}"></div>
-
+										<input type="hidden" name="maSP" th:value="${products.isbn}">
+										<input type="hidden" name="soLuong" th:value="${quantity}">
 									</div>
 								</li>
 							</ul>
@@ -191,6 +192,7 @@
 										<span class="font-size-14">Tổng Tiền: </span> <strong class="me-5"> <span
 												class="total"></span>
 										</strong>
+										<input type="text" name="total" id="total" hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
 										<form class="w-100 me-5" id="voucherForm"
@@ -214,19 +216,20 @@
 									<li class="list-group-item d-flex justify-content-between">
 										<span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5"> <span
 												th:text="${#numbers.formatDecimal(30000, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-										</strong> <input type="text" ng-model="shipper" id="shipper" th:value="30000"
+										</strong> <input type="text" name="shipper" th:value="30000"
 											hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
 										<span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5"> <span
 												class="total-payment-infor"></span>
-										</strong> <input type="text" name="totalPayment" id="totalPayment" hidden>
+										</strong> <input type="text" name="payments" id="total-payments">
 									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
+				</form>
 			</div>
 			<!-- end row -->
 
