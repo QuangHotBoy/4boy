@@ -78,6 +78,9 @@
                        <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
+                              <input type="text" ng-model="searchTerm" placeholder="Search..."/>
+                                <button ng-click="search()">Search</button>
+
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
@@ -87,8 +90,8 @@
                                             <th>Số lượng</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
-                                            <th>Mô tả</th>
-                                            <th>Hành động</th>
+                                            <th >Mô tả</th>
+                                            <th style="text-align: center;" colspan="2">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,9 +104,12 @@
                                         <td>{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
                                         <td>{{ voucher.thongTin }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                                <i class="mdi mdi-border-color"></i>
-                                            </button>
+                                          <a href="/admin/voucher/updatemgg" ng-click="edit(voucher.id)" type="button" class="btn btn-gradient-danger btn-rounded btn-icon d-flex justify-content-center align-items-center">
+                                              <i class="mdi mdi-border-color"></i>
+                                          </a>
+                                      </td>
+                                      
+                                            <td>
                                             <button ng-click="delete(voucher)" type="button" class="btn btn-gradient-success btn-rounded btn-icon">
                                                 <i class="mdi mdi-delete-forever"></i>
                                             </button>
