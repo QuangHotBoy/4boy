@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/shop/layout/head :: head">
+</head>
+
+<body class="gradient-custom-user">
+    <!-- Navigation -->
+    <div th:replace="/shop/layout/navigation :: nav"></div>
+    <hr class="container">
+
+    <!-- Section-->
+    <div th:replace="/shop/layout/section/order-success :: order-success"></div>
+
+    <!-- Footer-->
+    <div th:replace="/shop/layout/footer :: footer"></div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script th:src="@{/shop/js/scripts.js}"></script>
+</body>
+
+</html>

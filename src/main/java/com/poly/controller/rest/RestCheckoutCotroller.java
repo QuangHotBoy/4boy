@@ -2,13 +2,13 @@ package com.poly.controller.rest;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DiaChi_TaiKhoanDAO;
@@ -93,8 +93,9 @@ public class RestCheckoutCotroller {
     }
 
     @RequestMapping("shop/order/complete")
-    public String orderComplete(@Valid DonDatHang donDatHang, BindingResult bindingResult,
+    public RedirectView orderComplete(@Valid DonDatHang donDatHang, BindingResult bindingResult,
             HttpServletRequest req) {
+
         TaiKhoan currentUser = accountDAO.findByTenDangNhap("poly");
         DiaChi_TaiKhoan addressDefault = addressDAO.findByTaiKhoan(currentUser.getTenDangNhap());
         TinhTrangDonDatHang status = orderStatusDAO.findById(9).get();
@@ -103,7 +104,9 @@ public class RestCheckoutCotroller {
         String dienThoai = req.getParameter("dienThoai");
         String email = req.getParameter("email");
         String voucher = req.getParameter("voucher");
-        String total = req.getParameter("payments");
+        String total = req.getParameter("thanhToan");
+
+        System.out.println(total + voucher);
 
         PhuongThucThanhToan pttt = paymentDAO.findById(Integer.parseInt(req.getParameter("pay-method"))).get();
 
@@ -116,18 +119,16 @@ public class RestCheckoutCotroller {
         if (voucher != null) {
             MaGiamGia maGiamGia = voucherDAO.findById(voucher).orElse(null);
             order.setMaGiamGia(maGiamGia);
-            if (pttt.getId() == 1 && maGiamGia != null) {
+            if (pttt != null && pttt.getId() == 1 && maGiamGia != null) {
                 maGiamGia.setSoLuong(maGiamGia.getSoLuong() - 1);
                 voucherDAO.save(maGiamGia);
             }
-
         } else {
             order.setMaGiamGia(null);
         }
-
         order.setPhuongThucThanhToan(pttt);
         order.setNgayDatHang(new Timestamp(System.currentTimeMillis()));
-        order.setTongTien(new BigDecimal("100000"));
+        order.setTongTien(new BigDecimal(total));
         order.setTrangThai_donDatHang(status);
 
         orderDAO.save(order);
@@ -136,8 +137,7 @@ public class RestCheckoutCotroller {
 
         Long maSP = Long.parseLong(req.getParameter("maSP"));
         SanPham item = productDAO.findById(maSP).get();
-        String donGiaParam = req.getParameter("prices");
-        BigDecimal donGia = new BigDecimal(donGiaParam);
+        BigDecimal donGia = new BigDecimal(req.getParameter("prices"));
         Integer soLuong = Integer.parseInt(req.getParameter("soLuong"));
 
         ChiTietDonDatHang detailOrder = new ChiTietDonDatHang();
@@ -148,15 +148,10 @@ public class RestCheckoutCotroller {
 
         orderDetailDAO.save(detailOrder);
 
-        SanPham product = productDAO.findById(maSP).get();
+        item.setSoLuong(item.getSoLuong() - soLuong);
+        productDAO.save(item);
 
-        Integer pSoLuong = product.getSoLuong() - soLuong;
-
-        product.setSoLuong(pSoLuong);
-
-        productDAO.save(product);
-
-        return new String();
+        return new RedirectView("/shop/order/thank-for-order");
     }
 
 }

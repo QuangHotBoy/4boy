@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
     $(".total-payment-infor").text(formattedTongTien);
 
     // Gán giá trị vào input
-    $("input[name='payments']").val(tongTien);
+    $("input[id='payment']").val(tongTien);
 
     console.log(tongTien);
   } else {
@@ -37,7 +37,7 @@ window.addEventListener("load", function () {
 function submitForm() {
   var voucherCode = $("input[name='voucher']").val();
   var total = $("input[name='total']").val();
-  var thanhToan = $("input[name='payments']").val();
+  var thanhToan = $("input[id='payment']").val();
 
   console.log(total);
 
@@ -81,7 +81,7 @@ function submitForm() {
               $(".total-payment-infor").text(formattedTotalPayment);
 
               // Gán giá trị vào input
-              $("input[name='payments']").val(totalPayment);
+              $("input[id='payment']").val(totalPayment);
             } else {
               Swal.fire({
                 title: "Knotrea Thông Báo!",
@@ -173,4 +173,5 @@ window.addEventListener("load", function () {
     }
   });
 });
+
 
