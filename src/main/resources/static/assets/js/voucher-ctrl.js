@@ -58,11 +58,11 @@ app.controller("voucher-ctrl", function($scope, $http){
     }
 
     //xoa mgg
-    $scope.delete = function (voucher) {
+    $scope.delete = function(voucher) {
         if (confirm("Bạn muốn xóa sản phẩm này?")) {
             $http.delete(`/rest/vouchers/${voucher.id}`).then(resp => {
                 var index = $scope.vouchers.findIndex(p => p.id == voucher.id);
-                $scope.voucher.splice(index, 1);
+                $scope.vouchers.splice(index, 1); // Sửa từ $scope.voucher thành $scope.vouchers
                 $scope.reset();
                 alert("Xóa sản phẩm thành công!");
             }).catch(error => {
@@ -71,6 +71,7 @@ app.controller("voucher-ctrl", function($scope, $http){
             })
         }
     }
+    
 
 
 }
