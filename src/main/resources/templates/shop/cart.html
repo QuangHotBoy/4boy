@@ -17,59 +17,8 @@
                         <div class="card-header py-3 text-center">
                             <h5 class="mb-0">GIỎ HÀNG CỦA BẠN - 2 sản phẩm</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id="cart">
                             <!-- Single item -->
-                            <div class="row mx-auto">
-                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Image -->
-                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
-                                        data-mdb-ripple-color="light">
-                                        <img th:src="@{/shop/image/product/6651_sm.jpg}" class="w-75 h-75"
-                                            alt="Blue Jeans Jacket" />
-                                        <a href="#!">
-                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                        </a>
-                                    </div>
-                                    <!-- Image -->
-                                </div>
-
-                                <div class="col-lg-9 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Data -->
-                                    <p><strong>Tên sách</strong></p>
-                                    <!-- Data -->
-                                    <!-- Quantity -->
-                                    <div class="d-flex mb-4 row">
-                                        <!-- Price -->
-                                        <div class="col-md-6">
-                                            <p class="text-start">
-                                                <strong>Giá tiền: 45.000 vnđ</strong>
-                                            </p>
-                                        </div>
-                                        <!-- Price -->
-
-                                        <button class="btn btn-primary px-2 col-md-1"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <div class="form-outline col-md-2">
-                                            <input id="form1" min="1" name="quantity" value="1" type="number"
-                                                class="form-control text-center" readonly />
-                                        </div>
-
-                                        <button class="btn btn-primary px-2 btn-sm col-md-1"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-
-                                        <div class="col-md-1"></div>
-
-                                        <button type="button" class="btn btn-danger btn-md col-md-1" data-mdb-toggle="tooltip"
-                                            title="Remove item" data-isbn="1">
-                                            <i class="fas fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
 
                             <hr class="my-4" />
 
@@ -112,7 +61,8 @@
                                 </li>
                             </ul>
 
-                            <a th:href="@{/shop/auth/order/check-out}" class="btn bg-success fw-bold float-end">THANH TOÁN</a>
+                            <a th:href="@{/shop/auth/order/check-out}" class="btn bg-success fw-bold float-end">THANH
+                                TOÁN</a>
                         </div>
                     </div>
                 </div>
@@ -123,7 +73,77 @@
     <!-- Footer-->
     <div th:replace="/shop/layout/footer :: footer"></div>
 
-    <script th:src="@{/shop/js/cart.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Lấy dữ liệu sản phẩm từ LocalStorage
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Duyệt qua danh sách sản phẩm và hiển thị trên trang
+            cart.forEach(function (product) {
+                var productHTML = '<div class="row mx-auto mb-4">';
+                productHTML += '<div class="col-lg-3 col-md-12 mb-4 mb-lg-0">';
+                productHTML += '<div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">';
+                productHTML += '<img src="' + product.image + '" class="w-75 h-75" alt="Product Image" />';
+                productHTML += '<div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>';
+                productHTML += '</div>';
+                productHTML += '</div>';
+
+                productHTML += '<div class="col-lg-9 col-md-12 mb-4 mb-lg-0">';
+                productHTML += '<p><strong>' + product.name + '</strong></p>';
+                productHTML += '<div class="d-flex mb-4 row">';
+                productHTML += '<div class="col-md-5">';
+                productHTML += '<p class="text-start"><strong>Giá tiền: ' + product.price + ' vnđ</strong></p>';
+                productHTML += '</div>';
+                productHTML += '<div class="col-md-3">';
+                productHTML += '<div class="input-group">';
+                productHTML += '<button class="btn btn-primary me-1" onclick="decrementQuantity(this)"><i class="fas fa-minus"></i></button>';
+                productHTML += '<input type="number" class="form-control text-center" value="1" readonly />';
+                productHTML += '<button class="btn btn-primary ms-1" onclick="incrementQuantity(this)"><i class="fas fa-plus"></i></button>';
+                productHTML += '</div>';
+                productHTML += '</div>';
+                productHTML += '<div class="col-md-1">';
+                productHTML += '<button class="btn btn-danger" onclick="removeItem(\'' + product.id + '\')"><i class="fas fa-trash"></i></button>';
+                productHTML += '</div>';
+                productHTML += '</div>';
+                productHTML += '</div>';
+
+                productHTML += '</div>';
+
+                $("#cart").append(productHTML);
+            });
+        });
+
+        // Hàm xóa sản phẩm khỏi giỏ hàng
+        function removeItem(productId) {
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+            // Lọc ra sản phẩm cần xóa khỏi danh sách
+            var updatedCart = cart.filter(function (product) {
+                return product.id !== productId;
+            });
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+            //location.reload(); // Tải lại trang để cập nhật giỏ hàng
+        }
+
+        // Hàm giảm số lượng sản phẩm
+        function decrementQuantity(button) {
+            var input = $(button).closest('.input-group').find('input[type=number]');
+            var currentValue = parseInt(input.val(), 10);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                input.val(currentValue - 1);
+            }
+        }
+
+        // Hàm tăng số lượng sản phẩm
+        function incrementQuantity(button) {
+            var input = $(button).closest('.input-group').find('input[type=number]');
+            var currentValue = parseInt(input.val(), 10);
+            if (!isNaN(currentValue)) {
+                input.val(currentValue + 1);
+            }
+        }
+    </script>
 </body>
 
 </html>
