@@ -43,15 +43,14 @@ public class ProductController {
 	TinhTrangSanPhamDAO tinhtrangDAO;
 	@Autowired
 	ServletContext app;
-
+	
 	/* Sản phẩm */
 	@RequestMapping("/admin/product")
 	public String product(Model model, @RequestParam(defaultValue = "0") int page) {
 
 		List<SanPham> productPage = spDAO.findAll();
 		model.addAttribute("products", productPage);
-		// model.addAttribute("currentPage", page);
-		// model.addAttribute("totalPages", productPage.getTotalPages());
+	
 		return "/admin/product/product";
 	}
 

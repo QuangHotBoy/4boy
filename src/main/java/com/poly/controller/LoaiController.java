@@ -31,7 +31,7 @@ public class LoaiController {
     @RequestMapping("/admin/product-type")
     public String loaisanpham(Model model, @RequestParam(defaultValue = "0") int page) {
 
-        List<PhanLoai> list = productTypeService.findAll();
+        List<PhanLoai> list = plDAO.findAll();
         model.addAttribute("items", list);
 
         return "/admin/product-types/product-type";

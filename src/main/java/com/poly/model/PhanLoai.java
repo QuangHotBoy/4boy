@@ -15,7 +15,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Data;
 
+@SuppressWarnings("serial")
+@Data
 @Setter
 @Getter
 @AllArgsConstructor

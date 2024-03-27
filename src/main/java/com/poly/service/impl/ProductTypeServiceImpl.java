@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.model.PhanLoai;
@@ -21,12 +20,12 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return pldao.findAll();
     }
 
-    public PhanLoai findById(Integer id) {
+    public PhanLoai findById( Integer id) {
         return pldao.findById(id).get();
     }
 
     // public List<PhanLoai> findByCategoryId(String cid) {
-    //     return pldao.findByCategoryId(cid);
+    // return pldao.findByCategoryId(cid);
     // }
 
     public PhanLoai create(PhanLoai phanLoai) {

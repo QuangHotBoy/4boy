@@ -8,5 +8,5 @@ import com.poly.model.PhanLoai;
 
 public interface PhanLoaiDAO extends JpaRepository<PhanLoai, Integer> {
     // Các phương thức tùy chỉnh nếu cần
-    boolean existsByTenLoai(String tenLoai);
+    
 }

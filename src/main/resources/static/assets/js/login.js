@@ -21,6 +21,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 } else {
                     // Nếu không có dữ liệu trả về, đăng nhập không thành công
                     console.log("Đăng nhập không thành công!");
+                    console.log(data);
                 }
             }, function (error) {
                 // Xử lý lỗi khi gửi yêu cầu GET

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.poly.dao.PhanLoaiDAO;
 import com.poly.model.PhanLoai;
 import com.poly.service.ProductTypeService;
 
@@ -25,12 +25,13 @@ import com.poly.service.ProductTypeService;
 public class ProductTypeRestController {
 	@Autowired
 	ProductTypeService productTypeService;
-	
+	@Autowired
+	PhanLoaiDAO plDao;
 	@GetMapping
 	public List<PhanLoai> getAll() {
 		return productTypeService.findAll();
 	}
-	@GetMapping("/rest/productsType/{id}")
+	@GetMapping("{id}")
 	public PhanLoai getOne(@PathVariable("id") Integer id) {
 		return productTypeService.findById(id);
 	}
