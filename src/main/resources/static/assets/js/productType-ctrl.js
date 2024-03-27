@@ -3,18 +3,25 @@ var app = angular.module('myApp', []);
 
 // Khai báo controller
 app.controller("myCtrl", function ($scope, $http) {
-    // $scope.items = [];
-    // $scope.form = {};
+    $scope.items = [];
+    $scope.form = {};
+
+    // Hàm reset để xóa dữ liệu trong form
+    $scope.reset = function () {
+        $scope.form = {}; // Xóa dữ liệu trong biến form
+    };
+
     // Hàm để lấy dữ liệu từ cơ sở dữ liệu
     $scope.initialize = function () {
-
         $http.get("/rest/productsType")
             .then(resp => {
                 $scope.items = resp.data;
-                //Gọi hàm reset sau khi dữ liệu đã được lấy
-                $scope.reset();
+                // Không gọi hàm reset ở đây nếu bạn không cần thiết
+            })
+            .catch(error => {
+                console.log("Error fetching data:", error);
             });
-    }
+    };
 
     // Hàm reset để thực hiện các tác vụ cần thiết
     $scope.reset = function () {
@@ -22,21 +29,21 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.form = {};
     }
     //hàm edit
-    $scope.edit = function(id) {
+    $scope.edit = function (id) {
         // Gửi yêu cầu GET đến API để lấy thông tin của mục có ID tương ứng
         $http.get('/rest/productsType/' + id)
-            .then(function(response) {
+            .then(function (response) {
                 // Sao chép dữ liệu từ phản hồi vào biến form để điền vào form chỉnh sửa
                 $scope.form = angular.copy(response.data);
                 console.log(id);
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 // Xử lý lỗi nếu có
                 console.error('Error fetching item for editing:', error);
             });
     };
-    
-    
+
+
 
     //hàm thêm
     $scope.create = function () {

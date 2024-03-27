@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.model.PhanLoai;
 import com.poly.service.ProductTypeService;
-
+import org.springframework.transaction.annotation.Transactional;
 @Service
+@Transactional
 public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Autowired

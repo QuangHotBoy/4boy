@@ -2,20 +2,18 @@ package com.poly.service;
 
 import java.util.List;
 
-
-
 import com.poly.model.PhanLoai;
 
 public interface ProductTypeService {
-    public List<PhanLoai> findAll();
-	
-	public PhanLoai findById(Integer id) ;
+	public List<PhanLoai> findAll();
 
-	//  public List<PhanLoai> findByCategoryId(String cid) ;
+	public PhanLoai findById(Integer id);
 
-	public PhanLoai create(PhanLoai phanLoai) ;
+	// public List<PhanLoai> findByCategoryId(String cid) ;
 
-	public PhanLoai update(PhanLoai PhanLoai) ;
+	public PhanLoai create(PhanLoai phanLoai);
 
-	public void delete(Integer id) ;
+	public PhanLoai update(PhanLoai PhanLoai);
+
+	public void delete(Integer id);
 }

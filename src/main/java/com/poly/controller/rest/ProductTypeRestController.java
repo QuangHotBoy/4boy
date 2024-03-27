@@ -28,7 +28,7 @@ public class ProductTypeRestController {
 	@Autowired
 	PhanLoaiDAO plDao;
 	@GetMapping
-	public List<PhanLoai> getAll() {
+	public List<PhanLoai> findAll() {
 		return productTypeService.findAll();
 	}
 	@GetMapping("{id}")
