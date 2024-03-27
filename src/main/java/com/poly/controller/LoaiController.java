@@ -23,26 +23,26 @@ import com.poly.service.ProductTypeService;
 
 @Controller
 public class LoaiController {
-    @Autowired
-    PhanLoaiDAO plDAO;
+    // @Autowired
+    // PhanLoaiDAO plDAO;
     @Autowired
     ProductTypeService productTypeService;
     /* loại Sản phẩm */
     @RequestMapping("/admin/product-type")
-    public String loaisanpham(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String list(Model model, @RequestParam(defaultValue = "0") int page) {
 
-        List<PhanLoai> list = plDAO.findAll();
+        List<PhanLoai> list = productTypeService.findAll();
         model.addAttribute("items", list);
 
         return "/admin/product-types/product-type";
     }
 
-    @RequestMapping("/admin/product-type/{id}")
-	public String detail(Model model, @PathVariable("id") Integer id) {
-		PhanLoai item = productTypeService.findById(id);
-		model.addAttribute("item", item);
-		return "/admin/product-types/product-type";
-	}
+    // @RequestMapping("/admin/product-type/{id}")
+	// public String detail(Model model, @PathVariable("id") Integer id) {
+	// 	PhanLoai item = productTypeService.findById(id);
+	// 	model.addAttribute("item", item);
+	// 	return "/admin/product-types/product-type";
+	// }
 
     // form loại
     // @RequestMapping("/admin/product-type/add")

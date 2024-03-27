@@ -217,12 +217,12 @@
                                             </div>
                                             <!-- modal -->
                                             <!-- form edit -->
-                                            <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                            <!-- <div class="modal fade" id="exampleModal1" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div style="margin-top: 100px;" class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật
                                                             </h1>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -232,11 +232,11 @@
                                                                 <div class="row">
                                                                     <div class="mb-3">
                                                                         <label for="tenLoai" class="form-label">Tên loại sách</label>
-                                                                        <input type="text" class="form-control" id="tenLoai" placeholder="" ng-model="forms.tenLoai">
+                                                                        <input type="text" class="form-control" id="tenLoai" placeholder="" ng-model="form.tenLoai">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="moTa" class="form-label">Mô tả</label>
-                                                                        <textarea class="form-control" id="moTa" placeholder="" style="height: 138px;" ng-model="forms.moTa"></textarea>
+                                                                        <textarea class="form-control" id="moTa" placeholder="" style="height: 138px;" ng-model="form.moTa"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -246,13 +246,13 @@
                                                                 data-bs-dismiss="modal">Đóng</button>
                                                             <button type="button" class="btn btn-warning bi bi-plus"
                                                                 ng-click="update()">Cập nhật</button>
-                                                            <!-- Nút "Làm trắng form" -->
+                                                            
                                                             <button type="button" class="btn btn-secondary"
                                                                 ng-click="reset()">Làm mới</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
@@ -272,15 +272,16 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="item : ${items}">
+                                                        <tr ng-repeat="item in items">
 
-                                                            <td th:text="${item.id}"></td>
-                                                            <td th:text="${item.tenLoai}"></td>
-                                                            <td th:text="${item.moTa}"></td>
+                                                            
+                                                            <td>{{item.id}}</td>
+                                                            <td>{{item.tenLoai}}</td>
+                                                            <td>{{item.moTa}}</td>
                                                             <!-- Hiển thị các thuộc tính khác của sản phẩm tại đây -->
                                                             <td>
                                                                 <!-- Nút "Chỉnh sửa" -->
-                                                                <button type="button" class="btn btn-primary" ng-click="edit(item)">Chỉnh sửa</button>
+                                                                <button type="button" class="btn btn-primary"   ng-click="edit(item.id)" >Chỉnh sửa</button>
                                                             </td>
                                                            
                                                         
@@ -330,6 +331,7 @@
             modal.find('.modal-body input').val(recipient)
         })
     </script>
+    
 
     <script>
         $(document).ready(function () {

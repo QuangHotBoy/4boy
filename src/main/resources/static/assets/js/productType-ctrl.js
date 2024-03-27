@@ -1,16 +1,19 @@
 var app = angular.module('myApp', []);
 
+
 // Khai báo controller
 app.controller("myCtrl", function ($scope, $http) {
+    // $scope.items = [];
+    // $scope.form = {};
     // Hàm để lấy dữ liệu từ cơ sở dữ liệu
     $scope.initialize = function () {
-      
+
         $http.get("/rest/productsType")
-        .then(resp => {
-            $scope.items = resp.data;
-            // Gọi hàm reset sau khi dữ liệu đã được lấy
-            // $scope.reset();
-        });
+            .then(resp => {
+                $scope.items = resp.data;
+                //Gọi hàm reset sau khi dữ liệu đã được lấy
+                $scope.reset();
+            });
     }
 
     // Hàm reset để thực hiện các tác vụ cần thiết
@@ -18,6 +21,22 @@ app.controller("myCtrl", function ($scope, $http) {
         // Các tác vụ reset cần thực hiện
         $scope.form = {};
     }
+    //hàm edit
+    $scope.edit = function(id) {
+        // Gửi yêu cầu GET đến API để lấy thông tin của mục có ID tương ứng
+        $http.get('/rest/productsType/' + id)
+            .then(function(response) {
+                // Sao chép dữ liệu từ phản hồi vào biến form để điền vào form chỉnh sửa
+                $scope.form = angular.copy(response.data);
+                console.log(id);
+            })
+            .catch(function(error) {
+                // Xử lý lỗi nếu có
+                console.error('Error fetching item for editing:', error);
+            });
+    };
+    
+    
 
     //hàm thêm
     $scope.create = function () {
@@ -35,6 +54,35 @@ app.controller("myCtrl", function ($scope, $http) {
             console.log("Error", error);
         });
     }
+    //hàm cập nhật
+    $scope.form = {}; // Initialize $scope.form as an empty object
+    $scope.update = function () {
+        if (!$scope.form || !$scope.form.id) {
+            alert("Invalid form data. Cannot update product.");
+            return;
+        }
+
+        var item = angular.copy($scope.form);
+        $http.put('/rest/productsType/${item.id}', item)
+            .then(resp => {
+                var index = $scope.items.findIndex(p => p.id === item.id);
+                if (index !== -1) {
+                    $scope.items[index].tenLoai = item.tenLoai;
+                    $scope.items[index].moTa = item.moTa;
+                    alert("Cập nhật sản phẩm thành công!");
+                } else {
+                    alert("Không tìm thấy sản phẩm cần cập nhật trong danh sách!");
+                }
+            })
+            .catch(error => {
+                console.log("Error", error);
+                alert("Lỗi cập nhật sản phẩm!");
+            });
+    };
+
+
+
+
 
     function loadData() {
         $http.get('/rest/productsType').then(resp => {

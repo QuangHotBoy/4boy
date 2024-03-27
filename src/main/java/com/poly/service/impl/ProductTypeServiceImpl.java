@@ -20,7 +20,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return pldao.findAll();
     }
 
-    public PhanLoai findById( Integer id) {
+    public PhanLoai findById(Integer id) {
         return pldao.findById(id).get();
     }
 
