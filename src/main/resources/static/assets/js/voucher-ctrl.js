@@ -37,20 +37,29 @@ app.controller("voucher-ctrl", function($scope, $http){
     //them mgg moi
     $scope.create = function() {
         var voucher = angular.copy($scope.form);
+        
+        // Get the current date
+        var currentDate = new Date();
+        
+        // Set start date to the current date
+        voucher.ngayBatDau = currentDate.toISOString(); // Convert date to ISO string format
+        
         $http.post('/rest/vouchers', voucher).then(resp => {
             if (!$scope.vouchers) {
-                $scope.vouchers = []; // Khởi tạo mảng nếu chưa tồn tại
+                $scope.vouchers = []; // Initialize vouchers array if it doesn't exist
             }
-            $scope.vouchers.push(resp.data);
-            $scope.form = {}; // Xóa dữ liệu cũ của biểu mẫu
+            // Prepend the new data to the vouchers array
+            $scope.vouchers.unshift(resp.data);
+            $scope.form = {}; // Clear form data
             alert("Thêm mới sản phẩm thành công!");
-            // Load lại dữ liệu sau khi thêm mới thành công
+            // Load data again if needed
             loadData();
         }).catch(error => {
             alert("Lỗi thêm mới sản phẩm!");
             console.log("Error", error);
         });
-    }
+    };
+    
     
 
     //cap nhat mgg
@@ -100,7 +109,36 @@ app.controller("voucher-ctrl", function($scope, $http){
             $scope.filteredVouchers = angular.copy($scope.vouchers);
         }
     };
-
+    
+    $scope.pager = {
+		page: 0,
+		size: 5,
+		get vouchers(){
+			if(this.page < 0){
+				this.last();
+			}
+			if(this.page >= this.count){
+				this.first();
+			}
+			var start = this.page*this.size;
+			return $scope.vouchers.slice(start, start + this.size)
+		},
+		get count(){
+			return Math.ceil(1.0 * $scope.vouchers.length / this.size);
+		},
+		first(){
+			this.page = 0;
+		},
+		last(){
+			this.page = this.count - 1;
+		},
+		next(){
+			this.page++;
+		},
+		prev(){
+			this.page--;
+		}
+	}
 
 }
 
