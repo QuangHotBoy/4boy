@@ -1,19 +1,20 @@
 package com.poly.service;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 import com.poly.model.PhanLoai;
 
+@Service
 public interface ProductTypeService {
-	public List<PhanLoai> findAll();
+	List<PhanLoai> findAll();
 
-	public PhanLoai findById(Integer id);
+	PhanLoai findById(Integer id);
 
 	// public List<PhanLoai> findByCategoryId(String cid) ;
 
-	public PhanLoai create(PhanLoai phanLoai);
+	PhanLoai create(PhanLoai phanLoai);
 
-	public PhanLoai update(PhanLoai PhanLoai);
+	PhanLoai update(PhanLoai PhanLoai);
 
-	public void delete(Integer id);
+	void delete(Integer id);
 }

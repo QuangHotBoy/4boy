@@ -1,6 +1,6 @@
 var app = angular.module('voucherApp', []);
 app.controller("voucher-ctrl", function($scope, $http){
-    $scope.vouchers = [];
+    $scope.vouchers = {};
     $scope.form ={};
 
     $scope.initialize = function(){

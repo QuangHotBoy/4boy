@@ -7,8 +7,8 @@ import com.poly.model.NhaXuatBan;
 
 
 
-public interface NhaXuatBanDAO extends JpaRepository<NhaXuatBan, Long> {
+public interface NhaXuatBanDAO extends JpaRepository<NhaXuatBan, Integer> {
     // Các phương thức tùy chỉnh nếu cần
-    boolean existsByTenNhaXuatBan(String tenNhaXuatBan);
+    // boolean existsByTenNhaXuatBan(String tenNhaXuatBan);
 
 }

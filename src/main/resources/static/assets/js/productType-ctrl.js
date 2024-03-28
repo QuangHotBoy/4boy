@@ -1,37 +1,32 @@
 var app = angular.module('myApp', []);
 
-
-// Khai báo controller
 app.controller("myCtrl", function ($scope, $http) {
-    $scope.items = [];
+    $scope.types = [];
     $scope.form = {};
 
-    // Hàm reset để xóa dữ liệu trong form
-    $scope.reset = function () {
-        $scope.form = {}; // Xóa dữ liệu trong biến form
-    };
-
-    // Hàm để lấy dữ liệu từ cơ sở dữ liệu
     $scope.initialize = function () {
-        $http.get("/rest/productsType")
-            .then(resp => {
-                $scope.items = resp.data;
-                // Không gọi hàm reset ở đây nếu bạn không cần thiết
-            })
-            .catch(error => {
-                console.log("Error fetching data:", error);
-            });
-    };
+        $http.get("/rest/types").then(resp => {
+            if (Array.isArray(resp.data)) {
+                $scope.types = resp.data;
+            } else {
+                $scope.types = [resp.data];
+            }
 
-    // Hàm reset để thực hiện các tác vụ cần thiết
+            console.log($scope.types);
+        });
+    }
+
+    $scope.initialize();
+
+
+    //xoa form
     $scope.reset = function () {
-        // Các tác vụ reset cần thực hiện
-        $scope.form = {};
+        $scope.form = {}
     }
     //hàm edit
     $scope.edit = function (id) {
         // Gửi yêu cầu GET đến API để lấy thông tin của mục có ID tương ứng
-        $http.get('/rest/productsType/' + id)
+        $http.get('/rest/types/' + id)
             .then(function (response) {
                 // Sao chép dữ liệu từ phản hồi vào biến form để điền vào form chỉnh sửa
                 $scope.form = angular.copy(response.data);
@@ -48,7 +43,7 @@ app.controller("myCtrl", function ($scope, $http) {
     //hàm thêm
     $scope.create = function () {
         var item = angular.copy($scope.form);
-        $http.post('/rest/productsType', item).then(resp => {
+        $http.post('/rest/types', item).then(resp => {
             if (!$scope.items) {
                 $scope.items = [];
             }
@@ -92,7 +87,7 @@ app.controller("myCtrl", function ($scope, $http) {
 
 
     function loadData() {
-        $http.get('/rest/productsType').then(resp => {
+        $http.get('/rest/types').then(resp => {
             $scope.items = resp.data;
             console.log("Dữ liệu đã được tải:", $scope.items);
         }).catch(error => {
@@ -100,13 +95,40 @@ app.controller("myCtrl", function ($scope, $http) {
         });
     }
 
+    $scope.pager = {
+        page: 0,
+        size: 5,
+        get types() {
+            if (this.page < 0) {
+                this.last();
+            }
+            if (this.page >= this.count) {
+                this.first();
+            }
+            var start = this.page * this.size;
+            return $scope.types.slice(start, start + this.size)
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.types.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        last() {
+            this.page = this.count - 1;
+        },
+        next() {
+            this.page++;
+        },
+        prev() {
+            this.page--;
+        }
+    }
 
 
 
 
 
-    // Gọi hàm initialize khi controller được khởi tạo
-    $scope.initialize();
 });
 
 

@@ -14,37 +14,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.dao.PhanLoaiDAO;
+import com.poly.model.NhaXuatBan;
 import com.poly.model.PhanLoai;
 import com.poly.service.ProductTypeService;
+import com.poly.service.SupplierService;
 
 
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/types")
-public class ProductTypeRestController {
+@RequestMapping("/rest/suppliers")
+public class RestSupplierController {
 	@Autowired
-	ProductTypeService productTypeService;
+	SupplierService supplierService;
 	
 	@GetMapping
-	public List<PhanLoai> getAll() {
-		return productTypeService.findAll();
+	public List<NhaXuatBan> getAll() {
+		return supplierService.findAll();
 	}
 	@GetMapping("{id}")
-	public PhanLoai getOne(@PathVariable("id") Integer id) {
-		return productTypeService.findById(id);
+	public NhaXuatBan getOne(@PathVariable("id") Integer id) {
+		return supplierService.findById(id);
 	}
 	@PostMapping
-	public PhanLoai post(@RequestBody PhanLoai phanLoai) {
-		productTypeService.create(phanLoai);
-		return phanLoai;
+	public NhaXuatBan post(@RequestBody NhaXuatBan nhaxuatBan) {
+		supplierService.create(nhaxuatBan);
+		return nhaxuatBan;
 	}
 	@PutMapping("{id}")
-	public PhanLoai put(@PathVariable("id") Integer id, @RequestBody PhanLoai phanloai) {
-		return productTypeService.update(phanloai);
+	public NhaXuatBan put(@PathVariable("id") Integer id, @RequestBody NhaXuatBan nhaXuatBan) {
+		return supplierService.update(nhaXuatBan);
 	}
-	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id") Integer id) {
-		productTypeService.delete(id);
-	}
+	
 }

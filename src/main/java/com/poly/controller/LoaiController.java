@@ -23,15 +23,15 @@ import com.poly.service.ProductTypeService;
 
 @Controller
 public class LoaiController {
-    // @Autowired
-    // PhanLoaiDAO plDAO;
     @Autowired
-    ProductTypeService productTypeService;
+    PhanLoaiDAO plDAO;
+    // @Autowired
+    // ProductTypeService productTypeService;
     /* loại Sản phẩm */
     @RequestMapping("/admin/product-type")
     public String list(Model model, @RequestParam(defaultValue = "0") int page) {
 
-        List<PhanLoai> list = productTypeService.findAll();
+        List<PhanLoai> list = plDAO.findAll();
         model.addAttribute("items", list);
 
         return "/admin/product-types/product-type";

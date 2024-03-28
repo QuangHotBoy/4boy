@@ -11,21 +11,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Data;
 
-@SuppressWarnings("serial")
-@Data
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
 
-@Table(name = "PhanLoai")
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class PhanLoai implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -34,10 +33,10 @@ public class PhanLoai implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ten_loai", unique = true)
+    @Column(name = "ten_loai", columnDefinition = "NVARCHAR(150)")
     private String tenLoai;
 
-    @Column(name = "mo_ta", columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "mo_ta", columnDefinition = "NVARCHAR(250)")
     private String moTa;
     
     @OneToMany(mappedBy = "phanLoai")

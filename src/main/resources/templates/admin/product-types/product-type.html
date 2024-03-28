@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
+<html xmlns:th="http://www.thymeleaf.org" ng-if="types">
 
 <head>
     <meta charset="UTF-8">
     <title>Admin - Sản phẩm</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
@@ -100,8 +97,8 @@
     }
 </style>
 
-<body>
-    <div class="container-scroller">
+<body ng-controller="myCtrl">
+    <div class="container-scroller" ng-app="myApp" ng-controller="myCtrl">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -134,7 +131,7 @@
         <!-- partial:partials/_navbar.html -->
         <div th:replace="admin/navbar :: navbar"></div>
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper" ng-controller="myCtrl">
+        <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <div th:replace="admin/menu :: menu"></div>
             <!-- partial -->
@@ -260,7 +257,7 @@
 
                                             <div class="card-body" style="height: 500px; overflow: auto;">
 
-                                                <table class="product-table" id="table1">
+                                                <table class="table table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 30%;">Mã loại sách</th>
@@ -271,13 +268,13 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="item : ${items}">
-                                                            <td th:text="${item.id}"></td>
-                                                            <td th:text="${item.tenLoai}"></td>
-                                                            <td th:text="${item.moTa}"></td>
+                                                        <tr ng-repeat="item in pager.types">
+                                                            <td>{ item.id }</td>
+                                                            <td>{ item.tenLoai }</td>
+                                                            <td>{ item.moTa }</td>
                                                             <td>
-                                                                <!-- <button type="button" class="btn btn-primary"
-                                                                    ng-click="edit([[${item.id}]])">Chỉnh sửa</button> -->
+                                                                <button type="button" class="btn btn-primary"
+                                                                    ng-click="edit()">Chỉnh sửa</button>
                                                             </td>
                                                         </tr>
 
@@ -285,6 +282,23 @@
                                                     </tbody>
 
                                                 </table>
+                                                <div class="btn-group my-2" style="margin-left: 33.5%;" role="group"
+                                                    aria-label="Basic example">
+                                                    <button ng-click="pager.first()" class="btn btn-danger">
+                                                        <b class="glyphicon glyphicon-hand-up">
+                                                            <<</b> </button> <button ng-click="pager.prev()"
+                                                                class="btn btn-primary">
+                                                                <b class="glyphicon glyphicon-hand-left">
+                                                                    <</b> </button> <button class="btn btn-success">
+                                                                        {{pager.page + 1}} of {{pager.count}}
+                                                    </button>
+                                                    <button ng-click="pager.next()" class="btn btn-primary">
+                                                        <b class="glyphicon glyphicon-hand-right">></b>
+                                                    </button>
+                                                    <button ng-click="pager.last()" class="btn btn-danger">
+                                                        <b class="glyphicon glyphicon-hand-down">>></b>
+                                                    </button>
+                                                </div>
 
                                             </div>
 
@@ -307,7 +321,7 @@
     </div>
     <!-- gọi js -->
     <script src="/assets/js/productType-ctrl.js"></script>
-    <!-- Include JS scripts -->
+    Include JS scripts
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
