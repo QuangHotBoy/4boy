@@ -82,23 +82,24 @@
             // Duyệt qua danh sách sản phẩm và hiển thị trên trang
             cart.forEach(function (product) {
                 var productHTML = '<div class="row mx-auto mb-4">';
-                productHTML += '<div class="col-lg-3 col-md-12 mb-4 mb-lg-0">';
+                productHTML += '<div class="col-lg-3 col-md-3 mb-4 mb-lg-0">';
                 productHTML += '<div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">';
                 productHTML += '<img src="' + product.image + '" class="w-75 h-75" alt="Product Image" />';
                 productHTML += '<div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>';
                 productHTML += '</div>';
                 productHTML += '</div>';
 
-                productHTML += '<div class="col-lg-9 col-md-12 mb-4 mb-lg-0">';
+                productHTML += '<div class="col-lg-9 col-md-9 mb-4 mb-lg-0">';
                 productHTML += '<p><strong>' + product.name + '</strong></p>';
                 productHTML += '<div class="d-flex mb-4 row">';
-                productHTML += '<div class="col-md-5">';
+                productHTML += '<div class="col-md-6">';
                 productHTML += '<p class="text-start"><strong>Giá tiền: ' + product.price + ' vnđ</strong></p>';
                 productHTML += '</div>';
-                productHTML += '<div class="col-md-3">';
+                productHTML += '<div class="col-md-4 col-lg-4">';
                 productHTML += '<div class="input-group">';
                 productHTML += '<button class="btn btn-primary me-1" onclick="decrementQuantity(this)"><i class="fas fa-minus"></i></button>';
-                productHTML += '<input type="number" class="form-control text-center" value="1" readonly />';
+                productHTML += '<input type="number" class="text-center rounded-3" style="width: 60px" value="' + product.quantity + '" readonly min="1"/>';
+                productHTML += '<input type="text" name="maSP" value="' + product.id + '" hidden />';
                 productHTML += '<button class="btn btn-primary ms-1" onclick="incrementQuantity(this)"><i class="fas fa-plus"></i></button>';
                 productHTML += '</div>';
                 productHTML += '</div>';
@@ -130,23 +131,45 @@
             }
         }
 
-        // Hàm giảm số lượng sản phẩm
+        // Hàm giảm số lượng sản phẩm và cập nhật vào localStorage
         function decrementQuantity(button) {
             var input = $(button).closest('.input-group').find('input[type=number]');
             var currentValue = parseInt(input.val(), 10);
             if (!isNaN(currentValue) && currentValue > 1) {
                 input.val(currentValue - 1);
+                updateLocalStorage(input);
             }
         }
 
-        // Hàm tăng số lượng sản phẩm
+        // Hàm tăng số lượng sản phẩm và cập nhật vào localStorage
         function incrementQuantity(button) {
             var input = $(button).closest('.input-group').find('input[type=number]');
             var currentValue = parseInt(input.val(), 10);
             if (!isNaN(currentValue)) {
                 input.val(currentValue + 1);
+                updateLocalStorage(input);
             }
         }
+
+        // Hàm cập nhật số lượng sản phẩm trong localStorage
+        function updateLocalStorage(input) {
+            var productId = input.closest('.input-group').find('input[name=maSP]').val();
+            productId = parseInt(productId);
+            var quantity = parseInt(input.val(), 10);
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Tìm kiếm sản phẩm trong giỏ hàng và cập nhật số lượng nếu sản phẩm đã tồn tại
+            for (var i = 0; i < cart.length; i++) {
+                if (cart[i].id === productId) {
+                    cart[i].quantity = quantity;
+                    break;
+                }
+            }
+
+            // Lưu lại giỏ hàng đã cập nhật vào localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
     </script>
 </body>
 

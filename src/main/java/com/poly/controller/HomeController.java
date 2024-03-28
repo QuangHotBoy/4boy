@@ -109,20 +109,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("product", product);
-		model.addAttribute("title", product.getTenSach());
+		model.addAttribute("title", "Knotrea - "+ product.getTenSach());
 
 		return "shop/detail-item";
 	}
-
-	// @RequestMapping("shop/publishing/{id}")
-	// public String detailPublishing(Model model, @PathVariable("id") Long id) {
-
-	// 	NhaXuatBan publising = publisingDAO.findById(id).get();
-
-	// 	model.addAttribute("pub", publising);
-
-	// 	return "shop/publishing";
-	// }
 	
 	@RequestMapping("shop/auth/cart")
 	public String cart() {
@@ -147,6 +137,9 @@ public class HomeController {
 
 	@RequestMapping("shop/order/thank-for-order")
     public String orderSuccess(Model model) {
+
+		model.addAttribute("fragment", "/shop/layout/section/order-success :: order-success");
+
         return "shop/complete-order";
     }
 

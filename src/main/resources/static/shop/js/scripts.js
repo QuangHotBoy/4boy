@@ -25,3 +25,16 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   }
 });
+
+$(document).ready(function() {
+    // Lấy danh sách sản phẩm từ localStorage
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Đếm số lượng sản phẩm trong giỏ hàng
+    var cartCount = cart.reduce(function(total, product) {
+        return total + product.quantity;
+    }, 0);
+
+    // Hiển thị số lượng sản phẩm lên website
+    $('#cart-count').text(cartCount);
+});

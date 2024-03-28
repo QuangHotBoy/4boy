@@ -1,7 +1,7 @@
 <section class="pt-3" th:fragment="list-item">
 	<div class="container mt-5">
 		<div class="row pb-3">
-			<div class="col-lg-3">
+			<div class="col-lg-4 col-sm-6">
 				<div class="fs-5 fw-bolder p-2 border border-warning text-warning rounded-3">DANH SÁCH
 					SẢN PHẨM</div>
 			</div>
@@ -49,7 +49,7 @@
 						<!-- Product actions-->
 						<div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
 							<div class="text-center">
-								<a class="btn btn-outline-warning mt-auto"
+								<a class="btn text-bg-warning mt-auto"
 									th:href="@{/shop/buy-now(isbn=${p.isbn}, quantity=1)}" th:data-isbn="${p.isbn}">Mua
 									ngay</a>
 							</div>
