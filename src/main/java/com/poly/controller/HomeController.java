@@ -115,7 +115,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping("shop/auth/cart")
-	public String cart() {
+	public String cart(Model model) {
+
+		model.addAttribute("title", "Knotrea - Giỏ hàng của bạn");
+
 		return "shop/cart";
 	}
 

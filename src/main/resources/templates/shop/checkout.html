@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
 
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user">
+<body class="gradient-custom-user" ng-controller="CheckoutController">
     <div th:replace="/shop/layout/navigation :: nav"></div>
     <hr class="container">
     <div class="">
         <div class="container py-3">
-
-            <div class="row">
-                <div class="col-xl-6">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <ol class="activity-checkout mb-0 px-4 mt-3">
-                                <li class="checkout-item">
-                                    <div class="avatar checkout-icon p-1">
-                                        <div class="avatar-title rounded-circle bg-primary">
-                                            <i class="fas fa-receipt text-white font-size-20"></i>
+            <form name="frmthanhtoan" method="post">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <ol class="activity-checkout mb-0 px-4 mt-3">
+                                    <li class="checkout-item">
+                                        <div class="avatar checkout-icon p-1">
+                                            <div class="avatar-title rounded-circle bg-primary">
+                                                <i class="fas fa-receipt text-white font-size-20"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="feed-item-list">
-                                        <div>
-                                            <h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
-                                            <p class="text-muted text-truncate mb-4">Vui lòng điền đầy đủ thông tin</p>
-                                            <div class="mb-3">
-                                                <form>
+                                        <div class="feed-item-list">
+                                            <div>
+                                                <h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
+                                                <p class="text-muted text-truncate mb-4">Vui lòng điền đầy đủ thông tin
+                                                </p>
+                                                <div class="mb-3">
                                                     <div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
@@ -65,25 +64,24 @@
                                                                 rows="3"></textarea>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="checkout-item">
-                                    <div class="avatar checkout-icon p-1">
-                                        <div class="avatar-title rounded-circle bg-primary">
-                                            <i class="fas fa-wallet text-white font-size-20"></i>
+                                    </li>
+                                    <li class="checkout-item">
+                                        <div class="avatar checkout-icon p-1">
+                                            <div class="avatar-title rounded-circle bg-primary">
+                                                <i class="fas fa-wallet text-white font-size-20"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="feed-item-list">
-                                        <div>
-                                            <h5 class="font-size-16 mb-4">Thông tin thanh toán</h5>
-                                        </div>
-                                        <div>
-                                            <h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
-                                            <div class="row">
-                                                <!-- <div class="col-lg-3 col-sm-6">
+                                        <div class="feed-item-list">
+                                            <div>
+                                                <h5 class="font-size-16 mb-4">Thông tin thanh toán</h5>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
+                                                <div class="row">
+                                                    <!-- <div class="col-lg-3 col-sm-6">
                                                     <div data-bs-toggle="collapse">
                                                         <label class="card-radio-label">
                                                             <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input">
@@ -95,111 +93,126 @@
                                                     </div>
                                                 </div> -->
 
-                                                <div class="col-lg-12 col-sm-12">
-                                                    <div>
-                                                        <label class="card-radio-label w-75">
-                                                            <input type="radio" name="pay-method" id="pay-methodoption2"
-                                                                class="card-radio-input">
-                                                            <span class="card-radio ps-4 text-start text-truncate mb-2">
-                                                                <img th:src="@{/shop/image/vnpay.png}"
-                                                                    class="avatar-sm me-2" alt="">
-                                                                <strong>Thanh toán qua ví VNPay</strong>
-                                                            </span>
-                                                        </label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <div>
+                                                            <label class="card-radio-label w-75">
+                                                                <input type="radio" name="pay-method"
+                                                                    id="pay-methodoption2" value="1" class="card-radio-input">
+                                                                <span
+                                                                    class="card-radio ps-4 text-start text-truncate mb-2">
+                                                                    <img th:src="@{/shop/image/vnpay.png}"
+                                                                        class="avatar-sm me-2" alt="">
+                                                                    <strong>Thanh toán qua ví VNPay</strong>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <div>
+                                                            <label class="card-radio-label w-75">
+                                                                <input type="radio" name="pay-method"
+                                                                    id="pay-methodoption3" value="2" class="card-radio-input"
+                                                                    checked="">
+                                                                <span class="card-radio ps-4 text-start text-truncate">
+                                                                    <img th:src="@{/shop/image/cod.png}"
+                                                                        class="avatar-sm me-2" alt="">
+                                                                    <strong>Thanh toán khi nhận hàng</strong>
+                                                                </span>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-lg-12 col-sm-12">
-                                                    <div>
-                                                        <label class="card-radio-label w-75">
-                                                            <input type="radio" name="pay-method" id="pay-methodoption3"
-                                                                class="card-radio-input" checked="">
-                                                            <span class="card-radio ps-4 text-start text-truncate">
-                                                                <img th:src="@{/shop/image/cod.png}"
-                                                                    class="avatar-sm me-2" alt="">
-                                                                <strong>Thanh toán khi nhận hàng</strong>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="row my-4">
-                        <div class="col">
-                            <a th:href="@{/shop/home}" class="btn btn-link text-muted">
-                                <i class="fas fa-arrow-left me-1"></i> Tiếp tục mua hàng </a>
-                        </div> <!-- end col -->
-                        <div class="col">
-                            <div class="text-end mt-2 mt-sm-0">
-                                <a href="#" class="btn btn-success">
-                                    <i class="mdi mdi-cart-outline me-1"></i> Thanh toán </a>
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row-->
-                </div>
-                <div class="col-xl-6">
-                    <div class="card checkout-order-summary">
-                        <div class="card-body">
-                            <div class="p-3 bg-light mb-3 d-flex">
-                                <div class="font-size-16 mb-0 mr-auto">Đơn Hàng Của Bạn</div>
-                                <a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a>
-                            </div>
-
-                            <ul class="list-group mb-3 products-cart">
-
-                            </ul>
-
-                            <div class="table-responsive">
-                                <ul class="list-group mb-3">
-									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Tổng Tiền: </span> <strong class="me-5"> <span
-												class="total"></span>
-										</strong>
-										<input type="text" name="total" id="total" hidden>
-									</li>
-									<li class="list-group-item d-flex justify-content-between">
-										<form class="w-100 me-5" id="voucherForm"
-											th:action="@{/shop/check-out/add-voucher}" method="post">
-											<div class="input-group">
-												<input type="text" class="form-control me-2" name="voucher"
-													placeholder="Nhập mã giảm giá" id="voucherCode">
-												<div class="input-group-append">
-													<button type="button" class="btn btn-secondary"
-														onclick="submitForm()">Áp
-														dụng</button>
-												</div>
-											</div>
-										</form>
-									</li>
-									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Giảm Giá: </span> <strong class="me-5"> <span
-												class="voucher-info"></span>
-										</strong>
-									</li>
-									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5"> <span
-												th:text="${#numbers.formatDecimal(30000, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-										</strong> <input type="text" name="shipper" th:value="30000"
-											hidden>
-									</li>
-									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5"> <span
-												class="total-payment-infor"></span>
-										</strong>
-									</li>
-								</ul>
+                                    </li>
+                                </ol>
                             </div>
                         </div>
+
+                        <div class="row my-4">
+                            <div class="col">
+                                <a th:href="@{/shop/home}" class="btn btn-link text-muted">
+                                    <i class="fas fa-arrow-left me-1"></i> Tiếp tục mua hàng </a>
+                            </div> <!-- end col -->
+                            <div class="col">
+                                <div class="text-end mt-2 mt-sm-0">
+                                    <button ng-click="order.purchase()" class="btn btn-success">
+                                        <i class="mdi mdi-cart-outline me-1"></i> Thanh toán </button>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row-->
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card checkout-order-summary">
+                            <div class="card-body">
+                                <div class="p-3 bg-light mb-3 d-flex">
+                                    <div class="font-size-16 mb-0 mr-auto">Đơn Hàng Của Bạn</div>
+                                    <a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a>
+                                </div>
+
+                                <ul class="list-group mb-1" ng-repeat="product in cart.items">
+                                    <li class="list-group-item lh-condensed">
+                                        <div class="row">
+                                            <img ng-src="{{product.image}}" class="avatar-lg col-sm-2 col-md-2" alt="">
+                                            <div class="col-sm-8 col-md-8 ms-2 d-block">
+                                                <h5 class="mb-2 font-size-16">{{product.name}}</h5>
+                                                <small class="text-muted">
+                                                    <p>{{cart.format(product)}}</p>
+                                                </small>
+                                            </div>
+                                            <div class="col-sm-2 col-md-2">x {{product.quantity}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <input type="text" ng-model="subtotal" name="total" hidden>
+                                <div class="table-responsive">
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="font-size-14">Tổng Tiền: </span> <strong class="me-5">
+                                                <span>{{total}}</span>
+                                            </strong>
+                                            <input type="text" ng-model="total" id="total" hidden>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <form class="w-100 me-5" id="voucherForm"
+                                                th:action="@{/shop/check-out/add-voucher}" method="post">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control me-2" ng-model="voucherCode"
+                                                        placeholder="Nhập mã giảm giá" name="voucher">
+                                                    <input type="text" ng-model="subpayment" name="payment" hidden>
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            ng-click="submitForm()">Áp
+                                                            dụng</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="font-size-14">Giảm Giá: </span> <strong class="me-5"> <span
+                                                    class="voucher-info"></span>
+                                            </strong>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5">
+                                                <span
+                                                    th:text="${#numbers.formatDecimal(30000, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                                            </strong> <input type="text" name="shipper" ng-model="shipper" value="30000"
+                                                hidden>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5">
+                                                <span>{{payment}}</span>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- end row -->
 
         </div>
@@ -209,42 +222,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
     <script th:src="@{/shop/js/checkout.js}"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Lấy danh sách sản phẩm từ localStorage
-            var cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            // Duyệt qua từng sản phẩm trong giỏ hàng và thêm vào DOM
-            cart.forEach(function (product) {
-                // Tạo HTML cho mỗi sản phẩm
-                var productHTML = '<li class="list-group-item lh-condensed">';
-                productHTML += '<div class="row">';
-                productHTML += '<img src="' + product.image + '" class="avatar-lg col-sm-2 col-md-2" alt="">';
-                productHTML += '<div class="col-sm-8 col-md-8 ms-2 d-block">';
-                productHTML += '<h5 class="mb-3 font-size-16">' + product.name + '</h5>';
-                productHTML += '<small class="text-muted">';
-                productHTML += '<p>' + formatPrice(product.price) + '</p>';
-                productHTML += '</small>';
-                productHTML += '</div>';
-                productHTML += '<div class="col-sm-2 col-md-2">x ' + product.quantity + '</div>';
-                productHTML += '<input type="hidden" name="maSP" value="' + product.id + '">';
-                productHTML += '<input type="hidden" name="soLuong" value="' + product.quantity + '">';
-                productHTML += '</div>';
-                productHTML += '</li>';
-
-                // Thêm HTML vào DOM
-                $(".products-cart").append(productHTML);
-            });
-        });
-
-        // Hàm định dạng giá sản phẩm
-        function formatPrice(price) {
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
-        }
-    </script>
-
 </body>
 
 </html>

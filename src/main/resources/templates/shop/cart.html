@@ -1,37 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
 
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user">
+<body class="gradient-custom-user" ng-controller="CartController">
     <!-- Navigation-->
     <div th:replace="/shop/layout/navigation :: nav"></div>
     <hr class="container">
-    <!-- Thông tin chi tiết sản phẩm-->
+    <!-- Sản phẩm trong giỏ hàng -->
     <section class="h-100">
         <div class="container py-5">
             <div class="row justify-content-center my-4">
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-header py-3 text-center">
-                            <h5 class="mb-0">GIỎ HÀNG CỦA BẠN - 2 sản phẩm</h5>
+                            <h5 class="mb-0">GIỎ HÀNG CỦA BẠN - <span>{{cartCount}}</span> sản phẩm</h5>
                         </div>
-                        <div class="card-body" id="cart">
+                        <div class="card-body">
                             <!-- Single item -->
-
-                            <hr class="my-4" />
-
+                            <div class="row mx-auto mb-4" ng-repeat="product in cart">
+                                <div class="col-lg-3 col-md-3 mb-4 mb-lg-0">
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                        data-mdb-ripple-color="light">
+                                        <img ng-src="{{product.image}}" class="w-75 h-75" alt="Product Image" />
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-9 mb-4 mb-lg-0">
+                                    <p><strong>{{product.name}}</strong></p>
+                                    <div class="d-flex mb-4 row">
+                                        <div class="col-md-6">
+                                            <p class="text-start"><strong>Giá tiền: {{product.price}} vnđ</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="input-group">
+                                                <button class="btn btn-primary me-1"
+                                                    ng-click="decrementQuantity($index)">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <input type="number" class="text-center rounded-3" style="width: 60px"
+                                                    ng-model="product.quantity" readonly min="1" />
+                                                <input type="text" name="maSP" ng-value="product.id" hidden />
+                                                <button class="btn btn-primary ms-1"
+                                                    ng-click="incrementQuantity($index)">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-danger" ng-click="deleteProduct($index)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4" />
+                            </div>
                         </div>
                     </div>
-                    <!-- <div class="card mb-4 mb-lg-0">
-                        <div class="card-body">
-                            <p><strong>Chúng tôi chấp nhận thanh toán</strong></p>
-                            <img class="me-2" width="45px"
-                                th:src="@{/shop/image/vnpay.png}"
-                                alt="Visa" />
-                        </div>
-                    </div> -->
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="card mb-4">
@@ -43,7 +71,7 @@
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                     Sản phẩm
-                                    <span>45.000 vnđ</span>
+                                    <span>{{calculateSubtotal() | currency:'VND'}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     Phí vận chuyển
@@ -57,7 +85,7 @@
                                             <p class="mb-0">(Bao gồm VAT)</p>
                                         </strong>
                                     </div>
-                                    <span><strong>60.000 vnđ</strong></span>
+                                    <span><strong>{{calculateTotal() | currency:'VND'}}</strong></span>
                                 </li>
                             </ul>
 
@@ -73,104 +101,9 @@
     <!-- Footer-->
     <div th:replace="/shop/layout/footer :: footer"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Lấy dữ liệu sản phẩm từ LocalStorage
-            var cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-            // Duyệt qua danh sách sản phẩm và hiển thị trên trang
-            cart.forEach(function (product) {
-                var productHTML = '<div class="row mx-auto mb-4">';
-                productHTML += '<div class="col-lg-3 col-md-3 mb-4 mb-lg-0">';
-                productHTML += '<div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">';
-                productHTML += '<img src="' + product.image + '" class="w-75 h-75" alt="Product Image" />';
-                productHTML += '<div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>';
-                productHTML += '</div>';
-                productHTML += '</div>';
-
-                productHTML += '<div class="col-lg-9 col-md-9 mb-4 mb-lg-0">';
-                productHTML += '<p><strong>' + product.name + '</strong></p>';
-                productHTML += '<div class="d-flex mb-4 row">';
-                productHTML += '<div class="col-md-6">';
-                productHTML += '<p class="text-start"><strong>Giá tiền: ' + product.price + ' vnđ</strong></p>';
-                productHTML += '</div>';
-                productHTML += '<div class="col-md-4 col-lg-4">';
-                productHTML += '<div class="input-group">';
-                productHTML += '<button class="btn btn-primary me-1" onclick="decrementQuantity(this)"><i class="fas fa-minus"></i></button>';
-                productHTML += '<input type="number" class="text-center rounded-3" style="width: 60px" value="' + product.quantity + '" readonly min="1"/>';
-                productHTML += '<input type="text" name="maSP" value="' + product.id + '" hidden />';
-                productHTML += '<button class="btn btn-primary ms-1" onclick="incrementQuantity(this)"><i class="fas fa-plus"></i></button>';
-                productHTML += '</div>';
-                productHTML += '</div>';
-                productHTML += '<div class="col-md-1">';
-                productHTML += '<button class="btn btn-danger" onclick="deleteProductById(\'' + product.id + '\')"><i class="fas fa-trash"></i></button>';
-                productHTML += '</div>';
-                productHTML += '</div>';
-                productHTML += '</div>';
-
-                productHTML += '</div>';
-
-                $("#cart").append(productHTML);
-            });
-        });
-
-        function deleteProductById(productId) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            productId = parseInt(productId);
-
-            let index = cart.findIndex(product => product.id === productId);
-            if (index !== -1) {
-                cart.splice(index, 1);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                console.log('Sản phẩm đã được xóa thành công.');
-                location.reload();
-            } else {
-                console.log('Không tìm thấy sản phẩm với id được cung cấp.');
-            }
-        }
-
-        // Hàm giảm số lượng sản phẩm và cập nhật vào localStorage
-        function decrementQuantity(button) {
-            var input = $(button).closest('.input-group').find('input[type=number]');
-            var currentValue = parseInt(input.val(), 10);
-            if (!isNaN(currentValue) && currentValue > 1) {
-                input.val(currentValue - 1);
-                updateLocalStorage(input);
-            }
-        }
-
-        // Hàm tăng số lượng sản phẩm và cập nhật vào localStorage
-        function incrementQuantity(button) {
-            var input = $(button).closest('.input-group').find('input[type=number]');
-            var currentValue = parseInt(input.val(), 10);
-            if (!isNaN(currentValue)) {
-                input.val(currentValue + 1);
-                updateLocalStorage(input);
-            }
-        }
-
-        // Hàm cập nhật số lượng sản phẩm trong localStorage
-        function updateLocalStorage(input) {
-            var productId = input.closest('.input-group').find('input[name=maSP]').val();
-            productId = parseInt(productId);
-            var quantity = parseInt(input.val(), 10);
-            var cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            // Tìm kiếm sản phẩm trong giỏ hàng và cập nhật số lượng nếu sản phẩm đã tồn tại
-            for (var i = 0; i < cart.length; i++) {
-                if (cart[i].id === productId) {
-                    cart[i].quantity = quantity;
-                    break;
-                }
-            }
-
-            // Lưu lại giỏ hàng đã cập nhật vào localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <script th:src="@{/shop/js/cart.js}"></script>
 </body>
 
 </html>

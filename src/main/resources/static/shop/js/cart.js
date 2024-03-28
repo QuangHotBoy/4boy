@@ -1,33 +1,57 @@
-$(document).ready(function() {
-    // Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
-    $(".btn-outline-warning").click(function() {
-        // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
-        var productContainer = $(this).closest(".card");
-        var isbn = $(this).data("isbn");
-        var productName = productContainer.find("h5").text();
-        var productPrice = productContainer.find(".fw-bold").first().text().replace(' vnđ', '').replace('.', '');
-        var productImage = productContainer.find("img").attr("src");
-        var quantity = 1;
+var app = angular.module("myApp", []);
 
-        // Tạo đối tượng sản phẩm
-        var product = {
-            id: isbn,
-            name: productName,
-            price: productPrice,
-            image: productImage,
-            quantity: quantity
-        };
+app.controller("CartController", function ($scope) {
+  // Lấy danh sách sản phẩm từ localStorage
+  var cart = JSON.parse(localStorage.getItem("cart")) || [];
+  $scope.cart = cart;
 
-        // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
-        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+  // Tính tổng số lượng sản phẩm trong giỏ hàng
+  $scope.cartCount = cart.reduce(function (total, product) {
+    return total + product.quantity;
+  }, 0);
 
-        // Thêm sản phẩm vào giỏ hàng
-        cart.push(product);
+  // Hàm giảm số lượng sản phẩm
+  $scope.decrementQuantity = function (index) {
+    if ($scope.cart[index].quantity > 1) {
+      $scope.cart[index].quantity--;
+      updateLocalStorage();
+    }
+  };
 
-        // Lưu lại danh sách sản phẩm vào LocalStorage
-        localStorage.setItem("cart", JSON.stringify(cart));
+  // Hàm tăng số lượng sản phẩm
+  $scope.incrementQuantity = function (index) {
+    $scope.cart[index].quantity++;
+    updateLocalStorage();
+  };
 
-        // Hiển thị thông báo cho người dùng
-        alert("Sản phẩm đã được thêm vào giỏ hàng!");
+  // Hàm xóa sản phẩm
+  $scope.deleteProduct = function (index) {
+    $scope.cart.splice(index, 1);
+    updateLocalStorage();
+  };
+
+  // Hàm cập nhật localStorage
+  function updateLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify($scope.cart));
+  }
+
+  // Hàm tính tổng tiền
+  $scope.calculateTotal = function () {
+    var total = 0;
+    $scope.cart.forEach(function (product) {
+      total += product.price * product.quantity;
     });
+
+    total = total + 30000;
+    return total;
+  };
+
+  // Hàm tính tổng tiền của các sản phẩm
+  $scope.calculateSubtotal = function () {
+    var subtotal = 0;
+    $scope.cart.forEach(function (product) {
+      subtotal += product.price * product.quantity;
+    });
+    return subtotal;
+  };
 });
