@@ -2,8 +2,6 @@ $(document).ready(function() {
     // Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
     $(".btn-outline-warning").click(function() {
         // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
-
-        console.log(1);
         var productContainer = $(this).closest(".card");
         var isbn = $(this).data("isbn");
         var productName = productContainer.find("h5").text();

@@ -98,7 +98,7 @@ public class RestCheckoutCotroller {
 
         TaiKhoan currentUser = accountDAO.findByTenDangNhap("poly");
         DiaChi_TaiKhoan addressDefault = addressDAO.findByTaiKhoan(currentUser.getTenDangNhap());
-        TinhTrangDonDatHang status = orderStatusDAO.findById(9).get();
+        TinhTrangDonDatHang status = orderStatusDAO.findById(8).get();
 
         String hoTen = req.getParameter("hoTen");
         String dienThoai = req.getParameter("dienThoai");
