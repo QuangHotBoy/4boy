@@ -79,7 +79,7 @@
     }
 </style>
 
-<body ng-controller="NhaCungCapController">
+<body ng-controller="supplier-Ctrl">
     <div class="container-scroller" ng-app="supplier-App">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -123,7 +123,7 @@
 
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                ssss
+                               
                             </ol>
                         </nav>
                     </div>
@@ -162,7 +162,7 @@
                                                                             style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
                                                                             <img style="width: 190px; height: 220px;"
                                                                                 id="imgPreview" alt=""
-                                                                                src="/image/product/${item.hinhAnh}">
+                                                                                src="">
 
                                                                             <!-- Input for selecting a new image (hidden) -->
                                                                             <input type="file" accept=".jpg, .png"
@@ -175,6 +175,7 @@
                                                                                 onclick="selectImage()"
                                                                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="mb-3">
@@ -221,20 +222,20 @@
                                                             <th style="width: 10%;">Mã nhà xuất bản</th>
                                                             <th style="width: 20%;">Tên nhà xuất bản</th>
                                                             <th style="width: 30%;">Mô tả</th>
-                                                            <!-- <th style="width: 20%;">Hình ảnh</th> -->
+                                                            <th style="width: 20%;">Hình ảnh</th>
                                                             <th style="width: 5%;">Sửa</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                        <tr ng-repeat="ncc in nhacungcaps">
+                                                        <tr ng-repeat="ncc in suppliers">
                                                             <td>{{ncc.id}}</td>
                                                             <td>{{ncc.tenNhaCungCap}}</td>
                                                             <td>{{ncc.moTa}}</td>
-                                                            <!-- <td>
-                                                                <img alt="[[${ncc.hinhAnh}]]"
-                                                                    th:src="@{|/assets/images/products/${ncc.hinhAnh}|}">
-                                                            </td> -->
+                                                            <td>
+                                                                <!-- <img alt="[[${ncc.hinhAnh}]]"
+                                                                    th:src="@{|/assets/images/products/${ncc.hinhAnh}|}"> -->
+                                                            </td>
                                                             <td>
                                                                 <i class="mdi mdi-border-color mdi-24px"
                                                                     style="color: red;"></i>
@@ -309,31 +310,6 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
 </script>
 <script src="/assets/js/supplier-ctrl.js"></script>
-<script>
-    var app = angular.module('supplier-App', []);
 
-    // Định nghĩa service và controller trong cùng một tệp
-    app.service('NhaCungCapService', function ($http) {
-        this.getNhaCungCaps = function () {
-            return $http.get('/admin/supplier')
-                .then(function (response) {
-                    return response.data;
-                });
-        };
-    });
-
-    app.controller('NhaCungCapController', function ($scope, NhaCungCapService) {
-        $scope.nhacungcaps = [];
-
-        $scope.loadNhaCungCaps = function () {
-            NhaCungCapService.getNhaCungCaps().then(function (data) {
-                $scope.nhacungcaps = data;
-            });
-        };
-
-        // Gọi hàm loadNhaCungCaps để lấy dữ liệu khi controller được khởi tạo
-        $scope.loadNhaCungCaps();
-    });
-</script>
 
 </html>
