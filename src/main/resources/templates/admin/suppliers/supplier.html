@@ -5,82 +5,35 @@
     <meta charset="UTF-8">
     <title>Admin - Sản phẩm</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- End plugin css for this page -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
 <style>
-    /* Apply CSS to style the table */
-    #table1 {
-        width: 100%;
-        /* Set the table width to fill its container */
-        border-collapse: collapse;
-        /* Collapse the borders between table cells */
-    }
+    
 
-    #table1 th,
-    #table1 td {
-        padding: 10px;
-        /* Add padding to table cells */
-        text-align: left;
-        /* Align text to the left within cells */
-        border: 1px solid #ddd;
-        /* Add border to cells */
-    }
 
-    #table1 th {
-        background-color: #f2f2f2;
-        /* Add background color to header cells */
-    }
 
-    #table1 img {
-        max-width: 80%;
-        /* Ensure images fit within their containers */
-        height: 150px;
-        /* Maintain aspect ratio of images */
-        display: block;
-        /* Display images as block elements */
-        margin: 0 auto;
-        /* Center align images horizontally */
-    }
-
-    #table1 td:last-child {
-        text-align: center;
-        /* Center align content in last column */
-    }
-
-    /* CSS để di chuyển Search và phân trang sang bên phải */
-    .dataTables_wrapper .dataTables_filter {
-        float: right;
-    }
-
-    .dataTables_wrapper .dataTables_paginate {
-        margin-top: 10px;
-        float: right;
-    }
-
-    .dataTables_wrapper .dataTables_info {
-        margin-top: 10px;
-    }
+    
 </style>
 
-<body ng-controller="supplier-Ctrl">
-    <div class="container-scroller" ng-app="supplier-App">
+<body>
+    <div class="container-scroller" ng-app="supplier-App" ng-controller="supplier-Ctrl">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -119,24 +72,32 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="page-header">
 
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                               
-                            </ol>
-                        </nav>
-                    </div>
+
+
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+
                                     <form class="form-sample">
+
                                         <div id="bootstrap-data-table_wrapper"
                                             class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+                                            <!-- <ol class="breadcrumb ">
+                                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản
+                                                            phẩm</a></li>
+                                                    <li class="breadcrumb-item active" aria-current="page"><a
+                                                            href="">Sách</a></li>
+
+                                                </ol> -->
+
                                             <button type="button" class="btn btn-warning bi bi-plus"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                 data-bs-whatever="@mdo">Thêm mới</button>
+
                                             <!-- modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -161,8 +122,7 @@
                                                                         <div
                                                                             style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
                                                                             <img style="width: 190px; height: 220px;"
-                                                                                id="imgPreview" alt=""
-                                                                                src="">
+                                                                                id="imgPreview" alt="" src="">
 
                                                                             <!-- Input for selecting a new image (hidden) -->
                                                                             <input type="file" accept=".jpg, .png"
@@ -175,7 +135,7 @@
                                                                                 onclick="selectImage()"
                                                                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="mb-3">
@@ -207,6 +167,48 @@
                                                 </div>
                                             </div>
                                             <!-- modal -->
+                                            <!-- form edit -->
+                                            <!-- <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div style="margin-top: 100px;" class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="mb-3">
+                                                                        <label for="tenLoai" class="form-label">Tên loại
+                                                                            sách</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="tenLoai" placeholder=""
+                                                                            ng-model="form.tenLoai">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="moTa" class="form-label">Mô
+                                                                            tả</label>
+                                                                        <textarea class="form-control" id="moTa"
+                                                                            placeholder="" style="height: 138px;"
+                                                                            ng-model="form.moTa"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                                ng-click="update()">Cập nhật</button>
+
+                                                            <button type="button" class="btn btn-secondary"
+                                                                ng-click="reset()">Làm mới</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
 
                                         </div>
 
@@ -215,8 +217,7 @@
 
                                             <div class="card-body" style="height: 500px; overflow: auto;">
 
-                                                <table class="product-table" id="table1">
-
+                                                <table class="product-table">
                                                     <thead>
                                                         <tr>
                                                             <th style="width: 10%;">Mã nhà xuất bản</th>
@@ -224,26 +225,49 @@
                                                             <th style="width: 30%;">Mô tả</th>
                                                             <th style="width: 20%;">Hình ảnh</th>
                                                             <th style="width: 5%;">Sửa</th>
+
                                                         </tr>
                                                     </thead>
-
                                                     <tbody>
-                                                        <tr ng-repeat="ncc in suppliers">
-                                                            <td>{{ncc.id}}</td>
-                                                            <td>{{ncc.tenNhaCungCap}}</td>
-                                                            <td>{{ncc.moTa}}</td>
+                                                        <tr ng-repeat="item in suppliers">
+                                                            <td>{{ item.id }}</td>
+                                                            <td>{{ item.tenNhaXuatBan }}</td>
+                                                            <td>{{ item.moTa }}</td>
+                                                            <!-- <td>{{ item.hinhAnh }}</td> -->
                                                             <td>
-                                                                <!-- <img alt="[[${ncc.hinhAnh}]]"
-                                                                    th:src="@{|/assets/images/products/${ncc.hinhAnh}|}"> -->
+                                                                
+                                                                    <img class="product-image"
+                                                                        ng-src="/assets/images/products/{{ item.hinhAnh }}" style="height: 100px" width="150px">
+                                                               
                                                             </td>
                                                             <td>
                                                                 <i class="mdi mdi-border-color mdi-24px"
-                                                                    style="color: red;"></i>
+                                                                    style="color: red;" ng-click="edit(item.id)"></i>
+
                                                             </td>
                                                         </tr>
+
+
                                                     </tbody>
 
                                                 </table>
+                                                <!-- <div class="btn-group my-2" style="margin-left: 33.5%;" role="group"
+                                                    aria-label="Basic example">
+                                                    <button ng-click="pager.first()" class="btn btn-danger">
+                                                        <b class="glyphicon glyphicon-hand-up">
+                                                            <<</b> </button> <button ng-click="pager.prev()"
+                                                                class="btn btn-primary">
+                                                                <b class="glyphicon glyphicon-hand-left">
+                                                                    <</b> </button> <button class="btn btn-success">
+                                                                        {{pager.page + 1}} of {{pager.count}}
+                                                    </button>
+                                                    <button ng-click="pager.next()" class="btn btn-primary">
+                                                        <b class="glyphicon glyphicon-hand-right">></b>
+                                                    </button>
+                                                    <button ng-click="pager.last()" class="btn btn-danger">
+                                                        <b class="glyphicon glyphicon-hand-down">>></b>
+                                                    </button>
+                                                </div> -->
 
                                             </div>
 
@@ -264,8 +288,9 @@
     </div>
     <!-- page-body-wrapper ends -->
     </div>
+    <!-- gọi js -->
 
-    <!-- Include JS scripts -->
+
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
@@ -284,6 +309,8 @@
             modal.find('.modal-body input').val(recipient)
         })
     </script>
+
+
     <script>
         $(document).ready(function () {
             $('#table1').DataTable({
@@ -301,15 +328,17 @@
         });
         /*]]>*/
     </script>
+    <script src="/assets/js/supplier-ctrl.js"></script>
     <!--  -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+        </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-</script>
-<script src="/assets/js/supplier-ctrl.js"></script>
+
+
 
 
 </html>

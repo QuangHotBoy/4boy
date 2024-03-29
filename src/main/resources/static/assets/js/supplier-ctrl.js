@@ -31,4 +31,18 @@ app.controller("supplier-Ctrl", function ($scope, $http) {
     $scope.reset = function () {
         $scope.form = {}
     }
+    //hình
+    $scope.imageChanged = function(files){
+		var data = new FormData();
+		data.append('file', files[0]);
+		$http.post('/rest/upload/images', data, {
+			transformRequest: angular.identity,
+			headers: {'Content-Type': undefined}
+        }).then(resp => {
+			$scope.form.image = resp.data.name;
+		}).catch(error => {
+			alert("Lỗi upload hình ảnh");
+			console.log("Error", error);
+		})
+	}
 });
