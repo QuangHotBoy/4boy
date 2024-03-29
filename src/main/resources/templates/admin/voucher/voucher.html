@@ -101,11 +101,10 @@
                                         <td>{{ voucher.soTienGiam }}</td>
                                         <td>{{ voucher.soLuong }}</td>
                                         <td>{{ currentDate | date:'dd/MM/yyyy HH:mm' }}</td>
->
                                         <td>{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
                                         <td>{{ voucher.thongTin }}</td>
                                         <td>
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ng-click="edit(voucher.id)" data-whatever="@mdo">Open modal for @mdo</button>
+                                          <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-toggle="modal" data-target="#exampleModal" ng-click="edit(voucher.id)" data-whatever="@mdo"><i class="mdi mdi-border-color"></i></button>
                                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                               <div class="modal-content" style="width: 250%;height:500px ; margin-left: -75%;">
@@ -185,12 +184,10 @@
                                                         </div>
                                                       </div>
                                                     </div>
-            
                                                 </div>
-                                                
                                                 <div class="modal-footer">
                                                   <a href="/shop/admin/voucher" type="button" class="btn btn-gradient-danger btn-icon-text">Đóng</a>
-                                                  <button type="button" class="btn btn-primary">Send message</button>
+                                                  <a href="/shop/admin/voucher" type="button" ng-click="update()" class="btn btn-primary">Cập nhật</a>
                                                 </div>
                                               </div>
                                             </div>

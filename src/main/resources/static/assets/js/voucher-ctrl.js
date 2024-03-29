@@ -81,25 +81,35 @@ app.controller("voucher-ctrl", function($scope, $http){
     
 
     //cap nhat mgg
+    //hàm cập nhật
     $scope.update = function () {
-        var voucher = angular.copy($scope.form); // Tạo một bản sao của đối tượng form để tránh ảnh hưởng đến dữ liệu gốc
-        $http.put(`/rest/productsType/${voucher.id}`, voucher) // Gửi yêu cầu PUT để cập nhật dữ liệu sản phẩm
+        var voucher = angular.copy($scope.form);
+        $http.put('/rest/vouchers/' + voucher.id, voucher)
             .then(resp => {
-                var index = $scope.vouchers.findIndex(p => p.id === voucher.id);
-                if (index !== -1) { // Kiểm tra nếu index hợp lệ
-                    // Gán dữ liệu mới vào đối tượng tại vị trí index thay vì gán lại voucher vào vouchers[index]
-                    $scope.vouchers[index].tenLoai = voucher.tenLoai;
-                    $scope.vouchers[index].moTa = voucher.moTa;
-                    alert("Cập nhật sản phẩm thành công!");
-                } else {
-                    alert("Không tìm thấy sản phẩm cần cập nhật trong danh sách!");
+                // Initialize $scope.vouchers if not already initialized
+                if (!$scope.vouchers) {
+                    $scope.vouchers = [];
                 }
+    
+                // Check if the voucher exists in $scope.vouchers before updating
+                var index = $scope.vouchers.findIndex(i => i.id === voucher.id);
+                if (index !== -1) {
+                    $scope.vouchers[index] = angular.copy(voucher);
+                }
+    
+                $scope.reset(); // Reset form
+                alert("Cập nhật sản phẩm thành công!");
+                // Optionally, reload data
+                // loadData();
             })
             .catch(error => {
-                console.log("Error", error);
                 alert("Lỗi cập nhật sản phẩm!");
+                console.log("Error", error);
             });
     };
+    
+    
+    
 
     //xoa mgg
     $scope.delete = function(voucher) {
