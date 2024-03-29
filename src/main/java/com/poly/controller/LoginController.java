@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.TaiKhoan;
@@ -93,14 +94,13 @@ public class LoginController {
 	String randomString = generateRandomString(10);
     String Subject = "███ Nhà Sách Trực Tuyến Knotrea Xin Chào, Đây là mã xác nhận của bạn ███";
     String icon1 = "Mã xác nhận email của bạn là: <h>&#x1F338;<strong>" + randomString + "</strong> &#x1F338;</h>\n";
-
+    
     @RequestMapping("sendemail/{email}")
     public String sendemail(Model model, @PathVariable("email") String email) {
         sessionService_quenmatkhau.set("maxacnhan_email", randomString);
         String styledIcon1 = icon1.replace("\n", "<br>");
-        model.addAttribute("email", email);
         mailer.send(email, Subject, styledIcon1);
-		return "shop/layout/login/forgot_xacnhan";
+		return "forward:/shop/layout/login/forgot";
     }
     String emailthaydoimatkhau = "";
 
@@ -110,11 +110,12 @@ public class LoginController {
         if (maxacnhan.equals("")) {
             model.addAttribute("kiemtramaxacnhan", "<<<  Vui lòng nhập mã xác nhận!  >>>");
             model.addAttribute("email", email);
-            return "shop/quenmatkhau_xacnhanma";
-        } else if (!maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
+            return "shop/layout/login/forgot";
+        } 
+        else if (!maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
             model.addAttribute("kiemtramaxacnhan", "<<<  Mã xác nhận không hợp lệ!  >>>");
             model.addAttribute("email", email);
-            return "shop/layout/login/forgot_xacnhan";
+            return "shop/layout/login/forgot";
         }
         emailthaydoimatkhau = email;
         return "redirect:/thaydoimatkhau";
@@ -129,8 +130,6 @@ public class LoginController {
         TaiKhoan kiemTraTaiKhoanEmail = tkDao.findByEmail(emailthaydoimatkhau);
         model.addAttribute("tenDangNhap", kiemTraTaiKhoanEmail.getTenDangNhap());
         model.addAttribute("email", emailthaydoimatkhau);
-        model.addAttribute("thongbaothaydoimatkhau_tendangnhap", thongbaothaydoimatkhau_tendangnhap);
-        model.addAttribute("thongbaothaydoimatkhau_matkhau", thongbaothaydoimatkhau_matkhau);
         model.addAttribute("matk", matk);
         return "shop/layout/login/create_user";
     }

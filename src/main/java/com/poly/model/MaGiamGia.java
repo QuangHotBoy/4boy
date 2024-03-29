@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -71,7 +73,7 @@ public class MaGiamGia implements Serializable {
 
     @Column(name = "ket_thuc")
     private Boolean ketThuc;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "maGiamGia")
     private List<DonDatHang> maGiamGia;
 

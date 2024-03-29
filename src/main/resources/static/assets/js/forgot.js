@@ -43,8 +43,8 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
             });
     };
 
-    $scope.edit = function (productId) {
-        $http.get('/rest/productsType')
+    $scope.edit = function (tendangnhap) {
+        $http.get('/rest/login')
             .then(resp => {
                 $scope.items = resp.data;
                 // Gán dữ liệu từ items vào form

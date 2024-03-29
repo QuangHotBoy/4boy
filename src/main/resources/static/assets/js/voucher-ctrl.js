@@ -1,14 +1,19 @@
 var app = angular.module('voucherApp', []);
 app.controller("voucher-ctrl", function($scope, $http){
-    $scope.vouchers = {};
+    $scope.vouchers = [];
     $scope.form ={};
-
+    var currentDate = new Date();
+    var dateString = currentDate.toLocaleDateString();
+    console.log(dateString); // In ra ngày hiện tại dưới dạng chuỗi
+    
     $scope.initialize = function(){
         //load voucher
         $http.get("/rest/vouchers").then(resp =>{
             $scope.vouchers = resp.data;
             $scope.vouchers.forEach(voucher =>{
                 voucher.createDate = new Date(voucher.createDate)
+                $scope.currentDate = new Date();
+
             })
         });
     }
@@ -18,21 +23,34 @@ app.controller("voucher-ctrl", function($scope, $http){
 
     //xoa form
     $scope.reset = function () {
-        $scope.form = {}
+        $scope.form = {};
     }
 
-    //hienthi len form
-    $scope.edit = function(id) {
-        $http.get(`/rest/vouchers/${id}`) // Sử dụng id để xác định sản phẩm cần lấy
-            .then(resp => {
-                $scope.vouchers = resp.data; // Gán dữ liệu từ resp.data vào vouchers
-                // Gán dữ liệu từ resp.data vào form
-            })
-            .catch(error => {
-                console.log("Error", error);
-                alert("Lỗi lấy dữ liệu mã giảm giá");
-            });
-    };
+   $scope.edit = function(id) {
+    // Send a GET request to the API to fetch data for the specified ID
+    $http.get('/rest/vouchers/' + id)
+        .then(function(response) {
+            // Copy the fetched data to $scope.form
+            $scope.form = response.data;
+            // Convert the ISO date string to a JavaScript Date object
+            $scope.form.ngayBatDau = new Date($scope.form.ngayBatDau);
+            $scope.form.ngayKetThuc = new Date($scope.form.ngayKetThuc);
+            // Show the modal
+            $('#exampleModal').modal('show');
+            console.log(id);
+        })
+        .catch(function(error) {
+            // Handle errors
+            console.error('Error fetching data for editing:', error);
+            // Optionally, you can initialize $scope.form here to avoid undefined errors
+            $scope.form = {};
+        });
+};
+
+    
+    
+    
+    
 
     //them mgg moi
     $scope.create = function() {
