@@ -25,11 +25,11 @@
 </head>
 
 <style>
-    
 
 
 
-    
+
+
 </style>
 
 <body>
@@ -121,19 +121,25 @@
                                                                         <!-- Display the selected image using a div as a frame -->
                                                                         <div
                                                                             style="width: 190px; height: 220px; border: 1px solid #ccc; overflow: hidden; position: relative;">
-                                                                            <img style="width: 190px; height: 220px;"
-                                                                                id="imgPreview" alt="" src="">
+                                                                            <!-- <img style="width: 190px; height: 220px;"
+                                                                                id="imgPreview" alt="" src=""> -->
 
                                                                             <!-- Input for selecting a new image (hidden) -->
-                                                                            <input type="file" accept=".jpg, .png"
+                                                                            <!-- <input type="file" accept=".jpg, .png"
                                                                                 name="photo_file" id="imgInput"
                                                                                 style="display: none;"
-                                                                                onchange="previewImage()">
+                                                                                onchange="previewImage()" ng-model="form.hinhAnh"> -->
+                                                                            <input type="file" class="form-control"
+                                                                                id="image"
+                                                                                onchange="angular.element(this).scope().imageChanged(this.files)">
+
+
+
 
                                                                             <!-- Add a transparent button to trigger file selection -->
-                                                                            <button type="button"
+                                                                            <!-- <button type="button"
                                                                                 onclick="selectImage()"
-                                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button>
+                                                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;"></button> -->
                                                                         </div>
 
                                                                     </div>
@@ -143,25 +149,27 @@
                                                                                 class="form-label">Tên nhà xuất
                                                                                 bản</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="tenNhaXuatBan" placeholder="">
+                                                                                id="tenNhaXuatBan" placeholder=""
+                                                                                ng-model="form.tenNhaXuatBan">
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="moTa" class="form-label">Mô
                                                                                 tả</label>
                                                                             <textarea class="form-control" id="moTa"
-                                                                                placeholder=""
-                                                                                style="height: 138px;"></textarea>
+                                                                                placeholder="" style="height: 138px;"
+                                                                                ng-model="form.moTa"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button"
-                                                                class="btn btn-warning bi bi-plus">Thêm
+                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                                ng-click="create()">Thêm
                                                                 mới</button>
+                                                            <!-- Nút "Làm trắng form" -->
+                                                            <button type="button" class="btn btn-secondary"
+                                                                ng-click="reset()">Làm mới</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,10 +243,11 @@
                                                             <td>{{ item.moTa }}</td>
                                                             <!-- <td>{{ item.hinhAnh }}</td> -->
                                                             <td>
-                                                                
-                                                                    <img class="product-image"
-                                                                        ng-src="/assets/images/products/{{ item.hinhAnh }}" style="height: 100px" width="150px">
-                                                               
+
+                                                                <img class="product-image"
+                                                                    ng-src="/assets/images/products/{{ item.hinhAnh }}"
+                                                                    style="height: 100px" width="150px">
+
                                                             </td>
                                                             <td>
                                                                 <i class="mdi mdi-border-color mdi-24px"

@@ -1,5 +1,3 @@
-
-
 // Tạo một module Angular
 var app = angular.module('supplier-App', []);
 
@@ -10,28 +8,12 @@ app.controller("supplier-Ctrl", function ($scope, $http) {
     $scope.initialize = function () {
         $http.get("/rest/suppliers").then(resp => {
             $scope.suppliers = resp.data;
-
-            console.log($scope.suppliers);
-
-            // // Kiểm tra xem DataTable đã được khởi tạo trên bảng chưa
-            // if (!$.fn.dataTable.isDataTable('#table1')) {
-            //     // Nếu chưa được khởi tạo, thì mới áp dụng DataTable
-            //     $('#table1').DataTable();
-            // }
         });
     }
 
     $scope.initialize();
 
-
-   
-
-
-    //xoa form
-    $scope.reset = function () {
-        $scope.form = {}
-    }
-    //hình
+    // Xử lý khi người dùng thay đổi hình ảnh
     $scope.imageChanged = function(files){
 		var data = new FormData();
 		data.append('file', files[0]);
@@ -45,4 +27,30 @@ app.controller("supplier-Ctrl", function ($scope, $http) {
 			console.log("Error", error);
 		})
 	}
+    
+
+
+    // Hàm thêm nhà xuất bản
+    $scope.create = function () {
+        var item = angular.copy($scope.form);
+        $http.post('/rest/suppliers', item).then(resp => {
+            if (!$scope.suppliers) {
+                $scope.suppliers = [];
+            }
+            $scope.suppliers.push(resp.data);
+            $scope.reset();
+            alert("Thêm mới nhà xuất bản thành công!");
+            $scope.initialize(); // Load lại danh sách sau khi thêm thành công
+        }).catch(error => {
+            alert("Lỗi thêm mới nhà xuất bản!");
+            console.log("Error", error);
+        });
+    }
+    
+
+    // Hàm reset form
+    $scope.reset = function () {
+        $scope.form = {};
+    }
+
 });
