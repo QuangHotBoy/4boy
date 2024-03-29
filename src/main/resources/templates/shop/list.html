@@ -52,23 +52,22 @@
                                     <!-- Product price-->
                                     <div th:if="${p.tiLeGiamGia == 0}">
                                         <p class="text-warning fw-bold"
-                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                         </p>
                                     </div>
                                     <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
                                         <p class="text-warning fw-bold me-3"
-                                            th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                            th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                         </p>
                                         <span class="text-decoration-line-through text-gray"
-                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
+                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
                                     </div>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
                                 <div class="text-center">
-                                    <a class="btn btn-outline-warning mt-auto"
-                                        th:href="@{/shop/buy-now(isbn=${p.isbn}, quantity=1)}"
+                                    <a class="btn text-bg-warning mt-auto" th:href="@{/shop/buy-now}"
                                         th:data-isbn="${p.isbn}">Mua ngay</a>
 
                                 </div>
@@ -98,9 +97,12 @@
     </section>
 
     <div th:replace="/shop/layout/footer :: footer"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script th:src="@{/shop/js/list-item.js}"></script>
-    <script th:src="@{/shop/js/cart.js}"></script>
+
+    <script th:src="@{/shop/js/scripts.js}"></script>
 </body>
 
 </html>

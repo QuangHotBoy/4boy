@@ -43,7 +43,7 @@ app.controller("CartController", function ($scope) {
     });
 
     total = total + 30000;
-    return total;
+    return formatPrice(total);
   };
 
   // Hàm tính tổng tiền của các sản phẩm
@@ -52,6 +52,14 @@ app.controller("CartController", function ($scope) {
     $scope.cart.forEach(function (product) {
       subtotal += product.price * product.quantity;
     });
-    return subtotal;
+    return formatPrice(subtotal);
   };
+
+   // Hàm định dạng giá
+   function formatPrice(price) {
+    return price.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  }
 });

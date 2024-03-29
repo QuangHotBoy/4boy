@@ -28,17 +28,17 @@
                                 <div th:if="${product.tinhTrangSanPham.id == 1 || product.tinhTrangSanPham.id == 3}">
                                     <div th:if="${product.tiLeGiamGia == 0}">
                                         <h4 class="text-warning fw-bold"
-                                            th:text="${#numbers.formatDecimal(product.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                            th:text="${#numbers.formatDecimal(product.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                         </h4>
                                     </div>
                                     <div th:if="${product.tiLeGiamGia > 0}" class="d-flex">
                                         <h4 class="text-warning fw-bold"
-                                            th:text="${#numbers.formatDecimal(product.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                            th:text="${#numbers.formatDecimal(product.giaGiam, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                         </h4>
                                         <small class="text-warning fw-bold ms-2 me-2"
                                             th:utext="${product.tiLeGiamGia} + '%'"></small>
                                         <span class="fw-lighter text-decoration-line-through"
-                                            th:text="${#numbers.formatDecimal(product.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
+                                            th:text="${#numbers.formatDecimal(product.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
                                     </div>
                                     <h4 class="mt-2">Số lượng: <span th:utext="${product.soLuong}"></span></h4>
 

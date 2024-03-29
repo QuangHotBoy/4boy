@@ -33,15 +33,15 @@
                                 <!-- Product price-->
                                 <div th:if="${p.tiLeGiamGia == 0}">
                                     <p class="text-warning fw-bold"
-                                        th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                        th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                     </p>
                                 </div>
                                 <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
                                     <p class="text-warning fw-bold me-3"
-                                        th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
+                                        th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' đ'">
                                     </p>
                                     <span class="text-decoration-line-through text-gray"
-                                        th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'"></span>
+                                        th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
                                 </div>
                             </div>
                         </div>
