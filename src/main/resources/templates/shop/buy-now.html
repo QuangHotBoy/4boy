@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
 
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user">
+<body class="gradient-custom-user" ng-controller="BuynowController">
 	<div th:replace="/shop/layout/navigation :: nav"></div>
 	<hr class="container">
 	<div class="">
@@ -14,7 +14,7 @@
 				<div class="col-xl-6">
 
 					<div class="card">
-						<form name="frmthanhtoan" method="post" th:action="@{/shop/order/complete}">
+						<form name="frmthanhtoan" method="post">
 							<div class="card-body">
 								<ol class="activity-checkout mb-0 px-4 mt-3">
 									<li class="checkout-item">
@@ -35,7 +35,8 @@
 																<div class="mb-3">
 																	<label class="form-label" for="billing-name">Họ
 																		và tên</label> <input type="text" name="hoTen"
-																		class="form-control-style" id="billing-name">
+																		class="form-control-style"
+																		ng-model="inforcus.name">
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -43,7 +44,7 @@
 																	<label class="form-label" for="billing-phone">Số
 																		điện thoại</label> <input type="text"
 																		name="dienThoai" class="form-control-style"
-																		id="billing-phone">
+																		ng-model="inforcus.phone">
 																</div>
 															</div>
 														</div>
@@ -53,7 +54,7 @@
 																<label class="form-label"
 																	for="billing-email-address">Email</label>
 																<input type="email" class="form-control-style"
-																	name="email" id="billing-email-address">
+																	name="email" ng-model="inforcus.mail">
 															</div>
 														</div>
 
@@ -61,7 +62,7 @@
 															<label class="form-label" for="billing-address">Địa
 																chỉ nhận hàng</label>
 															<textarea class="form-control-style" name="diaChi"
-																id="billing-address" rows="3"></textarea>
+																ng-model="inforcus.address" rows="3"></textarea>
 														</div>
 													</div>
 												</div>
@@ -81,18 +82,6 @@
 											<div>
 												<h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
 												<div class="row">
-													<!-- <div class="col-lg-3 col-sm-6">
-                                                    <div data-bs-toggle="collapse">
-                                                        <label class="card-radio-label">
-                                                            <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input">
-                                                            <span class="card-radio py-3 text-center text-truncate">
-                                                                <i class="bx bx-credit-card d-block h2 mb-3"></i>
-                                                                Credit / Debit Card
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div> -->
-
 													<div class="col-lg-12 col-sm-12">
 														<div>
 															<label class="card-radio-label w-75"> <input type="radio"
@@ -134,7 +123,7 @@
 										<!-- end col -->
 										<div class="col">
 											<div class="text-end mt-2 mt-sm-0">
-												<button class="btn btn-success" type="submit"> <i
+												<button class="btn btn-success" ng-click="order.purchase()"> <i
 														class="mdi mdi-cart-outline me-1"></i> Thanh toán
 												</button>
 											</div>
@@ -154,45 +143,26 @@
 								<div class="font-size-16 mb-0 mr-auto">Đơn Hàng Của Bạn</div>
 								<!-- <a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a> -->
 							</div>
-							<input type="text" name="thanhToan" id="payment" hidden>
 							<ul class="list-group mb-3">
 								<li class="list-group-item lh-condensed">
 									<div class="row">
-										<img th:src="@{|/shop/image/product/${products.hinhAnh}|}"
-											class="avatar-lg col-sm-2 col-md-2" alt="">
+										<img ng-src="{{buy.item[0].image}}" class="avatar-lg col-sm-2 col-md-2" alt="">
 										<div class="col-sm-8 col-md-8 ms-2 d-block">
-											<h5 class="mb-3 font-size-16" th:utext="${products.tenSach}"></h5>
-											<small class="text-muted" th:if="${products.tiLeGiamGia > 0}">
-												<p
-													th:text="${#numbers.formatDecimal(products.giaGiam, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
-												</p>
-												<!-- <input type="text" name="prices" th:value="${products.giaGiam}" hidden> -->
-												<div th:with="price=${products.giaGiam * quantity}">
-													<input type="text" name="prices" th:value="${price}" hidden>
-												</div>
-											</small> <small class="text-muted" th:if="${products.tiLeGiamGia == 0}">
-												<p
-													th:text="${#numbers.formatDecimal(products.giaBan, 3, 'POINT', 0, 'POINT')} + ' vnđ'">
-												</p>
-												<!-- <input type="text" name="prices" th:value="${products.giaBan}" hidden> -->
-												<div th:with="price=${products.giaBan * quantity}">
-													<input type="text" name="prices" th:value="${price}" hidden>
-												</div>
+											<h5 class="mb-3 font-size-16">{{buy.item[0].name}}</h5>
+											<small class="text-muted">
+												<p>{{buy.item[0].price}}</p>
 											</small>
 										</div>
-										<div class="col-sm-2 col-md-2" th:utext="'x ' +${quantity}"></div>
-										<input type="hidden" name="maSP" th:value="${products.isbn}">
-										<input type="hidden" name="soLuong" th:value="${quantity}">
+										<div class="col-sm-2 col-md-2">x {{buy.item[0].quantity}}</div>
 									</div>
 								</li>
 							</ul>
 							<div class="table-responsive">
 								<ul class="list-group mb-3">
 									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Tổng Tiền: </span> <strong class="me-5"> <span
-												class="total"></span>
+										<span class="font-size-14">Tổng Tiền: </span> <strong class="me-5">
+											<span>{{total}}</span>
 										</strong>
-										<input type="text" name="total" id="total" hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
 										<form class="w-100 me-5" id="voucherForm"
@@ -216,12 +186,11 @@
 									<li class="list-group-item d-flex justify-content-between">
 										<span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5"> <span
 												th:text="${#numbers.formatDecimal(30000, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-										</strong> <input type="text" name="shipper" th:value="30000"
-											hidden>
+										</strong> <input type="text" name="shipper" th:value="30000" hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
 										<span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5"> <span
-												class="total-payment-infor"></span>
+												class="total-payment-infor">{{payment}}</span>
 										</strong>
 									</li>
 								</ul>
@@ -238,13 +207,11 @@
 
 	<div th:replace="/shop/layout/footer :: footer"></div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
 
-	<script th:src="@{/shop/js/checkout.js}"></script>
+	<script th:src="@{/shop/js/buy-now.js}"></script>
 </body>
 
 </html>

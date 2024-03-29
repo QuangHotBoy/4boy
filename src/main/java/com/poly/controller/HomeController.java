@@ -18,7 +18,6 @@ import com.poly.dao.SanPhamDAO;
 import com.poly.model.SanPham;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class HomeController {
 
@@ -64,7 +63,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("shop/list-sale")
-	public String listSale(Model model){
+	public String listSale(Model model) {
 		List<SanPham> products = productDAO.findByTinhTrangSanPham(3);
 
 		model.addAttribute("list", products);
@@ -96,7 +95,7 @@ public class HomeController {
 		if (relatedProducts.size() >= 4) {
 			List<SanPham> products = relatedProducts.subList(0, 4);
 			model.addAttribute("relatedProducts", products);
-		}else{
+		} else {
 			List<SanPham> products = productDAO.findAll();
 
 			Random random = new Random();
@@ -109,11 +108,11 @@ public class HomeController {
 		}
 
 		model.addAttribute("product", product);
-		model.addAttribute("title", "Knotrea - "+ product.getTenSach());
+		model.addAttribute("title", "Knotrea - " + product.getTenSach());
 
 		return "shop/detail-item";
 	}
-	
+
 	@RequestMapping("shop/auth/cart")
 	public String cart(Model model) {
 
@@ -123,27 +122,27 @@ public class HomeController {
 	}
 
 	@RequestMapping("shop/auth/order/check-out")
-	public String checkOut() {
+	public String checkOut(Model model) {
+
+		model.addAttribute("title", "Knotrea - Thanh toán đơn hàng");
+
 		return "shop/checkout";
 	}
 
 	@RequestMapping("shop/buy-now")
-	public String buyNow(Model model, @RequestParam Long isbn, @RequestParam Integer quantity) {
-		SanPham product = productDAO.findById(isbn).get();
-
-		model.addAttribute("quantity", quantity);
-		model.addAttribute("products", product);
+	public String buyNow(Model model) {
+		
 		model.addAttribute("title", "Knotrea - Thanh toán sản phẩm");
 
 		return "shop/buy-now";
 	}
 
 	@RequestMapping("shop/order/thank-for-order")
-    public String orderSuccess(Model model) {
+	public String orderSuccess(Model model) {
 
 		model.addAttribute("fragment", "/shop/layout/section/order-success :: order-success");
 
-        return "shop/complete-order";
-    }
+		return "shop/complete-order";
+	}
 
 }
