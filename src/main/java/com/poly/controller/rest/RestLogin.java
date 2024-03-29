@@ -1,45 +1,67 @@
 package com.poly.controller.rest;
 
-
-import java.util.List; 
-import org.springframework.beans.factory.annotation.Autowired; 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.dao.DiaChi_TaiKhoanDAO;
+import com.poly.dao.QuyenDAO;
+import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.dao.TaiKhoanDAO;
-import com.poly.model.PhanLoai;
+import com.poly.model.DiaChi_TaiKhoan;
+import com.poly.model.Quyen;
+import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.TaiKhoan;
-
-import jakarta.websocket.server.PathParam;
+ 
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping; 
- 
- 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody; 
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/login")
 public class RestLogin {
 
     @Autowired
     TaiKhoanDAO TKDao;
-     
 
-    // @GetMapping
-    // public List<TaiKhoan> findall() {
-    //     return TKDao.findAll();
-    // }
-    @GetMapping
-	public TaiKhoan getOne(@PathParam("tenDangNhap") String tenDangNhap, @PathParam("matKhau") String matKhau) {
-		return TKDao.findByTenTaiKhoanThongThuong(tenDangNhap, matKhau);
-	}
-      
-    @GetMapping("/api/tai-khoan/find-by-tendangnhap-and-email/{tendangnhap}/{email}")
-    public TaiKhoan getOne1(@PathVariable("tendangnhap") String tendangnhap, @PathVariable("email") String email) {
-        return TKDao.findByTenDangNhapAndEmail(tendangnhap, email);
+    @Autowired
+    Quyen_TaiKhoanDAO QTKDao;
+
+    @Autowired
+    QuyenDAO quyenDao;
+
+    @Autowired
+    DiaChi_TaiKhoanDAO dChiDao;
+
+    @GetMapping("/rest/login")
+    public List<TaiKhoan> findall() {
+        return TKDao.findAll();
     }
+
+    @PostMapping("/rest/register")
+    public TaiKhoan register(@RequestBody TaiKhoan taiKhoan) {
+        TKDao.save(taiKhoan);
+        System.out.println(taiKhoan);
+        // them quyen
+        Quyen quyen = quyenDao.findById("CUST").get();
+        Quyen_TaiKhoan QTK = new Quyen_TaiKhoan();
+        QTK.setQuyen(quyen);
+        QTK.setTaiKhoan_quyen(taiKhoan);
+        // them dia chi
+        DiaChi_TaiKhoan diaChi = new DiaChi_TaiKhoan();
+        diaChi.setTaiKhoan_diaChi(taiKhoan);
+        diaChi.setHoTen(taiKhoan.getHoTen());
+        diaChi.setDiaChi("Chưa có địa chỉ");
+        diaChi.setMacDinh(true);
+        dChiDao.save(diaChi);
+        return taiKhoan;
+
+        
+
+    }
+
     
 
 }

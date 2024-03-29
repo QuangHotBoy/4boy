@@ -36,7 +36,7 @@ public class ProductTypeRestController {
 	}
 	@PostMapping
 	public PhanLoai post(@RequestBody PhanLoai phanLoai) {
-		productTypeService.create(phanLoai);
+		productTypeService.create(phanLoai);	
 		return phanLoai;
 	}
 	@PutMapping("{id}")

@@ -2,47 +2,115 @@ var app = angular.module('loginApp', []);
 
 app.controller("loginCtrl", function ($scope, $http, $window) {
 
-    $scope.form = {};
+    // đăng nhập
+    $scope.login = {
+        tenDangNhap: '', matKhau: '',
+    }
+    $scope.accounts = []
 
-    $scope.reset = function () {
-        var tenDangNhap = $scope.form.tenDangNhap;
-        var matKhau = $scope.form.matKhau;
-    
-        // Gửi yêu cầu GET để nhận dữ liệu từ REST API
-        $http.get('/rest/login?tenDangNhap=' + tenDangNhap + '&matKhau=' + matKhau)
-            .then(function (response) {
-                var data = response.data;
-                // So sánh tên đăng nhập và mật khẩu nhập vào với dữ liệu từ REST API
-                if (data !== null) {
-                    // Nếu có dữ liệu trả về, đăng nhập thành công
-                    console.log("Đăng nhập thành công!");
-                    // Chuyển hướng đến trang thành công
-                    $window.location.href = '/shop/home';
+    // đăng ký
+
+    $scope.register = {
+        tenDangNhap: '', matKhau: '', hoTen: '', email: '', nhapLaiMatKhau: ''
+    }
+
+
+
+    $scope.login = function () {
+        $http.get('/rest/login').then(resp => {
+            $scope.accounts = resp.data;
+            var check = false;
+            for (var i = 0; i < $scope.accounts.length; i++) {
+                var a = $scope.accounts[i];
+                if ($scope.login.tenDangNhap === a.tenDangNhap) {
+                    if ($scope.login.matKhau === a.matKhau) {
+                        location.href = "/shop/home";
+                        console.log(1);
+                        check = true;
+                        break;
+                    } else {
+                        check = false;
+                        console.log(3)
+                    }
                 } else {
-                    // Nếu không có dữ liệu trả về, đăng nhập không thành công
-                    console.log("Đăng nhập không thành công!");
-                    console.log(data);
+                    check = false;
+                    console.log($scope.login.tenDangNhap)
                 }
-            }, function (error) {
-                // Xử lý lỗi khi gửi yêu cầu GET
-                console.error('Lỗi:', error);
-            });
+            }
+            if (!check) {
+                alert("Tài khoản hoặc mật khẩu không đúng");
+            }
+        }).catch(error => {
+            alert("Loi")
+        })
     };
-    
-    
+
+    // $scope.register = function () {
+    //     var account = angular.copy($scope.register);
+    //     console.log(account);
+    //     $http.post('/rest/register', account).then(resp => {
+    //         if (!account === null) {
+    //             $scope.accounts.push(account);
+
+    //         } else {
+    //             alert("Khong duoc de trong");
+    //         }
+    //     }).catch(error => {
+    //         console.log("Error", error)
+    //     })
+    // }
 
 
-    $scope.edit = function (productId) {
-        $http.get('/rest/productsType')
-            .then(resp => {
-                $scope.items = resp.data;
-                // Gán dữ liệu từ items vào form
-                $scope.form = $scope.items[0]; // Ví dụ: Lấy dữ liệu từ phần tử đầu tiên của items
-            })
-            .catch(error => {
-                console.log("Error", error);
-                alert("Lỗi lấy dữ liệu sản phẩm!");
-            });
-    };
+    // $scope.dangky = {
+    //     get quyenTaiKhoan() {
+    //       return { tenDangNhap: "annv143" };
+    //     },
+    //     hoTen: $scope.inforcus.name,
+    //     get diaChiNhanHang() {
+    //       return { id: 1 };
+    //     },
+    //     soDienThoai: $scope.inforcus.phone,
+    //     mail: $scope.inforcus.mail,
+    //     ngayDatHang: new Date(),
+    //     tongTien: $scope.subpayment,
+    //     get maGiamGia() {
+    //       return { id: "HUBERT" };
+    //     },
+    //     ghiChu: "",
+    //     get trangThai_donDatHang() {
+    //       return { id: 8 };
+    //     },
+    //     get phuongThucThanhToan() {
+    //       return { id: 2 };
+    //     },
+    //     get chiTietDonDatHang() {
+    //       return $buy.item.map((item) => {
+    //         return {
+    //           sanPham_donDatHang: { isbn: item.id },
+    //           donGia: item.price,
+    //           soLuong: item.quantity,
+    //         };
+    //       });
+    //     },
+    //     purchase() {
+    //       var order = angular.copy(this);
+    //       // Thực hiện đặt hàng
+    //       $http
+    //         .post("/rest/orders", order)
+    //         .then((resp) => {
+    //           alert("Đặt hàng thành công!");
+    //           $buy.clear();
+    
+    //           console.log(order);
+    //           location.href = "/shop/order/thank-for-order";
+    //         })
+    //         .catch((error) => {
+    //           alert("Đặt hàng lỗi!");
+    //           console.log(error);
+    //         });
+    //     },
+    //   };
+
+
 
 })

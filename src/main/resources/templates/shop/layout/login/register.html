@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
-  </head>
-  <head>
-    <!-- Các thẻ khác -->
-    <style>
-        .content-wrapper {
-            background-image: url('/shop/image/login.jpg'); /* Đường dẫn tới hình ảnh nền */
-            background-size: cover; /* Đảm bảo hình ảnh được phủ kín phần tử */
-            background-position: center; /* Đặt hình ảnh ở giữa phần tử */
-        }
-    </style>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Purple Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
-  <body>
-    <div class="container-scroller">
-      <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-center auth">
-          <div class="row flex-grow">
-            <div class="col-lg-4 mx-auto">
-              <div class="auth-form-light text-left p-5"  style="width: 140%;margin-left: -15%;">
-                <div class="brand-logo">
-                  <img src="/shop/image/img-logo-removebg-preview.png" alt="Logo" width="100%" height="auto" style="margin-left: 15%;width: 70%;">
-                </div>
-                <h6 class="font-weight-light" style="margin-left: 38%;font-family: Arial, Helvetica, sans-serif;" >Đăng ký tài khoản</h6>
-                <form class="pt-3">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="">Họ tên</label>
-                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Họ tên">
-                      </div>
+<head>
+  <!-- Các thẻ khác -->
+  <style>
+    .content-wrapper {
+      background-image: url('/shop/image/login.jpg');
+      /* Đường dẫn tới hình ảnh nền */
+      background-size: cover;
+      /* Đảm bảo hình ảnh được phủ kín phần tử */
+      background-position: center;
+      /* Đặt hình ảnh ở giữa phần tử */
+    }
+  </style>
+</head>
+
+<body ng-app="loginApp" ng-controller="loginCtrl">
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth">
+        <div class="row flex-grow">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left p-5" style="width: 140%;margin-left: -15%;">
+              <div class="brand-logo">
+                <img src="/shop/image/img-logo-removebg-preview.png" alt="Logo" width="100%" height="auto"
+                  style="margin-left: 15%;width: 70%;">
+              </div>
+              <h6 class="font-weight-light" style="margin-left: 38%;font-family: Arial, Helvetica, sans-serif;">Đăng ký
+                tài khoản</h6>
+              <form class="pt-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Họ tên</label>
+                      <input type="text" ng-model="register.hoTen" class="form-control form-control-lg"
+                        placeholder="Họ tên">
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="">Tên đăng nhập</label>
-                      <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tên đăng nhập">
+                      <input type="text" ng-model="register.tenDangNhap" class="form-control form-control-lg"
+                        placeholder="Tên đăng nhập">
                     </div>
                   </div>
                 </div>
@@ -59,45 +69,54 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="">Mật khẩu</label>
-                      <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Mật khẩu">
+                      <input type="password" ng-model="register.matKhau" class="form-control form-control-lg"
+                        placeholder="Mật khẩu">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="">Xác nhận mật khẩu</label>
-                      <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Xác nhận mật khẩu">
+                      <input type="password" ng-model="register.nhapLaiMatKhau" class="form-control form-control-lg"
+                        placeholder="Xác nhận mật khẩu">
                     </div>
                   </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="">Email</label>
-                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
-                  </div>
-                  
-                  <div class="mt-3">
-                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"  style="margin-left: 35.7%;" href="/shop/login">Đăng kí</a>
-                  </div>
-                  <div class="text-center mt-4 font-weight-light"><a style="text-decoration: none;" href="/shop/login" class="text-primary">Đăng nhập</a>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Email</label>
+                  <input type="email" ng-model="register.email" class="form-control form-control-lg"
+                    placeholder="Email">
+                </div>
+
+                <div class="mt-3">
+                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
+                    style="margin-left: 35.7%;" ng-click="register()">Đăng kí</button>
+                </div>
+                <div class="text-center mt-4 font-weight-light"><a style="text-decoration: none;" href="/shop/login"
+                    class="text-primary">Đăng nhập</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
+      <!-- content-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/misc.js"></script>
-    <!-- endinject -->
-  </body>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- script -->
+  <script src="/assets/js/productType-ctrl.js"></script>
+  <script src="/assets/js/login.js"></script>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <!-- endinject -->
+</body>
+
 </html>

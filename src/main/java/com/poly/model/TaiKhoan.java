@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -48,21 +50,27 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "hoat_dong")
 	private Boolean active;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "taiKhoan_quyen")
     private List<Quyen_TaiKhoan> quyenTaiKhoan;
     
+	@JsonIgnore 
     @OneToMany(mappedBy = "taiKhoan_diaChi")
     private List<DiaChi_TaiKhoan> diaChiTaiKhoan;
     
+	@JsonIgnore
     @OneToMany(mappedBy = "taiKhoan_gioHang")
     private List<GioHang> taiKhoan_gioHang;
     
+	@JsonIgnore
     @OneToMany(mappedBy = "taiKhoan_yeuThich")
     private List<SachYeuThich> taiKhoanYeuThich;
     
+	 @JsonIgnore
     @OneToMany(mappedBy = "taiKhoan_donHang")
     private List<DonDatHang> taiKhoan_donHang;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "taiKhoan_danhGia")
     private List<DanhGia> taiKhoan_danhGia;
     
