@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Coin card</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
@@ -39,16 +39,12 @@
                 <div class="brand-logo">
                   <img src="/shop/image/img-logo-removebg-preview.png" alt="Logo" width="100%" height="auto" style="margin-left: 15%;width: 70%;">
                 </div>
-                <form class="pt-3" action="/kiemtraemail" method="post" enctype="multipart/form-data">
+                <form class="pt-3" action="/xacnhanma/{email}" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="">Tên đăng nhập</label>
-                        <input type="text" class="form-control form-control-lg" name="tendangnhap" ng-model="form.tenDangNhap" ng-show="param.tenDangNhap" placeholder="Tên đăng nhập">
-                        <div ng-show="kiemtratendangnhapMessage" style="text-align: center;">
-                          <label style="color: red; font-size: 10px;">{{kiemtratendangnhapMessage}}</label>
-                      </div>
-                      
+                        <input type="text" class="form-control form-control-lg" name="tendangnhap"  ng-value="form.tenDangNhap" placeholder="Tên đăng nhập">
                     </div>
                   </div>
                   <div class="row">
@@ -63,7 +59,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="">Mã xác nhận</label>
-                          <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Mã xác nhận">
+                          <input type="text" class="form-control form-control-lg" name="maxacnhan" id="" placeholder="Mã xác nhận">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -75,7 +71,7 @@
                         </div>
                     </div>
                   <div class="mt-3">
-                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="/shop/create_user">Xác nhận</a>
+                    <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Xác nhận</button>
                   </div>
                 </div>
                   <div class="text-center mt-4 font-weight-light"> Chưa có tài khoản? <a href="/shop/register" class="text-primary">Đăng kí</a>

@@ -55,5 +55,11 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
                 alert("Lỗi lấy dữ liệu sản phẩm!");
             });
     };
+    // Tạo biến maxacnhan và gán giá trị cho nó
+var maxacnhan = "giá_trị_của_maxacnhan";
+
+// Sử dụng biến maxacnhan
+console.log(maxacnhan); // In ra giá trị của biến maxacnhan trong console
+
 
 });

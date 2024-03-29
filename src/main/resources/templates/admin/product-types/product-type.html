@@ -268,10 +268,10 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="item in pager.types">
-                                                            <td>{ item.id }</td>
-                                                            <td>{ item.tenLoai }</td>
-                                                            <td>{ item.moTa }</td>
+                                                        <tr ng-repeat="item in types">
+                                                            <td>{{ item.id }}</td>
+                                                            <td>{{ item.tenLoai }}</td>
+                                                            <td>{{ item.moTa }}</td>
                                                             <td>
                                                                 <button type="button" class="btn btn-primary"
                                                                     ng-click="edit()">Chỉnh sửa</button>
@@ -320,7 +320,7 @@
     <!-- page-body-wrapper ends -->
     </div>
     <!-- gọi js -->
-    <script src="/assets/js/productType-ctrl.js"></script>
+
     Include JS scripts
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -359,6 +359,7 @@
         });
         /*]]>*/
     </script>
+        <script src="/assets/js/productType-ctrl.js"></script>
     <!--  -->
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

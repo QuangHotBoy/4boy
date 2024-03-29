@@ -100,44 +100,40 @@ public class LoginController {
         String styledIcon1 = icon1.replace("\n", "<br>");
         model.addAttribute("email", email);
         mailer.send(email, Subject, styledIcon1);
-		return "shop/layout/login/forgot";
+		return "shop/layout/login/forgot_xacnhan";
     }
-    // String emailthaydoimatkhau = "";
+    String emailthaydoimatkhau = "";
 
-    // @RequestMapping("xacnhanma/{email}")
-    // public String xacnhanma(Model model, @PathVariable("email") String email,
-    //         @RequestParam("maxacnhan") String maxacnhan) {
-    //     if (maxacnhan.equals("")) {
-    //         model.addAttribute("kiemtramaxacnhan", "<<<  Vui lòng nhập mã xác nhận!  >>>");
-    //         model.addAttribute("email", email);
-    //         return "shop/quenmatkhau_xacnhanma";
-    //     } else if (!maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
-    //         model.addAttribute("kiemtramaxacnhan", "<<<  Mã xác nhận không hợp lệ!  >>>");
-    //         model.addAttribute("email", email);
-    //         return "shop/forgot-password-code";
-    //     }
-    //     emailthaydoimatkhau = email;
-    //     return "redirect:/thaydoimatkhau";
-    // }
+    @RequestMapping("xacnhanma/{email}")
+    public String xacnhanma(Model model, @PathVariable("email") String email,
+            @RequestParam("maxacnhan") String maxacnhan) {
+        if (maxacnhan.equals("")) {
+            model.addAttribute("kiemtramaxacnhan", "<<<  Vui lòng nhập mã xác nhận!  >>>");
+            model.addAttribute("email", email);
+            return "shop/quenmatkhau_xacnhanma";
+        } else if (!maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
+            model.addAttribute("kiemtramaxacnhan", "<<<  Mã xác nhận không hợp lệ!  >>>");
+            model.addAttribute("email", email);
+            return "shop/layout/login/forgot_xacnhan";
+        }
+        emailthaydoimatkhau = email;
+        return "redirect:/thaydoimatkhau";
+    }
 
-    // String thongbaothaydoimatkhau_tendangnhap = "";
-    // String thongbaothaydoimatkhau_matkhau = "";
-    // String matk = "";
+    String thongbaothaydoimatkhau_tendangnhap = "";
+    String thongbaothaydoimatkhau_matkhau = "";
+    String matk = "";
 
-    // @RequestMapping("thaydoimatkhau")
-    // public String thaydoimatkhau(Model model) {
-    //     TaiKhoan kiemTraTaiKhoanEmail = tkDao.findByEmail(emailthaydoimatkhau);
-    //     model.addAttribute("tenDangNhap", kiemTraTaiKhoanEmail.getTenDangNhap());
-    //     model.addAttribute("email", emailthaydoimatkhau);
-    //     model.addAttribute("thongbaothaydoimatkhau_tendangnhap", thongbaothaydoimatkhau_tendangnhap);
-    //     model.addAttribute("thongbaothaydoimatkhau_matkhau", thongbaothaydoimatkhau_matkhau);
-    //     model.addAttribute("matk", matk);
-    //     return "shop/new-password";
-    // }
-
-    // String Subject1 = "███ SHOP XIN CHÀO, ĐÂY LÀ MÃ XÁC NHẬN CỦA BẠN ███";
-    // String icon11 = ""
-    //         + "Mã xác nhận email của bạn là: <h>" + randomString + "</h>\n";
+    @RequestMapping("thaydoimatkhau")
+    public String thaydoimatkhau(Model model) {
+        TaiKhoan kiemTraTaiKhoanEmail = tkDao.findByEmail(emailthaydoimatkhau);
+        model.addAttribute("tenDangNhap", kiemTraTaiKhoanEmail.getTenDangNhap());
+        model.addAttribute("email", emailthaydoimatkhau);
+        model.addAttribute("thongbaothaydoimatkhau_tendangnhap", thongbaothaydoimatkhau_tendangnhap);
+        model.addAttribute("thongbaothaydoimatkhau_matkhau", thongbaothaydoimatkhau_matkhau);
+        model.addAttribute("matk", matk);
+        return "shop/layout/login/create_user";
+    }
 
     // @RequestMapping("xacnhanthaydoimatkhau/{email}")
     // public String xacnhanthaydoimatkhau(
