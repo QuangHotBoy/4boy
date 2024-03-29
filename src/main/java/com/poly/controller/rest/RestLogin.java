@@ -36,8 +36,10 @@ public class RestLogin {
 		return TKDao.findByTenTaiKhoanThongThuong(tenDangNhap, matKhau);
 	}
       
-    
-    
+    @GetMapping("/api/tai-khoan/find-by-tendangnhap-and-email/{tendangnhap}/{email}")
+    public TaiKhoan getOne1(@PathVariable("tendangnhap") String tendangnhap, @PathVariable("email") String email) {
+        return TKDao.findByTenDangNhapAndEmail(tendangnhap, email);
+    }
     
 
 }

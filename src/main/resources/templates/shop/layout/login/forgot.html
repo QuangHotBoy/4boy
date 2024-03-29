@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
   <head>
     <!-- Các thẻ khác -->
@@ -29,7 +30,7 @@
     </style>
 </head>
   <body>
-    <div class="container-scroller">
+    <div class="container-scroller" ng-app="forgotApp" ng-controller="forgotCtrl">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth">
           <div class="row flex-grow">
@@ -38,20 +39,23 @@
                 <div class="brand-logo">
                   <img src="/shop/image/img-logo-removebg-preview.png" alt="Logo" width="100%" height="auto" style="margin-left: 15%;width: 70%;">
                 </div>
-                <form class="pt-3">
+                <form class="pt-3" action="/kiemtraemail" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="">Tên đăng nhập</label>
-                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tên đăng nhập">
+                        <input type="text" class="form-control form-control-lg" name="tendangnhap" ng-model="form.tenDangNhap" placeholder="Tên đăng nhập">
+                        <div ng-show="kiemtratendangnhapMessage" style="text-align: center;">
+                          <label style="color: red; font-size: 10px;">{{kiemtratendangnhapMessage}}</label>
                       </div>
+                      
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for=""> Email </label>
-                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
+                        <input type="email" class="form-control form-control-lg" name="email" ng-model="form.email"placeholder="Email">
                       </div>
                     </div>
                     </div>
@@ -65,7 +69,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for=""></label><br>
-                          <button type="button" class="btn btn-inverse-warning btn-icon" style="height: 50px; width: 60px; margin-bottom: -3%;">
+                          <button type="submit" class="btn btn-inverse-warning btn-icon" style="height: 50px; width: 60px; margin-bottom: -3%;">
                             <i class="mdi mdi-upload btn-icon-prepend"></i>
                           </button>
                         </div>
