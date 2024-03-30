@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" ng-if="products">
 
 <head>
     <meta charset="UTF-8">
     <title>Admin - Sản phẩm</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <!-- Plugin css for this page -->
     <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- End plugin css for this page -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
 </head>
 
@@ -64,23 +66,80 @@
         /* Center align content in last column */
     }
 
-    /* CSS để di chuyển Search và phân trang sang bên phải */
-    .dataTables_wrapper .dataTables_filter {
-        float: right;
+    /* Custom DataTables CSS */
+    .dataTables_wrapper {
+        padding: 20px;
+        /* Khoảng cách xung quanh DataTables */
     }
 
-    .dataTables_wrapper .dataTables_paginate {
-        margin-top: 10px;
-        float: right;
+    /* Thanh hiển thị */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        margin-bottom: 10px;
+        /* Khoảng cách giữa các thành phần */
     }
 
-    .dataTables_wrapper .dataTables_info {
+    /* Thanh tìm kiếm */
+    .dataTables_filter {
+        float: right;
+        /* Đặt thanh tìm kiếm bên phải */
         margin-top: 10px;
+    }
+
+    .dataTables_filter label {
+        margin-right: 5px;
+        /* Khoảng cách giữa nhãn và ô nhập */
+    }
+
+    .dataTables_length label {
+        margin-right: 10px;
+        /* Khoảng cách giữa nhãn và dropdown */
+    }
+
+    /* CSS */
+    .product-table thead {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        /* Tùy chỉnh màu nền cho thẻ thead */
+        z-index: 1;
+        /* Đảm bảo thẻ thead luôn hiển thị trên cùng */
+    }
+
+    #table1 img {
+        max-width: 80%;
+        /* Ensure images fit within their containers */
+        height: 100px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
+    }
+
+    /* CSS cho các phần tử select */
+    .custom-select {
+        width: 200px;
+        /* Đặt độ rộng là 200px */
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    /* Tùy chỉnh kiểu đổ bóng khi chọn select */
+    .custom-select:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
 </style>
 
-<body>
-    <div class="container-scroller">
+<body ng-controller="product-Ctrl">
+    <div class="container-scroller" ng-app="product-App" ng-controller="product-Ctrl">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -119,32 +178,260 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <div class="page-header">
 
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
 
-                            </ol>
-                        </nav>
-                    </div>
+
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
 
+                                    <form class="form-sample">
 
+                                        <div id="bootstrap-data-table_wrapper"
+                                            class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
 
+                                            <!-- <ol class="breadcrumb ">
+                                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Loại sản
+                                                            phẩm</a></li>
+                                                    <li class="breadcrumb-item active" aria-current="page"><a
+                                                            href="">Sách</a></li>
 
+                                                </ol> -->
 
+                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                data-bs-whatever="@mdo">Thêm mới</button>
 
-                                    <div class="card">
+                                            <!-- modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div style="margin-top: 40px;" class="modal-dialog">
+                                                    <div class="modal-content "
+                                                        style="width: 240%; height:640px ; margin-left: -70%;">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <form>
+                                                                    <div class="row">
+                                                                        <div class="col-md-3"
+                                                                            style="margin-left: 10px;">
+                                                                            <!-- Hình ảnh -->
+                                                                            <div class="mb-3">
+                                                                               <!-- Hình ảnh -->
+                                                                        <label for="coverType" class="form-label">Hình
+                                                                            ảnh</label>
 
-                                        <div class="card-body" style="height: 500px; overflow: auto;">
-                                            <a href="/admin/product/add-new"><button type="button"
-                                                    class="btn btn-warning bi bi-plus">Thêm mới</button></a>
-                                            <div style="margin-top: 20px;" class="d-flex align-items-center">
-                                                <h5 class="mb-0">Danh sách sản phẩm</h5> <br>
+                                                                        <!-- Display the selected image using a div as a frame -->
+                                                                        <div>
+                                                                            <img style="width: 190px; height: 220px;"
+                                                                                id="imgPreview" alt=""
+                                                                                ng-src="/assets/images/products/{{form.hinhAnh}}">
+                                                                            <!-- <input type="file" class="form-control"
+                                                                                id="image"
+                                                                                onchange="previewImage(event)"> -->
+                                                                            <input type="file" class="form-control"
+                                                                                id="image"
+                                                                                onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                        </div>
+                                                                            </div>
+                                                                            <!-- Nhà xuất bản -->
+                                                                            <div class="mb-3">
+                                                                                <label for="collection"
+                                                                                    class="form-label">Nhà xuất
+                                                                                    bản</label>
+                                                                                    <select class="custom-select" ng-model="form.nhaXuatBan.tenNhaXuatBan">
+                                                                                      
+                                                                                        <!-- Lặp qua danh sách suppliers -->
+                                                                                        <option ng-repeat="c in suppliers" value="{{c.tenNhaXuatBan}}">{{c.tenNhaXuatBan}}</option>
+                                                                                    </select>
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                            </div>
+                                                                            <!-- Loại sách -->
+                                                                            <div class="mb-3">
+                                                                                <label for="collection"
+                                                                                    class="form-label">Loại sách</label>
+                                                                                    <select class="custom-select" ng-model="form.phanLoai.tenLoai">
+                                                                                      
+                                                                                        <!-- Lặp qua danh sách suppliers -->
+                                                                                        <option ng-repeat="c in types" value="{{c.tenLoai}}">{{c.tenLoai}}</option>
+                                                                                    </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4"
+                                                                            style="margin-left: 30px;">
+                                                                            <!-- Tên sách -->
+                                                                            <div class="mb-3">
+                                                                                <label for="tensach"
+                                                                                    class="form-label">Tên sách</label>
+                                                                                <input  type="text" name="tenSach"
+                                                                                    class="form-control" id="tensach"
+                                                                                    placeholder=""ng-model="form.tenSach" />
+                                                                            </div>
+                                                                            <!-- Tác giả -->
+                                                                            <div class="mb-3">
+                                                                                <label for="author"
+                                                                                    class="form-label">Tác Giả</label>
+                                                                                <input type="text" name="tacGia"
+                                                                                    class="form-control" id="tacgia"
+                                                                                    placeholder="" ng-model="form.tacGia" />
+                                                                            </div>
+                                                                            <!-- Giá gốc -->
+                                                                            <div class="mb-3">
+                                                                                <label for="collection"
+                                                                                    class="form-label">Giá bán</label>
+                                                                                <input type="number" name="giaGoc"
+                                                                                    class="form-control" id="giaGocc"
+                                                                                    placeholder="" min="10000"
+                                                                                    step="1" ng-model="form.giaBan" />
+                                                                            </div>
+                                                                            <!-- Số lượng -->
+                                                                            <div class="mb-3">
+                                                                                <label for="collection"
+                                                                                    class="form-label">Số lượng</label>
+                                                                                <input type="number" name="soLuong"
+                                                                                    class="form-control" id="soluong"
+                                                                                    placeholder="" min="1" max="100"ng-model="form.soLuong" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4"
+                                                                            style="margin-left: 40px;">
+                                                                            <!-- Năm xuất bản -->
+                                                                            <div class="mb-3">
+                                                                                <label for="collection"
+                                                                                    class="form-label">Năm xuất
+                                                                                    bản</label>
+                                                                                <input type="number" name="namXuatBan"
+                                                                                    class="form-control" id="tinhtrang"
+                                                                                    placeholder="" min="1" ng-model="form.namXuatBan" />
+                                                                            </div>
+                                                                            <!-- Loại Bìa -->
+                                                                            <div class="mb-3">
+                                                                                <label for="coverType"
+                                                                                    class="form-label">Loại Bìa</label>
+                                                                                <input type="text" name="kieuBia"
+                                                                                    class="form-control" id="loaibia"
+                                                                                    placeholder="" ng-model="form.kieuBia" />
+                                                                            </div>
+                                                                            <!-- Mô tả -->
+                                                                            <div class="mb-3">
+                                                                                <label for="coverType"
+                                                                                    class="form-label">Mô tả</label>
+                                                                                <textarea name="moTa"
+                                                                                    class="form-control" id="mota"
+                                                                                    placeholder=""
+                                                                                    style="height: 148px;" ng-model="form.moTa"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                                ng-click="create()">Thêm mới</button>
+                                                            <!-- Nút "Làm trắng form" -->
+                                                            <button type="button" class="btn btn-secondary"
+                                                                ng-click="reset()">Làm mới</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
+                                            <!-- modal -->
+                                            <!-- form edit -->
+                                            <div class="modal fade" id="exampleModal1" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div style="margin-top: 100px;" class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+
+                                                                        <!-- Hình ảnh -->
+                                                                        <label for="coverType" class="form-label">Hình
+                                                                            ảnh</label>
+
+                                                                        <!-- Display the selected image using a div as a frame -->
+                                                                        <div>
+                                                                            <img style="width: 190px; height: 220px;"
+                                                                                id="imgPreview" alt=""
+                                                                                ng-src="/assets/images/products/{{form.hinhAnh}}">
+                                                                            <!-- <input type="file" class="form-control"
+                                                                                id="image"
+                                                                                onchange="previewImage(event)"> -->
+                                                                            <input type="file" class="form-control"
+                                                                                id="image"
+                                                                                onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                        </div>
+
+
+
+
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="tenBoSach"
+                                                                                class="form-label">Tên nhà xuất
+                                                                                bản</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="tenNhaXuatBan" placeholder=""
+                                                                                ng-model="form.tenNhaXuatBan">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="moTa" class="form-label">Mô
+                                                                                tả</label>
+                                                                            <textarea class="form-control" id="moTa"
+                                                                                placeholder="" style="height: 138px;"
+                                                                                ng-model="form.moTa"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                                ng-click="update()">Cập nhật</button>
+
+                                                            <button type="button" class="btn btn-secondary"
+                                                                ng-click="reset()">Làm mới</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <!-- 
+                                        <div style="margin-left: 20px;">
+                                            <a href="/admin/product/add-new" class="btn btn-warning bi bi-plus">Thêm
+                                                mới</a>
+
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="mb-0">Danh sách sản phẩm</h5>
+
+                                            </div>
+                                        </div> -->
+
+                                        <div style="height: 400px; overflow: auto;">
                                             <table class="product-table" id="table1">
                                                 <thead>
                                                     <tr>
@@ -158,45 +445,47 @@
                                                 </thead>
                                                 <tbody>
                                                     <!-- Loop through products -->
-                                                    <tr th:each="product : ${products}">
-                                                        <td th:text="${product.tenSach}"></td>
-                                                        <td th:text="${product.giaBan}"></td>
-                                                        <td th:text="${product.soLuong}"></td>
-                                                        <td th:text="${product.tinhTrangSanPham.tenTinhTrang}"></td>
+                                                    <tr ng-repeat="item in products">
+                                                        <td>{{ item.tenSach }}</td>
+                                                        <td>{{ item.giaBan }}</td>
+                                                        <td>{{ item.soLuong }}</td>
+                                                        <td>{{ item.tinhTrangSanPham.tenTinhTrang }}</td>
                                                         <td>
-                                                            <img alt="[[${product.hinhAnh}]]"
-                                                                th:src="@{|/assets/images/products/${product.hinhAnh}|}">
+                                                            <img class="product-image"
+                                                                ng-src="/assets/images/products/{{ item.hinhAnh }}"
+                                                                style="height: 100px" width="150px">
                                                         </td>
                                                         <td>
-                                                            <i class="mdi mdi-border-color mdi-24px"
-                                                                style="color: red;"></i>
+                                                            <i class="mdi mdi-border-color mdi-24px" style="color: red;"
+                                                                ng-click="edit(item.id)"></i>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
 
 
-                                        </div>
 
-                                    </div>
+
+                                        </div>
+                                    </form>
                                 </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+
+                <!-- partial -->
             </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:../../partials/_footer.html -->
-
-            <!-- partial -->
+            <!-- main-panel ends -->
         </div>
-        <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
+        <!-- page-body-wrapper ends -->
     </div>
 
-    <!-- Include JS scripts -->
+    <!-- gọi js -->
+
+
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
@@ -211,34 +500,28 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
-            modal.find('.modal-title').text('Thêm bộ sách')
+            modal.find('.modal-title').text('Thêm sách')
             modal.find('.modal-body input').val(recipient)
         })
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#table1').DataTable({
-                "language": {
-                    "url": "/assets/json/vietnam.json"
-                }
-            });
-        });
-    </script>
+
+
+
+    <script src="/assets/js/product-ctrl.js"></script>
     <!--  -->
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        $(document).ready(function () {
-            $('#table1').DataTable();
-        });
-        /*]]>*/
-    </script>
-    <!--  -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+        </script>
+    <!-- Datatable -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-</script>
+
+
+
 
 </html>

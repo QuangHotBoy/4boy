@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+
 @Table(name = "Sach")
 public class SanPham implements Serializable {
 
@@ -32,10 +37,12 @@ public class SanPham implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long isbn;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ma_loai")
     private PhanLoai phanLoai;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "nha_xuat_ban")
     private NhaXuatBan nhaXuatBan;
@@ -69,22 +76,24 @@ public class SanPham implements Serializable {
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    // @ManyToOne
-    // @JoinColumn(name = "tinh_trang")
-    // private TrangThaiSach tinhTrangSanPham;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "trang_thai")
     private TrangThaiSach tinhTrangSanPham;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sanPham_yeuThich")
     private List<SachYeuThich> sanPhamYeuThich;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sanPham_gioHang")
     private List<ChiTietGioHang> sanPhamGioHang;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "sanPham_donDatHang")
     private List<ChiTietDonDatHang> sanPhamDonDatHang;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "sanPham_danhGia")
     private List<DanhGia> sanPhamDanhGia;
 
