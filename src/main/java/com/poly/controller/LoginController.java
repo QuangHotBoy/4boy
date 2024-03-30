@@ -100,7 +100,7 @@ public class LoginController {
         sessionService_quenmatkhau.set("maxacnhan_email", randomString);
         String styledIcon1 = icon1.replace("\n", "<br>");
         mailer.send(email, Subject, styledIcon1);
-		return "forward:/shop/layout/login/forgot";
+		return "shop/layout/login/forgot";
     }
     String emailthaydoimatkhau = "";
 
