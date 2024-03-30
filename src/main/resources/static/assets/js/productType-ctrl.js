@@ -1,30 +1,27 @@
 var app = angular.module('myApp', []);
 
-app.controller("myCtrl", function ($scope, $http, $timeout) {
+app.controller("myCtrl", function ($scope, $http) {
     $scope.types = [];
     $scope.form = {};
 
     $scope.initialize = function () {
         $http.get("/rest/types").then(resp => {
             $scope.types = resp.data;
-            // Initialize DataTable after data is loaded
-            $timeout(function () {
-                $('#table1').DataTable({
-                    "language": {
-                        "url": "/assets/json/vietnam.json"
-                    }
-                });
-            });
+
             console.log($scope.types);
 
-
+            // // Kiểm tra xem DataTable đã được khởi tạo trên bảng chưa
+            // if (!$.fn.dataTable.isDataTable('#table1')) {
+            //     // Nếu chưa được khởi tạo, thì mới áp dụng DataTable
+            //     $('#table1').DataTable();
+            // }
         });
     }
 
     $scope.initialize();
 
 
-
+   
 
 
     //xoa form
@@ -59,7 +56,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
         //     alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
         //     return;
         // }
-
+    
         var item = angular.copy($scope.form);
         $http.post('/rest/types', item).then(resp => {
             if (!$scope.items) {
@@ -74,7 +71,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             console.log("Error", error);
         });
     }
-
+    
     //hàm cập nhật
     $scope.update = function () {
         var item = angular.copy($scope.form);
