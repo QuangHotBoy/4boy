@@ -1,9 +1,9 @@
-// package com.poly.service;
+package com.poly.service;
 
-// import java.io.File;
+import java.io.File;
 
-// import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
-// public interface UploadService {
-// 	public File save(MultipartFile file, String folder) ;
-// }
+public interface UploadService {
+	public File save(MultipartFile file, String folder) ;
+}

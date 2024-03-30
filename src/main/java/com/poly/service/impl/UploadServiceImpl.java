@@ -1,36 +1,35 @@
-// package com.poly.service.impl;
+package com.poly.service.impl;
 
-// import java.io.File;
+import java.io.File;
 
-// import javax.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
-// import org.springframework.web.multipart.MultipartFile;
+import com.poly.service.UploadService;
 
-// import com.poly.service.UploadService;
+import jakarta.servlet.ServletContext;
 
+@Service
+public class UploadServiceImpl implements UploadService {
+    @Autowired
+    // ServletContext app;
+    ServletContext app;
 
-
-// @Service
-// public class UploadServiceImpl implements UploadService{
-// 	@Autowired
-// 	ServletContext app;
-	
-// 	public File save(MultipartFile file, String folder) {
-// 		File dir = new File(app.getRealPath("/assets/images/products/" + folder));
-// 		if(!dir.exists()) {
-// 			dir.mkdirs();
-// 		}
-// 		String s = System.currentTimeMillis() + file.getOriginalFilename();
-// 		String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
-// 		try {
-// 			File savedFile = new File(dir, name);
-// 			file.transferTo(savedFile);
-// 			System.out.println(savedFile.getAbsolutePath());
-// 			return savedFile;
-// 		} catch (Exception e) {
-// 			throw new RuntimeException(e);
-// 		}
-// 	}
-// }
+    public File save(MultipartFile file, String folder) {
+        File dir = new File(app.getRealPath("/assets/images/products/" + folder));
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        String s = System.currentTimeMillis() + file.getOriginalFilename();
+        String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
+        try {
+            File savedFile = new File(dir, name);
+            file.transferTo(savedFile);
+            System.out.println(savedFile.getAbsolutePath());
+            return savedFile;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
