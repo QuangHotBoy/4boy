@@ -111,24 +111,23 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6">
-                                    <!-- HTML code for the input field -->
-<div class="form-group row">
-  <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
-  <div class="col-sm-9">
-      <!-- Set the value of the input field to the current date -->
-      <input type="date" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" placeholder="dd/mm/yyyy" value="{{ getCurrentDate() }}" />
-  </div>
-</div>
-
-                                  </div>
-                                  <div class="col-md-6">
                                     <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Ngày kết thúc</label>
-                                      <div class="col-sm-9">
-                                        <input type="date" name="ngayketthuc" ng-model="form.ngayKetThuc" class="form-control" placeholder="dd/mm/yyyy" />
-                                      </div>
+                                        <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
+                                        <div class="col-sm-9">
+                                          <input type="datetime-local" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" value="{{ getCurrentDateTime() }}" />
+                                            <div ng-if="startDateError" class="text-danger">Ngày bắt đầu phải trước ngày kết thúc.</div>
+                                        </div>
                                     </div>
-                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Ngày kết thúc</label>
+                                        <div class="col-sm-9">
+                                            <input type="datetime-local" name="ngayketthuc" ng-model="form.ngayKetThuc" class="form-control" placeholder="dd/mm/yyyy" ng-change="checkDate()" />
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6">
@@ -188,5 +187,7 @@
     <script src="../../assets/js/file-upload.js"></script>
     <!-- End custom js for this page -->
     <script src="/assets/js/voucher-ctrl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.36/moment-timezone.min.js"></script>
+
   </body>
 </html>

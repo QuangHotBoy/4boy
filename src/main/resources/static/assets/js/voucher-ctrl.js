@@ -41,28 +41,23 @@ app.controller("voucher-ctrl", function($scope, $http){
             $scope.form = {};
         });
 };
-
-    
-    
-    
-    
-
     //them mgg moi
     $scope.create = function() {
         var voucher = angular.copy($scope.form);
-    
-        // Get the current date
+        
+        // Get the current date and time
         var currentDate = new Date();
-    
-        // Set start date to the current date
-        voucher.ngayBatDau = currentDate.toISOString(); // Convert date to ISO string format
-    
+        
+        // Set start date to the current date and time
+        voucher.ngayBatDau = $scope.getCurrentDateTime(currentDate); // Lấy giờ của ngày bắt đầu
+        
+        // Lấy giờ của ngày kết thúc
+      
         $http.post('/rest/vouchers', voucher)
             .then(resp => {
                 if (!$scope.vouchers) {
                     $scope.vouchers = []; // Initialize vouchers array if it doesn't exist
                 }
-    
                 // Prepend the new data to the vouchers array
                 $scope.vouchers.unshift(resp.data);
                 $scope.form = {}; // Clear form data
@@ -75,12 +70,25 @@ app.controller("voucher-ctrl", function($scope, $http){
                 console.log("Error", error);
             });
     };
-    $scope.getCurrentDate = function() {
+    
+    
+    $scope.getCurrentDateTime = function() {
+        // Lấy ngày và giờ hiện tại
         var currentDate = new Date();
-        // Format the current date as "yyyy-MM-dd" for the input field
-        var formattedDate = currentDate.toISOString().substring(0, 10);
-        return formattedDate;
+        
+        // Chuyển đổi sang múi giờ của Việt Nam (GMT+7)
+        var vietnamTime = new Date(currentDate.getTime() + (7 * 60 * 60 * 1000)); // Thêm 7 giờ vào ngày hiện tại
+        
+        // Format theo định dạng "YYYY-MM-DDTHH:mm"
+        var formattedDateTime = vietnamTime.toISOString().slice(0, 16);
+        
+        return formattedDateTime;
     };
+    
+    
+    // Khởi tạo ngày bắt đầu với ngày và giờ hiện tại
+    $scope.form.ngayBatDau = $scope.getCurrentDateTime();
+    
     
     
     //cap nhat mgg
@@ -163,6 +171,21 @@ app.controller("voucher-ctrl", function($scope, $http){
 			this.page--;
 		}
 	}
+    $scope.checkDate = function() {
+        if ($scope.form.ngayBatDau && $scope.form.ngayKetThuc) {
+            var startDate = new Date($scope.form.ngayBatDau);
+            var endDate = new Date($scope.form.ngayKetThuc);
+            if (startDate >= endDate) {
+                $scope.startDateError = true;
+            } else {
+                $scope.startDateError = false;
+            }
+        } else {
+            // Đảm bảo rằng thông báo lỗi không hiển thị nếu một trong hai trường chưa được nhập
+            $scope.startDateError = false;
+        }
+    };
+    
 }
 
 
