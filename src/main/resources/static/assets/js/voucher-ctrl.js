@@ -102,6 +102,7 @@ app.controller("voucher-ctrl", function($scope, $http){
         
         return formattedDateTime;
     };
+
     
     // Khởi tạo ngày bắt đầu với ngày và giờ hiện tại
     $scope.form.ngayBatDau = $scope.getCurrentDateTime();
