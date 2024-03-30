@@ -8,6 +8,12 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
     $scope.initialize = function () {
         $http.get("/rest/suppliers").then(resp => {
             $scope.suppliers = resp.data;
+
+            // Destroy existing DataTable instance if it exists
+            if ($.fn.DataTable.isDataTable('#table1')) {
+                $('#table1').DataTable().destroy();
+            }
+
             // Initialize DataTable after data is loaded
             $timeout(function () {
                 $('#table1').DataTable({
@@ -19,8 +25,8 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
         });
     }
 
+    // Call the initialize function when the controller is instantiated
     $scope.initialize();
-
     // Xử lý khi người dùng thay đổi hình ảnh
     $scope.imageChanged = function (files) {
         var data = new FormData();
