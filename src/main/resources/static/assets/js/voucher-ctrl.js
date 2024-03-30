@@ -43,6 +43,21 @@ app.controller("voucher-ctrl", function($scope, $http){
 };
     //them mgg moi
     $scope.create = function() {
+        // Kiểm tra xem đã tồn tại mã giảm giá có cùng ID chưa
+        var duplicateId = $scope.vouchers.some(function(voucher) {
+            return voucher.id === $scope.form.id;
+        });
+        if (!$scope.form.id || !$scope.form.tenMa || !$scope.form.soTienGiam || !$scope.form.soLuong || !$scope.form.ngayBatDau || !$scope.form.ngayKetThuc || !$scope.form.thongTin) {
+            alert("Vui lòng điền đầy đủ thông tin vào các trường bắt buộc!");
+            return;
+        }
+        // Nếu mã giảm giá có ID trùng lặp, hiển thị thông báo lỗi và không thực hiện thêm mới
+        if (duplicateId) {
+            alert("Mã giảm giá đã tồn tại. Vui lòng chọn mã khác.");
+            return;
+        }
+    
+        // Nếu không có mã giảm giá nào có ID trùng lặp, tiếp tục thêm mới
         var voucher = angular.copy($scope.form);
         
         // Get the current date and time
@@ -52,7 +67,9 @@ app.controller("voucher-ctrl", function($scope, $http){
         voucher.ngayBatDau = $scope.getCurrentDateTime(currentDate); // Lấy giờ của ngày bắt đầu
         
         // Lấy giờ của ngày kết thúc
-      
+        var endDate = new Date(); // Điều chỉnh đối tượng ngày thành ngày kết thúc hoặc sử dụng ngày kết thúc từ biến của bạn
+        voucher.ngayKetThuc = $scope.getCurrentDateTime(endDate); // Lấy giờ của ngày kết thúc
+    
         $http.post('/rest/vouchers', voucher)
             .then(resp => {
                 if (!$scope.vouchers) {
@@ -72,6 +89,7 @@ app.controller("voucher-ctrl", function($scope, $http){
     };
     
     
+    
     $scope.getCurrentDateTime = function() {
         // Lấy ngày và giờ hiện tại
         var currentDate = new Date();
@@ -85,39 +103,45 @@ app.controller("voucher-ctrl", function($scope, $http){
         return formattedDateTime;
     };
     
-    
     // Khởi tạo ngày bắt đầu với ngày và giờ hiện tại
     $scope.form.ngayBatDau = $scope.getCurrentDateTime();
     
-    
-    
     //cap nhat mgg
     //hàm cập nhật
-    $scope.update = function () {
-        var voucher = angular.copy($scope.form);
-        $http.put('/rest/vouchers/' + voucher.id, voucher)
-            .then(resp => {
-                // Initialize $scope.vouchers if not already initialized
-                if (!$scope.vouchers) {
-                    $scope.vouchers = [];
-                }
-    
-                // Check if the voucher exists in $scope.vouchers before updating
-                var index = $scope.vouchers.findIndex(i => i.id === voucher.id);
-                if (index !== -1) {
-                    $scope.vouchers[index] = angular.copy(voucher);
-                }
-    
-                $scope.reset(); // Reset form
-                alert("Cập nhật sản phẩm thành công!");
-                // Optionally, reload data
-                // loadData();
-            })
-            .catch(error => {
-                alert("Lỗi cập nhật sản phẩm!");
-                console.log("Error", error);
-            });
-    };
+   $scope.update = function() {
+    var voucher = angular.copy($scope.form);
+
+
+    // Lấy ngày và giờ hiện tại
+    var currentDate = new Date();
+
+    // Format ngày và giờ hiện tại theo định dạng "YYYY-MM-DDTHH:mm"
+    voucher.ngayBatDau = $scope.getCurrentDateTime(currentDate);
+
+    $http.put('/rest/vouchers/' + voucher.id, voucher)
+        .then(resp => {
+            // Initialize $scope.vouchers if not already initialized
+            if (!$scope.vouchers) {
+                $scope.vouchers = [];
+            }
+
+            // Check if the voucher exists in $scope.vouchers before updating
+            var index = $scope.vouchers.findIndex(i => i.id === voucher.id);
+            if (index !== -1) {
+                $scope.vouchers[index] = angular.copy(voucher);
+            }
+
+            $scope.reset(); // Reset form
+            alert("Cập nhật sản phẩm thành công!");
+            // Optionally, reload data
+            // loadData();
+        })
+        .catch(error => {
+            alert("Lỗi cập nhật sản phẩm!");
+            console.log("Error", error);
+        });
+};
+
     
     
     
@@ -186,7 +210,5 @@ app.controller("voucher-ctrl", function($scope, $http){
         }
     };
     
-}
-
-
-)
+    
+})

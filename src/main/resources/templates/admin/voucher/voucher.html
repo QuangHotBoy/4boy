@@ -100,7 +100,7 @@
                                         <td>{{ voucher.tenMa }}</td>
                                         <td>{{ voucher.soTienGiam }}</td>
                                         <td>{{ voucher.soLuong }}</td>
-                                        <td>{{ voucher.ngayBatDau | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td>{{ getCurrentDateTime(voucher.ngayBatDau) | date:'dd/MM/yyyy HH:mm'}}</td>
                                         <td>{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
                                         <td>{{ voucher.thongTin }}</td>
                                         <td>
@@ -117,7 +117,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Mã giảm giá</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" name="magiamgia" id="id" ng-model="form.id" class="form-control" />
+                                                            <input type="text" name="magiamgia" id="id" ng-model="form.id"  class="form-control" />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -153,7 +153,8 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
                                                           <div class="col-sm-9">
-                                                            <input type="date" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" />
+                                                            <input type="datetime-local" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" value="{{ getCurrentDateTime() }}" />
+                                                            <div ng-if="startDateError" class="text-danger">Ngày bắt đầu phải trước ngày kết thúc.</div>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -161,7 +162,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Ngày kết thúc</label>
                                                           <div class="col-sm-9">
-                                                            <input type="date" name="ngayketthuc" ng-model="form.ngayKetThuc" class="form-control" />
+                                                            <input type="datetime-local" name="ngayketthuc" ng-change="checkDate()" ng-model="form.ngayKetThuc" class="form-control" />
                                                           </div>
                                                         </div>
                                                       </div>
