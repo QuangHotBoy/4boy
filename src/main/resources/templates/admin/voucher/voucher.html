@@ -77,10 +77,8 @@
                       <div class="row">
                        <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
-                            <div class="card-body">
-                              <input type="text" ng-model="searchTerm" placeholder="Search..."/>
-                                <button ng-click="search()">Search</button>
-
+                            <div class="card-body">  
+                              <input type="text" ng-model="searchTerm" ng-change="search()" placeholder="Search by voucher name...">                       
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
@@ -88,7 +86,9 @@
                                             <th>Tên mã giảm giá</th>
                                             <th>Số tiền giảm</th>
                                             <th>Số lượng</th>
-                                            <th>Ngày bắt đầu</th>
+                                            <th>
+                                              <a href="#" ng-click="sortByStartDate()">Ngày bắt đầu <i class="fa fa-sort"></i></a>
+                                          </th>
                                             <th>Ngày kết thúc</th>
                                             <th >Mô tả</th>
                                             <th style="text-align: center;" colspan="2">Hành động</th>
@@ -100,7 +100,7 @@
                                         <td>{{ voucher.tenMa }}</td>
                                         <td>{{ voucher.soTienGiam }}</td>
                                         <td>{{ voucher.soLuong }}</td>
-                                        <td>{{ currentDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td>{{ voucher.ngayBatDau | date:'dd/MM/yyyy HH:mm' }}</td>
                                         <td>{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
                                         <td>{{ voucher.thongTin }}</td>
                                         <td>

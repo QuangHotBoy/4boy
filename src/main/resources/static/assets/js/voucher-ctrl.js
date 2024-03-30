@@ -2,18 +2,13 @@ var app = angular.module('voucherApp', []);
 app.controller("voucher-ctrl", function($scope, $http){
     $scope.vouchers = [];
     $scope.form ={};
-    var currentDate = new Date();
-    var dateString = currentDate.toLocaleDateString();
-    console.log(dateString); // In ra ngày hiện tại dưới dạng chuỗi
-    
+
     $scope.initialize = function(){
         //load voucher
         $http.get("/rest/vouchers").then(resp =>{
             $scope.vouchers = resp.data;
             $scope.vouchers.forEach(voucher =>{
-                voucher.createDate = new Date(voucher.createDate)
-                $scope.currentDate = new Date();
-
+                voucher.createDate = new Date(voucher.createDate)            
             })
         });
     }
@@ -55,31 +50,39 @@ app.controller("voucher-ctrl", function($scope, $http){
     //them mgg moi
     $scope.create = function() {
         var voucher = angular.copy($scope.form);
-        
+    
         // Get the current date
         var currentDate = new Date();
-        
+    
         // Set start date to the current date
         voucher.ngayBatDau = currentDate.toISOString(); // Convert date to ISO string format
-        
-        $http.post('/rest/vouchers', voucher).then(resp => {
-            if (!$scope.vouchers) {
-                $scope.vouchers = []; // Initialize vouchers array if it doesn't exist
-            }
-            // Prepend the new data to the vouchers array
-            $scope.vouchers.unshift(resp.data);
-            $scope.form = {}; // Clear form data
-            alert("Thêm mới sản phẩm thành công!");
-            // Load data again if needed
-            loadData();
-        }).catch(error => {
-            alert("Lỗi thêm mới sản phẩm!");
-            console.log("Error", error);
-        });
+    
+        $http.post('/rest/vouchers', voucher)
+            .then(resp => {
+                if (!$scope.vouchers) {
+                    $scope.vouchers = []; // Initialize vouchers array if it doesn't exist
+                }
+    
+                // Prepend the new data to the vouchers array
+                $scope.vouchers.unshift(resp.data);
+                $scope.form = {}; // Clear form data
+                alert("Thêm mới sản phẩm thành công!");
+                // Optionally, load data again if needed
+                // loadData();
+            })
+            .catch(error => {
+                alert("Lỗi thêm mới sản phẩm!");
+                console.log("Error", error);
+            });
+    };
+    $scope.getCurrentDate = function() {
+        var currentDate = new Date();
+        // Format the current date as "yyyy-MM-dd" for the input field
+        var formattedDate = currentDate.toISOString().substring(0, 10);
+        return formattedDate;
     };
     
     
-
     //cap nhat mgg
     //hàm cập nhật
     $scope.update = function () {
@@ -126,17 +129,10 @@ app.controller("voucher-ctrl", function($scope, $http){
         }
     }
 
-      // Search vouchers
-      $scope.search = function() {
-        // Filter vouchers based on search term
-        if ($scope.searchTerm) {
-            $scope.filteredVouchers = $scope.vouchers.filter(function(voucher) {
-                return voucher.name.toLowerCase().includes($scope.searchTerm.toLowerCase());
-            });
-        } else {
-            $scope.filteredVouchers = angular.copy($scope.vouchers);
-        }
-    };
+   // Search function
+
+
+    
     
     $scope.pager = {
 		page: 0,
@@ -167,7 +163,7 @@ app.controller("voucher-ctrl", function($scope, $http){
 			this.page--;
 		}
 	}
-
 }
+
 
 )

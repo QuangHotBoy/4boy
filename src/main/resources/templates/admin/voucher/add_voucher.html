@@ -111,12 +111,15 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
-                                      <div class="col-sm-9">
-                                        <input type="date" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" placeholder="dd/mm/yyyy" />
-                                      </div>
-                                    </div>
+                                    <!-- HTML code for the input field -->
+<div class="form-group row">
+  <label class="col-sm-3 col-form-label">Ngày bắt đầu</label>
+  <div class="col-sm-9">
+      <!-- Set the value of the input field to the current date -->
+      <input type="date" name="ngaybatdau" ng-model="form.ngayBatDau" class="form-control" placeholder="dd/mm/yyyy" value="{{ getCurrentDate() }}" />
+  </div>
+</div>
+
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group row">
