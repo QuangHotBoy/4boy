@@ -1,6 +1,7 @@
 package com.poly.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,6 @@ public interface VoucherService {
     MaGiamGia update(MaGiamGia maGiamGia);
 
     void delete(String id);
+
+    Map<String, Object> checkVoucher(String id, Long total);
 }

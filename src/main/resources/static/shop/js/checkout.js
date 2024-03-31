@@ -39,6 +39,8 @@ app.controller("CheckoutController", function ($scope, $http) {
 
   $scope.payment = formatPrice($scope.subpayment);
 
+  $scope.discount;
+
   $scope.order = {
     get taiKhoan_donHang() {
       return { tenDangNhap: "annv143" };
@@ -52,14 +54,14 @@ app.controller("CheckoutController", function ($scope, $http) {
     ngayDatHang: new Date(),
     tongTien: $scope.subpayment,
     get maGiamGia() {
-      return { id: "HUBERT" };
+      return { id: $('input[name="voucher"]').val() };
     },
     ghiChu: "",
     get trangThai_donDatHang() {
       return { id: 8 };
     },
     get phuongThucThanhToan() {
-      return { id: 2 };
+      return { id: $('input[name="pay-method"]:checked').val() };
     },
     get chiTietDonDatHang() {
       return $cart.items.map((item) => {
@@ -78,13 +80,61 @@ app.controller("CheckoutController", function ($scope, $http) {
         .then((resp) => {
           alert("Đặt hàng thành công!");
           $cart.clear();
-           location.href = "/shop/order/thank-for-order";
+          console.log(order);
+          //location.href = "/shop/order/thank-for-order";
         })
         .catch((error) => {
           alert("Đặt hàng lỗi!");
           console.log(error);
         });
     },
+  };
+
+  $scope.voucher = {
+    dateEnd: '',
+    discount: ''
+  };
+
+  $scope.checkVoucher = function () {
+    var voucherCode = $scope.voucherCode; // Lấy giá trị mã giảm giá từ model
+    var total = $scope.subpayment; // Thay bằng giá trị tổng tiền thực tế
+
+    // Gửi yêu cầu POST đến backend
+    $http
+      .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total)
+      .then(function (response) {
+        // Xử lý dữ liệu từ phản hồi
+        var data = response.data;
+        if (data.isValid) {
+          if (data.isActive) {
+            if (data.isTrue) {
+              // Mã giảm giá hợp lệ và đủ điều kiện
+              $scope.voucher.dateEnd = data.dateEnd;
+              $scope.voucher.discount = data.discount;
+              $scope.subpayment = $scope.subpayment - data.discount;
+
+              console.log($scope.subpayment);
+
+              $scope.discount = formatPrice(data.discount);
+              $scope.payment = formatPrice($scope.subpayment);
+            } else {
+              // Mã giảm giá không đủ điều kiện
+              console.log("Mã giảm giá không đủ điều kiện.");
+            }
+          } else {
+            // Mã giảm giá đã hết hạn hoặc không hoạt động
+            console.log("Mã giảm giá đã hết hạn hoặc không hoạt động.");
+          }
+        } else {
+          // Mã giảm giá không hợp lệ
+          console.log("Mã giảm giá không hợp lệ.");
+        }
+      })
+      .catch(function (error) {
+        // Xử lý lỗi nếu có
+        console.error("Lỗi khi gửi yêu cầu: " + error);
+        console.log(voucherCode + total);
+      });
   };
 
   // Hàm định dạng giá

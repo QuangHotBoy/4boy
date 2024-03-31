@@ -16,7 +16,6 @@ import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.model.SanPham;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -139,8 +138,6 @@ public class HomeController {
 
 	@RequestMapping("shop/order/thank-for-order")
 	public String orderSuccess(Model model) {
-
-		model.addAttribute("fragment", "/shop/layout/section/order-success :: order-success");
 
 		return "shop/complete-order";
 	}
