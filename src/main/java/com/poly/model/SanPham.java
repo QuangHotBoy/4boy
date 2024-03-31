@@ -37,12 +37,12 @@ public class SanPham implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long isbn;
 
-    @JsonBackReference
+    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ma_loai")
     private PhanLoai phanLoai;
 
-    @JsonBackReference
+    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "nha_xuat_ban")
     private NhaXuatBan nhaXuatBan;
@@ -76,9 +76,9 @@ public class SanPham implements Serializable {
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    @JsonBackReference
+   
     @ManyToOne
-    @JoinColumn(name = "trang_thai")
+    @JoinColumn(name = "trang_thai") // Đổi tên trường để phù hợp với cấu trúc cơ sở dữ liệu
     private TrangThaiSach tinhTrangSanPham;
 
     @JsonIgnore
@@ -105,5 +105,7 @@ public class SanPham implements Serializable {
 
     @Transient
     private List<TrangThaiSach> tinhtrangs;
+
+
 
 }

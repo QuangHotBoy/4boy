@@ -37,9 +37,9 @@ public class RestProductController {
         return productService.findAll();
     }
 
-    @GetMapping("{id}")
-    public SanPham getOne(@PathVariable("id") Long id) {
-        return productService.findById(id);
+    @GetMapping("{isbn}")
+    public SanPham getOne(@PathVariable("isbn") Long isbn) {
+        return productService.findById(isbn);
     }
 
     @PostMapping
@@ -52,8 +52,8 @@ public class RestProductController {
     public SanPham put(@PathVariable("id") Integer id, @RequestBody SanPham sanPham) {
         return productService.update(sanPham);
     }
+    
 
-    // xử lí ảnh
-    // Thêm phương thức POST mới để xử lý tải lên hình ảnh
+    
 
 }
