@@ -19,7 +19,6 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
     
     $scope.reset = function () {
         var tenDangNhap = $scope.form.tenDangNhap;
-        var matKhau = $scope.form.matKhau;
         var email = $scope.form.email; // Lấy giá trị email từ form
     
         // Gửi yêu cầu GET để nhận dữ liệu từ REST API
@@ -43,23 +42,22 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
             });
     };
 
-    $scope.edit = function (tendangnhap) {
+    $scope.edit = function () {
         $http.get('/rest/login')
             .then(resp => {
                 $scope.items = resp.data;
                 // Gán dữ liệu từ items vào form
-                $scope.form = $scope.items[0]; // Ví dụ: Lấy dữ liệu từ phần tử đầu tiên của items
+                if ($scope.items.length > 0) {
+                    $scope.form.tenDangNhap = $scope.items[0].tendangnhap;
+                    $scope.form.email = $scope.items[0].email;
+                }
             })
             .catch(error => {
                 console.log("Error", error);
                 alert("Lỗi lấy dữ liệu sản phẩm!");
             });
     };
-    // Tạo biến maxacnhan và gán giá trị cho nó
-var maxacnhan = "giá_trị_của_maxacnhan";
-
-// Sử dụng biến maxacnhan
-console.log(maxacnhan); // In ra giá trị của biến maxacnhan trong console
-
+    
+   
 
 });
