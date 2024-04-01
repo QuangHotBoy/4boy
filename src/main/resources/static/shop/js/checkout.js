@@ -41,9 +41,17 @@ app.controller("CheckoutController", function ($scope, $http) {
 
   $scope.discount;
 
+  $scope.formatPrice = function (price) {
+    price = parseInt(price);
+    return price.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  };
+
   $scope.order = {
     get taiKhoan_donHang() {
-      return { tenDangNhap: "annv143" };
+      return { tenDangNhap: "nont123" };
     },
     hoTen: "",
     get diaChiNhanHang() {
@@ -78,21 +86,27 @@ app.controller("CheckoutController", function ($scope, $http) {
       $http
         .post("/rest/orders", order)
         .then((resp) => {
-          alert("Đặt hàng thành công!");
-          $cart.clear();
-          console.log(order);
-          //location.href = "/shop/order/thank-for-order";
+          if (resp.data.phuongThucThanhToan.id === 2) {
+            alert("Đặt hàng thành công!");
+            $cart.clear();
+            console.log(resp);
+            console.log(resp.data.maDonHang);
+            //location.href = "/shop/order/thank-for-order";
+          } else {
+            location.href = "/shop/order/vnpay-payment";
+          }
         })
         .catch((error) => {
           alert("Đặt hàng lỗi!");
+          console.log(order);
           console.log(error);
         });
     },
   };
 
   $scope.voucher = {
-    dateEnd: '',
-    discount: ''
+    dateEnd: "",
+    discount: "",
   };
 
   $scope.checkVoucher = function () {

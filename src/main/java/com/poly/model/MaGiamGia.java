@@ -69,6 +69,9 @@ public class MaGiamGia implements Serializable {
     @Column(name = "so_luong")
     private Integer soLuong;
 
+    @Column(name = "da_su_dung")
+    private Integer daSuDung;
+
     @Column(name = "ket_thuc")
     private Boolean ketThuc;
     @JsonIgnore

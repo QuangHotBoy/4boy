@@ -36,7 +36,7 @@
 																	<label class="form-label" for="billing-name">Họ
 																		và tên</label> <input type="text" name="hoTen"
 																		class="form-control-style"
-																		ng-model="inforcus.name">
+																		ng-model="order.hoTen">
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -44,7 +44,7 @@
 																	<label class="form-label" for="billing-phone">Số
 																		điện thoại</label> <input type="text"
 																		name="dienThoai" class="form-control-style"
-																		ng-model="inforcus.phone">
+																		ng-model="order.soDienThoai">
 																</div>
 															</div>
 														</div>
@@ -54,7 +54,7 @@
 																<label class="form-label"
 																	for="billing-email-address">Email</label>
 																<input type="email" class="form-control-style"
-																	name="email" ng-model="inforcus.mail">
+																	name="email" ng-model="order.mail">
 															</div>
 														</div>
 
@@ -164,7 +164,7 @@
 										<div class="col-sm-8 col-md-8 ms-2 d-block">
 											<h5 class="mb-3 font-size-16">{{buy.item[0].name}}</h5>
 											<small class="text-muted">
-												<p>{{buy.item[0].price}}</p>
+												<span ng-bind="formatPrice(buy.item[0].price)"></span>
 											</small>
 										</div>
 										<div class="col-sm-2 col-md-2">x {{buy.item[0].quantity}}</div>
@@ -177,16 +177,17 @@
 										<span class="font-size-14">Tổng Tiền: </span> <strong class="me-5">
 											<span>{{total}}</span>
 										</strong>
+										<input type="text" ng-model="total" id="total" hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
-										<form class="w-100 me-5" id="voucherForm"
-											th:action="@{/shop/check-out/add-voucher}" method="post">
+										<form class="w-100 me-5" id="voucherForm" method="post">
 											<div class="input-group">
-												<input type="text" class="form-control me-2" name="voucher"
-													placeholder="Nhập mã giảm giá" id="voucherCode">
+												<input type="text" class="form-control me-2" ng-model="voucherCode"
+													placeholder="Nhập mã giảm giá" name="voucher">
+												<input type="text" ng-model="subpayment" name="payment" hidden>
 												<div class="input-group-append">
 													<button type="button" class="btn btn-secondary"
-														onclick="submitForm()">Áp
+														ng-click="checkVoucher()">Áp
 														dụng</button>
 												</div>
 											</div>
@@ -194,17 +195,19 @@
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
 										<span class="font-size-14">Giảm Giá: </span> <strong class="me-5"> <span
-												class="voucher-info"></span>
+												class="voucher-info">{{discount}}</span>
 										</strong>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5"> <span
+										<span class="font-size-14">Phí Vận Chuyển: </span> <strong class="me-5">
+											<span
 												th:text="${#numbers.formatDecimal(30000, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-										</strong> <input type="text" name="shipper" th:value="30000" hidden>
+										</strong> <input type="text" name="shipper" ng-model="shipper" value="30000"
+											hidden>
 									</li>
 									<li class="list-group-item d-flex justify-content-between">
-										<span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5"> <span
-												class="total-payment-infor">{{payment}}</span>
+										<span class="font-size-14">Tổng Thanh Toán: </span> <strong class="me-5">
+											<span>{{payment}}</span>
 										</strong>
 									</li>
 								</ul>

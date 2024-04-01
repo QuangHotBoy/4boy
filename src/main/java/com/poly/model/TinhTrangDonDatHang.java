@@ -3,6 +3,8 @@ package com.poly.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +31,7 @@ public class TinhTrangDonDatHang implements Serializable{
     @Column(name = "ten_trang_thai")
     private String tenTrangThai;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "trangThai_donDatHang")
     List<DonDatHang> trangThaiDonDatHang;
     

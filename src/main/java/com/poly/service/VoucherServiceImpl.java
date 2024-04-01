@@ -37,7 +37,6 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     public Map<String, Object> checkVoucher(String id, Long total){
-        System.out.println(id);
 
         MaGiamGia voucher = mggDAO.findById(id).orElse(null);
 
@@ -45,7 +44,7 @@ public class VoucherServiceImpl implements VoucherService {
 
         if (voucher != null) {
             response.put("isValid", true);
-            if (voucher.getSoLuong() == 0 || voucher.getKetThuc()) {
+            if (voucher.getSoLuong() != voucher.getDaSuDung() || voucher.getKetThuc()) {
                 response.put("isActive", true);
                 if (voucher.getDieuKien().longValue() <= total) {
                     response.put("isTrue", true);

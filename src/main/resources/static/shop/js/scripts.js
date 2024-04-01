@@ -60,7 +60,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   // Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
-  $(".btn-outline-warning").click(function () {
+  $(".btn-outline-warning.add-to-cart").click(function () {
     // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
     var productContainer = $(this).closest(".card");
     var isbn = $(this).data("isbn");
@@ -92,7 +92,7 @@ $(document).ready(function () {
     alert("Sản phẩm đã được thêm vào giỏ hàng!");
   });
 
-  $(".text-bg-warning").click(function () {
+  $(".text-bg-warning.buynow").click(function () {
     // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
     var productContainer = $(this).closest(".card");
     var isbn = $(this).data("isbn");
@@ -101,7 +101,7 @@ $(document).ready(function () {
       .find(".fw-bold")
       .first()
       .text()
-      .replace(" vnđ", "")
+      .replace(" đ", "")
       .replace(".", "");
     var productImage = productContainer.find("img").attr("src");
     var quantity = 1;
