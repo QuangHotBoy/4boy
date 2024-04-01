@@ -7,12 +7,28 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
         email: '' // Thêm trường email vào form
     };
     $scope.kiemtratendangnhapMessage = ""; // Khởi tạo biến thông báo
+   
+    $scope.register = {
+        tenDangNhap: '', matKhau: '', nhapLaiMatKhau: ''
+    }
+    $scope.registerNewPassword = function () {
+        $http.post('/rest/login', $scope.register)
+            .then(function (response) {
+                // Handle success
+                alert("Mật khẩu mới đã được đăng ký thành công!");
+                // Redirect or perform any other actions as needed
+            })
+            .catch(function (error) {
+                // Handle error
+                alert("Có lỗi xảy ra khi đăng ký mật khẩu mới: " + error.data.message);
+            });
+    };
 
     $scope.kiemtratendangnhap = function() {
         if (!$scope.form.tendangnhap) { // Kiểm tra xem tên đăng nhập có tồn tại không
             $scope.kiemtratendangnhapMessage = "<<<  Vui lòng nhập tên đăng nhập  >>>";
         } else {
-            $scope.kiemtratendangnhapMessage = ""; // Reset thông báo nếu tên đăng nhập hợp lệ
+            $scope.kiemtratendangnhapMessage = ""; // Reset thông báo nếu                tên đăng nhập hợp lệ
         }
     };
     

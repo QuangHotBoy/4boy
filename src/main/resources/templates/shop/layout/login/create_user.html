@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
   <head>
     <!-- Các thẻ khác -->
@@ -29,7 +30,7 @@
     </style>
 </head>
   <body>
-    <div class="container-scroller">
+    <div class="container-scroller" ng-app="forgotApp" ng-controller="forgotCtrl">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth">
           <div class="row flex-grow">
@@ -38,22 +39,25 @@
                 <div class="brand-logo">
                   <img src="/shop/image/img-logo-removebg-preview.png" alt="Logo" width="100%" height="auto" style="margin-left: 15%;width: 70%;">
                 </div>
-              
-                <form class="pt-3">
+                <form action="/xacnhanthaydoimatkhau/${email}" class="pt-3" method="post" enctype="multipart/form-data" id="login-form">
                   <div class="form-group">
                     <label for="">Tên đăng nhập</label>
-                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" value="Tên đăng nhập" disabled>
+                    <input type="text" class="form-control form-control-lg"name="tenDangNhap" id="tenDangNhap"   ng-model="{from.tenDangNhap}" ng-value="{form.tenDangNhap}">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="email" name="email"  ng-model="form.email"  class="form-control" id="eamil">
                   </div>
                   <div class="form-group">
                     <label for="">Mật khẩu mới</label>
-                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tên đăng nhập">
+                    <input type="password" class="form-control form-control-lg" name="matkhau" ng-model="form.matKhau" id="matkhau" placeholder="Tên đăng nhập">
                   </div>
                   <div class="form-group">
                     <label for="">Xác nhận mật khẩu mới</label>
-                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tên đăng nhập">
+                    <input type="password" class="form-control form-control-lg" name="xacnhanmatkhau"   id="xacnhanmatkhau" placeholder="Tên đăng nhập">
                   </div>
                   <div class="mt-3">
-                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="/shop/login">Xác nhận</a>
+                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" ng-click="registerNewPassword" href="/shop/login">Xác nhận</a>
                   </div>
                 </form>
               </div>
@@ -75,5 +79,6 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/misc.js"></script>
     <!-- endinject -->
+    <script src="../../assets/js/forgot.js"></script>
   </body>
 </html>

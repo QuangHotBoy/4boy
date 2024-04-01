@@ -44,7 +44,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="">Tên đăng nhập</label>
-                        <input type="text" class="form-control form-control-lg" name="tendangnhap" ng-model="tendangnhap" placeholder="Tên đăng nhập">
+                        <input type="text" class="form-control form-control-lg" name="tendangnhap" ng-model="form.tendangnhap" placeholder="Tên đăng nhập">
                         <div ng-show="kiemtratendangnhapMessage" style="text-align: center;">
                       </div>
                       
@@ -73,7 +73,7 @@
                           </button>
                         </div>
                     </div>
-                  <div class="mt-3">
+                  <div class="mt-3"> 
                     <button type="submit" formaction="/kiemtrama" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Xác nhận</button>
                   </div>
                   <div class="text-center mt-4 font-weight-light"> Chưa có tài khoản? <a href="/shop/register" class="text-primary">Đăng kí</a>
