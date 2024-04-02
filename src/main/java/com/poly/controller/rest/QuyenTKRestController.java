@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.model.Quyen_TaiKhoan;
@@ -31,6 +32,14 @@ public class QuyenTKRestController {
 	List<Quyen_TaiKhoan> getmember(){
 		return QTKService.FindRoleMember();
 	}
+	
+	//  @PostMapping("/qtk/saverole/member")
+	//  public Quyen_TaiKhoan createRoleMember() {
+	// 	  QTKService.save();
+	// 	 return null
+	//  }
+	
+	
 	
 	
 }

@@ -7,29 +7,25 @@ app.controller("AccountCtrl", function ($scope, $http) {
 
 	$scope.getMana = function () {  
 				$http.get("/qtk/getmana").then(resp => {
-					$scope.manager = resp.data;
-					console.log($scope.quyenTK); 
+					$scope.manager = resp.data; 
 				}); 
 	} 
 	$scope.getStaff =function(){
 		$http.get("/qtk/getstaff").then(resp => {
-			$scope.staff = resp.data;
-			console.log($scope.quyenTK); 
+			$scope.staff = resp.data; 
 		}); 
 	}
 
 	$scope.getMember =function(){
 		$http.get("/qtk/getmember").then(resp => {
-			$scope.member = resp.data;
-			console.log($scope.quyenTK); 
+			$scope.member = resp.data; 
 		}); 
 	}
 
 	$scope.editmember = function(tenDangNhap){
 		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{
 			$scope.form = resp.data;
-			// Sao chép dữ liệu từ phản hồi vào biến form để điền vào form chỉnh sửa
-			$scope.form = angular.copy(resp.data);
+			console.log($scope.form)
 			$scope.form.ngaySinh = new Date($scope.form.ngaySinh);
 			  // Hiển thị modal chỉnh sửa
 			  $('#editmember').modal('show');
@@ -82,6 +78,28 @@ app.controller("AccountCtrl", function ($scope, $http) {
 			console.log("Error",error);
 		})
 	}
+
+	$scope.add_member= function(){
+		 var taiKhoan = angular.copy($scope.form);
+		 $http.post("/rest/account/addmember",taiKhoan).then(function(resp){
+			$scope.member.push(taiKhoan); 
+			alert("Thêm mới sách thành công!");
+			location.reload();
+		 }).catch(error=>{
+			console.log("Error", error);
+		 })
+	}
+
+	$scope.add_staff= function(){
+		var taiKhoan = angular.copy($scope.form);
+		$http.post("/rest/account/addstaff",taiKhoan).then(function(resp){
+		   $scope.member.push(taiKhoan); 
+		   alert("Thêm mới sách thành công!");
+		   location.reload();
+		}).catch(error=>{
+		   console.log("Error", error);
+		})
+   }
 
 	$scope.getStaff();
 	$scope.getMana();

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.model.Quyen_TaiKhoan;
+import com.poly.model.TaiKhoan;
 import com.poly.service.QuyenTKService;
 
 import jakarta.transaction.Transactional;
@@ -37,6 +38,13 @@ public class QuyenTKServiceImpl implements QuyenTKService {
 	public List<Quyen_TaiKhoan> FindAll() {
 		return QTKDao.findAll();
 	}
+
+	@Override
+	public Quyen_TaiKhoan save(String taiKhoan_quyen) {
+		//  QTKDao.save(taiKhoan_quyen);
+		return null;
+	}
+ 
 
 	
 }

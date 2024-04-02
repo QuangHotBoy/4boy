@@ -19,5 +19,7 @@ public interface Quyen_TaiKhoanDAO extends JpaRepository<Quyen_TaiKhoan, Long> {
 
     @Query("SELECT a FROM Quyen_TaiKhoan a where a.quyen.id LIKE 'MANA'")
     List<Quyen_TaiKhoan> findbyMana();
+    
+    
 
 }
