@@ -94,11 +94,13 @@ app.controller("BuynowController", function ($scope, $http) {
       $http
         .post("/rest/orders", order)
         .then((resp) => {
+          console.log(order);
           if (resp.data.phuongThucThanhToan.id === 2) {
             alert("Đặt hàng thành công!");
             $buy.clear();
             location.href = "/shop/order/thank-for-order";
           } else {
+            console.log(resp.data);
             location.href = "/shop/order/vnpay-payment?amount=" + resp.data.tongTien + "&order-id=" + resp.data.maDonHang + "&hoTen=" + resp.data.hoTen + "&soDienThoai=" + resp.data.soDienThoai + "&mail=" + resp.data.mail;
           }
         })

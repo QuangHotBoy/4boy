@@ -49,11 +49,11 @@ public class OrderServiceImpl implements OrderService {
 
 		DonDatHang order = mapper.convertValue(orderData, DonDatHang.class);
 
-		//Đặt mã giảm giá mặc định khi ko có áp mã
-		if (orderData.get("maGiamGia").asText() != "") {
-			MaGiamGia voucher = voucherDAO.findById(order.getMaGiamGia().getId()).orElse(null);
+		String getVoucher = order.getMaGiamGia().getId();
 
-			System.out.println(voucher.getId());
+		//Đặt mã giảm giá mặc định khi ko có áp mã
+		if (getVoucher != "") {
+			MaGiamGia voucher = voucherDAO.findById(order.getMaGiamGia().getId()).orElse(null);
 
 			if (voucher != null) {
 
