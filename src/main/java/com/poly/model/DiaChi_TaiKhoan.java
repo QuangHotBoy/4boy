@@ -4,6 +4,8 @@ package com.poly.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +49,7 @@ public class DiaChi_TaiKhoan implements Serializable {
 
     @Column(name = "mac_dinh")
     private Boolean macDinh;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "diaChiNhanHang")
     List<DonDatHang> diaChiNhanHangs;
 }

@@ -4,7 +4,13 @@ package com.poly.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +44,7 @@ public class DonDatHang implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer maDonHang;
 
+    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tai_khoan_id")
     private TaiKhoan taiKhoan_donHang;
@@ -45,6 +52,7 @@ public class DonDatHang implements Serializable {
     @Column(name = "ho_ten")
     private String hoTen;
 
+    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dia_chi")
     private DiaChi_TaiKhoan diaChiNhanHang;
@@ -61,22 +69,26 @@ public class DonDatHang implements Serializable {
     @Column(name = "tong_tien", precision = 10, scale = 0)
     private BigDecimal tongTien;
 
+    //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ma_giam_gia")
     private MaGiamGia maGiamGia;
 
+    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tinh_trang")
     @Enumerated(EnumType.STRING)
     private TinhTrangDonDatHang trangThai_donDatHang;
-
+   
     @Column(name = "ghi_chu")
     private String ghiChu;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "phuong_thuc_thanh_toan_id")
     private PhuongThucThanhToan phuongThucThanhToan;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "donDatHang")
     private List<ChiTietDonDatHang> chiTietDonDatHang;
 

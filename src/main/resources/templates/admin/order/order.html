@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
   <style>
     #message-text{
@@ -24,7 +25,7 @@
     }
   </style>
   <body>
-    <div class="container-scroller">
+    <div class="container-scroller" ng-app="orderPlacedApp" ng-controller="orderPlacedCtrl">
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -209,61 +210,62 @@
                               <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th> Mã đơn hàng </th>
+                                    <th > Mã đơn hàng </th>
                                     <th> Tên khách hàng</th>
-                                    <th> Địa chỉ nhận hàng </th>
-                                    <th> Ngày đặt hàng</th>
-                                    <th> Lí do hủy đơn </th> 
-                                    <th> Trạng thái  </th>
+                                    <th > Địa chỉ nhận hàng </th>
+                                    <th > Ngày đặt hàng</th>
+                                    <th > Lí do hủy đơn </th> 
+                                    <th > Trạng thái  </th>
                                     <th>Hành động</th>
+                            
                                   </tr>
                                 </thead>
-                                <tbody>     
-                                  <tr th:each="ddhs : ${ddhs}">
-                                    <td th:text="${ddhs.maDonHang}"></td>
-                                    <td th:text="${ddhs.hoTen}"></td>
-                                    <td th:text="${ddhs.diaChiNhanHang.diaChi}"></td>
-                                    <td th:text="${#dates.format(ddhs.ngayDatHang, 'dd/MM/yyyy HH:mm')}"></td>
-                                    <td th:text="${ddhs.ghiChu}"></td>    
+                                <tbody>
+                                  <tr ng-repeat="orderPlace in orderPlaces">
+                                    <td>{{ orderPlace.maDonHang }}</td>
+                                    <td>{{ orderPlace.hoTen }}</td>
+                                    <td style="width: 40px;">{{ orderPlace.diaChiNhanHang.diaChi }}</td>
+                                    <td>{{ orderPlace.ngayDatHang | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    <td>{{ orderPlace.ghiChu }}</td>
                                     <td>
-                                      <select class="form-control" style="color: white; background-color: rgb(226, 154, 82);" onchange="changeStatus(this)">
-                                          <option value="1" style="color: white; background-color: rgb(102, 216, 184);" selected>Chờ xác nhận</option>
-                                          <option value="2" style="color: white; background-color: rgb(226, 216, 102);">Đang xử lí</option>
-                                          <option value="3" style="color: white; background-color: rgb(55, 202, 74);">Đã nhận đơn</option>                     
+                                      <select class="form-control" ng-model="selectedStatus" ng-change="changeStatus(orderPlace)">
+                                          <option value="Chờ xác nhận" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Chờ xác nhận'">Chờ xác nhận</option>
+                                          <option value="Đang xử lí" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Đang xử lí'">Đang xử lí</option>
+                                          <option value="Đã nhận đơn" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Đã nhận đơn'">Đã nhận đơn</option>
                                       </select>
-                                  </td> 
+                                  </td>
+                                  
                                     <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon">
-                                        <i class="mdi mdi-border-color"></i>
+                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" ng-click="editOrder(order)">
+                                          <i class="mdi mdi-border-color"></i>
                                       </button>
                                       <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                                        <i class="mdi mdi-delete-forever"></i>
+                                          <i class="mdi mdi-delete-forever"></i>
                                       </button>
                                       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Lí do hủy đơn</h1>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <form>
-                                                <div class="mb-3">
-                                                  <label for="message-text" class="col-form-label">Lí do:</label>
-                                                  <textarea class="form-control" id="message-text"></textarea>
+                                          <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Lí do hủy đơn</h1>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <form>
+                                                          <div class="mb-3">
+                                                              <label for="message-text" class="col-form-label">Lí do:</label>
+                                                              <textarea class="form-control" id="message-text"></textarea>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                        <button type="button" class="btn btn-primary">Gửi</button>
+                                                    </div>
                                                 </div>
-                                              </form>
                                             </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                              <button type="button" class="btn btn-primary">Gửi</button>
-                                            </div>
-                                          </div>
                                         </div>
-                                      </div>
                                     </td>
-                                  </tr>
-                                 
+                                </tr>
                                 </tbody>
 
                               </table>
@@ -293,7 +295,7 @@
         <!-- main-panel ends -->
       </div>
       <!-- page-body-wrapper ends -->
-    </div>
+ 
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
@@ -307,6 +309,7 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="../../assets/js/file-upload.js"></script>
+    <script src="/assets/js/orderPlaced-ctrl.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>
