@@ -50,8 +50,8 @@
 
                                         <div class="form-outline">
                                             <input id="quantity" min="1" name="quantity" value="1"
-                                                th:max="${product.soLuong}" type="number" class="form-control text-center"
-                                                readonly />
+                                                th:max="${product.soLuong}" type="number"
+                                                class="form-control text-center" readonly />
                                         </div>
 
                                         <button class="btn btn-outline-secondary px-3 ms-2"
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-7 col-sm-12 mb-3 border-end">
+                <div class="col-lg-7 col-md-7 col-sm-12 mb-3 border-end">
                     <div class="row mb-2">
                         <div class="col-md-6">Số lượng đánh giá: 12 Đánh giá</div>
                         <div class="col-md-6">Tổng điểm đánh giá: 4.5 <i class="bi bi-star-fill"></i></div>
@@ -166,9 +166,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 col-sm-12 text-center">
-                    Chỉ có thành viên mới có thể nhận xét. Vui lòng <a th:href="@{/shop/auth/login}"
-                        class="text-primary text-decoration-none">Đăng nhập</a>.
+                <div class="col-lg-5 col-md-5 col-sm-12 text-center">
+                    <!-- Chỉ có thành viên mới có thể nhận xét. Vui lòng <a th:href="@{/shop/auth/login}"
+                        class="text-primary text-decoration-none">Đăng nhập</a>. -->
+
+                    <form method="post">
+                        <input type="text" id="productId" th:value="${product.isbn}" hidden>
+                        <h4>Thêm một bài đánh giá</h4>
+                        <p>Đánh giá của bạn :</p>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" ng-model="rating"/><label for="star5"
+                                title="5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" ng-model="rating"/><label for="star4"
+                                title="4 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" ng-model="rating"/><label for="star3"
+                                title="3 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" ng-model="rating"/><label for="star2"
+                                title="2 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" ng-model="rating"/><label for="star1"
+                                title="1 star"></label>
+                        </div>
+
+                        <br />
+
+                        <textarea name="review" ng-model="comment" placeholder="Đánh giá" class="w-75 p-2" rows="3"></textarea>
+
+                        <br />
+
+                        <button ng-click="submitReview()" id="submitReviewBtn"
+                            class="p-1 rounded-3 btn btn-outline-warning float-end">Đánh
+                            giá</button>
+                    </form>
                 </div>
             </div>
             <hr class="w-75 mx-auto">

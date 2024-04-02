@@ -3,3 +3,21 @@
     min-width: 20%;
     max-width: 20%;
 }
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+}
+
+.rating label:after {
+    content: "\2605"; /* ký tự sao Unicode */
+    font-size: 2rem;
+    color: #ddd;
+}
+
+.rating input[type="radio"]:checked ~ label:after {
+    color: orange; /* Màu của các sao được chọn */
+}

@@ -15,12 +15,14 @@ import com.poly.dao.DiaChi_TaiKhoanDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.MaGiamGiaDAO;
 import com.poly.dao.PhuongThucThanhToanDAO;
+import com.poly.dao.SanPhamDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.dao.TinhTrangDonDatHangDAO;
 import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DiaChi_TaiKhoan;
 import com.poly.model.DonDatHang;
 import com.poly.model.MaGiamGia;
+import com.poly.model.SanPham;
 import com.poly.model.TaiKhoan;
 import com.poly.service.OrderService;
 
@@ -43,6 +45,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	DiaChi_TaiKhoanDAO addressDAO;
+
+	@Autowired
+	SanPhamDAO productDAO;
 
 	public DonDatHang create(JsonNode orderData) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -81,6 +86,14 @@ public class OrderServiceImpl implements OrderService {
 		List<ChiTietDonDatHang> details = mapper.convertValue(orderData.get("chiTietDonDatHang"), type)
 				.stream().peek(d -> d.setDonDatHang(order)).collect(Collectors.toList());
 		orderDetailDAO.saveAll(details);
+
+		for (ChiTietDonDatHang dt : details) {
+			SanPham products = productDAO.findById(dt.getSanPham_donDatHang().getIsbn()).get();
+
+			products.setSoLuong(products.getSoLuong() - dt.getSoLuong());
+
+			productDAO.save(products);
+		}
 
 		return order;
 	}

@@ -1,28 +1,28 @@
 function incrementQuantity() {
-    var quantityInput = $("#quantity");
-    var currentValue = parseInt(quantityInput.val());
-    var maxQuantity = parseInt(quantityInput.attr("max"));
+  var quantityInput = $("#quantity");
+  var currentValue = parseInt(quantityInput.val());
+  var maxQuantity = parseInt(quantityInput.attr("max"));
 
-    console.log(maxQuantity);
+  console.log(maxQuantity);
 
-    if (currentValue + 1 > maxQuantity) {
-        // Swal.fire({
-        //     title: 'Knotrea Thông báo!',
-        //     text: 'Số lượng sản phẩm đã đạt giới hạn!',
-        //     icon: 'warning',
-        //     timer: 1000, // Thời gian đóng SweetAlert sau 1 giây (1000 milliseconds)
-        //     showConfirmButton: false, // Ẩn nút xác nhận
-        // });
-        alert("Số lượng đạt tối đa!");
-    } else {
-        quantityInput.val(currentValue + 1);
-    }
+  if (currentValue + 1 > maxQuantity) {
+    // Swal.fire({
+    //     title: 'Knotrea Thông báo!',
+    //     text: 'Số lượng sản phẩm đã đạt giới hạn!',
+    //     icon: 'warning',
+    //     timer: 1000, // Thời gian đóng SweetAlert sau 1 giây (1000 milliseconds)
+    //     showConfirmButton: false, // Ẩn nút xác nhận
+    // });
+    alert("Số lượng đạt tối đa!");
+  } else {
+    quantityInput.val(currentValue + 1);
+  }
 }
 
 function decrementQuantity() {
-    var quantityInput = $("#quantity");
-    var newValue = parseInt(quantityInput.val()) - 1;
-    quantityInput.val(newValue >= 1 ? newValue : 1);
+  var quantityInput = $("#quantity");
+  var newValue = parseInt(quantityInput.val()) - 1;
+  quantityInput.val(newValue >= 1 ? newValue : 1);
 }
 
 $(document).ready(function () {
@@ -145,4 +145,33 @@ $(document).ready(function () {
     // Lưu lại giỏ hàng vào Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
   }
+});
+
+var app = angular.module("myApp", []);
+
+app.controller("DetailproductCtrl", function ($scope, $http) {
+  $scope.submitReview = function () {
+    // Lấy giá trị đánh giá từ input radio đã được chọn
+    if (!$scope.rating) {
+      alert("Chọn điểm đánh giá!");
+    } else {
+      // Lấy giá trị nhận xét từ textarea
+      var comment = $scope.comment;
+      var isbn = $("#productId").val();
+      console.log($scope.rating);
+
+      // Gửi dữ liệu đánh giá lên máy chủ sử dụng $http.post
+      $http
+        .post("/rest/review/" + isbn + "/" + $scope.rating + "/" + comment)
+        .then(function (response) {
+          // Xử lý kết quả trả về từ máy chủ
+          $scope.comment = ""; // Xóa giá trị của textarea
+          $scope.rating = ""; // Xóa giá trị của rating
+          alert("Đánh giá thành công!")
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    }
+  };
 });

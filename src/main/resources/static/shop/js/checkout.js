@@ -89,11 +89,9 @@ app.controller("CheckoutController", function ($scope, $http) {
           if (resp.data.phuongThucThanhToan.id === 2) {
             alert("Đặt hàng thành công!");
             $cart.clear();
-            console.log(resp);
-            console.log(resp.data.maDonHang);
-            //location.href = "/shop/order/thank-for-order";
+            location.href = "/shop/order/thank-for-order";
           } else {
-            location.href = "/shop/order/vnpay-payment";
+            location.href = "/shop/order/vnpay-payment?amount=" + resp.data.tongTien + "&order-id=" + resp.data.maDonHang + "&hoTen=" + resp.data.hoTen + "&soDienThoai=" + resp.data.soDienThoai + "&mail=" + resp.data.mail;
           }
         })
         .catch((error) => {
