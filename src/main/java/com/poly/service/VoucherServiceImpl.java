@@ -35,7 +35,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void delete(String id) {
         mggDAO.deleteById(id);
     }
-
+    public MaGiamGia findByTenMa(String tenMa) {
+       return  mggDAO.findByTenMa(tenMa);
+    }
     public Map<String, Object> checkVoucher(String id, Long total){
 
         MaGiamGia voucher = mggDAO.findById(id).orElse(null);
