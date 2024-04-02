@@ -239,7 +239,7 @@
                                       <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" ng-click="editOrder(order)">
                                           <i class="mdi mdi-border-color"></i>
                                       </button>
-                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                      <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" ng-click="edit(orderPlace.maDonHang)"data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                                           <i class="mdi mdi-delete-forever"></i>
                                       </button>
                                       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -253,13 +253,13 @@
                                                       <form>
                                                           <div class="mb-3">
                                                               <label for="message-text" class="col-form-label">Lí do:</label>
-                                                              <textarea class="form-control" id="message-text"></textarea>
+                                                              <textarea class="form-control" name="ghichu" id="ghiChu" ng-model="form.ghiChu"></textarea>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button type="button" class="btn btn-primary">Gửi</button>
+                                                        <a href="/shop/admin/order" type="button" ng-click="update()" class="btn btn-primary">Gửi</a>
                                                     </div>
                                                 </div>
                                             </div>
