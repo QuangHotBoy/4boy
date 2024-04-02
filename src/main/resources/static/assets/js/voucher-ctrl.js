@@ -7,8 +7,15 @@ app.controller("voucher-ctrl", function($scope, $http){
         //load voucher
         $http.get("/rest/vouchers").then(resp =>{
             $scope.vouchers = resp.data;
+            $timeout(function () {
+                $('#table1').DataTable({
+                    "language": {
+                        "url": "/assets/json/vietnam.json"
+                    }
+                });
+            });  
             $scope.vouchers.forEach(voucher =>{
-                voucher.createDate = new Date(voucher.createDate)            
+                voucher.createDate = new Date(voucher.createDate)         
             })
         });
     }
@@ -163,10 +170,7 @@ app.controller("voucher-ctrl", function($scope, $http){
     }
 
    // Search function
-
-
-    
-    
+ 
     $scope.pager = {
 		page: 0,
 		size: 5,

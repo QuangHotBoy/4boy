@@ -8,5 +8,5 @@ import com.poly.model.MaGiamGia;
 
 
 public interface MaGiamGiaDAO extends JpaRepository<MaGiamGia, String> {
-  
+    MaGiamGia findByTenMa(String tenMa);
 }

@@ -48,5 +48,9 @@ public class RestVoucherController {
 	public void delete(@PathVariable("id") String id) {
 		voucherService.delete(id);
 	}
+	@GetMapping("/search")
+	public MaGiamGia getByCode(@RequestParam("tenMa") String tenMa) {
+		return voucherService.findByTenMa(tenMa);
+	}
     
 }
