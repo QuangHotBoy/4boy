@@ -17,6 +17,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
 
 
     $scope.login = function () {
+        var account = JSON.parse(localStorage.getItem("buynow")) || [];
         $http.get('/rest/login').then(resp => {
             $scope.accounts = resp.data;
             var check = false;
@@ -25,12 +26,13 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 if ($scope.login.tenDangNhap === a.tenDangNhap) {
                     if ($scope.login.matKhau === a.matKhau) {
                         location.href = "/shop/home";
-                        console.log(1);
+                        account.push($scope.accounts[i]);
+                        localStorage.setItem("account", JSON.stringify(account));
                         check = true;
                         break;
                     } else {
                         check = false;
-                        console.log(3)
+                        console.log($scope.accounts[i])
                     }
                 } else {
                     check = false;

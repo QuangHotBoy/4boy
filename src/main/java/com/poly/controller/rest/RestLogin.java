@@ -37,7 +37,12 @@ public class RestLogin {
 
     @GetMapping("/rest/login")
     public List<TaiKhoan> findall() {
-        return TKDao.findAll();
+        Object data = new Object();
+
+        List<TaiKhoan> accounts = TKDao.findAll();
+        // DiaChi_TaiKhoan address = dChiDao.findByTaiKhoan(ac)
+
+        return accounts;
     }
 
     @PostMapping("/rest/register")
