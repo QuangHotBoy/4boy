@@ -4,13 +4,10 @@ package com.poly.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,7 +52,10 @@ public class DonDatHang implements Serializable {
     // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dia_chi")
-    private DiaChi_TaiKhoan diaChiNhanHang;
+    private DiaChi_TaiKhoan diaChi;
+
+    @Column(name = "dia_chi_nhan_hang")
+    private String diaChiNhanHang;
 
     @Column(name = "so_dien_thoai")
     private String soDienThoai;
@@ -83,7 +83,6 @@ public class DonDatHang implements Serializable {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "phuong_thuc_thanh_toan_id")
     private PhuongThucThanhToan phuongThucThanhToan;

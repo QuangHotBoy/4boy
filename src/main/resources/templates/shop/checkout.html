@@ -60,7 +60,7 @@
                                                         <div class="mb-3">
                                                             <label class="form-label" for="billing-address">Địa chỉ nhận
                                                                 hàng</label>
-                                                            <textarea class="form-control-style" id="billing-address"
+                                                            <textarea class="form-control-style" ng-model="order.diaChiNhanHang" id="billing-address"
                                                                 rows="3"></textarea>
                                                         </div>
                                                     </div>
@@ -85,7 +85,7 @@
                                                         <div>
                                                             <label class="card-radio-label w-75">
                                                                 <input type="radio" name="pay-method"
-                                                                    id="pay-methodoption2" value="1"
+                                                                    id="pay-methodoption2" value="2"
                                                                     class="card-radio-input">
                                                                 <span
                                                                     class="card-radio ps-4 text-start text-truncate mb-2">
@@ -101,7 +101,7 @@
                                                         <div>
                                                             <label class="card-radio-label w-75">
                                                                 <input type="radio" name="pay-method"
-                                                                    id="pay-methodoption3" value="2"
+                                                                    id="pay-methodoption3" value="1"
                                                                     class="card-radio-input" checked="">
                                                                 <span class="card-radio ps-4 text-start text-truncate">
                                                                     <img th:src="@{/shop/image/cod.png}"
@@ -140,7 +140,7 @@
                                     <a th:href="@{/shop/auth/cart}" class="ms-auto">Thay đổi</a>
                                 </div>
 
-                                <ul class="list-group mb-1" ng-repeat="product in cart.items">
+                                <ul class="list-group mb-1" ng-repeat="product in cart">
                                     <li class="list-group-item lh-condensed">
                                         <div class="row">
                                             <img ng-src="{{product.image}}" class="avatar-lg col-sm-2 col-md-2" alt="">

@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setMaGiamGia(voucher);
 		}
 
-		if(order.getPhuongThucThanhToan().getId() == 2){
+		if(order.getPhuongThucThanhToan().getId() == 1){
 			order.setTrangThai_donDatHang(statusDAO.findById(1).get());
 		}
 

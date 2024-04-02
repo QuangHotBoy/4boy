@@ -64,7 +64,8 @@ app.controller("BuynowController", function ($scope, $http) {
       return { tenDangNhap: $scope.info_user[0].tenDangNhap };
     },
     hoTen: $scope.info_user[1].hoTen,
-    get diaChiNhanHang() {
+    diaChiNhanHang: $scope.info_user[1].diaChi,
+    get diaChi() {
       return { id: $scope.info_user[1].id };
     },
     soDienThoai: $scope.info_user[1].sdt,
@@ -97,7 +98,7 @@ app.controller("BuynowController", function ($scope, $http) {
         .post("/rest/orders", order)
         .then((resp) => {
           console.log(order);
-          if (resp.data.phuongThucThanhToan.id === 2) {
+          if (resp.data.phuongThucThanhToan.id === 1) {
             alert("Đặt hàng thành công!");
             $buy.clear();
             location.href = "/shop/order/thank-for-order";

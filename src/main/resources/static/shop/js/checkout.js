@@ -1,34 +1,46 @@
 var app = angular.module("myApp", []);
 
 app.controller("CheckoutController", function ($scope, $http) {
-  // Lấy danh sách sản phẩm từ localStorage
-  var $cart = ($scope.cart = {
-    items: [],
-    clear() {
-      // Xóa sạch các mặt hàng trong giỏ
-      this.items = [];
-      this.saveToLocalStorage();
-    },
-    saveToLocalStorage() {
-      // lưu giỏ hàng vào local storage
-      var json = JSON.stringify(angular.copy(this.items));
-      localStorage.setItem("cart", json);
-    },
-    loadFromLocalStorage() {
-      // đọc giỏ hàng từ local storage
-      var json = localStorage.getItem("cart");
-      this.items = json ? JSON.parse(json) : [];
-    },
+  var user = JSON.parse(localStorage.getItem("account")) || null;
+
+  var user_id = user[0].tenDangNhap;
+
+  var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+  $scope.cart = [];
+
+  for (let i = 0; i < carts.length; i++) {
+    if (carts[i].user === user_id) {
+      $scope.cart.push(carts[i]);
+    }
+  }
+
+  // Xác định các sản phẩm cần xóa khỏi localStorage
+  var productsToRemove = $scope.cart.map(function (product) {
+    return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
   });
 
-  $cart.loadFromLocalStorage();
+  function removeFromLocalStorage(productsToRemove) {
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+    carts = carts.filter(function(product) {
+        return !productsToRemove.includes(product.id);
+    });
+
+    // Lưu mảng đã cập nhật vào localStorage
+    localStorage.setItem("cart", JSON.stringify(carts));
+}
 
   // Hàm tính tổng tiền của các sản phẩm
   $scope.subtotal = function () {
     var subtotal = 0;
-    $cart.items.forEach(function (product) {
+    var items = $scope.cart;
+    //console.log(items + '1');
+    for (var i = 0; i < items.length; i++) {
+      var product = items[i];
       subtotal += product.price * product.quantity;
-    });
+    }
 
     return subtotal;
   };
@@ -56,7 +68,8 @@ app.controller("CheckoutController", function ($scope, $http) {
       return { tenDangNhap: $scope.info_user[0].tenDangNhap };
     },
     hoTen: $scope.info_user[1].hoTen,
-    get diaChiNhanHang() {
+    diaChiNhanHang: $scope.info_user[1].diaChi,
+    get diaChi() {
       return { id: $scope.info_user[1].id };
     },
     soDienThoai: $scope.info_user[1].sdt,
@@ -74,7 +87,7 @@ app.controller("CheckoutController", function ($scope, $http) {
       return { id: $('input[name="pay-method"]:checked').val() };
     },
     get chiTietDonDatHang() {
-      return $cart.items.map((item) => {
+      return $scope.cart.map((item) => {
         return {
           sanPham_donDatHang: { isbn: item.id },
           donGia: item.price,
@@ -88,12 +101,23 @@ app.controller("CheckoutController", function ($scope, $http) {
       $http
         .post("/rest/orders", order)
         .then((resp) => {
-          if (resp.data.phuongThucThanhToan.id === 2) {
+          console.log(resp.data);
+          if (resp.data.phuongThucThanhToan.id === 1) {
             alert("Đặt hàng thành công!");
-            $cart.clear();
+            removeFromLocalStorage(productsToRemove);
             location.href = "/shop/order/thank-for-order";
           } else {
-            location.href = "/shop/order/vnpay-payment?amount=" + resp.data.tongTien + "&order-id=" + resp.data.maDonHang + "&hoTen=" + resp.data.hoTen + "&soDienThoai=" + resp.data.soDienThoai + "&mail=" + resp.data.mail;
+            location.href =
+              "/shop/order/vnpay-payment?amount=" +
+              resp.data.tongTien +
+              "&order-id=" +
+              resp.data.maDonHang +
+              "&hoTen=" +
+              resp.data.hoTen +
+              "&soDienThoai=" +
+              resp.data.soDienThoai +
+              "&mail=" +
+              resp.data.mail;
           }
         })
         .catch((error) => {
@@ -103,8 +127,6 @@ app.controller("CheckoutController", function ($scope, $http) {
         });
     },
   };
-
-  console.log($scope.order);
 
   $scope.voucher = {
     dateEnd: "",
