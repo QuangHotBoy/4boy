@@ -35,8 +35,20 @@ $(document).ready(function () {
   if (user === null) {
     $("#cart-count").text(0);
   } else {
+    var user_id = user[0].tenDangNhap;
+
     // Lấy danh sách sản phẩm từ localStorage
-    var cart = JSON.parse(localStorage.getItem("cart")) || [];
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    var cart = [];
+
+    for (var i = 0; i < carts.length; i++) {
+      if (carts[i].user === user_id) {
+        cart.push(carts[i]);
+      }
+    }
+
+    console.log(cart);
 
     // Đếm số lượng sản phẩm trong giỏ hàng
     var cartCount = cart.reduce(function (total, product) {
@@ -106,50 +118,50 @@ $(document).ready(function () {
   $(".text-bg-warning.buynow").click(function () {
     var account = JSON.parse(localStorage.getItem("account")) || null;
 
-    if(account === null){
+    if (account === null) {
       alert("Vui lòng đăng nhập vào tài khoản!");
-    }else{
+    } else {
       // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
-    var productContainer = $(this).closest(".card");
-    var isbn = $(this).data("isbn");
-    var productName = productContainer.find("h5").text();
-    var productPrice = productContainer
-      .find(".fw-bold")
-      .first()
-      .text()
-      .replace(" đ", "")
-      .replace(".", "");
-    var productImage = productContainer.find("img").attr("src");
-    var quantity = 1;
+      var productContainer = $(this).closest(".card");
+      var isbn = $(this).data("isbn");
+      var productName = productContainer.find("h5").text();
+      var productPrice = productContainer
+        .find(".fw-bold")
+        .first()
+        .text()
+        .replace(" đ", "")
+        .replace(".", "");
+      var productImage = productContainer.find("img").attr("src");
+      var quantity = 1;
 
-    // Tạo đối tượng sản phẩm
-    var product = {
-      id: isbn,
-      name: productName,
-      price: productPrice,
-      image: productImage,
-      quantity: quantity,
-    };
+      // Tạo đối tượng sản phẩm
+      var product = {
+        id: isbn,
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        quantity: quantity,
+      };
 
-    // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
-    var cart = JSON.parse(localStorage.getItem("buynow")) || [];
+      // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
+      var cart = JSON.parse(localStorage.getItem("buynow")) || [];
 
-    // Thêm sản phẩm vào giỏ hàng
-    cart.push(product);
+      // Thêm sản phẩm vào giỏ hàng
+      cart.push(product);
 
-    // Lưu lại danh sách sản phẩm vào LocalStorage
-    localStorage.setItem("buynow", JSON.stringify(cart));
+      // Lưu lại danh sách sản phẩm vào LocalStorage
+      localStorage.setItem("buynow", JSON.stringify(cart));
 
-    location.href = "/shop/buy-now";
+      location.href = "/shop/buy-now";
     }
   });
 
   function addToCart(productId) {
-    var cart = JSON.parse(localStorage.getItem("cart")) || [];
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
     var found = false;
 
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-    $.each(cart, function (index, item) {
+    $.each(carts, function (index, item) {
       if (item.user === productId.user && item.id === parseInt(productId.id)) {
         item.quantity++; // Tăng số lượng nếu sản phẩm đã tồn tại
         found = true;
@@ -167,11 +179,26 @@ $(document).ready(function () {
         price: productId.price,
         quantity: 1,
       };
-      cart.push(newItem);
+      carts.push(newItem);
     }
 
     // Lưu lại giỏ hàng vào Local Storage
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(carts));
+
+    var user = JSON.parse(localStorage.getItem("account") || null);
+
+    var user_id = user[0].tenDangNhap;
+
+    // Lấy danh sách sản phẩm từ localStorage
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    var cart = [];
+
+    for (var i = 0; i < carts.length; i++) {
+      if (carts[i].user === user_id) {
+        cart.push(carts[i]);
+      }
+    }
 
     // Đếm số lượng sản phẩm trong giỏ hàng
     var cartCount = cart.reduce(function (total, product) {

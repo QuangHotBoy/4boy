@@ -1,6 +1,9 @@
 package com.poly.controller.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,13 +39,16 @@ public class RestLogin {
     DiaChi_TaiKhoanDAO dChiDao;
 
     @GetMapping("/rest/login")
-    public List<TaiKhoan> findall() {
-        Object data = new Object();
+    public Map<String, Object> findall() {
+         Map<String, Object> data = new HashMap<>();
 
         List<TaiKhoan> accounts = TKDao.findAll();
-        // DiaChi_TaiKhoan address = dChiDao.findByTaiKhoan(ac)
+        List<DiaChi_TaiKhoan> address = dChiDao.findAll();
 
-        return accounts;
+        data.put("users", accounts);
+        data.put("address", address);
+
+        return data;
     }
 
     @PostMapping("/rest/register")

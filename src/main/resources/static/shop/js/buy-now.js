@@ -45,7 +45,7 @@ app.controller("BuynowController", function ($scope, $http) {
   }
 
   $scope.formatPrice = function (price) {
-    price = parseInt(price)
+    price = parseInt(price);
     return price.toLocaleString("vi-VN", {
       style: "currency",
       currency: "VND",
@@ -53,20 +53,22 @@ app.controller("BuynowController", function ($scope, $http) {
   };
 
   $scope.voucher = {
-    dateEnd: '',
-    discount: ''
+    dateEnd: "",
+    discount: "",
   };
+
+  $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
 
   $scope.order = {
     get taiKhoan_donHang() {
-      return { tenDangNhap: "annv143" };
+      return { tenDangNhap: $scope.info_user[0].tenDangNhap };
     },
-    hoTen: "",
+    hoTen: $scope.info_user[1].hoTen,
     get diaChiNhanHang() {
-      return { id: 1 };
+      return { id: $scope.info_user[1].id };
     },
-    soDienThoai: "",
-    mail: "",
+    soDienThoai: $scope.info_user[1].sdt,
+    mail: $scope.info_user[0].email,
     ngayDatHang: new Date(),
     tongTien: $scope.subpayment,
     get maGiamGia() {
@@ -101,7 +103,17 @@ app.controller("BuynowController", function ($scope, $http) {
             location.href = "/shop/order/thank-for-order";
           } else {
             console.log(resp.data);
-            location.href = "/shop/order/vnpay-payment?amount=" + resp.data.tongTien + "&order-id=" + resp.data.maDonHang + "&hoTen=" + resp.data.hoTen + "&soDienThoai=" + resp.data.soDienThoai + "&mail=" + resp.data.mail;
+            location.href =
+              "/shop/order/vnpay-payment?amount=" +
+              resp.data.tongTien +
+              "&order-id=" +
+              resp.data.maDonHang +
+              "&hoTen=" +
+              resp.data.hoTen +
+              "&soDienThoai=" +
+              resp.data.soDienThoai +
+              "&mail=" +
+              resp.data.mail;
           }
         })
         .catch((error) => {
@@ -152,5 +164,4 @@ app.controller("BuynowController", function ($scope, $http) {
         console.log(voucherCode + total);
       });
   };
-
 });
