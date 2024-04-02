@@ -87,8 +87,38 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
     // Hàm thêm nhà xuất bản
     $scope.create = function () {
-
         var item = angular.copy($scope.form);
+
+        // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
+        var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
+        var tenLoai = $scope.form.phanLoai.tenLoai;
+       
+        // Lấy thông tin nhà xuất bản từ danh sách suppliers
+        var selectedSupplier = $scope.suppliers.find(function (supplier) {
+            return supplier.tenNhaXuatBan === tenNhaXuatBan;
+        });
+        var selectedType = $scope.types.find(function (type) {
+            return type.tenLoai === tenLoai;
+        });
+        // var selectedTinhTrang = $scope.tinhtrangs.find(function(tinhtrang) {
+        //     return tinhtrang.tenTinhTrang === tenTinhTrang;
+        // });
+
+        // Kiểm tra xem nhà xuất bản đã được chọn có tồn tại trong danh sách suppliers không
+        if (!selectedSupplier) {
+            alert("Nhà xuất bản không hợp lệ!");
+            return;
+        }
+        if (!selectedType) {
+            alert("Phân loại không hợp lệ!");
+            return;
+        }
+      
+
+        // Gán giá trị nhà xuất bản từ đối tượng được chọn
+        item.nhaXuatBan = selectedSupplier;
+        item.phanLoai = selectedType;
+        item.tinhTrangSanPham = { id: '1' };
         // Gửi yêu cầu POST đến máy chủ
         $http.post('/rest/products', item)
             .then(function (response) {
@@ -99,6 +129,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                 $scope.reset();
                 alert("Thêm mới sách thành công!");
                 $scope.initialize(); // Load lại danh sách sau khi thêm thành công
+                location.reload();
             })
             .catch(function (error) {
                 alert("Lỗi thêm mới sách: " + error.data.message); // Hiển thị thông điệp lỗi từ máy chủ
@@ -106,9 +137,41 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             });
     };
 
+
     //hàm cập nhật
     $scope.update = function () {
         var item = angular.copy($scope.form);
+
+        // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
+        var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
+        var tenLoai = $scope.form.phanLoai.tenLoai;
+        var tenTinhTrang = $scope.form.tinhTrangSanPham.tenTinhTrang;
+        // Lấy thông tin nhà xuất bản từ danh sách suppliers
+        var selectedSupplier = $scope.suppliers.find(function (supplier) {
+            return supplier.tenNhaXuatBan === tenNhaXuatBan;
+        });
+        var selectedType = $scope.types.find(function (type) {
+            return type.tenLoai === tenLoai;
+        });
+        var selectedTinhTrang = $scope.tinhtrangs.find(function(tinhtrang) {
+            return tinhtrang.tenTinhTrang === tenTinhTrang;
+        });
+
+        // Kiểm tra xem nhà xuất bản đã được chọn có tồn tại trong danh sách suppliers không
+        if (!selectedSupplier) {
+            alert("Nhà xuất bản không hợp lệ!");
+            return;
+        }
+        if (!selectedType) {
+            alert("Phân loại không hợp lệ!");
+            return;
+        }
+      
+
+        // Gán giá trị nhà xuất bản từ đối tượng được chọn
+        item.nhaXuatBan = selectedSupplier;
+        item.phanLoai = selectedType;
+        item.tinhTrangSanPham = selectedTinhTrang;
         $http.put('/rest/products/' + item.isbn, item).then(resp => {
             // Kiểm tra nếu $scope.items chưa được khởi tạo, thì khởi tạo nó là một mảng trống
             if (!$scope.items) {
@@ -123,7 +186,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
             $scope.reset();
             alert("Cập nhật sách thành công!");
-            loadData();
+            location.reload();
         }).catch(error => {
             alert("Lỗi cập nhật sách!");
             console.log("Error", error);

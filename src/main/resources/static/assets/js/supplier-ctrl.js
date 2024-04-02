@@ -69,6 +69,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             $scope.reset();
             alert("Thêm mới nhà xuất bản thành công!");
             $scope.initialize(); // Load lại danh sách sau khi thêm thành công
+            location.reload();
         }).catch(error => {
             alert("Lỗi thêm mới nhà xuất bản!");
             console.log("Error", error);
@@ -91,7 +92,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
 
             $scope.reset();
             alert("Cập nhật nhà xuất bản thành công!");
-            loadData();
+            location.reload();
         }).catch(error => {
             alert("Lỗi nhà xuất bản!");
             console.log("Error", error);

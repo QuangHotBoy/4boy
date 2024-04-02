@@ -47,28 +47,24 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             });
     };
 
-    // $scope.edit = function(item){
-    // 	$scope.form = angular.copy(item);
-    // 	$("exampleModal1").tab("show");
-    // }
 
     //hàm thêm
     $scope.create = function () {
-        // Kiểm tra dữ liệu trống
-        // if (!$scope.form || !$scope.form.name || !$scope.form.description) {
-        //     alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
-        //     return;
-        // }
+        // Validate form
+        if (!validateForm()) {
+            return; // Stop execution if form is not valid
+        }
 
         var item = angular.copy($scope.form);
         $http.post('/rest/types', item).then(resp => {
             if (!$scope.items) {
                 $scope.items = [];
             }
+
             $scope.items.push(resp.data);
             $scope.reset();
             alert("Thêm mới sản phẩm thành công!");
-            loadData();
+            location.reload();
         }).catch(error => {
             alert("Lỗi thêm mới sản phẩm!");
             console.log("Error", error);
@@ -78,6 +74,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
     //hàm cập nhật
     $scope.update = function () {
         var item = angular.copy($scope.form);
+
         $http.put('/rest/types/' + item.id, item).then(resp => {
             // Kiểm tra nếu $scope.items chưa được khởi tạo, thì khởi tạo nó là một mảng trống
             if (!$scope.items) {
@@ -92,12 +89,13 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
 
             $scope.reset();
             alert("Cập nhật sản phẩm thành công!");
-            loadData();
+            location.reload();
         }).catch(error => {
             alert("Lỗi cập nhật sản phẩm!");
             console.log("Error", error);
         });
     }
+
 
 
 
@@ -113,8 +111,40 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             console.log("Error loading data", error);
         });
     }
+    function validateForm() {
+        var tenLoai = document.getElementById("tenLoai").value;
+        var moTa = document.getElementById("moTa").value;
 
+        // Kiểm tra xem các trường có trống không
+        if (tenLoai.trim() == "") {
+            alert("Vui lòng nhập tên loại sách.");
+            return false;
+        }
 
+        if (moTa.trim() == "") {
+            alert("Vui lòng nhập mô tả.");
+            return false;
+        }
+
+        // Kiểm tra xem tenLoai có trùng không
+        if (isTenLoaiTrung(tenLoai)) {
+            alert("Tên loại sách đã tồn tại.");
+            return false;
+        }
+
+        return true;
+    }
+    //kiểm tra trùng tên
+    function isTenLoaiTrung(tenLoai) {
+        // Lặp qua danh sách các loại sách đã tải từ server
+        for (var i = 0; i < $scope.types.length; i++) {
+            if ($scope.types[i].tenLoai === tenLoai) {
+                return true; // Nếu trùng, trả về true
+            }
+        }
+        return false; // Nếu không trùng, trả về false
+    }
+    
 
 
 
