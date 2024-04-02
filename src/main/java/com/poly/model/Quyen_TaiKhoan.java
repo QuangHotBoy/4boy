@@ -3,6 +3,8 @@ package com.poly.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +30,12 @@ public class Quyen_TaiKhoan implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+     
     @ManyToOne
     @JoinColumn(name = "ma_tai_khoan")
     private TaiKhoan taiKhoan_quyen;
-
+ 
+    
     @ManyToOne
     @JoinColumn(name = "ma_quyen")
     private Quyen quyen;

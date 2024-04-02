@@ -29,4 +29,7 @@ public interface TaiKhoanDAO extends JpaRepository<TaiKhoan, String> {
 
     TaiKhoan findByTenDangNhapAndEmail(String tenDangNhap, String email);
 
+   
+    
+    
 }
