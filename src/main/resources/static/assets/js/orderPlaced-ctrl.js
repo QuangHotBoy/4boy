@@ -164,4 +164,46 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
                 console.error("Lỗi khi lấy dữ liệu trạng thái đơn hàng:", error);
             });
     };  
+
+    $scope.pager = {
+        page: 0,
+        size: 5,
+        get orderPlaces() {
+            if (this.page < 0) {
+                this.last();
+            }
+            if (this.page >= this.count) {
+                this.first();
+            }
+            var start = this.page * this.size;
+            return $scope.orderPlaces.slice(start, start + this.size)
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.orderPlaces.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        last() {
+            this.page = this.count - 1;
+        },
+        next() {
+            this.page++;
+        },
+        prev() {
+            this.page--;
+        },
+        setPage(pageNumber) {
+            this.page = pageNumber;
+        }
+    }
+    
+    $scope.getPageNumbers = function() {
+        var totalPages = $scope.pager.count;
+        var pageNumbers = [];
+        for (var i = 0; i < totalPages; i++) {
+            pageNumbers.push(i);
+        }
+        return pageNumbers;
+    }
 });

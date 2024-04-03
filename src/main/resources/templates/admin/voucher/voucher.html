@@ -204,23 +204,14 @@
                                   </tbody>
                                   
                                 </table>
-                                <div class="btn-group my-2" style="margin-left: 30%;" role="group" aria-label="Basic example">
-                                  <button ng-click="pager.first()" class="btn btn-danger">
-                                    <b class="glyphicon glyphicon-hand-up"><<</b>
+                                <div class="btn-group my-2" style="margin-left: 40%;" role="group" aria-label="Basic example">
+                                  <button ng-repeat="pageNumber in getPageNumbers()" ng-click="pager.setPage(pageNumber)" class="btn btn-success">
+                                      {{pageNumber + 1}}
                                   </button>
-                                  <button ng-click="pager.prev()" class="btn btn-primary">
-                                    <b class="glyphicon glyphicon-hand-left"><</b>
-                                  </button>
-                                  <button class="btn btn-success">
-                                    {{pager.page + 1}} của {{pager.count}}
-                                  </button>
-                                  <button ng-click="pager.next()" class="btn btn-primary">
-                                    <b class="glyphicon glyphicon-hand-right">></b>
-                                  </button>
-                                  <button ng-click="pager.last()" class="btn btn-danger">
-                                    <b class="glyphicon glyphicon-hand-down">>></b>
-                                  </button>
-                                </div>
+                              </div>
+                              
+                              
+                              
                             </div>
                         </div>
                       </div>

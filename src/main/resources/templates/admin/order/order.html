@@ -226,7 +226,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr ng-repeat="orderPlace in orderPlaces">
+                                  <tr ng-repeat="orderPlace in pager.orderPlaces">
                                     <td>{{ orderPlace.maDonHang }}</td>
                                     <td>{{ orderPlace.hoTen }}</td>
                                     <td style="width: 40px;">{{ orderPlace.diaChiNhanHang }}</td>
@@ -289,6 +289,11 @@
                                   </div>
                                 </tbody>
                               </table>
+                              <div class="btn-group my-2" style="margin-left: 40%;" role="group" aria-label="Basic example">
+                                <button ng-repeat="pageNumber in getPageNumbers()" ng-click="pager.setPage(pageNumber)" class="btn btn-success">
+                                    {{pageNumber + 1}}
+                                </button>
+                            </div>
                             </div>
                           </div>
                         </div>
