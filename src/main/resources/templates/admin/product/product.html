@@ -231,13 +231,13 @@
 
                                                                                 <!-- Display the selected image using a div as a frame -->
                                                                                 <div>
-                                                                                    <img style="height: 197px;"
+                                                                                    <img style="height: 190px; width: 200px;"
                                                                                         id="imgPreview" alt=""
                                                                                         ng-src="/assets/images/products/{{form.hinhAnh}}">
                                                                                     <!-- <input type="file" class="form-control"
                                                                                         id="image"
                                                                                         onchange="previewImage(event)"> -->
-                                                                                    <input type="file"
+                                                                                    <input style="width: 200px;" type="file"
                                                                                         class="form-control" id="image"
                                                                                         onchange="angular.element(this).scope().imageChanged(this.files)">
                                                                                 </div>
@@ -379,7 +379,7 @@
                                                     <div class="modal-content "
                                                         style="width: 240%; height:690px ; margin-left: -70%;">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật
                                                             </h1>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -553,7 +553,13 @@
                                             </div>
                                         </div> -->
 
-                                        <div style="height: 400px; overflow: auto;">
+                                        <div style="height: 500px; overflow: auto;">
+                                            <style>
+                                                /* Hide scrollbar */
+                                                ::-webkit-scrollbar {
+                                                    display: none;
+                                                }
+                                            </style>    
                                             <table class="product-table" id="table1">
                                                 <thead>
                                                     <tr>
@@ -628,7 +634,7 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
-            modal.find('.modal-title').text('Thêm nhà xuất bản')
+            modal.find('.modal-title').text('Thêm sách')
             modal.find('.modal-body input').val(recipient)
         })
     </script>

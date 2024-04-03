@@ -1,5 +1,11 @@
 // Tạo một module Angular
 var app = angular.module('product-App', []);
+app.filter('vnCurrency', function () {
+    return function (input) {
+        if (isNaN(input)) return input;
+        return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    };
+});
 app.controller("product-Ctrl", function ($scope, $http, $timeout) {
     $scope.products = [];
     $scope.types = [];
@@ -92,7 +98,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
         var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
         var tenLoai = $scope.form.phanLoai.tenLoai;
-       
+
         // Lấy thông tin nhà xuất bản từ danh sách suppliers
         var selectedSupplier = $scope.suppliers.find(function (supplier) {
             return supplier.tenNhaXuatBan === tenNhaXuatBan;
@@ -113,7 +119,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             alert("Phân loại không hợp lệ!");
             return;
         }
-      
+
 
         // Gán giá trị nhà xuất bản từ đối tượng được chọn
         item.nhaXuatBan = selectedSupplier;
@@ -153,7 +159,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         var selectedType = $scope.types.find(function (type) {
             return type.tenLoai === tenLoai;
         });
-        var selectedTinhTrang = $scope.tinhtrangs.find(function(tinhtrang) {
+        var selectedTinhTrang = $scope.tinhtrangs.find(function (tinhtrang) {
             return tinhtrang.tenTinhTrang === tenTinhTrang;
         });
 
@@ -166,7 +172,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             alert("Phân loại không hợp lệ!");
             return;
         }
-      
+
 
         // Gán giá trị nhà xuất bản từ đối tượng được chọn
         item.nhaXuatBan = selectedSupplier;
