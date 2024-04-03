@@ -144,10 +144,6 @@ app.controller("voucher-ctrl", function($scope, $http){
         });
 };
 
-    
-    
-    
-
     //xoa mgg
     $scope.delete = function(voucher) {
         if (confirm("Bạn muốn xóa sản phẩm này?")) {
@@ -164,7 +160,33 @@ app.controller("voucher-ctrl", function($scope, $http){
     }
 
    // Search function
- 
+   $scope.search = function() {
+    // Kiểm tra xem đã nhập từ khóa tìm kiếm hay chưa
+    if (!$scope.searchTerm) {
+        // Nếu không có từ khóa tìm kiếm, hiển thị lại toàn bộ danh sách mã giảm giá
+        $scope.initialize(); // Giả sử initialize() là hàm để load lại danh sách mã giảm giá
+        return;
+    }
+
+    // Thực hiện tìm kiếm trong danh sách mã giảm giá
+    $scope.vouchers = $scope.vouchers.filter(function(voucher) {
+        // Chuyển đổi tất cả thông tin của mã giảm giá và từ khóa tìm kiếm về chữ thường để thực hiện tìm kiếm không phân biệt chữ hoa chữ thường
+        for (var key in voucher) {
+            if (typeof voucher[key] === 'string' && voucher[key].toLowerCase().includes($scope.searchTerm.toLowerCase())) {
+                return true; // Nếu tìm thấy từ khóa trong chuỗi, trả về true
+            }
+            if (!isNaN(parseFloat(voucher[key])) && isFinite(voucher[key])) {
+                if (voucher[key].toString().toLowerCase().includes($scope.searchTerm.toLowerCase())) {
+                    return true; // Nếu tìm thấy từ khóa trong số, trả về true
+                }
+            }
+        }
+        return false;
+    });
+};
+
+
+
    $scope.pager = {
     page: 0,
     size: 5,

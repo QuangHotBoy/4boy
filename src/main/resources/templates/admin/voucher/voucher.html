@@ -20,6 +20,33 @@
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
+  <style>/* Thiết lập kiểu dáng cho ô tìm kiếm */
+    .search-input {
+        width: 200px; /* Độ rộng của ô tìm kiếm */
+        padding: 8px 12px; /* Khoảng cách lề bên trong ô tìm kiếm */
+        font-size: 16px; /* Cỡ chữ */
+        border: 1px solid #ccc; /* Đường viền ô tìm kiếm */
+        border-radius: 5px; /* Độ cong của góc ô tìm kiếm */
+        outline: none; /* Loại bỏ viền nổi (outline) khi ô tìm kiếm được focus */
+        transition: border-color 0.3s ease; /* Hiệu ứng chuyển tiếp khi focus vào ô tìm kiếm */
+    }
+    
+    /* Thiết lập kiểu dáng khi ô tìm kiếm được focus */
+    .search-input:focus {
+        border-color: dodgerblue; /* Màu đường viền khi ô tìm kiếm được focus */
+    }
+    
+    /* Thiết lập kiểu dáng cho nút tìm kiếm (đây là một ví dụ, bạn có thể thay đổi theo ý muốn) */
+    .search-button {
+        background-color: dodgerblue; /* Màu nền của nút tìm kiếm */
+        color: white; /* Màu chữ của nút tìm kiếm */
+        border: none; /* Loại bỏ đường viền của nút tìm kiếm */
+        padding: 8px 16px; /* Khoảng cách lề bên trong nút tìm kiếm */
+        border-radius: 5px; /* Độ cong của góc nút tìm kiếm */
+        cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
+        transition: background-color 0.3s ease;
+    }
+    </style>
   <body  ng-controller="voucher-ctrl">
     <div class="container-scroller" ng-app="voucherApp" ng-controller="voucher-ctrl">
       <!-- partial:../../partials/_navbar.html -->
@@ -78,17 +105,15 @@
                        <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">  
-                              <input type="text" ng-model="searchTerm" ng-change="search()" placeholder="Search by voucher name...">                       
-                                <table class="table table-striped" id="table1">
+                              <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
+                              <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
                                             <th>Mã giảm giá</th>
                                             <th>Tên mã giảm giá</th>
                                             <th>Số tiền giảm</th>
                                             <th>Số lượng</th>
-                                            <th>
-                                              <a href="#" ng-click="sortByStartDate()">Ngày bắt đầu <i class="fa fa-sort"></i></a>
-                                          </th>
+                                            <th>Ngày bắt đầu </th>
                                             <th>Ngày kết thúc</th>
                                             <th >Mô tả</th>
                                             <th style="text-align: center;" colspan="2">Hành động</th>
