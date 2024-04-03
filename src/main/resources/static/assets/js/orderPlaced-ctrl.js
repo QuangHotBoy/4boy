@@ -15,6 +15,7 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
                     }
                 });
             });
+            $scope.orderPlaces.sort((a, b) => new Date(b.ngayDatHang) - new Date(a.ngayDatHang));
             console.log($scope.orderPlaces);
             // Initialize DataTable after data is loaded
 

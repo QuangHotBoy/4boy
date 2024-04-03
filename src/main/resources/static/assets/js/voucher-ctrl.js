@@ -4,22 +4,19 @@ app.controller("voucher-ctrl", function($scope, $http){
     $scope.form ={};
 
     $scope.initialize = function(){
-        //load voucher
-        $http.get("/rest/vouchers").then(resp =>{
+        // Load voucher
+        $http.get("/rest/vouchers").then(resp => {
             $scope.vouchers = resp.data;
-            $timeout(function () {
-                $('#table1').DataTable({
-                    "language": {
-                        "url": "/assets/json/vietnam.json"
-                    }
-                });
-            });  
-            $scope.vouchers.forEach(voucher =>{
-                voucher.createDate = new Date(voucher.createDate)         
-            })
+            $scope.vouchers.forEach(voucher => {
+                voucher.createDate = new Date(voucher.createDate);         
+            });
+    
+            // Sắp xếp giảm dần mảng vouchers theo trường createDate
+            $scope.vouchers.sort((a, b) => new Date(b.ngayBatDau) - new Date(a.ngayBatDau));
         });
     }
-
+    
+    
     //khoi dau
     $scope.initialize();
 
@@ -63,19 +60,16 @@ app.controller("voucher-ctrl", function($scope, $http){
             alert("Mã giảm giá đã tồn tại. Vui lòng chọn mã khác.");
             return;
         }
-    
+        if ($scope.isCreating) {
+            // Nếu đang ở trang thêm mới, gán ngày bắt đầu là giờ hiện tại
+            $scope.form.ngayBatDau = $scope.getCurrentDateTime();
+        }
         // Nếu không có mã giảm giá nào có ID trùng lặp, tiếp tục thêm mới
         var voucher = angular.copy($scope.form);
         
-        // Get the current date and time
-        var currentDate = new Date();
-        
-        // Set start date to the current date and time
-        voucher.ngayBatDau = $scope.getCurrentDateTime(currentDate); // Lấy giờ của ngày bắt đầu
-        
         // Lấy giờ của ngày kết thúc
-        var endDate = new Date(); // Điều chỉnh đối tượng ngày thành ngày kết thúc hoặc sử dụng ngày kết thúc từ biến của bạn
-        voucher.ngayKetThuc = $scope.getCurrentDateTime(endDate); // Lấy giờ của ngày kết thúc
+        // var endDate = new Date(); // Điều chỉnh đối tượng ngày thành ngày kết thúc hoặc sử dụng ngày kết thúc từ biến của bạn
+        // voucher.ngayKetThuc = $scope.getCurrentDateTime(endDate); // Lấy giờ của ngày kết thúc
     
         $http.post('/rest/vouchers', voucher)
             .then(resp => {
