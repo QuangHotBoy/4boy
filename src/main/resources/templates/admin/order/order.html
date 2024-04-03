@@ -28,6 +28,32 @@
     #message-text{
       height: 150px;
     }
+
+    .search-input {
+        width: 200px; /* Độ rộng của ô tìm kiếm */
+        padding: 8px 12px; /* Khoảng cách lề bên trong ô tìm kiếm */
+        font-size: 16px; /* Cỡ chữ */
+        border: 1px solid #ccc; /* Đường viền ô tìm kiếm */
+        border-radius: 5px; /* Độ cong của góc ô tìm kiếm */
+        outline: none; /* Loại bỏ viền nổi (outline) khi ô tìm kiếm được focus */
+        transition: border-color 0.3s ease; /* Hiệu ứng chuyển tiếp khi focus vào ô tìm kiếm */
+    }
+    
+    /* Thiết lập kiểu dáng khi ô tìm kiếm được focus */
+    .search-input:focus {
+        border-color: dodgerblue; /* Màu đường viền khi ô tìm kiếm được focus */
+    }
+    
+    /* Thiết lập kiểu dáng cho nút tìm kiếm (đây là một ví dụ, bạn có thể thay đổi theo ý muốn) */
+    .search-button {
+        background-color: dodgerblue; /* Màu nền của nút tìm kiếm */
+        color: white; /* Màu chữ của nút tìm kiếm */
+        border: none; /* Loại bỏ đường viền của nút tìm kiếm */
+        padding: 8px 16px; /* Khoảng cách lề bên trong nút tìm kiếm */
+        border-radius: 5px; /* Độ cong của góc nút tìm kiếm */
+        cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
+        transition: background-color 0.3s ease;
+    }
   </style>
   <body>
     <div class="container-scroller" ng-app="orderPlacedApp" ng-controller="orderPlacedCtrl">
@@ -201,17 +227,19 @@
               <div class="col-12">
                 <div class="card">
                       <div class="row">
-                        <form class="d-flex align-items-center h-100 my-2"  style="margin-left: 72%; padding-right: 77%;" action="#">
-                          <div class="input-group">
-                            <div class="input-group-prepend bg-transparent">
-                              <i class="input-group-text border-1 mdi mdi-magnify"></i>
-                            </div>
-                            <input type="text" class="form-control bg-transparent border-1" placeholder="Tìm kiếm">
-                          </div>
-                        </form>
                         <div class="col-lg-12 grid-margin stretch-card">
                           <div class="card">
                             <div class="card-body">
+                              <select ng-model="selectedStatusId">
+                                <option value="">Tất cả trạng thái</option>
+                                <option value="1">Chờ xác nhận</option>
+                                <option value="2">Đã xử lý</option>
+                                <!-- Thêm các giá trị ID cho các trạng thái khác nếu cần -->
+                            </select>
+                            
+                            
+                            
+                              <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
                               <table class="table table-striped" id="table">
                                 <thead>
                                   <tr>
@@ -226,7 +254,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr ng-repeat="orderPlace in pager.orderPlaces">
+                                  <tr ng-repeat="orderPlace in pager.orderPlaces | filter: filterByStatus">
                                     <td>{{ orderPlace.maDonHang }}</td>
                                     <td>{{ orderPlace.hoTen }}</td>
                                     <td style="width: 40px;">{{ orderPlace.diaChiNhanHang }}</td>

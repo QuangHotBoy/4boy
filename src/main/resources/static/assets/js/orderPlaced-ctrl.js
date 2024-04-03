@@ -166,6 +166,47 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
             });
     };  
 
+   // Search function
+   $scope.search = function() {
+    // Kiểm tra xem đã nhập từ khóa tìm kiếm hay chưa
+    if (!$scope.searchTerm) {
+        // Nếu không có từ khóa tìm kiếm, hiển thị lại toàn bộ danh sách mã giảm giá
+        $scope.initialize(); // Giả sử initialize() là hàm để load lại danh sách mã giảm giá
+        return;
+    }
+
+    // Chuyển đổi từ khóa tìm kiếm về chữ thường để thực hiện tìm kiếm không phân biệt chữ hoa chữ thường
+    var searchTermLowerCase = $scope.searchTerm.toLowerCase();
+
+    // Thực hiện tìm kiếm trong danh sách mã giảm giá
+    $scope.orderPlaces = $scope.orderPlaces.filter(function(orderPlace) {
+        // Duyệt qua các thuộc tính của đối tượng mã giảm giá để kiểm tra xem có chứa từ khóa tìm kiếm không
+        for (var key in orderPlace) {
+            if (orderPlace.hasOwnProperty(key)) {
+                // Chỉ tìm kiếm trong các thuộc tính có kiểu dữ liệu là chuỗi hoặc số
+                if (typeof orderPlace[key] === 'string' || typeof orderPlace[key] === 'number') {
+                    // Chuyển đổi giá trị thuộc tính về chuỗi và chuyển sang chữ thường để tìm kiếm
+                    var propertyValueLowerCase = orderPlace[key].toString().toLowerCase();
+                    // Nếu thuộc tính chứa từ khóa tìm kiếm, trả về true để giữ lại đối tượng này trong danh sách kết quả
+                    if (propertyValueLowerCase.includes(searchTermLowerCase)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // Nếu không tìm thấy từ khóa trong bất kỳ thuộc tính nào của đối tượng, loại bỏ đối tượng này khỏi danh sách kết quả
+        return false;
+    });
+};
+$scope.filterByStatus = function(orderPlace) {
+    // Nếu không có trạng thái được chọn, hiển thị tất cả đơn hàng
+    if (!$scope.selectedStatusId) return true;
+
+    // Kiểm tra nếu ID trạng thái của đơn hàng khớp với ID đã chọn
+    return orderPlace.trangThaiId === $scope.selectedStatusId;
+};
+
+
     $scope.pager = {
         page: 0,
         size: 5,
