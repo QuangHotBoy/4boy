@@ -6,14 +6,11 @@ function incrementQuantity() {
   console.log(maxQuantity);
 
   if (currentValue + 1 > maxQuantity) {
-    // Swal.fire({
-    //     title: 'Knotrea Thông báo!',
-    //     text: 'Số lượng sản phẩm đã đạt giới hạn!',
-    //     icon: 'warning',
-    //     timer: 1000, // Thời gian đóng SweetAlert sau 1 giây (1000 milliseconds)
-    //     showConfirmButton: false, // Ẩn nút xác nhận
-    // });
-    alert("Số lượng đạt tối đa!");
+    iziToast.warning({
+      title: 'Thông báo',
+      message: 'Số lượng đạt tối đa hiện có.',
+      position: 'topRight'
+    });
   } else {
     quantityInput.val(currentValue + 1);
   }
@@ -29,90 +26,114 @@ $(document).ready(function () {
   // Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
   $(".btn-outline-warning.add-to-cart").click(function () {
     // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
-    var productContainer = $(this).closest(".product-container"); // Thay đổi lựa chọn để chọn phần tử chứa thông tin sản phẩm
-    var productName = productContainer.find(".product-name").text(); // Thay đổi để lấy tên sách từ thẻ h4
-    var productImage = productContainer.find("img").attr("src"); // Thay đổi để lấy đường dẫn ảnh từ thẻ img
-    var productPrice;
+    var account = JSON.parse(localStorage.getItem("account")) || null;
 
-    // Kiểm tra xem sản phẩm có giảm giá hay không
-    if (productContainer.find(".text-warning").length > 0) {
-      // Nếu có giảm giá, lấy giá sau khi giảm giá
-      productPrice = productContainer
-        .find(".text-warning")
-        .first()
-        .text()
-        .replace(" đ", "")
-        .replace(".", "");
+    if (account === null) {
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng đăng nhập vào tài khoản.',
+        position: 'topRight'
+      });
     } else {
-      // Nếu không có giảm giá, lấy giá ban đầu
-      productPrice = productContainer
-        .find(".text-warning")
-        .text()
-        .replace(" đ", "")
-        .replace(".", "");
+      var productContainer = $(this).closest(".product-container"); // Thay đổi lựa chọn để chọn phần tử chứa thông tin sản phẩm
+      var productName = productContainer.find(".product-name").text(); // Thay đổi để lấy tên sách từ thẻ h4
+      var productImage = productContainer.find("img").attr("src"); // Thay đổi để lấy đường dẫn ảnh từ thẻ img
+      var productPrice;
+
+      // Kiểm tra xem sản phẩm có giảm giá hay không
+      if (productContainer.find(".text-warning").length > 0) {
+        // Nếu có giảm giá, lấy giá sau khi giảm giá
+        productPrice = productContainer
+          .find(".text-warning")
+          .first()
+          .text()
+          .replace(" đ", "")
+          .replace(".", "");
+      } else {
+        // Nếu không có giảm giá, lấy giá ban đầu
+        productPrice = productContainer
+          .find(".text-warning")
+          .text()
+          .replace(" đ", "")
+          .replace(".", "");
+      }
+
+      var quantity = parseInt(productContainer.find("#quantity").val()); // Lấy số lượng sản phẩm từ input
+
+      // Tạo đối tượng sản phẩm
+      var product = {
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        quantity: quantity,
+      };
+
+      addToCart(product); // Gọi hàm addToCart với thông tin sản phẩm
+
+      console.log(product);
+
+      // Hiển thị thông báo thành công
+      iziToast.success({
+        title: 'Thông báo',
+        message: 'Đã thêm sản phẩm vào giỏ hàng.',
+        position: 'topRight'
+      });
     }
-
-    var quantity = parseInt(productContainer.find("#quantity").val()); // Lấy số lượng sản phẩm từ input
-
-    // Tạo đối tượng sản phẩm
-    var product = {
-      name: productName,
-      price: productPrice,
-      image: productImage,
-      quantity: quantity,
-    };
-
-    addToCart(product); // Gọi hàm addToCart với thông tin sản phẩm
-
-    console.log(product);
-
-    // Hiển thị thông báo cho người dùng
-    alert("Sản phẩm đã được thêm vào giỏ hàng!");
   });
 
   $(".text-bg-warning.buynow").click(function () {
     // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
-    var productContainer = $(this).closest(".product-container"); // Thay đổi lựa chọn để chọn phần tử chứa thông tin sản phẩm
-    var productName = productContainer.find(".product-name").text(); // Thay đổi để lấy tên sách từ thẻ h4
-    var productImage = productContainer.find("img").attr("src"); // Thay đổi để lấy đường dẫn ảnh từ thẻ img
-    var productPrice;
+    var account = JSON.parse(localStorage.getItem("account")) || null;
 
-    // Kiểm tra xem sản phẩm có giảm giá hay không
-    if (productContainer.find(".text-warning").length > 0) {
-      // Nếu có giảm giá, lấy giá sau khi giảm giá
-      productPrice = productContainer
-        .find(".text-warning")
-        .first()
-        .text()
-        .replace(" đ", "")
-        .replace(".", "");
+    if (account === null) {
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng đăng nhập vào tài khoản.',
+        position: 'topRight'
+      });
     } else {
-      // Nếu không có giảm giá, lấy giá ban đầu
-      productPrice = productContainer
-        .find(".text-warning")
-        .text()
-        .replace(" đ", "")
-        .replace(".", "");
+      var productContainer = $(this).closest(".product-container"); // Thay đổi lựa chọn để chọn phần tử chứa thông tin sản phẩm
+      var productName = productContainer.find(".product-name").text(); // Thay đổi để lấy tên sách từ thẻ h4
+      var productImage = productContainer.find("img").attr("src"); // Thay đổi để lấy đường dẫn ảnh từ thẻ img
+      var productPrice;
+
+      // Kiểm tra xem sản phẩm có giảm giá hay không
+      if (productContainer.find(".text-warning").length > 0) {
+        // Nếu có giảm giá, lấy giá sau khi giảm giá
+        productPrice = productContainer
+          .find(".text-warning")
+          .first()
+          .text()
+          .replace(" đ", "")
+          .replace(".", "");
+      } else {
+        // Nếu không có giảm giá, lấy giá ban đầu
+        productPrice = productContainer
+          .find(".text-warning")
+          .text()
+          .replace(" đ", "")
+          .replace(".", "");
+      }
+
+      var quantity = parseInt(productContainer.find("#quantity").val()); // Lấy số lượng sản phẩm từ input
+
+      // Tạo đối tượng sản phẩm
+      var product = {
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        quantity: quantity,
+      };
+
+      // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
+      var cart = JSON.parse(localStorage.getItem("buynow")) || [];
+
+      // Thêm sản phẩm vào giỏ hàng
+      cart.push(product);
+
+      // Lưu lại danh sách sản phẩm vào LocalStorage
+      localStorage.setItem("buynow", JSON.stringify(cart));
     }
-
-    var quantity = parseInt(productContainer.find("#quantity").val()); // Lấy số lượng sản phẩm từ input
-
-    // Tạo đối tượng sản phẩm
-    var product = {
-      name: productName,
-      price: productPrice,
-      image: productImage,
-      quantity: quantity,
-    };
-
-    // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
-    var cart = JSON.parse(localStorage.getItem("buynow")) || [];
-
-    // Thêm sản phẩm vào giỏ hàng
-    cart.push(product);
-
-    // Lưu lại danh sách sản phẩm vào LocalStorage
-    localStorage.setItem("buynow", JSON.stringify(cart));
   });
 
   function addToCart(productId) {
@@ -138,7 +159,6 @@ $(document).ready(function () {
         quantity: productId.quantity,
       };
 
-      console.log(newItem.pquantity);
       cart.push(newItem);
     }
 
@@ -150,28 +170,51 @@ $(document).ready(function () {
 var app = angular.module("myApp", []);
 
 app.controller("DetailproductCtrl", function ($scope, $http) {
+
+  $scope.user = JSON.parse(localStorage.getItem("account")) || null;
+
   $scope.submitReview = function () {
     // Lấy giá trị đánh giá từ input radio đã được chọn
     if (!$scope.rating) {
-      alert("Chọn điểm đánh giá!");
+      // Hiển thị thông báo thành công
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng chọn điểm đánh giá.',
+        position: 'topRight'
+      });
     } else {
       // Lấy giá trị nhận xét từ textarea
       var comment = $scope.comment;
       var isbn = $("#productId").val();
-      console.log($scope.rating);
+      var user_id = $scope.user[0].tenDangNhap;
 
       // Gửi dữ liệu đánh giá lên máy chủ sử dụng $http.post
       $http
-        .post("/rest/review/" + isbn + "/" + $scope.rating + "/" + comment)
+        .post("/rest/review/" + isbn + "/" + $scope.rating + "/" + comment + "/" + user_id)
         .then(function (response) {
           // Xử lý kết quả trả về từ máy chủ
           $scope.comment = ""; // Xóa giá trị của textarea
           $scope.rating = ""; // Xóa giá trị của rating
-          alert("Đánh giá thành công!")
+          // Hiển thị thông báo thành công
+          iziToast.success({
+            title: 'Thông báo',
+            message: 'Đã thêm đánh giá thành công.',
+            position: 'topRight'
+          });
         })
         .catch(function (error) {
           console.error("Error:", error);
         });
     }
   };
+
+  $scope.checkOrder = function () {
+    var isbn = $("#productId").val();
+    $http.get("/rest/order/check/" + $scope.user[0].tenDangNhap + "/" + isbn).then(function (resp) {
+      $scope.orderCheck = resp.data;
+      console.log($scope.orderCheck.isTrue);
+    })
+  }
+  $scope.checkOrder();
+
 });

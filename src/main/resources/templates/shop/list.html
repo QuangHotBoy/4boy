@@ -30,12 +30,6 @@
                 <div th:each="p: ${list}">
                     <div class="col mb-3">
                         <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div th:if="${p.tiLeGiamGia > 0}">
-                                <div class="badge bg-warning text-white position-absolute"
-                                    style="top: 0.5rem; right: 0.5rem" th:utext="'- ' + ${p.tiLeGiamGia} + '%'">
-                                </div>
-                            </div>
                             <!-- Product image-->
                             <div class="image-container">
                                 <img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${p.hinhAnh}|}"
@@ -50,18 +44,9 @@
                                         <h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
                                     </a>
                                     <!-- Product price-->
-                                    <div th:if="${p.tiLeGiamGia == 0}">
-                                        <p class="text-warning fw-bold"
-                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
-                                        </p>
-                                    </div>
-                                    <div th:if="${p.tiLeGiamGia > 0}" class="justify-content-start d-flex">
-                                        <p class="text-warning fw-bold me-3"
-                                            th:text="${#numbers.formatDecimal(p.giaGiam, 3, 'POINT', 0, 'POINT')} + ' đ'">
-                                        </p>
-                                        <span class="text-decoration-line-through text-gray"
-                                            th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-                                    </div>
+                                    <p class="text-warning fw-bold"
+                                        th:text="${#numbers.formatDecimal(p.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
+                                    </p>
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -84,24 +69,17 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row pb-3">
-                <div class="col-lg-5"></div>
-                <div class="col-lg-2 text-center">
-                    <div class="ms-3 fs-5 p-2 border border-dark rounded-3"><a th:href="@{/shop/list-product}"
-                            class="text-decoration-none text-black">Xem
-                            thêm...</a></div>
-                </div>
-                <div class="col-lg-5"></div>
-            </div> -->
     </section>
 
     <div th:replace="/shop/layout/footer :: footer"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script th:src="@{/shop/js/list-item.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     <script th:src="@{/shop/js/scripts.js}"></script>
+
+    <script th:src="@{/shop/js/list-item.js}"></script>
 </body>
 
 </html>

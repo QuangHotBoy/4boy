@@ -38,7 +38,7 @@
 								<a class="btn text-bg-warning mt-auto buynow" th:data-isbn="${p.isbn}">Mua ngay</a>
 							</div>
 							<div class="text-center ms-3">
-								<button class="btn btn-outline-warning add-to-cart mt-auto" th:data-isbn="${p.isbn}"><i
+								<button onclick="showToast('success', 'fa-solid fa-circle-check', 'Success', 'This is a success toast.')" class="btn btn-outline-warning add-to-cart mt-auto" th:data-isbn="${p.isbn}"><i
 										class="fas fa-cart-plus"></i></button>
 							</div>
 							<div class="text-center ms-3">

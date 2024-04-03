@@ -94,33 +94,42 @@ app.controller("BuynowController", function ($scope, $http) {
     purchase() {
       var order = angular.copy(this);
       // Thực hiện đặt hàng
-      $http
-        .post("/rest/orders", order)
-        .then((resp) => {
-          console.log(order);
-          if (resp.data.phuongThucThanhToan.id === 1) {
-            alert("Đặt hàng thành công!");
-            $buy.clear();
-            location.href = "/shop/order/thank-for-order";
-          } else {
-            console.log(resp.data);
-            location.href =
-              "/shop/order/vnpay-payment?amount=" +
-              resp.data.tongTien +
-              "&order-id=" +
-              resp.data.maDonHang +
-              "&hoTen=" +
-              resp.data.hoTen +
-              "&soDienThoai=" +
-              resp.data.soDienThoai +
-              "&mail=" +
-              resp.data.mail;
-          }
-        })
-        .catch((error) => {
-          alert("Đặt hàng lỗi!");
-          console.log(error);
-        });
+      if (
+        !order.hoTen ||
+        !order.diaChiNhanHang ||
+        !order.mail ||
+        !order.soDienThoai
+      ) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+      } else {
+        $http
+          .post("/rest/orders", order)
+          .then((resp) => {
+            if (resp.data.phuongThucThanhToan.id === 1) {
+              alert("Đặt hàng thành công!");
+              $buy.clear();
+              location.href = "/shop/order/thank-for-order";
+            } else {
+              $buy.clear();
+              location.href =
+                "/shop/order/vnpay-payment?amount=" +
+                resp.data.tongTien +
+                "&order-id=" +
+                resp.data.maDonHang +
+                "&hoTen=" +
+                resp.data.hoTen +
+                "&soDienThoai=" +
+                resp.data.soDienThoai +
+                "&mail=" +
+                resp.data.mail;
+            }
+          })
+          .catch((error) => {
+            alert("Đặt hàng lỗi!");
+            console.log(error);
+          });
+      }
     },
   };
 

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +37,15 @@ public class OrderRestController {
     @GetMapping("/voucher")
     @ResponseBody
     public Map<String, Object> checkVoucher(@RequestParam("voucher") String voucherCode,
-            @RequestParam("total") Long total) {
-        return voucherService.checkVoucher(voucherCode, total);
+            @RequestParam("total") Long total, @RequestParam("user") String id) {
+        return voucherService.checkVoucher(voucherCode, total, id);
+    }
+
+    @GetMapping("/order/check/{user}/{isbn}")
+    @ResponseBody
+    public Map<String, Object> checkOrder(@PathVariable("user") String id,
+            @PathVariable("isbn") Long isbn) {
+                return orderService.checkOrder(id, isbn);
     }
 
 }

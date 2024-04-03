@@ -30,15 +30,14 @@ public class ReviewRestController {
     @Autowired
     TaiKhoanDAO accountDAO;
 
-    @PostMapping("/rest/review/{id}/{rating}/{review}")
+    @PostMapping("/rest/review/{id}/{rating}/{review}/{user}")
     @ResponseBody
     public DanhGia create(@PathVariable("id") Long id, @PathVariable("rating") int rating,
-            @PathVariable("review") String comment) {
-        System.out.println(1);
+            @PathVariable("review") String comment, @PathVariable("user") String userId) {
 
         SanPham product = productDAO.findById(id).get();
 
-        TaiKhoan account = accountDAO.findByTenDangNhap("nont123");
+        TaiKhoan account = accountDAO.findByTenDangNhap(userId);
 
         DanhGia review = new DanhGia();
         review.setNoiDung(comment);
@@ -47,8 +46,6 @@ public class ReviewRestController {
         review.setTaiKhoan_danhGia(account);
         review.setNgayDanhGia(new Timestamp(System.currentTimeMillis()));
 
-        System.out.println(review);
-        
         return reviewService.create(review);
     }
 }

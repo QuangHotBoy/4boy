@@ -67,10 +67,10 @@ public class SanPham implements Serializable {
 
     @Column(name = "kieu_bia", length = 150)
     private String kieuBia;
+    
     @Column(name = "so_luong")
     private Integer soLuong;
 
-   
     @ManyToOne
     @JoinColumn(name = "trang_thai") // Đổi tên trường để phù hợp với cấu trúc cơ sở dữ liệu
     private TrangThaiSach tinhTrangSanPham;
@@ -82,11 +82,11 @@ public class SanPham implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "sanPham_gioHang")
     private List<ChiTietGioHang> sanPhamGioHang;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "sanPham_donDatHang")
     private List<ChiTietDonDatHang> sanPhamDonDatHang;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "sanPham_danhGia")
     private List<DanhGia> sanPhamDanhGia;
@@ -99,7 +99,5 @@ public class SanPham implements Serializable {
 
     @Transient
     private List<TrangThaiSach> tinhtrangs;
-
-
 
 }

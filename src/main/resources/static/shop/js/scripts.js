@@ -82,7 +82,11 @@ $(document).ready(function () {
     var account = JSON.parse(localStorage.getItem("account")) || null;
 
     if (account === null) {
-      alert("Vui lòng đăng nhập vào tài khoản!");
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng đăng nhập vào tài khoản.',
+        position: 'topRight'
+      });
     } else {
       // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
       var productContainer = $(this).closest(".card");
@@ -110,8 +114,12 @@ $(document).ready(function () {
       var productId = product; // ID của sản phẩm cần thêm
       addToCart(productId);
 
-      // Hiển thị thông báo cho người dùng
-      alert("Sản phẩm đã được thêm vào giỏ hàng!");
+      // Hiển thị thông báo thành công
+      iziToast.success({
+        title: 'Thông báo',
+        message: 'Đã thêm sản phẩm vào giỏ hàng.',
+        position: 'topRight'
+      });
     }
   });
 
@@ -119,7 +127,11 @@ $(document).ready(function () {
     var account = JSON.parse(localStorage.getItem("account")) || null;
 
     if (account === null) {
-      alert("Vui lòng đăng nhập vào tài khoản!");
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng đăng nhập vào tài khoản.',
+        position: 'topRight'
+      });
     } else {
       // Lấy thông tin sản phẩm từ phần tử cha của nút được nhấn
       var productContainer = $(this).closest(".card");
@@ -209,3 +221,4 @@ $(document).ready(function () {
     $("#cart-count").text(cartCount);
   }
 });
+

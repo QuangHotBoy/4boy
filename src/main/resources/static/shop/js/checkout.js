@@ -98,7 +98,16 @@ app.controller("CheckoutController", function ($scope, $http) {
     purchase() {
       var order = angular.copy(this);
       // Thực hiện đặt hàng
-      $http
+      if (
+        !order.hoTen ||
+        !order.diaChiNhanHang ||
+        !order.mail ||
+        !order.soDienThoai
+      ) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+      } else {
+        $http
         .post("/rest/orders", order)
         .then((resp) => {
           console.log(resp.data);
@@ -107,6 +116,7 @@ app.controller("CheckoutController", function ($scope, $http) {
             removeFromLocalStorage(productsToRemove);
             location.href = "/shop/order/thank-for-order";
           } else {
+            removeFromLocalStorage(productsToRemove);
             location.href =
               "/shop/order/vnpay-payment?amount=" +
               resp.data.tongTien +
@@ -122,9 +132,9 @@ app.controller("CheckoutController", function ($scope, $http) {
         })
         .catch((error) => {
           alert("Đặt hàng lỗi!");
-          console.log(order);
           console.log(error);
         });
+      }
     },
   };
 
@@ -136,28 +146,34 @@ app.controller("CheckoutController", function ($scope, $http) {
   $scope.checkVoucher = function () {
     var voucherCode = $scope.voucherCode; // Lấy giá trị mã giảm giá từ model
     var total = $scope.subpayment; // Thay bằng giá trị tổng tiền thực tế
+    var user = $scope.info_user[0].tenDangNhap;
 
     // Gửi yêu cầu POST đến backend
     $http
-      .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total)
+      .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total + "&user=" + user)
       .then(function (response) {
         // Xử lý dữ liệu từ phản hồi
         var data = response.data;
         if (data.isValid) {
           if (data.isActive) {
-            if (data.isTrue) {
-              // Mã giảm giá hợp lệ và đủ điều kiện
-              $scope.voucher.dateEnd = data.dateEnd;
-              $scope.voucher.discount = data.discount;
-              $scope.subpayment = $scope.subpayment - data.discount;
-
-              console.log($scope.subpayment);
-
-              $scope.discount = formatPrice(data.discount);
-              $scope.payment = formatPrice($scope.subpayment);
-            } else {
-              // Mã giảm giá không đủ điều kiện
-              console.log("Mã giảm giá không đủ điều kiện.");
+            if(data.isUse){
+              if (data.isTrue) {
+                // Mã giảm giá hợp lệ và đủ điều kiện
+                $scope.voucher.dateEnd = data.dateEnd;
+                $scope.voucher.discount = data.discount;
+                $scope.subpayment = $scope.subpayment - data.discount;
+  
+                console.log($scope.subpayment);
+  
+                $scope.discount = formatPrice(data.discount);
+                $scope.payment = formatPrice($scope.subpayment);
+              } else {
+                // Mã giảm giá không đủ điều kiện
+                console.log("Mã giảm giá không đủ điều kiện.");
+              }
+            }else{
+              // Tài khoản đã sử dụng mã giảm giá
+              console.log("Tài khoản đã sử dụng mã giảm giá.");
             }
           } else {
             // Mã giảm giá đã hết hạn hoặc không hoạt động

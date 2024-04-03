@@ -1,7 +1,10 @@
 package com.poly.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +17,13 @@ import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DiaChi_TaiKhoanDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.MaGiamGiaDAO;
-import com.poly.dao.PhuongThucThanhToanDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.dao.TinhTrangDonDatHangDAO;
 import com.poly.model.ChiTietDonDatHang;
-import com.poly.model.DiaChi_TaiKhoan;
 import com.poly.model.DonDatHang;
 import com.poly.model.MaGiamGia;
 import com.poly.model.SanPham;
-import com.poly.model.TaiKhoan;
 import com.poly.service.OrderService;
 
 @Service
@@ -96,5 +96,28 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		return order;
+	}
+
+	@Override
+	public Map<String, Object> checkOrder(String id, Long isbn) {
+		// TODO Auto-generated method stub
+		Map<String, Object> data = new HashMap<>();
+
+		List<DonDatHang> order = orderDAO.findByTDN(id);
+
+		List<ChiTietDonDatHang> detailOrder = new ArrayList();
+		
+		for (DonDatHang o : order) {
+			detailOrder = orderDetailDAO.findByDonDatHang(o);
+		}
+
+		for (ChiTietDonDatHang dc : detailOrder) {
+			if(dc.getSanPham_donDatHang().getIsbn() == isbn){
+				data.put("isTrue", true);
+			}else{
+				data.put("isTrue", false);
+			}
+		}
+		return data;
 	}
 }

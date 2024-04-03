@@ -19,7 +19,7 @@ public interface VoucherService {
 
     void delete(String id);
 
-    Map<String, Object> checkVoucher(String id, Long total);
+    Map<String, Object> checkVoucher(String voucherCode, Long total, String id);
 
     MaGiamGia findByTenMa(String tenMa);
 }
