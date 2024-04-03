@@ -14,7 +14,56 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         tenDangNhap: '', matKhau: '', hoTen: '', email: '', nhapLaiMatKhau: ''
     }
 
+    $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
 
+    var user_id = $scope.info_user[0].tenDangNhap;
+
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    $scope.cart = [];
+
+    for (let i = 0; i < carts.length; i++) {
+        if (carts[i].user === user_id) {
+            $scope.cart.push(carts[i]);
+        }
+    }
+
+    // Xác định các sản phẩm cần xóa khỏi localStorage
+    var productsToRemove = $scope.cart.map(function (product) {
+        return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
+    });
+
+    function removeFromLocalStorage(productsToRemove) {
+        var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+        carts = carts.filter(function (product) {
+            return !productsToRemove.includes(product.id);
+        });
+
+        // Lưu mảng đã cập nhật vào localStorage
+        localStorage.setItem("cart", JSON.stringify(carts));
+    }
+
+    $scope.addCart = {
+        get taiKhoan_gioHang() {
+            return { tenDangNhap: $scope.info_user[0].tenDangNhap };
+        },
+        get gioHang() {
+            return $scope.cart.map((item) => {
+                return {
+                    sanPham_gioHang: { isbn: item.id },
+                    soLuong: item.quantity
+                }
+            });
+        },
+        add() {
+            var cart = angular.copy(this);
+            $http.post("/rest/add-cart", cart).then((resp) => {
+            }).catch((error) => {;
+            })
+        }
+    }
 
     $scope.login = function () {
         localStorage.removeItem("account");
@@ -30,7 +79,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                         account.push($scope.accounts.users[i]);
                         for (var i = 0; i < $scope.accounts.address.length; i++) {
                             var b = $scope.accounts.address[i];
-                            if(b.taiKhoan_diaChi.tenDangNhap === a.tenDangNhap && b.macDinh === true){
+                            if (b.taiKhoan_diaChi.tenDangNhap === a.tenDangNhap && b.macDinh === true) {
                                 account.push($scope.accounts.address[i]);
                             }
                         }
@@ -107,7 +156,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     //         .then((resp) => {
     //           alert("Đặt hàng thành công!");
     //           $buy.clear();
-    
+
     //           console.log(order);
     //           location.href = "/shop/order/thank-for-order";
     //         })

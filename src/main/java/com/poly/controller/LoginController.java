@@ -5,6 +5,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.TaiKhoan;
+import com.poly.service.CartService;
 import com.poly.service.ParamService;
 import com.poly.service.SessionService_quenMatKhau;
 import com.poly.service.impl.MailerServiceImpl;
@@ -20,6 +22,9 @@ import com.poly.service.impl.MailerServiceImpl;
 public class LoginController {
     @Autowired
     TaiKhoanDAO tkDao;
+
+    @Autowired
+    CartService cartService;
 
     @Autowired
     ParamService paramService;
@@ -33,6 +38,14 @@ public class LoginController {
     @RequestMapping("shop/login")
     public String login(Model model) {
         return "shop/layout/login/login";
+    }
+
+    @GetMapping("shop/log-out")
+    public String logout(Model model){
+
+
+
+        return "redirect:/shop/home";
     }
 
     @RequestMapping("shop/register")

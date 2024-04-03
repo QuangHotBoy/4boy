@@ -24,13 +24,13 @@ app.controller("CheckoutController", function ($scope, $http) {
     var carts = JSON.parse(localStorage.getItem("cart")) || [];
 
     // Loại bỏ các sản phẩm đã xác định khỏi mảng carts
-    carts = carts.filter(function(product) {
-        return !productsToRemove.includes(product.id);
+    carts = carts.filter(function (product) {
+      return !productsToRemove.includes(product.id);
     });
 
     // Lưu mảng đã cập nhật vào localStorage
     localStorage.setItem("cart", JSON.stringify(carts));
-}
+  }
 
   // Hàm tính tổng tiền của các sản phẩm
   $scope.subtotal = function () {
@@ -104,36 +104,45 @@ app.controller("CheckoutController", function ($scope, $http) {
         !order.mail ||
         !order.soDienThoai
       ) {
-        alert("Vui lòng điền đầy đủ thông tin!");
+        // Hiển thị thông báo thành công
+        iziToast.warning({
+          title: 'Thông báo',
+          message: 'Vui lòng không để trống thông tin nhận hàng.',
+          position: 'topRight'
+        });
         return;
       } else {
         $http
-        .post("/rest/orders", order)
-        .then((resp) => {
-          console.log(resp.data);
-          if (resp.data.phuongThucThanhToan.id === 1) {
-            alert("Đặt hàng thành công!");
-            removeFromLocalStorage(productsToRemove);
-            location.href = "/shop/order/thank-for-order";
-          } else {
-            removeFromLocalStorage(productsToRemove);
-            location.href =
-              "/shop/order/vnpay-payment?amount=" +
-              resp.data.tongTien +
-              "&order-id=" +
-              resp.data.maDonHang +
-              "&hoTen=" +
-              resp.data.hoTen +
-              "&soDienThoai=" +
-              resp.data.soDienThoai +
-              "&mail=" +
-              resp.data.mail;
-          }
-        })
-        .catch((error) => {
-          alert("Đặt hàng lỗi!");
-          console.log(error);
-        });
+          .post("/rest/orders", order)
+          .then((resp) => {
+            console.log(resp.data);
+            if (resp.data.phuongThucThanhToan.id === 1) {
+              removeFromLocalStorage(productsToRemove);
+              location.href = "/shop/order/thank-for-order";
+            } else {
+              removeFromLocalStorage(productsToRemove);
+              location.href =
+                "/shop/order/vnpay-payment?amount=" +
+                resp.data.tongTien +
+                "&order-id=" +
+                resp.data.maDonHang +
+                "&hoTen=" +
+                resp.data.hoTen +
+                "&soDienThoai=" +
+                resp.data.soDienThoai +
+                "&mail=" +
+                resp.data.mail;
+            }
+          })
+          .catch((error) => {
+            // Hiển thị thông báo thành công
+            iziToast.info({
+              title: 'Thông báo',
+              message: 'Đặt hàng xảy ra lỗi! Vui lòng thử lại sau.',
+              position: 'topRight'
+            });
+            console.log(error);
+          });
       }
     },
   };
@@ -156,31 +165,53 @@ app.controller("CheckoutController", function ($scope, $http) {
         var data = response.data;
         if (data.isValid) {
           if (data.isActive) {
-            if(data.isUse){
+            if (data.isUse) {
               if (data.isTrue) {
                 // Mã giảm giá hợp lệ và đủ điều kiện
                 $scope.voucher.dateEnd = data.dateEnd;
                 $scope.voucher.discount = data.discount;
                 $scope.subpayment = $scope.subpayment - data.discount;
-  
-                console.log($scope.subpayment);
-  
+
+                $('input[name="voucher"]').attr('readonly', true);
+
                 $scope.discount = formatPrice(data.discount);
                 $scope.payment = formatPrice($scope.subpayment);
               } else {
-                // Mã giảm giá không đủ điều kiện
-                console.log("Mã giảm giá không đủ điều kiện.");
+                // Mã giảm giá không đủ điều kiện// Hiển thị thông báo thành công
+                iziToast.info({
+                  title: 'Thông báo',
+                  message: 'Mã giảm giá không đủ điều kiện.',
+                  position: 'topRight'
+                });
               }
-            }else{
+            } else {
               // Tài khoản đã sử dụng mã giảm giá
+              // Hiển thị thông báo thành công
+            iziToast.info({
+              title: 'Thông báo',
+              message: 'Tài khoản đã sử dụng mã giảm giá.',
+              position: 'topRight'
+            });
               console.log("Tài khoản đã sử dụng mã giảm giá.");
             }
           } else {
             // Mã giảm giá đã hết hạn hoặc không hoạt động
+            // Hiển thị thông báo thành công
+            iziToast.info({
+              title: 'Thông báo',
+              message: 'Mã giảm giá đã hết hạn hoặc không hoạt động.',
+              position: 'topRight'
+            });
             console.log("Mã giảm giá đã hết hạn hoặc không hoạt động.");
           }
         } else {
           // Mã giảm giá không hợp lệ
+          // Hiển thị thông báo thành công
+          iziToast.info({
+            title: 'Thông báo',
+            message: 'Mã giảm giá không hợp lệ',
+            position: 'topRight'
+          });
           console.log("Mã giảm giá không hợp lệ.");
         }
       })

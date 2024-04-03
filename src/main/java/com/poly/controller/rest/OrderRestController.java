@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.model.DonDatHang;
+import com.poly.model.GioHang;
+import com.poly.service.CartService;
 import com.poly.service.OrderService;
 import com.poly.service.VoucherService;
 
@@ -29,6 +31,9 @@ public class OrderRestController {
     @Autowired
     VoucherService voucherService;
 
+    @Autowired
+    CartService cartService;
+
     @PostMapping("/orders")
     public DonDatHang purchase(@RequestBody JsonNode orderData) {
         return orderService.create(orderData);
@@ -39,6 +44,11 @@ public class OrderRestController {
     public Map<String, Object> checkVoucher(@RequestParam("voucher") String voucherCode,
             @RequestParam("total") Long total, @RequestParam("user") String id) {
         return voucherService.checkVoucher(voucherCode, total, id);
+    }
+
+    @PostMapping("/add-cart")
+    public GioHang add(@RequestBody JsonNode cartData) {
+        return cartService.create(cartData);
     }
 
     @GetMapping("/order/check/{user}/{isbn}")

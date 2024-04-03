@@ -1,3 +1,27 @@
+function incrementQuantity() {
+  var quantityInput = $("#quantity");
+  var currentValue = parseInt(quantityInput.val());
+  var maxQuantity = parseInt(quantityInput.attr("max"));
+
+  console.log(maxQuantity);
+
+  if (currentValue + 1 > maxQuantity) {
+    iziToast.warning({
+      title: 'Thông báo',
+      message: 'Số lượng đạt tối đa hiện có.',
+      position: 'topRight'
+    });
+  } else {
+    quantityInput.val(currentValue + 1);
+  }
+}
+
+function decrementQuantity() {
+  var quantityInput = $("#quantity");
+  var newValue = parseInt(quantityInput.val()) - 1;
+  quantityInput.val(newValue >= 1 ? newValue : 1);
+}
+
 var app = angular.module("myApp", []);
 
 app.controller("CartController", function ($scope, $http, $window) {
@@ -13,7 +37,6 @@ app.controller("CartController", function ($scope, $http, $window) {
     $scope.calculateTotal = function () {
       return "30.000 đ";
     };
-    console.log("Biến user là null." + $scope.cartCount);
   } else {
     var user_id = user[0].tenDangNhap;
 
