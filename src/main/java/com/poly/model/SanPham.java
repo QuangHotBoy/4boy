@@ -62,12 +62,6 @@ public class SanPham implements Serializable {
     @Column(name = "mo_ta", columnDefinition = "NVARCHAR(MAX)")
     private String moTa;
 
-    @Column(name = "gia_giam")
-    private BigDecimal giaGiam;
-
-    @Column(name = "ti_le_giam_gia")
-    private Integer tiLeGiamGia;
-
     @Column(name = "gia_ban")
     private BigDecimal giaBan;
 
