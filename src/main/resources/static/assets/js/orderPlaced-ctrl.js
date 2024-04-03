@@ -1,6 +1,6 @@
 var app = angular.module('orderPlacedApp', []);
 
-app.controller("orderPlacedCtrl", function($scope, $http) {
+app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
     $scope.orderPlaces = [];
     $scope.form = {};
 
@@ -8,7 +8,13 @@ app.controller("orderPlacedCtrl", function($scope, $http) {
     $scope.initialize = function () {
         $http.get("/rest/orderPlaces").then(resp => {
             $scope.orderPlaces = resp.data;
-
+            $timeout(function () {
+                $('#table1').DataTable({
+                    "language": {
+                        "url": "/assets/json/vietnam.json"
+                    }
+                });
+            });
             console.log($scope.orderPlaces);
             // Initialize DataTable after data is loaded
 
@@ -74,12 +80,12 @@ app.controller("orderPlacedCtrl", function($scope, $http) {
                 }
     
                 $scope.reset(); // Reset form
-                alert("Cập nhật sản phẩm thành công!");
+                alert("Cập nhật lý do hủy đơn thành công!");
                 // Optionally, reload data
                 // loadData();
             })
             .catch(error => {
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi cập nhật lý do hủy đơn!");
                 console.log("Error", error);
             });
     };    
@@ -117,11 +123,11 @@ app.controller("orderPlacedCtrl", function($scope, $http) {
                 $scope.reset();
     
                 // Thông báo cập nhật thành công
-                alert("Cập nhật sản phẩm thành công!");
+                alert("Cập nhật trạng thái thành công!");
             })
             .catch(function(error) {
                 // Xử lý lỗi nếu có
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi cập nhật trạng thái!");
                 console.error("Error", error);
             });
     };
