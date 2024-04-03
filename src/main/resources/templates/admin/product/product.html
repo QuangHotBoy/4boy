@@ -218,142 +218,181 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="container">
+
                                                                 <form>
                                                                     <div class="row">
-                                                                        <div class="col-md-3"
-                                                                            style="margin-left: 10px;">
-                                                                            <!-- Hình ảnh -->
-                                                                            <div class="mb-3">
-                                                                                <!-- Hình ảnh -->
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Hình
-                                                                                    ảnh</label>
+                                                                        <!-- image -->
+                                                                        <div class="col-lg-4">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Hình ảnh -->
+                                                                                    <div class="mb-3">
+                                                                                        <!-- Hình ảnh -->
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Hình
+                                                                                            ảnh</label>
 
-                                                                                <!-- Display the selected image using a div as a frame -->
-                                                                                <div>
-                                                                                    <img style="height: 190px; width: 200px;"
-                                                                                        id="imgPreview" alt=""
-                                                                                        ng-src="/assets/images/products/{{form.hinhAnh}}">
-                                                                                    <!-- <input type="file" class="form-control"
-                                                                                        id="image"
-                                                                                        onchange="previewImage(event)"> -->
-                                                                                    <input style="width: 200px;" type="file"
-                                                                                        class="form-control" id="image"
-                                                                                        onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                                        <!-- Display the selected image using a div as a frame -->
+                                                                                        <div>
+                                                                                            <img style="height: 197px;"
+                                                                                                id="imgPreview" alt=""
+                                                                                                ng-src="/assets/images/products/{{form.hinhAnh}}">
+                                                                                            <!-- <input type="file" class="form-control" id="image" onchange="previewImage(event)"> -->
+                                                                                            <input type="file"
+                                                                                                class="form-control"
+                                                                                                id="image"
+                                                                                                onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <!-- Nhà xuất bản -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Nhà xuất
-                                                                                    bản</label>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.nhaXuatBan.tenNhaXuatBan">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Nhà xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Nhà xuất
+                                                                                            bản</label>
+                                                                                        <select class="custom-select"
+                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
 
-                                                                                    <!-- Lặp qua danh sách suppliers -->
-                                                                                    <option ng-repeat="c in suppliers"
-                                                                                        value="{{c.tenNhaXuatBan}}">
-                                                                                        {{c.tenNhaXuatBan}}</option>
-                                                                                </select>
-
-
-
+                                                                                            <!-- Lặp qua danh sách suppliers -->
+                                                                                            <option
+                                                                                                ng-repeat="c in suppliers"
+                                                                                                value="{{c.tenNhaXuatBan}}">
+                                                                                                {{c.tenNhaXuatBan}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Loại sách -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Loại sách</label>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.phanLoai.tenLoai">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Nhà xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Nhà xuất
+                                                                                            bản</label>
+                                                                                        <select class="custom-select"
+                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
 
-                                                                                    <!-- Lặp qua danh sách suppliers -->
-                                                                                    <option ng-repeat="c in types"
-                                                                                        value="{{c.tenLoai}}">
-                                                                                        {{c.tenLoai}}</option>
-                                                                                </select>
+                                                                                            <!-- Lặp qua danh sách suppliers -->
+                                                                                            <option
+                                                                                                ng-repeat="c in suppliers"
+                                                                                                value="{{c.tenNhaXuatBan}}">
+                                                                                                {{c.tenNhaXuatBan}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
-                                                                        <div class="col-md-4"
-                                                                            style="margin-left: 30px;">
-                                                                            <!-- Tên sách -->
-                                                                            <div class="mb-3">
-                                                                                <label for="tensach"
-                                                                                    class="form-label">Tên sách</label>
-                                                                                <input type="text" name="tenSach"
-                                                                                    class="form-control" id="tensach"
-                                                                                    placeholder=""
-                                                                                    ng-model="form.tenSach" />
+                                                                        <div class="col-lg-8">
+                                                                            <!-- row 1 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Tên sách -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="tensach"
+                                                                                            class="form-label">Tên
+                                                                                            sách</label>
+                                                                                        <input type="text"
+                                                                                            name="tenSach"
+                                                                                            class="form-control"
+                                                                                            id="tensach" placeholder=""
+                                                                                            ng-model="form.tenSach" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Năm xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="author"
+                                                                                            class="form-label">Năm xuất
+                                                                                            bản</label>
+                                                                                        <input type="text"
+                                                                                            name="namXuatBan"
+                                                                                            class="form-control"
+                                                                                            placeholder=""
+                                                                                            ng-model="form.namXuatBan" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Tác giả -->
-                                                                            <div class="mb-3">
-                                                                                <label for="author"
-                                                                                    class="form-label">Tác Giả</label>
-                                                                                <input type="text" name="tacGia"
-                                                                                    class="form-control" placeholder=""
-                                                                                    ng-model="form.tacGia" />
+                                                                            <!-- row 2 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Tác giả -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="author"
+                                                                                            class="form-label">Tác
+                                                                                            Giả</label>
+                                                                                        <input type="text" name="tacGia"
+                                                                                            class="form-control"
+                                                                                            placeholder=""
+                                                                                            ng-model="form.tacGia" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Loại Bìa -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Loại
+                                                                                            Bìa</label>
+                                                                                        <input type="text"
+                                                                                            name="kieuBia"
+                                                                                            class="form-control"
+                                                                                            id="loaibia" placeholder=""
+                                                                                            ng-model="form.kieuBia" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Giá gốc -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Giá bán</label>
-                                                                                <input type="number" name="giaGoc"
-                                                                                    class="form-control" id="giaGocc"
-                                                                                    placeholder="" min="10000" step="1"
-                                                                                    ng-model="form.giaBan" />
+                                                                            <!-- row 3 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Giá gốc -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Giá
+                                                                                            bán</label>
+                                                                                        <input type="number"
+                                                                                            name="giaGoc"
+                                                                                            class="form-control"
+                                                                                            id="giaGocc" placeholder=""
+                                                                                            min="10000" step="1"
+                                                                                            ng-model="form.giaBan" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Số lượng -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Số
+                                                                                            lượng</label>
+                                                                                        <input type="number"
+                                                                                            name="soLuong"
+                                                                                            class="form-control"
+                                                                                            id="soluong" placeholder=""
+                                                                                            min="1" max="100"
+                                                                                            ng-model="form.soLuong" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Số lượng -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Số lượng</label>
-                                                                                <input type="number" name="soLuong"
-                                                                                    class="form-control" id="soluong"
-                                                                                    placeholder="" min="1" max="100"
-                                                                                    ng-model="form.soLuong" />
-                                                                            </div>
-                                                                            <!-- <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Trạng
-                                                                                    thái</label> <br>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.tinhTrangSanPham.tenTinhTrang">
+                                                                            <!-- row 4 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <!-- Mô tả -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Mô
+                                                                                            tả</label>
+                                                                                        <textarea name="moTa"
+                                                                                            class="form-control"
+                                                                                            id="mota" placeholder=""
+                                                                                            style="height: 148px;"
+                                                                                            ng-model="form.moTa"></textarea>
+                                                                                    </div>
 
-                                                                                   
-                                                                                    <option ng-repeat="c in tinhtrangs"
-                                                                                        value="{{c.tenTinhTrang}}">
-                                                                                        {{c.tenTinhTrang}}</option>
-                                                                                </select>
-
-                                                                            </div> -->
-                                                                        </div>
-                                                                        <div class="col-md-4"
-                                                                            style="margin-left: 40px;">
-                                                                            <!-- Năm xuất bản -->
-                                                                            <div class="mb-3">
-                                                                                <label for="author"
-                                                                                    class="form-label">Năm xuất
-                                                                                    bản</label>
-                                                                                <input type="text" name="namXuatBan"
-                                                                                    class="form-control" placeholder=""
-                                                                                    ng-model="form.namXuatBan" />
-                                                                            </div>
-                                                                            <!-- Loại Bìa -->
-                                                                            <div class="mb-3">
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Loại Bìa</label>
-                                                                                <input type="text" name="kieuBia"
-                                                                                    class="form-control" id="loaibia"
-                                                                                    placeholder=""
-                                                                                    ng-model="form.kieuBia" />
-                                                                            </div>
-                                                                            <!-- Mô tả -->
-                                                                            <div class="mb-3">
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Mô tả</label>
-                                                                                <textarea name="moTa"
-                                                                                    class="form-control" id="mota"
-                                                                                    placeholder=""
-                                                                                    style="height: 148px;"
-                                                                                    ng-model="form.moTa"></textarea>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -388,138 +427,192 @@
                                                             <div class="container">
                                                                 <form>
                                                                     <div class="row">
-                                                                        <div class="col-md-3"
-                                                                            style="margin-left: 10px;">
-                                                                            <!-- Hình ảnh -->
-                                                                            <div class="mb-3">
-                                                                                <!-- Hình ảnh -->
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Hình
-                                                                                    ảnh</label>
+                                                                        <!-- image -->
+                                                                        <div class="col-lg-4">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Hình ảnh -->
+                                                                                    <div class="mb-3">
+                                                                                        <!-- Hình ảnh -->
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Hình
+                                                                                            ảnh</label>
 
-                                                                                <!-- Display the selected image using a div as a frame -->
-                                                                                <div>
-                                                                                    <img style=" height: 267px;"
-                                                                                        id="imgPreview" alt=""
-                                                                                        ng-src="/assets/images/products/{{form.hinhAnh}}">
-
-                                                                                    <input type="file"
-                                                                                        class="form-control" id="image"
-                                                                                        onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                                        <!-- Display the selected image using a div as a frame -->
+                                                                                        <div>
+                                                                                            <img style="height: 197px;"
+                                                                                                id="imgPreview" alt=""
+                                                                                                ng-src="/assets/images/products/{{form.hinhAnh}}">
+                                                                                            <!-- <input type="file" class="form-control" id="image" onchange="previewImage(event)"> -->
+                                                                                            <input type="file"
+                                                                                                class="form-control"
+                                                                                                id="image"
+                                                                                                onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <!-- Nhà xuất bản -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Nhà xuất
-                                                                                    bản</label>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.nhaXuatBan.tenNhaXuatBan">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Nhà xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Nhà xuất
+                                                                                            bản</label>
+                                                                                        <select class="custom-select"
+                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
 
-                                                                                    <!-- Lặp qua danh sách suppliers -->
-                                                                                    <option ng-repeat="c in suppliers"
-                                                                                        value="{{c.tenNhaXuatBan}}">
-                                                                                        {{c.tenNhaXuatBan}}</option>
-                                                                                </select>
-
-
-
+                                                                                            <!-- Lặp qua danh sách suppliers -->
+                                                                                            <option
+                                                                                                ng-repeat="c in suppliers"
+                                                                                                value="{{c.tenNhaXuatBan}}">
+                                                                                                {{c.tenNhaXuatBan}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Loại sách -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Loại sách</label>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.phanLoai.tenLoai">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Nhà xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Nhà xuất
+                                                                                            bản</label>
+                                                                                        <select class="custom-select"
+                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
 
-                                                                                    <!-- Lặp qua danh sách suppliers -->
-                                                                                    <option ng-repeat="c in types"
-                                                                                        value="{{c.tenLoai}}">
-                                                                                        {{c.tenLoai}}</option>
-                                                                                </select>
+                                                                                            <!-- Lặp qua danh sách suppliers -->
+                                                                                            <option
+                                                                                                ng-repeat="c in suppliers"
+                                                                                                value="{{c.tenNhaXuatBan}}">
+                                                                                                {{c.tenNhaXuatBan}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Trạng
+                                                                                            thái</label> <br>
+                                                                                        <select class="custom-select"
+                                                                                            ng-model="form.tinhTrangSanPham.tenTinhTrang">
+        
+                                                                                            <!-- Lặp qua danh sách suppliers -->
+                                                                                            <option ng-repeat="c in tinhtrangs"
+                                                                                                value="{{c.tenTinhTrang}}">
+                                                                                                {{c.tenTinhTrang}}</option>
+                                                                                        </select>
+        
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
-                                                                        <div class="col-md-4"
-                                                                            style="margin-left: 30px;">
-                                                                            <!-- Tên sách -->
-                                                                            <div class="mb-3">
-                                                                                <label for="tensach"
-                                                                                    class="form-label">Tên sách</label>
-                                                                                <input type="text" name="tenSach"
-                                                                                    class="form-control" id="tensach"
-                                                                                    placeholder=""
-                                                                                    ng-model="form.tenSach" />
+                                                                        <div class="col-lg-8">
+                                                                            <!-- row 1 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Tên sách -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="tensach"
+                                                                                            class="form-label">Tên
+                                                                                            sách</label>
+                                                                                        <input type="text"
+                                                                                            name="tenSach"
+                                                                                            class="form-control"
+                                                                                            id="tensach" placeholder=""
+                                                                                            ng-model="form.tenSach" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Năm xuất bản -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="author"
+                                                                                            class="form-label">Năm xuất
+                                                                                            bản</label>
+                                                                                        <input type="text"
+                                                                                            name="namXuatBan"
+                                                                                            class="form-control"
+                                                                                            placeholder=""
+                                                                                            ng-model="form.namXuatBan" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Tác giả -->
-                                                                            <div class="mb-3">
-                                                                                <label for="author"
-                                                                                    class="form-label">Tác Giả</label>
-                                                                                <input type="text" name="tacGia"
-                                                                                    class="form-control" placeholder=""
-                                                                                    ng-model="form.tacGia" />
+                                                                            <!-- row 2 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Tác giả -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="author"
+                                                                                            class="form-label">Tác
+                                                                                            Giả</label>
+                                                                                        <input type="text" name="tacGia"
+                                                                                            class="form-control"
+                                                                                            placeholder=""
+                                                                                            ng-model="form.tacGia" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Loại Bìa -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Loại
+                                                                                            Bìa</label>
+                                                                                        <input type="text"
+                                                                                            name="kieuBia"
+                                                                                            class="form-control"
+                                                                                            id="loaibia" placeholder=""
+                                                                                            ng-model="form.kieuBia" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Giá gốc -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Giá bán</label>
-                                                                                <input type="number" name="giaGoc"
-                                                                                    class="form-control" id="giaGocc"
-                                                                                    placeholder="" min="10000" step="1"
-                                                                                    ng-model="form.giaBan" />
+                                                                            <!-- row 3 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Giá gốc -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Giá
+                                                                                            bán</label>
+                                                                                        <input type="number"
+                                                                                            name="giaGoc"
+                                                                                            class="form-control"
+                                                                                            id="giaGocc" placeholder=""
+                                                                                            min="10000" step="1"
+                                                                                            ng-model="form.giaBan" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <!-- Số lượng -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="collection"
+                                                                                            class="form-label">Số
+                                                                                            lượng</label>
+                                                                                        <input type="number"
+                                                                                            name="soLuong"
+                                                                                            class="form-control"
+                                                                                            id="soluong" placeholder=""
+                                                                                            min="1" max="100"
+                                                                                            ng-model="form.soLuong" />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <!-- Số lượng -->
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Số lượng</label>
-                                                                                <input type="number" name="soLuong"
-                                                                                    class="form-control" id="soluong"
-                                                                                    placeholder="" min="1" max="100"
-                                                                                    ng-model="form.soLuong" />
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="collection"
-                                                                                    class="form-label">Trạng
-                                                                                    thái</label> <br>
-                                                                                <select class="custom-select"
-                                                                                    ng-model="form.tinhTrangSanPham.tenTinhTrang">
+                                                                            <!-- row 4 -->
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <!-- Mô tả -->
+                                                                                    <div class="mb-3">
+                                                                                        <label for="coverType"
+                                                                                            class="form-label">Mô
+                                                                                            tả</label>
+                                                                                        <textarea name="moTa"
+                                                                                            class="form-control"
+                                                                                            id="mota" placeholder=""
+                                                                                            style="height: 148px;"
+                                                                                            ng-model="form.moTa"></textarea>
+                                                                                    </div>
 
-                                                                                    <!-- Lặp qua danh sách suppliers -->
-                                                                                    <option ng-repeat="c in tinhtrangs"
-                                                                                        value="{{c.tenTinhTrang}}">
-                                                                                        {{c.tenTinhTrang}}</option>
-                                                                                </select>
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4"
-                                                                            style="margin-left: 40px;">
-                                                                            <!-- Năm xuất bản -->
-                                                                            <div class="mb-3">
-                                                                                <label for="author"
-                                                                                    class="form-label">Năm xuất
-                                                                                    bản</label>
-                                                                                <input type="text" name="namXuatBan"
-                                                                                    class="form-control" placeholder=""
-                                                                                    ng-model="form.namXuatBan" />
-                                                                            </div>
-                                                                            <!-- Loại Bìa -->
-                                                                            <div class="mb-3">
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Loại Bìa</label>
-                                                                                <input type="text" name="kieuBia"
-                                                                                    class="form-control" id="loaibia"
-                                                                                    placeholder=""
-                                                                                    ng-model="form.kieuBia" />
-                                                                            </div>
-                                                                            <!-- Mô tả -->
-                                                                            <div class="mb-3">
-                                                                                <label for="coverType"
-                                                                                    class="form-label">Mô tả</label>
-                                                                                <textarea name="moTa"
-                                                                                    class="form-control" id="mota"
-                                                                                    placeholder=""
-                                                                                    style="height: 148px;"
-                                                                                    ng-model="form.moTa"></textarea>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -528,7 +621,7 @@
                                                         </div>
                                                         <div class="modal-footer">
 
-                                                            <button type="button" class="btn btn-warning bi bi-plus"
+                                                            <button style="margin-bottom: 500px;" type="button" class="btn btn-warning bi bi-plus"
                                                                 ng-click="update()">Cập nhật</button>
 
                                                             <!-- <button type="button" class="btn btn-secondary"
@@ -559,7 +652,7 @@
                                                 ::-webkit-scrollbar {
                                                     display: none;
                                                 }
-                                            </style>    
+                                            </style>
                                             <table class="product-table" id="table1">
                                                 <thead>
                                                     <tr>
