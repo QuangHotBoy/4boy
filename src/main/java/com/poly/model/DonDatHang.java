@@ -41,7 +41,6 @@ public class DonDatHang implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer maDonHang;
 
-    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tai_khoan_id")
     private TaiKhoan taiKhoan_donHang;
@@ -49,7 +48,6 @@ public class DonDatHang implements Serializable {
     @Column(name = "ho_ten")
     private String hoTen;
 
-    // @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dia_chi")
     private DiaChi_TaiKhoan diaChi;
@@ -69,12 +67,11 @@ public class DonDatHang implements Serializable {
     @Column(name = "tong_tien", precision = 10, scale = 0)
     private BigDecimal tongTien;
 
-    //@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "ma_giam_gia")
     private MaGiamGia maGiamGia;
 
-    // @JsonBackReference
+   
     @ManyToOne
     @JoinColumn(name = "tinh_trang")
     @Enumerated(EnumType.STRING)
@@ -82,7 +79,7 @@ public class DonDatHang implements Serializable {
    
     @Column(name = "ghi_chu")
     private String ghiChu;
-
+   
     @ManyToOne
     @JoinColumn(name = "phuong_thuc_thanh_toan_id")
     private PhuongThucThanhToan phuongThucThanhToan;
