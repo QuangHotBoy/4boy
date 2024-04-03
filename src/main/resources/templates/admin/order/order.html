@@ -227,16 +227,9 @@
                                     <td style="width: 40px;">{{ orderPlace.diaChiNhanHang }}</td>
                                     <td>{{ orderPlace.ngayDatHang | date:'dd/MM/yyyy HH:mm' }}</td>
                                     <td>{{ orderPlace.ghiChu }}</td>
+                                    <td>{{ orderPlace.trangThai_donDatHang.tenTrangThai }}</td>
                                     <td>
-                                      <select class="form-control" ng-model="selectedStatus" ng-change="changeStatus(orderPlace)">
-                                          <option value="Chờ xác nhận" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Chờ xác nhận'">Chờ xác nhận</option>
-                                          <option value="Đang xử lí" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Đang xử lí'">Đang xử lí</option>
-                                          <option value="Đã nhận đơn" ng-selected="orderPlace.trangThai_donDatHang.tenTrangThai === 'Đã nhận đơn'">Đã nhận đơn</option>
-                                      </select>
-                                  </td>
-                                  
-                                    <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" ng-click="editOrder(order)">
+                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" ng-click="edittt(orderPlace.maDonHang)">
                                           <i class="mdi mdi-border-color"></i>
                                       </button>
                                       <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" ng-click="edit(orderPlace.maDonHang)"data-bs-target="#exampleModal" data-bs-whatever="@mdo">
@@ -266,6 +259,29 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Cập nhật trạng thái đơn hàng</h5>
+                                                  <span aria-hidden="true">&times;</span>
+                                              </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <!-- Form to update order status -->
+                                              <form>
+                                                <div class="mb-3">
+                                                    <label for="tenTrangThai" class="col-form-label">Trạng thái:</label>
+                                                    <textarea class="form-control" name="tenTrangThai" id="tenTrangThai" ng-model="form.trangThai_donDatHang.tenTrangThai"></textarea>
+                                                </div>
+                                            </form>                                            
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                              <a type="button" href="/shop/admin/order" class="btn btn-primary" ng-click="updatett()">Xác nhận</a>
+                                          </div>
+                                      </div>
+                                  </div>
                                 </tbody>
 
                               </table>
