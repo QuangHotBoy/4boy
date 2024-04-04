@@ -37,7 +37,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
         }).then(resp => {
             $scope.form.hinhAnh = resp.data.name;
         }).catch(error => {
-            alert("Lỗi upload hình ảnh");
+           
             console.log("Error", error);
         })
     }
@@ -60,6 +60,10 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
 
     // Hàm thêm nhà xuất bản
     $scope.create = function () {
+        // Validate form
+        if (!validateForm()) {
+            return; // Stop execution if form is not valid
+        }
         var item = angular.copy($scope.form);
         $http.post('/rest/suppliers', item).then(resp => {
             if (!$scope.suppliers) {
@@ -67,17 +71,37 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             }
             $scope.suppliers.push(resp.data);
             $scope.reset();
-            alert("Thêm mới nhà xuất bản thành công!");
-            $scope.initialize(); // Load lại danh sách sau khi thêm thành công
-            location.reload();
+            iziToast.info({
+                title: 'Thông báo',
+                message: 'Thêm mới nhà xuất bản thành công!',
+                position: 'topRight'
+            });
+
+            
+
+            // Chờ 3 giây trước khi thực hiện reload
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+
         }).catch(error => {
-            alert("Lỗi thêm mới nhà xuất bản!");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Lỗi thêm mới !!',
+                position: 'topRight'
+            });
             console.log("Error", error);
         });
     }
+
     //hàm cập nhật
     $scope.update = function () {
+        // Validate form
+        if (!validateForm1()) {
+            return; // Stop execution if form is not valid
+        }
         var item = angular.copy($scope.form);
+
         $http.put('/rest/suppliers/' + item.id, item).then(resp => {
             // Kiểm tra nếu $scope.items chưa được khởi tạo, thì khởi tạo nó là một mảng trống
             if (!$scope.items) {
@@ -91,10 +115,25 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            alert("Cập nhật nhà xuất bản thành công!");
-            location.reload();
+            iziToast.info({
+                title: 'Thông báo',
+                message: 'Cập nhật nhà xuất bản thành công!',
+                position: 'topRight'
+            });
+            // Chờ 3 giây trước khi thực hiện reload
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+
+
+
+
         }).catch(error => {
-            alert("Lỗi nhà xuất bản!");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Lỗi cập nhật !!',
+                position: 'topRight'
+            });
             console.log("Error", error);
         });
     }
@@ -127,5 +166,92 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             console.log("Error loading data", error);
         });
     }
+
+    function validateForm() {
+        var tenNhaXuatBan = document.getElementById("tenNhaXuatBan").value;
+        var moTa = document.getElementById("moTa").value;
+        var hinhAnhInput = document.getElementById("image");
+        // Kiểm tra xem các trường có trống không
+        if (tenNhaXuatBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên nhà xuất bản.',
+                position: 'topRight'
+            });
+
+            return false;
+        }
+
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+
+            return false;
+        }
+        // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
+        if (hinhAnhInput.files.length === 0) {
+            document.getElementById("imageError").style.display = "block";
+            return false;
+        }
+
+        // Kiểm tra xem tenLoai có trùng không
+        if (isTennxbTrung(tenNhaXuatBan)) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Tên nhà xuất bảng đã tồn tại!!',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        return true;
+    }
+    //
+    function validateForm1() {
+        var tenNhaXuatBan = document.getElementById("tenNhaXuatBan").value;
+        var moTa = document.getElementById("moTa").value;
+        var hinhAnhInput = document.getElementById("image");
+        // Kiểm tra xem các trường có trống không
+        if (tenNhaXuatBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên nhà xuất bản.',
+                position: 'topRight'
+            });
+
+            return false;
+        }
+
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+
+            return false;
+        }
+
+
+
+
+        return true;
+    }
+
+    //kiểm tra trùng tên
+    function isTennxbTrung(tenNhaXuatBan) {
+        // Lặp qua danh sách các loại sách đã tải từ server
+        for (var i = 0; i < $scope.suppliers.length; i++) {
+            if ($scope.suppliers[i].tenNhaXuatBan === tenNhaXuatBan) {
+                return true; // Nếu trùng, trả về true
+            }
+        }
+        return false; // Nếu không trùng, trả về false
+    }
+    //
+
 
 });

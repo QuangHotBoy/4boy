@@ -63,16 +63,31 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
 
             $scope.items.push(resp.data);
             $scope.reset();
-            alert("Thêm mới sản phẩm thành công!");
-            location.reload();
+            iziToast.info({
+                title: 'Thông báo',
+                message: 'Thêm mới loại sản phẩm thành công!',
+                position: 'topRight'
+            });
+            // Chờ 3 giây trước khi thực hiện reload
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
         }).catch(error => {
-            alert("Lỗi thêm mới sản phẩm!");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Lỗi thêm mới !!',
+                position: 'topRight'
+            });
             console.log("Error", error);
         });
     }
 
     //hàm cập nhật
     $scope.update = function () {
+         // Validate form
+         if (!validateForm1()) {
+            return; // Stop execution if form is not valid
+        }
         var item = angular.copy($scope.form);
 
         $http.put('/rest/types/' + item.id, item).then(resp => {
@@ -88,10 +103,21 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            alert("Cập nhật sản phẩm thành công!");
-            location.reload();
+            iziToast.info({
+                title: 'Thông báo',
+                message: 'Cập nhật loại sách thành công!',
+                position: 'topRight'
+            });
+            // Chờ 3 giây trước khi thực hiện reload
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
         }).catch(error => {
-            alert("Lỗi cập nhật sản phẩm!");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Lỗi cập nhật !!',
+                position: 'topRight'
+            });
             console.log("Error", error);
         });
     }
@@ -117,20 +143,61 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
 
         // Kiểm tra xem các trường có trống không
         if (tenLoai.trim() == "") {
-            alert("Vui lòng nhập tên loại sách.");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên loại sách.',
+                position: 'topRight'
+            });
+         
             return false;
         }
 
         if (moTa.trim() == "") {
-            alert("Vui lòng nhập mô tả.");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
             return false;
         }
 
         // Kiểm tra xem tenLoai có trùng không
         if (isTenLoaiTrung(tenLoai)) {
-            alert("Tên loại sách đã tồn tại.");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Tên loại sách đã tồn tại !!',
+                position: 'topRight'
+            });
             return false;
         }
+
+        return true;
+    }
+    function validateForm1() {
+        var tenLoai = document.getElementById("tenLoai").value;
+        var moTa = document.getElementById("moTa").value;
+
+        // Kiểm tra xem các trường có trống không
+        if (tenLoai.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên loại sách.',
+                position: 'topRight'
+            });
+         
+            return false;
+        }
+
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        
 
         return true;
     }
