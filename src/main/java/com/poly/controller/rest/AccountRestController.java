@@ -69,41 +69,13 @@ public class AccountRestController {
 
 	@PostMapping("/rest/account/addmember")
 	public TaiKhoan postMember(@RequestBody TaiKhoan taikhoan) {
-		AccountService.create(taikhoan);
-		// them quyen
-		Quyen quyen = quyenDao.findById("CUST").get();
-		Quyen_TaiKhoan qTK = new Quyen_TaiKhoan();
-		qTK.setQuyen(quyen);
-		qTK.setTaiKhoan_quyen(taikhoan);
-		quyenTKDao.save(qTK);
-		// them dia chi
-		DiaChi_TaiKhoan dctk = new DiaChi_TaiKhoan();
-		dctk.setTaiKhoan_diaChi(taikhoan);
-		dctk.setHoTen(taikhoan.getHoTen());
-		dctk.setDiaChi("Chưa có địa chỉ");
-		dctk.setSdt(taikhoan.getSdt());
-		dctk.setMacDinh(true);
-		dctkDAO.save(dctk);
+		AccountService.create(taikhoan, "CUST");
 		return null;
 	}
 
 	@PostMapping("/rest/account/addstaff")
 	public TaiKhoan postStaff(@RequestBody TaiKhoan taikhoan) {
-		AccountService.create(taikhoan);
-		// them quyen
-		Quyen quyen = quyenDao.findById("STAF").get();
-		Quyen_TaiKhoan qTK = new Quyen_TaiKhoan();
-		qTK.setQuyen(quyen);
-		qTK.setTaiKhoan_quyen(taikhoan);
-		quyenTKDao.save(qTK);
-		// them dia chi
-		DiaChi_TaiKhoan dctk = new DiaChi_TaiKhoan();
-		dctk.setTaiKhoan_diaChi(taikhoan);
-		dctk.setHoTen(taikhoan.getHoTen());
-		dctk.setDiaChi("Chưa có địa chỉ");
-		dctk.setSdt(taikhoan.getSdt());
-		dctk.setMacDinh(true);
-		dctkDAO.save(dctk);
+		AccountService.create(taikhoan,"STAF");
 		return null;
 	}
 

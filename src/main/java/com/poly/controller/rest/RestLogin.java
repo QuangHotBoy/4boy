@@ -8,17 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.dao.DiaChi_TaiKhoanDAO;
+import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.QuyenDAO;
 import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.DiaChi_TaiKhoan;
+import com.poly.model.DonDatHang;
 import com.poly.model.Quyen;
 import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.TaiKhoan;
- 
+import com.poly.service.AddressService;
+import com.poly.service.OrderService;
+
+import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody; 
 
@@ -38,6 +44,15 @@ public class RestLogin {
     @Autowired
     DiaChi_TaiKhoanDAO dChiDao;
 
+    @Autowired
+    DonDatHangDAO DHDao;
+    
+    @Autowired
+    OrderService orderImp;
+
+    @Autowired
+    AddressService addressImp;
+
     @GetMapping("/rest/login")
     public Map<String, Object> findall() {
          Map<String, Object> data = new HashMap<>();
@@ -49,6 +64,21 @@ public class RestLogin {
         data.put("address", address);
 
         return data;
+    }
+    
+    @GetMapping("/rest/auth/invoice/{tenDangNhap}")
+    List<DonDatHang> findbyTDN(@PathVariable("tenDangNhap") String tenDangNhap){
+        return orderImp.findByTDN(tenDangNhap);
+    }
+
+    @GetMapping("/rest/auth/addresstrue/{tenDangNhap}")
+    DiaChi_TaiKhoan findAddressTrue(@PathVariable("tenDangNhap") String tenDangNhap){
+        return addressImp.getTrueAddress(tenDangNhap);
+    }
+
+    @GetMapping("/rest/auth/getAllAddress/{tenDangNhap}")
+    List<DiaChi_TaiKhoan> getAll(@PathVariable("tenDangNhap") String tenDangNhap){
+        return addressImp.getAllByTDN(tenDangNhap);
     }
 
     @PostMapping("/rest/register")
@@ -67,9 +97,7 @@ public class RestLogin {
         diaChi.setDiaChi("Chưa có địa chỉ");
         diaChi.setMacDinh(true);
         dChiDao.save(diaChi);
-        return taiKhoan;
-
-        
+        return taiKhoan; 
 
     }
 

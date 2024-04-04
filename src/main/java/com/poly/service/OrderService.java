@@ -1,5 +1,6 @@
 package com.poly.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,4 +11,5 @@ public interface OrderService {
 
     public Map<String, Object> checkOrder(String id, Long isbn);
 
+    List<DonDatHang> findByTDN(String tenDangNhap);
 }

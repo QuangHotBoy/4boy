@@ -120,4 +120,10 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return data;
 	}
+
+	@Override
+	public List<DonDatHang> findByTDN(String tenDangNhap) {
+		 
+		return orderDAO.findByTDN(tenDangNhap);
+	}
 }

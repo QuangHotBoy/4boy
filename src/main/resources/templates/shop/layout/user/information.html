@@ -4,7 +4,7 @@
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user" >
+<body class="gradient-custom-user" ng-app="loginApp" ng-controller="loginCtrl">
     <!-- Navigation -->
     <div th:replace="/shop/layout/navigation :: nav"></div>
 
@@ -21,7 +21,7 @@
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/address">Địa chỉ</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="/shop/auth/invoice">Đơn Hàng</a> 
+                            href="/shop/auth/invoice">Đơn Hàng</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -42,29 +42,31 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <input type="text" class="form-control mt-3" name="tenDangNhap" style="width: 80%;"
-                                        value="Baovhg" readonly>
-                                    <input class="form-control mt-3" name="hoTen" style="width: 80%;" value="Gia Bảo"
-                                        id="hoTen">
+                                    ng-model="form[0].tenDangNhap" readonly>
+                                    <input class="form-control mt-3" name="hoTen" style="width: 80%;"
+                                    ng-model="form[0].hoTen" id="hoTen">
                                     <input class="form-control mt-3" name="email" style="width: 80%;"
-                                        value="Baovhgpc03549@fpt.edu.vn" readonly>
-                                    <input class="form-control mt-3" name="sdt" style="width: 80%;" value="0357100604"
-                                        id="sdt">
-                                    <input class="form-control mt-3" name="ngaySinh" type="date" style="width: 80%;"
-                                        value="16/08/2003" id="date">
+                                    ng-model="form[0].email" readonly>
+                                    <input class="form-control mt-3" name="sdt" style="width: 80%;"
+                                        ng-model="form[0].sdt" id="sdt">
+                                    <input type="date" ng-model="birthday" class="form-control mt-3"
+                                        style="width: 80%;">
+
                                 </div>
                             </div>
                             <div class="ms-4 mt-4">
-                                <a type="button" href="/shop/auth/information/changepass"
-                                    class="btn btn-primary">Đổi
+                                <a type="button" href="/shop/auth/information/changepass" class="btn btn-primary">Đổi
                                     mật khẩu</a>
                                 <button type="submit" class="btn btn-primary">Lưu</button>
-                            </div>  
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+    <!-- angular js -->
+    <script src="/assets/js/login.js"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
