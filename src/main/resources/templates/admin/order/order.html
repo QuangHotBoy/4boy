@@ -234,8 +234,10 @@
                                 <option value="">Tất cả trạng thái</option>
                                 <option value="1">Chờ xác nhận</option>
                                 <option value="2">Đã xử lý</option>
+                                <option value="3">Đang giao hàng</option>
                                 <!-- Thêm các giá trị ID cho các trạng thái khác nếu cần -->
                             </select>
+                            
                             
                             
                             
@@ -304,7 +306,8 @@
                                               <!-- Form to update order status -->
                                               <form>
                                                 <div class="mb-3">
-                                                    <label for="tenTrangThai" class="col-form-label">Trạng thái:</label>
+                                                    <label for="tenTrangThai" class="col-form-label">Trạng thái:
+                                                      <p style="font-size: 10px;border-radius: 5px; border: 1px solid red;"> Chờ xác nhận --> Đã xác nhận --> Đang xử lý --> Đã gửi đi --->Đã nhận hàng</p> </label>
                                                     <input class="form-control" name="tenTrangThai" id="tenTrangThai" ng-model="form.trangThai_donDatHang.tenTrangThai" disabled></input>
                                                 </div>
                                             </form>                                            

@@ -248,4 +248,5 @@ $scope.filterByStatus = function(orderPlace) {
         }
         return pageNumbers;
     }
+    
 });
