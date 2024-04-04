@@ -41,6 +41,12 @@ public class AdminController {
 		model.addAttribute("mggs", mggs);
 		return "admin/voucher/voucher";
 	}
+	@RequestMapping("shop/admin/voucher_used")
+	public String voucher_used(Model model) {
+		List<MaGiamGia> mggs = mggDAO.findAll();	
+		model.addAttribute("mggs", mggs);
+		return "admin/voucher/voucher_used";
+	}
 	@RequestMapping("shop/admin/addnew_mgg")
 	public String add_voucher_new(){
 			return "admin/voucher/add_voucher";

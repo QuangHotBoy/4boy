@@ -108,41 +108,36 @@ app.controller("voucher-ctrl", function($scope, $http){
     // Khởi tạo ngày bắt đầu với ngày và giờ hiện tại
     $scope.form.ngayBatDau = $scope.getCurrentDateTime();
     
-    //cap nhat mgg
-    //hàm cập nhật
-   $scope.update = function() {
-    var voucher = angular.copy($scope.form);
-
-
-    // Lấy ngày và giờ hiện tại
-    var currentDate = new Date();
-
-    // Format ngày và giờ hiện tại theo định dạng "YYYY-MM-DDTHH:mm"
-    voucher.ngayBatDau = $scope.getCurrentDateTime(currentDate);
-
-    $http.put('/rest/vouchers/' + voucher.id, voucher)
-        .then(resp => {
-            // Initialize $scope.vouchers if not already initialized
-            if (!$scope.vouchers) {
-                $scope.vouchers = [];
-            }
-
-            // Check if the voucher exists in $scope.vouchers before updating
-            var index = $scope.vouchers.findIndex(i => i.id === voucher.id);
-            if (index !== -1) {
-                $scope.vouchers[index] = angular.copy(voucher);
-            }
-
-            $scope.reset(); // Reset form
-            alert("Cập nhật sản phẩm thành công!");
-            // Optionally, reload data
-            // loadData();
-        })
-        .catch(error => {
-            alert("Lỗi cập nhật sản phẩm!");
-            console.log("Error", error);
-        });
-};
+    $scope.update = function() {
+        // Lưu trữ id ban đầu của voucher
+    
+        var voucher = angular.copy($scope.form);
+    
+        $http.put('/rest/vouchers/' + voucher.id, voucher)
+            .then(function(resp) {
+                // Tìm và cập nhật thông tin mã giảm giá trong $scope.vouchers
+                var index = $scope.vouchers.findIndex(function(item) {
+                    return item.id === voucher.id;
+                });
+    
+                if (index !== -1) {
+                    $scope.vouchers[index] = angular.copy(voucher);
+                }
+    
+                $scope.reset(); // Đặt lại form
+                alert("Cập nhật sản phẩm thành công!");
+                // Optional, load data again if needed
+                // loadData();
+            })
+            .catch(function(error) {
+                alert("Lỗi cập nhật sản phẩm!");
+                console.log("Error", error);
+            });
+    };
+    
+    
+    
+    
 
     //xoa mgg
     $scope.delete = function(voucher) {
