@@ -61,7 +61,7 @@ app.controller("CartController", function ($scope, $http, $window) {
     // Tính tổng số lượng sản phẩm trong giỏ hàng
     $scope.calculateCartCount = function () {
       return $scope.cart.reduce(function (total, product) {
-        return total + product.quantity;
+        return total + parseInt(product.quantity);
       }, 0);
     };
 

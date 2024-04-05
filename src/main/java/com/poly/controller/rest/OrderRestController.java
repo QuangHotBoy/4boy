@@ -9,6 +9,7 @@ import com.poly.service.CartService;
 import com.poly.service.OrderService;
 import com.poly.service.VoucherService;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +59,9 @@ public class OrderRestController {
                 return orderService.checkOrder(id, isbn);
     }
 
+    @GetMapping("/cart/{user}")
+    @ResponseBody
+    public Map<Integer, ArrayList> getDetailCart(@PathVariable("user") String user){
+        return cartService.findByUser(user);
+    }
 }

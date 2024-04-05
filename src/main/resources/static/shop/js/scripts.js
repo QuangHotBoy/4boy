@@ -48,8 +48,6 @@ $(document).ready(function () {
       }
     }
 
-    console.log(cart);
-
     // Đếm số lượng sản phẩm trong giỏ hàng
     var cartCount = cart.reduce(function (total, product) {
       return total + product.quantity;
@@ -222,3 +220,60 @@ $(document).ready(function () {
   }
 });
 
+var app = angular.module("myApp", []);
+
+// Tạo một service chứa logic kiểm tra thoát khỏi đường dẫn
+angular.module('myApp').service('ExitPathService', ['$location', function($location) {
+  this.checkExitPath = function() {
+      return !$location.path().startsWith('/shop');
+  };
+}]);
+
+// Controller thứ hai
+angular.module('myApp').controller('HomeCtrl', ['$scope', 'ExitPathService', function($scope, ExitPathService) {
+  $scope.checkExit = function() {
+      if (ExitPathService.checkExitPath()) {
+          console.log('Người dùng đã thoát khỏi đường dẫn /shop/* từ Controller2');
+          // Thực hiện các hành động tương ứng
+      }
+  };
+}]);
+
+app.controller("HomeCtrl", function ($scope, $http, $window) {
+
+  $scope.cart = function (user_id) {
+    $http.get("/rest/cart/" + user_id).then(function (resp) {
+
+      var cart = localStorage.getItem("cart") || [];
+
+      $scope.data = resp.data;
+
+      for (var i = 0; i < Object.keys($scope.data).length; i++) {
+        // Gọi hàm chuyển đổi
+        var convertedData = arrayToObject($scope.data[i]);
+
+        cart.push(convertedData);
+
+        localStorage.setItem("cart", JSON.stringify(cart))
+      }
+    })
+  }
+
+  var user = JSON.parse(localStorage.getItem("account")) || [];
+
+  if(user !== null){
+    $scope.cart(user[0].tenDangNhap);
+  }
+
+  // Hàm chuyển đổi từ mảng con sang đối tượng
+  function arrayToObject(arr) {
+    var obj = {};
+    for (var i = 0; i < arr.length; i++) {
+      var key = arr[i][0];
+      var value = arr[i][1];
+      obj[key] = value;
+    }
+    return obj;
+  }
+
+})

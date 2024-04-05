@@ -37,7 +37,7 @@ public class GioHang implements Serializable {
     @JoinColumn(name = "ma_tai_khoan", unique = true)
     private TaiKhoan taiKhoan_gioHang;
     
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "gioHang")
     private List<ChiTietGioHang> gioHang;
 }
