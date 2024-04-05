@@ -9,4 +9,6 @@ import com.poly.dao.ChiTietDonDatHangDAO;
 @Service
 public interface ThongKeService {
     List<Object[]> getTopSachByTinhTrang();
+
+    List<Object[]> findTopSachTonKhoNhieuNhat();
 }

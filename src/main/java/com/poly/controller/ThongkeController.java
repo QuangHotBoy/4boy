@@ -30,5 +30,11 @@ public class ThongkeController {
 
         return "admin/statistical/statistics-by-product";
     }
+    // tồn kho
+    @RequestMapping("/admin/statistical/statistics-by-product-inventory")
+    public String statisticsByProductInventory() {
+
+        return "admin/statistical/statistics-by-product-inventory";
+    }
 
 }

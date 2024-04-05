@@ -59,5 +59,8 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
     //         "LEFT JOIN DonDatHang ddh ON ctdh.donDatHang = ddh.maDonHang " +
     //         "WHERE s.isbn = :id")
     // Object[] tongSoLuongBanDuoc(Long id);
-
+    // tồn kho
+    @Query("SELECT s.id AS Ma, s.tenSach AS TenSach, s.soLuong AS SoLuongTonKho, s.phanLoai.tenLoai AS LoaiSach FROM SanPham s WHERE s.tinhTrangSanPham.id = 1")
+    List<Object[]> findTopSachTonKhoNhieuNhat();
+    
 }

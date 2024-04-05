@@ -25,4 +25,9 @@ public class RestThongKeController {
     public List<Object[]> getTopSachByTinhTrang() {
         return thongKeService.getTopSachByTinhTrang();
     }
+    @GetMapping("/toptonkho")
+    public List<Object[]> getTopTonKho() {
+        return thongKeService.findTopSachTonKhoNhieuNhat();
+    }
+
 }
