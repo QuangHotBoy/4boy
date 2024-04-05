@@ -93,6 +93,11 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
     // Hàm thêm nhà xuất bản
     $scope.create = function () {
+        // Kiểm tra hợp lệ của form trước khi thêm mới
+        if (!validateForm()) {
+            // Nếu form không hợp lệ, không tiến hành thêm mới
+            return;
+        }
         var item = angular.copy($scope.form);
 
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
@@ -133,12 +138,25 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                 }
                 $scope.products.push(response.data);
                 $scope.reset();
-                alert("Thêm mới sách thành công!");
-                $scope.initialize(); // Load lại danh sách sau khi thêm thành công
-                location.reload();
+                iziToast.info({
+                    title: 'Thông báo',
+                    message: 'Thêm mới sách thành công!',
+                    position: 'topRight'
+                });
+
+
+
+                // Chờ 3 giây trước khi thực hiện reload
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
             })
             .catch(function (error) {
-                alert("Lỗi thêm mới sách: " + error.data.message); // Hiển thị thông điệp lỗi từ máy chủ
+                iziToast.warning({
+                    title: 'Thông báo',
+                    message: 'Lỗi thêm mới !!',
+                    position: 'topRight'
+                });// Hiển thị thông điệp lỗi từ máy chủ
                 console.log("Error", error);
             });
     };
@@ -191,10 +209,21 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            alert("Cập nhật sách thành công!");
-            location.reload();
+            iziToast.info({
+                title: 'Thông báo',
+                message: 'Cập nhật sách bản thành công!',
+                position: 'topRight'
+            });
+            // Chờ 3 giây trước khi thực hiện reload
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
         }).catch(error => {
-            alert("Lỗi cập nhật sách!");
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Lỗi cập nhật !!',
+                position: 'topRight'
+            });
             console.log("Error", error);
         });
     }
@@ -223,5 +252,119 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         // Reset ng-src
         $scope.form.hinhAnh = ''; // hoặc $scope.form.hinhAnh = 'đường_dẫn_mặc_định'; tùy vào bạn muốn
     };
+
+    //bắt lỗi 
+    function validateForm() {
+        var tenSach = document.getElementById("tensach").value;
+        var namXuatBan = document.getElementById("namXuatBan").value;
+        var tacGia = document.getElementById("tacGia").value;
+        var kieuBia = document.getElementById("loaibia").value;
+        var giaBan = document.getElementById("giaGocc").value;
+        var soLuong = document.getElementById("soluong").value;
+        var moTa = document.getElementById("mota").value;
+        var hinhAnhInput = document.getElementById("image");
+        var selectElement = document.getElementById("loaiSach");
+
+
+        // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
+        if (tenSach.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên sách.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (namXuatBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập năm xuất bản.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (tacGia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tác giả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (kieuBia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập loại bìa.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (giaBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập giá bán.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (soLuong.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập số lượng.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+          // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
+          if (hinhAnhInput.files.length === 0) {
+            document.getElementById("imageError").style.display = "block";
+            return false;
+        }
+        // Kiểm tra xem tenLoai có trùng không
+        if (isTennxbTrung(tenSach)) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Tên sách đã tồn tại!!',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+
+
+
+
+
+        // Trả về true nếu không có lỗi
+        return true;
+    }
+    //kiểm tra trùng tên
+    function isTennxbTrung(tenSach) {
+        // Lặp qua danh sách các loại sách đã tải từ server
+        for (var i = 0; i < $scope.products.length; i++) {
+            if ($scope.products[i].tenSach === tenSach) {
+                return true; // Nếu trùng, trả về true
+            }
+        }
+        return false; // Nếu không trùng, trả về false
+    }
+    //
+
+
+
 
 });

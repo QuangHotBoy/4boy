@@ -23,7 +23,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 </head>
 
 <style>
@@ -243,27 +243,31 @@
                                                                                                 class="form-control"
                                                                                                 id="image"
                                                                                                 onchange="angular.element(this).scope().imageChanged(this.files)">
+                                                                                            <p id="imageError"
+                                                                                                style="color: red; display: none;">
+                                                                                                Vui
+                                                                                                lòng chọn hình ảnh.</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-lg-6">
-                                                                                    <!-- Nhà xuất bản -->
                                                                                     <div class="mb-3">
                                                                                         <label for="collection"
-                                                                                            class="form-label">Nhà xuất
-                                                                                            bản</label>
+                                                                                            class="form-label">Loại
+                                                                                            sách</label>
                                                                                         <select class="custom-select"
-                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
-
+                                                                                            ng-model="form.phanLoai.tenLoai"
+                                                                                            id="loaiSach">
                                                                                             <!-- Lặp qua danh sách suppliers -->
+
                                                                                             <option
-                                                                                                ng-repeat="c in suppliers"
-                                                                                                value="{{c.tenNhaXuatBan}}">
-                                                                                                {{c.tenNhaXuatBan}}
-                                                                                            </option>
+                                                                                                ng-repeat="c in types"
+                                                                                                value="{{c.tenLoai}}">
+                                                                                                {{c.tenLoai}}</option>
                                                                                         </select>
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -285,6 +289,7 @@
                                                                                             </option>
                                                                                         </select>
                                                                                     </div>
+
                                                                                 </div>
                                                                             </div>
 
@@ -299,7 +304,6 @@
                                                                                             class="form-label">Tên
                                                                                             sách</label>
                                                                                         <input type="text"
-                                                                                            name="tenSach"
                                                                                             class="form-control"
                                                                                             id="tensach" placeholder=""
                                                                                             ng-model="form.tenSach" />
@@ -311,9 +315,10 @@
                                                                                         <label for="author"
                                                                                             class="form-label">Năm xuất
                                                                                             bản</label>
-                                                                                        <input type="text"
+                                                                                        <input type="number"
                                                                                             name="namXuatBan"
                                                                                             class="form-control"
+                                                                                            id="namXuatBan"
                                                                                             placeholder=""
                                                                                             ng-model="form.namXuatBan" />
                                                                                     </div>
@@ -327,7 +332,7 @@
                                                                                         <label for="author"
                                                                                             class="form-label">Tác
                                                                                             Giả</label>
-                                                                                        <input type="text" name="tacGia"
+                                                                                        <input type="text" id="tacGia"
                                                                                             class="form-control"
                                                                                             placeholder=""
                                                                                             ng-model="form.tacGia" />
@@ -359,7 +364,6 @@
                                                                                             name="giaGoc"
                                                                                             class="form-control"
                                                                                             id="giaGocc" placeholder=""
-                                                                                            min="10000" step="1"
                                                                                             ng-model="form.giaBan" />
                                                                                     </div>
                                                                                 </div>
@@ -458,20 +462,18 @@
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-lg-6">
-                                                                                    <!-- Nhà xuất bản -->
                                                                                     <div class="mb-3">
                                                                                         <label for="collection"
-                                                                                            class="form-label">Nhà xuất
-                                                                                            bản</label>
+                                                                                            class="form-label">Loại
+                                                                                            sách</label>
                                                                                         <select class="custom-select"
-                                                                                            ng-model="form.nhaXuatBan.tenNhaXuatBan">
+                                                                                            ng-model="form.phanLoai.tenLoai">
 
                                                                                             <!-- Lặp qua danh sách suppliers -->
                                                                                             <option
-                                                                                                ng-repeat="c in suppliers"
-                                                                                                value="{{c.tenNhaXuatBan}}">
-                                                                                                {{c.tenNhaXuatBan}}
-                                                                                            </option>
+                                                                                                ng-repeat="c in types"
+                                                                                                value="{{c.tenLoai}}">
+                                                                                                {{c.tenLoai}}</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -494,6 +496,7 @@
                                                                                             </option>
                                                                                         </select>
                                                                                     </div>
+
                                                                                     <div class="mb-3">
                                                                                         <label for="collection"
                                                                                             class="form-label">Trạng
@@ -624,18 +627,19 @@
                                                                     </div>
                                                                     <div class="modal-footer">
 
-                                                                        <button style="margin-bottom: 500px;" type="button"
+                                                                        <button style="margin-bottom: 500px;"
+                                                                            type="button"
                                                                             class="btn btn-warning bi bi-plus"
                                                                             ng-click="update()">Cập nhật</button>
-            
+
                                                                         <!-- <button type="button" class="btn btn-secondary"
                                                                             ng-click="reset()">Làm mới</button> -->
                                                                     </div>
                                                                 </form>
-                                                                
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -681,7 +685,8 @@
                                                         <td>{{ item.isbn }}</td>
                                                         <td>{{ item.tenSach }}</td>
                                                         <!-- <td>{{ item.namXuatBan }}</td> -->
-                                                        <td>{{ item.giaBan }}</td>
+                                                        <td>{{ item.giaBan | vnCurrency }}</td>
+
                                                         <td>{{ item.soLuong }}</td>
                                                         <td>{{ item.tinhTrangSanPham.tenTinhTrang }}</td>
                                                         <!-- Hiển thị tên tình trạng -->
@@ -756,6 +761,7 @@
     <!-- Datatable -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <!-- hiện ảnh -->
     <script>
         function previewImage(event) {

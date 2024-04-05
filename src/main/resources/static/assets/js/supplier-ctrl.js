@@ -201,7 +201,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
         if (isTennxbTrung(tenNhaXuatBan)) {
             iziToast.warning({
                 title: 'Thông báo',
-                message: 'Tên nhà xuất bảng đã tồn tại!!',
+                message: 'Tên nhà xuất bản đã tồn tại!!',
                 position: 'topRight'
             });
             return false;
