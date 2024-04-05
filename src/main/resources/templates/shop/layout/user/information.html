@@ -42,25 +42,128 @@
                                 </div>
                                 <div class="col-lg-9">
                                     <input type="text" class="form-control mt-3" name="tenDangNhap" style="width: 80%;"
-                                    ng-model="form[0].tenDangNhap" readonly>
+                                        ng-model="form[0].tenDangNhap" readonly>
                                     <input class="form-control mt-3" name="hoTen" style="width: 80%;"
-                                    ng-model="form[0].hoTen" id="hoTen">
+                                        ng-model="form[0].hoTen" id="hoTen" readonly>
                                     <input class="form-control mt-3" name="email" style="width: 80%;"
-                                    ng-model="form[0].email" readonly>
+                                        ng-model="form[0].email" readonly>
                                     <input class="form-control mt-3" name="sdt" style="width: 80%;"
-                                        ng-model="form[0].sdt" id="sdt">
-                                    <input type="date" ng-model="birthday" class="form-control mt-3"
-                                        style="width: 80%;">
+                                        ng-model="form[0].sdt" id="sdt" readonly>
+                                    <input type="date" ng-model="birthday" class="form-control mt-3" style="width: 80%;"
+                                        readonly>
 
                                 </div>
                             </div>
-                            <div class="ms-4 mt-4">
-                                <a type="button" href="/shop/auth/information/changepass" class="btn btn-primary">Đổi
-                                    mật khẩu</a>
-                                <button type="submit" class="btn btn-primary">Lưu</button>
-                            </div>
                         </div>
                     </form>
+                            <div class="ms-4 mt-4">
+                                <button ng-click="editinfomation(form[0].tenDangNhap)" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#editinfo" data-bs-whatever="@mdo">Cập nhập
+                                    thông tin</button>
+                                <button ng-click="editpass(form[0].tenDangNhap)" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#editpass" data-bs-whatever="@mdo">Đổi mật
+                                    khẩu</button>
+                            </div>
+                       
+                    <!-- form edit infomation -->
+                    <div class="modal fade" id="editinfo" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div style="margin-top: 20px;" class="modal-dialog">
+                            <div class="modal-content " style="width: 150%; height:490px ;">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập
+                                        nhập thông tin tài khoản
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <label class="form-label">Tên Tài
+                                                        Khoản</label>
+                                                    <input type="text" ng-model="form_info.tenDangNhap" class="form-control" readonly>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="form-label">Email</label>
+                                                    <input type="text" ng-model="form_info.email" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3"> 
+                                                <div class="col-lg-6">
+                                                    <label class="form-label">Họ Tên</label>
+                                                    <input type="text" ng-model="form_info.hoTen" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="form-label">Số Điện
+                                                        Thoại</label>
+                                                    <input type="munber" ng-model="form_info.sdt" class="form-control">
+                                                </div> 
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-lg-6">
+                                                    <label class="form-label">Ngày
+                                                        Sinh</label>
+                                                    <input type="date" ng-model="birthday" value="form.ngaySinh"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                </div>
+                                            </div> 
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning "
+                                        ng-click="update_member()">Cập nhật</button>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end modal -->
+                     <!-- form edit password -->
+                     <div class="modal fade" id="editpass" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                     <div style="margin-top: 20px;" class="modal-dialog">
+                         <div class="modal-content " style="width: 150%; height:490px ;">
+                             <div class="modal-header">
+                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Đổi mật khẩu
+                                 </h1>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                     aria-label="Close"></button>
+                             </div>
+                             <div class="modal-body">
+                                 <div class="container">
+                                     <form> 
+                                         <div class="row mt-3"> 
+                                             <div class="col-lg-6">
+                                                 <label class="form-label">Mật khẩu hiện tại</label>
+                                                 <input type="password" ng-model="form.matKhau" class="form-control">
+                                             </div> 
+                                         </div>
+                                         <div class="row mt-3">
+                                             <div class="col-lg-6">
+                                                 <label class="form-label"> Mật khẩu mới</label>
+                                                     <input type="password" ng-model="" class="form-control">
+                                             </div>
+                                             <div class="col-lg-6">
+                                                <label class="form-label">Nhập lại mật khẩu mới</label>
+                                                    <input type="password" ng-model="" class="form-control">
+                                            </div> 
+                                         </div> 
+                                     </form>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-warning "
+                                     ng-click="update_member()">Cập nhật</button>   
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- end modal -->
                 </div>
             </div>
         </div>

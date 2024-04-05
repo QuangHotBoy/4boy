@@ -97,3 +97,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 }
 
 
+.ht-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    -webkit-line-clamp: 2;
+    height: 20px;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical;
+  }

@@ -76,85 +76,98 @@
 										<div class="row">
 											<div class="col-md-6">
 												<button type="button" class="btn btn-warning bi bi-plus"
-                                                data-bs-toggle="modal" data-bs-target="#addmember"
-                                                data-bs-whatever="@mdo">Thêm tài khoản</button>
-											</div> 
+													data-bs-toggle="modal" data-bs-target="#addmember"
+													data-bs-whatever="@mdo">Thêm tài khoản</button>
+											</div>
 										</div>
 										<!-- modal -->
-												<!-- form add -->
-												<div class="modal fade" id="addmember" tabindex="-1"
-													aria-labelledby="exampleModalLabel" aria-hidden="true">
-													<div style="margin-top: 20px;" class="modal-dialog">
-														<div class="modal-content "
-															style="width: 150%; height:690px ;">
-															<div class="modal-header">
-																<h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Tài Khoản
-																</h1>
-																<button type="button" class="btn-close"
-																	data-bs-dismiss="modal" aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<div class="container"> 
-																		<form>
-																			<div class="row">
-																				<div class="col-lg-6">
-																					<label  class="form-label">Tên Tài Khoản</label>
-																					<input type="text" ng-model="form.tenDangNhap" class="form-control"  > 
-																				  </div>
-																				  <div class="col-lg-6">
-																					<label  class="form-label">Mật Khẩu</label>
-																					<input type="password" ng-model="form.matKhau" class="form-control"  > 
-																				  </div>
-																			</div> 
-																			<div class="row mt-3" >
-																				<div class="col-lg-6">
-																					<label class="form-label">Họ Tên</label>
-																					<input type="text" ng-model="form.hoTen" class="form-control"  >
-																				  </div> 
-																				  <div class="col-lg-6">
-																					<label class="form-label">Email</label>
-																					<input type="text" ng-model="form.email" class="form-control"  >
-																				  </div>
-																			</div>  
-																			<div class="row mt-3" >
-																				<div class="col-lg-6">
-																					<label  class="form-label">Ngày Sinh</label>
-																					<input type="date" ng-model="form.ngaySinh" value="form.ngaySinh" class="form-control"  > 
-																				  </div>
-																				  
-																				<div class="col-lg-6">
-																					<label  class="form-label">Số Điện Thoại</label>
-																					<input type="munber" ng-model="form.sdt" class="form-control"  > 
-																				  </div>
-																			</div>  
-																			<div class="row mt-3" >
-																				<label  class="form-label">Trạng thái Hoạt Động</label>
-																				<div class="row ms-4"> 
-																					<div class="form-check col-lg-3">
-																						<input class="form-check-input" type="radio" ng-model="form.active"  ng-value="true" ng-checked="form.active">
-																						<label class="form-label" for="flexRadioDefault1">
-																						Hoạt Động
-																						</label>
-																					  </div>
-																					  <div class="form-check col-lg-6">
-																						<input class="form-check-input" type="radio" ng-model="form.active" ng-value="false" ng-checked="!form.active">
-																						<label class="form-label" for="flexRadioDefault2">
-																						Ngưng Hoạt Động 
-																						</label>
-																					  </div>
-																			</div>  
-																			</div>
-																		  </form> 
+										<!-- form add -->
+										<div class="modal fade" id="addmember" tabindex="-1"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div style="margin-top: 20px;" class="modal-dialog">
+												<div class="modal-content " style="width: 150%; height:690px ;">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Tài
+															Khoản
+														</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<div class="container">
+															<form>
+																<div class="row">
+																	<div class="col-lg-6">
+																		<label class="form-label">Tên Tài Khoản</label>
+																		<input type="text" ng-model="form.tenDangNhap"
+																			class="form-control">
+																	</div>
+																	<div class="col-lg-6">
+																		<label class="form-label">Mật Khẩu</label>
+																		<input type="password" ng-model="form.matKhau"
+																			class="form-control">
+																	</div>
 																</div>
-															</div>
-															<div class="modal-footer"> 
-																<button type="button" class="btn btn-warning bi bi-plus"
-																	ng-click="add_member()">Thêm mới</button>  
-															</div>
+																<div class="row mt-3">
+																	<div class="col-lg-6">
+																		<label class="form-label">Họ Tên</label>
+																		<input type="text" ng-model="form.hoTen"
+																			class="form-control">
+																	</div>
+																	<div class="col-lg-6">
+																		<label class="form-label">Email</label>
+																		<input type="text" ng-model="form.email"
+																			class="form-control">
+																	</div>
+																</div>
+																<div class="row mt-3">
+																	<div class="col-lg-6">
+																		<label class="form-label">Ngày Sinh</label>
+																		<input type="date" ng-model="form.ngaySinh"
+																			value="form.ngaySinh" class="form-control">
+																	</div>
+
+																	<div class="col-lg-6">
+																		<label class="form-label">Số Điện Thoại</label>
+																		<input type="munber" ng-model="form.sdt"
+																			class="form-control">
+																	</div>
+																</div>
+																<div class="row mt-3">
+																	<label class="form-label">Trạng thái Hoạt
+																		Động</label>
+																	<div class="row ms-4">
+																		<div class="form-check col-lg-3">
+																			<input class="form-check-input" type="radio"
+																				ng-model="form.active" ng-value="true"
+																				ng-checked="form.active">
+																			<label class="form-label"
+																				for="flexRadioDefault1">
+																				Hoạt Động
+																			</label>
+																		</div>
+																		<div class="form-check col-lg-6">
+																			<input class="form-check-input" type="radio"
+																				ng-model="form.active" ng-value="false"
+																				ng-checked="!form.active">
+																			<label class="form-label"
+																				for="flexRadioDefault2">
+																				Ngưng Hoạt Động
+																			</label>
+																		</div>
+																	</div>
+																</div>
+															</form>
 														</div>
 													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-warning bi bi-plus"
+															ng-click="add_member()">Thêm mới</button>
+													</div>
 												</div>
-												<!-- end modal -->
+											</div>
+										</div>
+										<!-- end modal -->
 								</div>
 								<div class="row">
 									<div class="col-lg-12 grid-margin stretch-card">
@@ -173,7 +186,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr ng-repeat="item in member"> 
+														<tr ng-repeat="item in member">
 															<th>{{ item.taiKhoan_quyen.tenDangNhap }}</th>
 															<th>{{ item.taiKhoan_quyen.hoTen }}</th>
 															<th>{{ item.taiKhoan_quyen.ngaySinh | date:'dd/MM/yyyy' }}
@@ -198,8 +211,7 @@
 												<div class="modal fade" id="editmember" tabindex="-1"
 													aria-labelledby="exampleModalLabel" aria-hidden="true">
 													<div style="margin-top: 20px;" class="modal-dialog">
-														<div class="modal-content "
-															style="width: 150%; height:690px ;">
+														<div class="modal-content " style="width: 150%; height:690px ;">
 															<div class="modal-header">
 																<h1 class="modal-title fs-5" id="exampleModalLabel">Cập
 																	nhập
@@ -208,57 +220,83 @@
 																	data-bs-dismiss="modal" aria-label="Close"></button>
 															</div>
 															<div class="modal-body">
-																<div class="container"> 
-																		<form>
-																			<div class="row">
-																				<div class="col-lg-6">
-																					<label  class="form-label">Tên Tài Khoản</label>
-																					<input type="text" ng-model="form.tenDangNhap" class="form-control"  > 
-																				  </div>
-																				  <div class="col-lg-6">
-																					<label class="form-label">Họ Tên</label>
-																					<input type="text" ng-model="form.hoTen" class="form-control"  >
-																				  </div> 
-																			</div> 
-																			<div class="row mt-3" >
-																				<div class="col-lg-6">
-																					<label  class="form-label">Số Điện Thoại</label>
-																					<input type="munber" ng-model="form.sdt" class="form-control"  > 
-																				  </div>
-																				  <div class="col-lg-6">
-																					<label class="form-label">Email</label>
-																					<input type="text" ng-model="form.email" class="form-control"  >
-																				  </div>
-																			</div>  
-																			<div class="row mt-3" >
-																				<div class="col-lg-6">
-																					<label  class="form-label">Ngày Sinh</label>
-																					<input type="date" ng-model="form.ngaySinh" value="form.ngaySinh" class="form-control"  > 
-																				  </div>
-																				  <div class="col-lg-6"> 
-																				  </div>
-																			</div>  
-																			<div class="row mt-3" >
-																				<label  class="form-label">Trạng thái Hoạt Động</label>
-																				<div class="row ms-4"> 
-																					<div class="form-check col-lg-3">
-																						<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" ng-model="form.active"  ng-value="true" ng-checked="form.active">
-																						<label class="form-label" for="flexRadioDefault1">
-																						Hoạt Động
-																						</label>
-																					  </div>
-																					  <div class="form-check col-lg-6">
-																						<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" ng-model="form.active" ng-value="false" ng-checked="!form.active">
-																						<label class="form-label" for="flexRadioDefault2">
-																						Ngưng Hoạt Động 
-																						</label>
-																					  </div>
-																			</div>  
+																<div class="container">
+																	<form>
+																		<div class="row">
+																			<div class="col-lg-6">
+																				<label class="form-label">Tên Tài
+																					Khoản</label>
+																				<input type="text"
+																					ng-model="form.tenDangNhap"
+																					class="form-control">
 																			</div>
-																		  </form> 
+																			<div class="col-lg-6">
+																				<label class="form-label">Họ Tên</label>
+																				<input type="text" ng-model="form.hoTen"
+																					class="form-control">
+																			</div>
+																		</div>
+																		<div class="row mt-3">
+																			<div class="col-lg-6">
+																				<label class="form-label">Số Điện
+																					Thoại</label>
+																				<input type="munber" ng-model="form.sdt"
+																					class="form-control">
+																			</div>
+																			<div class="col-lg-6">
+																				<label class="form-label">Email</label>
+																				<input type="text" ng-model="form.email"
+																					class="form-control">
+																			</div>
+																		</div>
+																		<div class="row mt-3">
+																			<div class="col-lg-6">
+																				<label class="form-label">Ngày
+																					Sinh</label>
+																				<input type="date"
+																					ng-model="form.ngaySinh"
+																					value="form.ngaySinh"
+																					class="form-control">
+																			</div>
+																			<div class="col-lg-6">
+																			</div>
+																		</div>
+																		<div class="row mt-3">
+																			<label class="form-label">Trạng thái Hoạt
+																				Động</label>
+																			<div class="row ms-4">
+																				<div class="form-check col-lg-3">
+																					<input class="form-check-input"
+																						type="radio"
+																						name="flexRadioDefault"
+																						id="flexRadioDefault1"
+																						ng-model="form.active"
+																						ng-value="true"
+																						ng-checked="form.active">
+																					<label class="form-label"
+																						for="flexRadioDefault1">
+																						Hoạt Động
+																					</label>
+																				</div>
+																				<div class="form-check col-lg-6">
+																					<input class="form-check-input"
+																						type="radio"
+																						name="flexRadioDefault"
+																						id="flexRadioDefault2"
+																						ng-model="form.active"
+																						ng-value="false"
+																						ng-checked="!form.active">
+																					<label class="form-label"
+																						for="flexRadioDefault2">
+																						Ngưng Hoạt Động
+																					</label>
+																				</div>
+																			</div>
+																		</div>
+																	</form>
 																</div>
 															</div>
-															<div class="modal-footer"> 
+															<div class="modal-footer">
 																<button type="button" class="btn btn-warning bi bi-plus"
 																	ng-click="update_member()">Cập nhật</button>
 

@@ -12,12 +12,15 @@ import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.QuyenDAO;
 import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.dao.TaiKhoanDAO;
+import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DiaChi_TaiKhoan;
 import com.poly.model.DonDatHang;
 import com.poly.model.Quyen;
 import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.TaiKhoan;
+import com.poly.service.AccountService;
 import com.poly.service.AddressService;
+import com.poly.service.DetailOrderService;
 import com.poly.service.OrderService;
 
 import jakarta.websocket.server.PathParam;
@@ -34,6 +37,9 @@ public class RestLogin {
 
     @Autowired
     TaiKhoanDAO TKDao;
+
+    @Autowired
+	AccountService AccountService;
 
     @Autowired
     Quyen_TaiKhoanDAO QTKDao;
@@ -53,6 +59,9 @@ public class RestLogin {
     @Autowired
     AddressService addressImp;
 
+    @Autowired
+    DetailOrderService detailOrderService;
+
     @GetMapping("/rest/login")
     public Map<String, Object> findall() {
          Map<String, Object> data = new HashMap<>();
@@ -71,15 +80,25 @@ public class RestLogin {
         return orderImp.findByTDN(tenDangNhap);
     }
 
-    @GetMapping("/rest/auth/addresstrue/{tenDangNhap}")
+    @GetMapping("/rest/auth/getTrueAddress/{tenDangNhap}")
     DiaChi_TaiKhoan findAddressTrue(@PathVariable("tenDangNhap") String tenDangNhap){
         return addressImp.getTrueAddress(tenDangNhap);
     }
 
-    @GetMapping("/rest/auth/getAllAddress/{tenDangNhap}")
+    @GetMapping("/rest/auth/getFalseAddress/{tenDangNhap}")
     List<DiaChi_TaiKhoan> getAll(@PathVariable("tenDangNhap") String tenDangNhap){
-        return addressImp.getAllByTDN(tenDangNhap);
+        return addressImp.getDCFalse(tenDangNhap);
     }
+
+//     @GetMapping("/rest/invoice/detailtinvoice/{maDonHang}")
+//    DonDatHang detailInvoice(@PathVariable("maDonHang") Integer maDonHang){
+//        return orderImp.findbyId(maDonHang);
+//     }
+
+   @GetMapping("/rest/auth/editpass/{tenDangNhap}")
+	TaiKhoan editstaff(@PathVariable("tenDangNhap") String tenDangNhap) {
+		return AccountService.FindById(tenDangNhap);
+	}
 
     @PostMapping("/rest/register")
     public TaiKhoan register(@RequestBody TaiKhoan taiKhoan) {

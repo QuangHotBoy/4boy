@@ -56,6 +56,7 @@ public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
     // pageable);
     @Query("SELECT d FROM DonDatHang d WHERE d.maDonHang = :maDonHang")
     Page<DonDatHang> findByMaDonHang(@Param("maDonHang") Integer maDonHang, Pageable pageable);
+     
 
     @Query("SELECT s FROM DonDatHang s WHERE s.taiKhoan_donHang.tenDangNhap = :user AND s.maGiamGia.id = :voucher")
     DonDatHang findByUserAndVoucher(@Param("user") String user, @Param("voucher") String voucher);

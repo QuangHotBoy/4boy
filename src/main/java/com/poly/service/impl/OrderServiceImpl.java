@@ -126,4 +126,13 @@ public class OrderServiceImpl implements OrderService {
 		 
 		return orderDAO.findByTDN(tenDangNhap);
 	}
+
+	@Override
+	public DonDatHang findbyId(Integer maDonHang) { 
+		return orderDAO.findById(maDonHang).get();
+	}
+  
+	 
+
+	 
 }

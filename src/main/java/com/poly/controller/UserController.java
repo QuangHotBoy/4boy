@@ -1,25 +1,34 @@
 package com.poly.controller;
+ 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poly.dao.TaiKhoanDAO; 
-
-import ch.qos.logback.core.model.Model;
-
+import com.poly.dao.ChiTietDonDatHangDAO;
+import com.poly.dao.DonDatHangDAO;
+import com.poly.dao.TaiKhoanDAO;
+import com.poly.model.ChiTietDonDatHang;
+import com.poly.model.DonDatHang;
+ 
 
 @Controller
 public class UserController {
-    
+
     @Autowired
     TaiKhoanDAO TKDao;
 
+    @Autowired
+    DonDatHangDAO donDatHangDAO;
 
-
+    @Autowired 
+    ChiTietDonDatHangDAO CTDDHDao;
 
     @RequestMapping("shop/auth/index")
-    public String index(Model model) { 
+    public String index(Model model) {
         return "shop/layout/user/index";
     }
 
@@ -53,11 +62,20 @@ public class UserController {
         return "shop/layout/user/invoice";
     }
 
-    @RequestMapping("shop/auth/invoice/detail-invoice")
-    public String detaiinvoice(Model model) {
+    @RequestMapping("shop/auth/invoice/detail-invoice/{maDonHang}")
+    public String edit_donHang(Model model, @PathVariable("maDonHang") Integer madonhang) {
+        DonDatHang invoice = donDatHangDAO.findById(madonhang).get();
+
+        List<ChiTietDonDatHang> listDetail = CTDDHDao.findByDonDatHang(invoice);
+
+        // boolean isTrangThaiCancell = "7".equals(invoice.getTrangThai_donDatHang().getTenTrangThai());
+
+        // // model.addAttribute("isTrangThaiCancell", isTrangThaiCancell);
+        model.addAttribute("invoice", invoice);
+        model.addAttribute("listDetail", listDetail);
+
         return "shop/layout/user/detail-invoice";
     }
-
 
     @RequestMapping("shop/auth/favorite")
     public String favorite(Model model) {
@@ -68,5 +86,5 @@ public class UserController {
     public String demo(Model model) {
         return "shop/layout/user/demo";
     }
-    
+
 }

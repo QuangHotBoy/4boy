@@ -9,7 +9,7 @@ import com.poly.model.DiaChi_TaiKhoan;
 @Service
 public interface AddressService {
 
-	List<DiaChi_TaiKhoan> getAllByTDN(String tenDangNhap);
+	List<DiaChi_TaiKhoan> getDCFalse(String tenDangNhap);
 	
 	DiaChi_TaiKhoan getTrueAddress(String tenDangNhap);
 	

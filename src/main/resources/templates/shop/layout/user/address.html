@@ -4,7 +4,7 @@
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user"  ng-app="loginApp" ng-controller="loginCtrl">
+<body class="gradient-custom-user" ng-app="loginApp" ng-controller="loginCtrl">
     <!-- Navigation -->
     <div th:replace="/shop/layout/navigation :: nav"></div>
 
@@ -22,7 +22,7 @@
                         <a class="list-group-item list-group-item-action active" data-toggle="list"
                             href="/shop/auth/address">Địa chỉ</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="/shop/auth/invoice">Đơn Hàng</a> 
+                            href="/shop/auth/invoice">Đơn Hàng</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -42,11 +42,11 @@
                                             định</label>
                                         <div class="col-12 col-md-8 ">
                                             <div class="d-flex justify-content-start">
-                                                <h6> Bảo|&nbsp;</h6>
-                                                <h6>0357100604</h6>
+                                                <h6>{{address.hoTen}} |&nbsp; </h6>
+                                                <h6>{{address.sdt}}</h6>
                                             </div>
-                                            <div class=" d-flex justify-content-start">
-                                                <p>Cần thơ</p>
+                                            <div class="d-flex justify-content-start">
+                                                <p>{{address.diaChi}}</p>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4">
@@ -60,28 +60,30 @@
                                         <hr>
                                         <!-- <div id="diachikhac"> -->
                                         <label for="" class="mb-3 form-lable fw-bold fs-5">Địa chỉ khác</label>
-                                        <div class="col-12 col-md-8 ">
-                                            <div class="d-flex justify-content-start">
-                                                <h6> Gia bao|&nbsp;</h6>
-                                                <h6>0353853303</h6>
+                                        <div class="row" ng-repeat="adr in addresss">
+                                            <div class="col-12 col-md-8 ">
+                                                <div class="d-flex justify-content-start">
+                                                    <h6> {{adr.hoTen}}| &nbsp;</h6>
+                                                    <h6>{{adr.sdt}}</h6>
+                                                </div>
+                                                <div class=" d-flex justify-content-start">
+                                                    <p>{{adr.diaChi}}</p>
+                                                </div>
                                             </div>
-                                            <div class=" d-flex justify-content-start">
-                                                <p>Kiên Giang</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="d-flex justify-content-end">
-                                                <a class="text-success text-decoration-none"
-                                                    href="/shop/auth/address/update-address">
-                                                    Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
-                                                </a>
-                                            </div>
-                                            <hr>
-                                            <div class="d-flex justify-content-end">
-                                                <a class="text-danger text-decoration-none"
-                                                    href="/shop/auth/information/address/delete/${item.id}">
-                                                    Xóa địa chỉ <i class="bi bi-trash"></i>
-                                                </a>
+                                            <div class="col-12 col-md-4">
+                                                <div class="d-flex justify-content-end">
+                                                    <a class="text-success text-decoration-none"
+                                                        href="/shop/auth/address/update-address">
+                                                        Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
+                                                    </a>
+                                                </div>
+                                                <hr>
+                                                <div class="d-flex justify-content-end">
+                                                    <a class="text-danger text-decoration-none"
+                                                        href="/shop/auth/information/address/delete/${item.id}">
+                                                        Xóa địa chỉ <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                         <hr>
@@ -93,9 +95,9 @@
                 </div>
             </div>
         </div>
-    </div>  
-      <!-- angular js -->
-      <script src="/assets/js/login.js"></script>
+    </div>
+    <!-- angular js -->
+    <script src="/assets/js/login.js"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

@@ -8,8 +8,11 @@ import com.poly.model.DonDatHang;
 
 public interface OrderService {
     public DonDatHang create(JsonNode orderData) ;
-
+    
+    public DonDatHang findbyId(Integer maDonHang);
+      
     public Map<String, Object> checkOrder(String id, Long isbn);
 
     List<DonDatHang> findByTDN(String tenDangNhap);
+     
 }

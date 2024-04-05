@@ -19,7 +19,7 @@ public class AddressServiceImpl  implements AddressService{
 	DiaChi_TaiKhoanDAO dChiDao;
 	
 	@Override
-	public List<DiaChi_TaiKhoan> getAllByTDN(String tenDangNhap) { 
+	public List<DiaChi_TaiKhoan> getDCFalse(String tenDangNhap) { 
 		return dChiDao.findALLDC(tenDangNhap) ;
 	}
  

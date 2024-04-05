@@ -84,7 +84,7 @@ public class DonDatHang implements Serializable {
     @JoinColumn(name = "phuong_thuc_thanh_toan_id")
     private PhuongThucThanhToan phuongThucThanhToan;
 
-    @JsonIgnore
+   @JsonIgnore
     @OneToMany(mappedBy = "donDatHang")
     private List<ChiTietDonDatHang> chiTietDonDatHang;
 

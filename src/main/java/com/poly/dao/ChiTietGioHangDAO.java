@@ -19,6 +19,8 @@ public interface ChiTietGioHangDAO extends JpaRepository<ChiTietGioHang, Long> {
     @Query("SELECT dc FROM ChiTietGioHang dc JOIN GioHang c on dc.gioHang.id = c.id WHERE c.id = :id")
     List<ChiTietGioHang> findByGioHang(@Param("id") Long id);
 
+    
+
     @Query("SELECT dc FROM ChiTietGioHang dc JOIN SanPham p on dc.sanPham_gioHang.isbn = p.isbn WHERE p.isbn = :isbn")
     ChiTietGioHang findBySanPham(@Param("isbn") Long isbn);
 

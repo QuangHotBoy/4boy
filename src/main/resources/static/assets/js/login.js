@@ -124,7 +124,67 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     }
 
 
-    console.log($scope.birthday);
-    // lấy đơn đặt hàng của tài khỏan
+    console.log($scope.birthday); 
+     // lấy đơn đặt hàng của tài khỏan
+     $scope.get_invoice = function () {
+        var tenDangNhap = $scope.info_user[0].tenDangNhap;
+        $http.get("/rest/auth/invoice/" + tenDangNhap).then(resp => {
+            $scope.invoices = [];
+            $scope.invoices = resp.data;
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    };
+
+    //lấy địa chỉ mặc định của tài khoản
+    $scope.get_addressTrue = function () {
+        var tenDangNhap = $scope.info_user[0].tenDangNhap;
+        $http.get("/rest/auth/getTrueAddress/" + tenDangNhap).then(resp => {
+            $scope.address = resp.data;
+            // console.log($scope.address)
+        }).catch(error => {
+            console.log("Error", error);
+        })
+    }
+
+    //lấy địa chỉ  của tài khoản
+    $scope.get_addressFalse = function () {
+        var tenDangNhap = $scope.info_user[0].tenDangNhap;
+        $http.get("/rest/auth/getFalseAddress/" + tenDangNhap).then(resp => {
+            $scope.addresss = [];
+            $scope.addresss = resp.data;
+            // console.log($scope.addresss)
+        }).catch(error => {
+            console.log("Error", error);
+        })
+    }
+
+
+    $scope.editinfomation = function(tenDangNhap){
+		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{
+			$scope.form_info = resp.data; 
+			$scope.form.ngaySinh = new Date($scope.form.ngaySinh);
+			  // Hiển thị modal chỉnh sửa
+			  $('#editinfo').modal('show');
+		}).catch(error=>{
+			console.log("Error",error)
+		})
+	}
+
+    $scope.editpass = function(tenDangNhap){
+		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{ 
+			  // Hiển thị modal chỉnh sửa
+			  $('#editpass').modal('show');
+		}).catch(error=>{
+			console.log("Error",error)
+		})
+	}
+
+
+ 
+
+    $scope.get_addressTrue();
+    $scope.get_addressFalse();
+    $scope.get_invoice();
 
 })

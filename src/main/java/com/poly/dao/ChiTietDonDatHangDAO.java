@@ -20,4 +20,7 @@ public interface ChiTietDonDatHangDAO extends JpaRepository<ChiTietDonDatHang, I
     @Query("SELECT s FROM ChiTietDonDatHang s WHERE s.donDatHang.id = :idOrder AND s.sanPham_donDatHang.isbn = :idProduct")
     ChiTietDonDatHang findByDonDatHangAndSanPhamDonDatHang(@Param("idOrder") Integer idOrder, @Param("idProduct") Long id);
 
+    @Query("SELECT s FROM ChiTietDonDatHang s WHERE s.donDatHang.id = :idOrder")
+    List<ChiTietDonDatHang> findByMaDonDatHang(@Param("idOrder") Integer idOrder);
+
 }
