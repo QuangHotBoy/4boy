@@ -6,6 +6,7 @@ app.filter('vnCurrency', function () {
         return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     };
 });
+
 app.controller("product-Ctrl", function ($scope, $http, $timeout) {
     $scope.products = [];
     $scope.types = [];
@@ -13,6 +14,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
     $scope.tinhtrangs = [];
 
     $scope.initialize = function () {
+
         // Load tinhtrangs data first
         $http.get("/rest/tinhtrangs").then(resp => {
             $scope.tinhtrangs = resp.data;
@@ -78,12 +80,14 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         // Gửi yêu cầu GET đến API để lấy thông tin của mục có ISBN tương ứng
         $http.get('/rest/products/' + isbn)
             .then(function (response) {
+
                 // Gán dữ liệu trả về cho biến form để điền vào form chỉnh sửa
                 $scope.form = response.data;
                 // Hiển thị modal chỉnh sửa
                 $('#exampleModal1').modal('show');
                 console.log(isbn);
                 console.log($scope.form);
+
             })
             .catch(function (error) {
                 // Xử lý lỗi nếu có
@@ -98,6 +102,24 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             // Nếu form không hợp lệ, không tiến hành thêm mới
             return;
         }
+        // Kiểm tra xem giá trị tenLoai , nxb đã được chọn hay chưa
+        if (!$scope.form.phanLoai || !$scope.form.phanLoai.tenLoai) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng chọn loại sách.',
+                position: 'topRight'
+            });
+            return;
+        }
+        if (!$scope.form.nhaXuatBan || !$scope.form.nhaXuatBan.tenNhaXuatBan) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng chọn nhà xuất bản.',
+                position: 'topRight'
+            });
+            return;
+        }
+        //
         var item = angular.copy($scope.form);
 
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
@@ -149,7 +171,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                 // Chờ 3 giây trước khi thực hiện reload
                 setTimeout(function () {
                     location.reload();
-                }, 2000);
+                }, 1000);
             })
             .catch(function (error) {
                 iziToast.warning({
@@ -164,7 +186,16 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
     //hàm cập nhật
     $scope.update = function () {
+        // if (!validateForm1()) {
+        //     // Nếu form không hợp lệ, không tiến hành cập nhật
+        //     return;
+        // }
+
+       
+        // copy dữ liệu ra 1 bản khác
         var item = angular.copy($scope.form);
+        // Kiểm tra hợp lệ của form trước khi thực hiện cập nhật
+
 
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
         var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
@@ -196,6 +227,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         item.nhaXuatBan = selectedSupplier;
         item.phanLoai = selectedType;
         item.tinhTrangSanPham = selectedTinhTrang;
+
         $http.put('/rest/products/' + item.isbn, item).then(resp => {
             // Kiểm tra nếu $scope.items chưa được khởi tạo, thì khởi tạo nó là một mảng trống
             if (!$scope.items) {
@@ -217,7 +249,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             // Chờ 3 giây trước khi thực hiện reload
             setTimeout(function () {
                 location.reload();
-            }, 2000);
+            }, 1000);
         }).catch(error => {
             iziToast.warning({
                 title: 'Thông báo',
@@ -263,7 +295,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         var soLuong = document.getElementById("soluong").value;
         var moTa = document.getElementById("mota").value;
         var hinhAnhInput = document.getElementById("image");
-        var selectElement = document.getElementById("loaiSach");
+        // var selectElement = document.getElementById("loaiSach");
 
 
         // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
@@ -329,8 +361,8 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             });
             return false;
         }
-          // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
-          if (hinhAnhInput.files.length === 0) {
+        // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
+        if (hinhAnhInput.files.length === 0) {
             document.getElementById("imageError").style.display = "block";
             return false;
         }
@@ -343,12 +375,6 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             });
             return false;
         }
-
-
-
-
-
-
         // Trả về true nếu không có lỗi
         return true;
     }
@@ -362,8 +388,85 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         }
         return false; // Nếu không trùng, trả về false
     }
-    //
+    // bắt lỗi cập nhật
+    function validateForm1() {
+        var tenSach = document.getElementById("tensach").value;
+        var namXuatBan = document.getElementById("namXuatBan").value;
+        var tacGia = document.getElementById("tacGia").value;
+        var kieuBia = document.getElementById("loaibia").value;
+        var giaBan = document.getElementById("giaGocc").value;
+        var soLuong = document.getElementById("soluong").value;
+        var moTa = document.getElementById("mota").value;
+        var hinhAnhInput = document.getElementById("image");
+        // var selectElement = document.getElementById("loaiSach");
 
+
+        // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
+        if (tenSach.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên sách.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+
+       
+
+        if (tacGia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tác giả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (kieuBia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập loại bìa.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (giaBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập giá bán.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (soLuong.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập số lượng.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
+        if (hinhAnhInput.files.length === 0) {
+            document.getElementById("imageError").style.display = "block";
+            return false;
+        }
+
+        // Trả về true nếu không có lỗi
+        return true;
+    }
 
 
 
