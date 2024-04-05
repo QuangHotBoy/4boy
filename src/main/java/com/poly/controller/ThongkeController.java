@@ -23,9 +23,12 @@ public class ThongkeController {
     @RequestMapping("/admin/statistical/statistics-by-revenue")
     public String statisticsByRevenue() {
 
-        
-
         return "admin/statistical/statistics-by-revenue";
+    }
+    @RequestMapping("/admin/statistical/statistics-by-product")
+    public String statisticsByProduct() {
+
+        return "admin/statistical/statistics-by-product";
     }
 
 }
