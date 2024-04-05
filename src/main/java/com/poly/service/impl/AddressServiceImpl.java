@@ -38,4 +38,10 @@ public class AddressServiceImpl  implements AddressService{
 		return dChiDao.findByTaiKhoan(tenDangNhap);
 	}
 
+	@Override
+	public DiaChi_TaiKhoan findbyId(Long id) {
+		 
+		return dChiDao.findById(id).get();
+	}
+
 }

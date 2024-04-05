@@ -181,6 +181,37 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
 	}
 
 
+    $scope.addaddress = function(){
+		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{ 
+			  // Hiển thị modal chỉnh sửa
+			  $('#editpass').modal('show');
+		}).catch(error=>{
+			console.log("Error",error)
+		})
+	}
+
+    $scope.edittrueAddress = function(id){
+		$http.get("/rest/getaddress/"+id).then(resp=>{ 
+            $scope.form_address = resp.data;
+            console.log($scope.form_address )   
+            // Hiển thị modal chỉnh sửa
+			  $('#edittrueAddress').modal('show');
+		}).catch(error=>{
+			console.log("Error",error)
+		})
+	}
+
+
+    $scope.editfalseAddress = function(id){
+		$http.get("/rest/getaddress/"+id).then(resp=>{ 
+            $scope.form_address = resp.data;
+            console.log($scope.form_address )   
+            // Hiển thị modal chỉnh sửa
+			  $('#editfalseAddress').modal('show');
+		}).catch(error=>{
+			console.log("Error",error)
+		})
+	}
  
 
     $scope.get_addressTrue();

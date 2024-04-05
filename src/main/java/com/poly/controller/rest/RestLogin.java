@@ -100,6 +100,12 @@ public class RestLogin {
 		return AccountService.FindById(tenDangNhap);
 	}
 
+   @GetMapping("/rest/getaddress/{id}")
+   DiaChi_TaiKhoan getOne(@PathVariable("id") Long id) {
+	   return addressImp.findbyId(id);
+   }
+    
+
     @PostMapping("/rest/register")
     public TaiKhoan register(@RequestBody TaiKhoan taiKhoan) {
         TKDao.save(taiKhoan);

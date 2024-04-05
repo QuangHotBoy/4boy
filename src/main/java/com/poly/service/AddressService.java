@@ -17,4 +17,5 @@ public interface AddressService {
 	
 	DiaChi_TaiKhoan update(DiaChi_TaiKhoan diachi);
 	
+	DiaChi_TaiKhoan findbyId(Long id);
 }

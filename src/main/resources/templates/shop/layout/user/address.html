@@ -29,10 +29,78 @@
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="border-light mt-3">
-                                <a href="/shop/auth/address/add-new-address" type="button"
-                                    class="btn btn-edit-address border border-warning text-dark bg-warning fw-bold"><i
-                                        class="fas fa-plus pr-1"></i>Thêm địa
-                                    chỉ mới </a>
+                                <button data-bs-toggle="modal" data-bs-target="#addaddress" data-bs-whatever="@mdo"
+                                    class="btn btn-edit-address border border-warning text-dark bg-warning fw-bold">Thêm
+                                    địa
+                                    chỉ mới
+                                </button>
+                                <!-- form add address -->
+                                <div class="modal fade" id="addaddress" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div style="margin-top: 20px;" class="modal-dialog">
+                                        <div class="modal-content " style="width: 150%; height:490px ;">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm địa chỉ mới
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <label class="form-label">Tên người nhận</label>
+                                                                <input type="text" ng-model="form_address.hoTen"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="form-label">Số điện thoại</label>
+                                                                <input type="text" ng-model="form_info.sdt"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <div class="col-lg-6">
+                                                                <label class="form-label">Địa chỉ</label>
+                                                                <input type="text" ng-model="form_info.diaChi"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <label class="form-label">Đặt làm địa chỉ mặc định </label>
+                                                            <div class="row ms-1">
+                                                                <div class="form-check col-lg-3">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        ng-model="form_address.macDinh" ng-value="true"
+                                                                        ng-checked="form.active">
+                                                                    <label class="form_address.macDinh"
+                                                                        for="flexRadioDefault1">
+                                                                        Có
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check col-lg-6">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        ng-model="form_address.macDinh" ng-value="false"
+                                                                        ng-checked="!form_address.macDinh">
+                                                                    <label class="form_address.macDinh"
+                                                                        for="flexRadioDefault2">
+                                                                        Không
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-warning "
+                                                    ng-click="add_address()">Thêm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end modal -->
                             </div>
                             <hr>
                             <div class="card-body">
@@ -52,41 +120,163 @@
                                         <div class="col-12 col-md-4">
                                             <div class=" d-flex justify-content-end align-items-center mt-1">
                                                 <a class="text-success text-decoration-none"
-                                                    href="/shop/auth/address/update-address">
+                                                    ng-click="edittrueAddress(address.id)" data-bs-toggle="modal"
+                                                    data-bs-target="#edittrueAddress" data-bs-whatever="@mdo">
                                                     Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <!-- <div id="diachikhac"> -->
-                                        <label for="" class="mb-3 form-lable fw-bold fs-5">Địa chỉ khác</label>
-                                        <div class="row" ng-repeat="adr in addresss">
-                                            <div class="col-12 col-md-8 ">
-                                                <div class="d-flex justify-content-start">
-                                                    <h6> {{adr.hoTen}}| &nbsp;</h6>
-                                                    <h6>{{adr.sdt}}</h6>
-                                                </div>
-                                                <div class=" d-flex justify-content-start">
-                                                    <p>{{adr.diaChi}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <div class="d-flex justify-content-end">
-                                                    <a class="text-success text-decoration-none"
-                                                        href="/shop/auth/address/update-address">
-                                                        Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
-                                                    </a>
-                                                </div>
-                                                <hr>
-                                                <div class="d-flex justify-content-end">
-                                                    <a class="text-danger text-decoration-none"
-                                                        href="/shop/auth/information/address/delete/${item.id}">
-                                                        Xóa địa chỉ <i class="bi bi-trash"></i>
-                                                    </a>
+                                        <!-- form edit true address -->
+                                        <div class="modal fade" id="edittrueAddress" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div style="margin-top: 20px;" class="modal-dialog">
+                                                <div class="modal-content " style="width: 150%; height:400px ;">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhập
+                                                            thông tin địa chỉ
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <label class="form-label">Tên người nhận</label>
+                                                                        <input type="text" ng-model="form_address.hoTen"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <label class="form-label">Số điện thoại</label>
+                                                                        <input type="text" ng-model="form_address.sdt"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-3">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">Địa chỉ</label>
+                                                                        <input type="text"
+                                                                            ng-model="form_address.diaChi"
+                                                                            class="form-control">
+                                                                    </div>
+                                                               </div> 
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning "
+                                                            ng-click="add_address()">Thêm</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- end modal -->
                                         <hr>
+                                        <div>
+                                            <label for="" class="mb-3 form-lable fw-bold fs-5">Địa chỉ khác</label>
+                                            <div class="row" ng-repeat="adr in addresss">
+                                                <div class="col-12 col-md-8 ">
+                                                    <div class="d-flex justify-content-start">
+                                                        <h6> {{adr.hoTen}}| &nbsp;</h6>
+                                                        <h6>{{adr.sdt}}</h6>
+                                                    </div>
+                                                    <div class="d-flex justify-content-start">
+                                                        <p>{{adr.diaChi}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="text-success text-decoration-none"
+                                                            ng-click="editfalseAddress(adr.id)" data-bs-toggle="modal"
+                                                            data-bs-target="#editfalseAddress" data-bs-whatever="@mdo">
+                                                            Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="text-danger text-decoration-none"
+                                                            href="/shop/auth/information/address/delete/${item.id}">
+                                                            Xóa địa chỉ <i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        <!-- form edit false address -->
+                                        <div class="modal fade" id="editfalseAddress" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div style="margin-top: 20px;" class="modal-dialog">
+                                                <div class="modal-content " style="width: 150%; height:490px ;">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhập
+                                                            thông tin địa chỉ
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <label class="form-label">Tên người nhận</label>
+                                                                        <input type="text" ng-model="form_address.hoTen"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <label class="form-label">Số điện thoại</label>
+                                                                        <input type="text" ng-model="form_address.sdt"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-3">
+                                                                    <div class="col-lg-12">
+                                                                        <label class="form-label">Địa chỉ</label>
+                                                                        <input type="text"
+                                                                            ng-model="form_address.diaChi"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-3">
+                                                                    <label class="form-label">Đặt làm địa chỉ mặc định
+                                                                    </label>
+                                                                    <div class="row ms-1">
+                                                                        <div class="form-check col-lg-3">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                ng-model="form_address.macDinh"
+                                                                                ng-value="true"
+                                                                                ng-checked="form.active">
+                                                                            <label class="form_address.macDinh"
+                                                                                for="flexRadioDefault1">
+                                                                                Có </label>
+                                                                        </div>
+                                                                        <div class="form-check col-lg-6">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                ng-model="form_address.macDinh"
+                                                                                ng-value="false"
+                                                                                ng-checked="!form_address.macDinh">
+                                                                            <label class="form_address.macDinh"
+                                                                                for="flexRadioDefault2">
+                                                                                Không
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning "
+                                                            ng-click="add_address()">Thêm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
+
+
                                     </div>
                                 </div>
                             </div>
@@ -95,13 +285,12 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- angular js -->
-    <script src="/assets/js/login.js"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script th:src="@{/shop/js/scripts.js}"></script>
+        <!-- angular js -->
+        <script src="/assets/js/login.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script th:src="@{/shop/js/scripts.js}"></script>
 </body>
 
 </html>
