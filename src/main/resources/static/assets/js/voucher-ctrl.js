@@ -15,7 +15,9 @@ app.controller("voucher-ctrl", function($scope, $http){
             $scope.vouchers.sort((a, b) => new Date(b.ngayBatDau) - new Date(a.ngayBatDau));
         });
     }
-    
+    $scope.form = {
+        daSuDung: '0'
+    };
     
     //khoi dau
     $scope.initialize();
