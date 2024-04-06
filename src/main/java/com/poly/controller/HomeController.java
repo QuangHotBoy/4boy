@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.dao.DanhGiaDAO;
 import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
+import com.poly.model.DanhGia;
 import com.poly.model.SanPham;
 
 @Controller
@@ -28,6 +30,9 @@ public class HomeController {
 
 	@Autowired
 	NhaXuatBanDAO publisingDAO;
+
+	@Autowired
+	DanhGiaDAO reviewDAO;
 
 	@RequestMapping("")
 	public String home() {
@@ -79,6 +84,22 @@ public class HomeController {
 		List<SanPham> relatedNXB = productDAO.findByNhaCungCap(product.getNhaXuatBan().getId());
 		List<SanPham> relatedType = productDAO.findByPhanLoai(product.getPhanLoai().getId());
 
+		List<DanhGia> reviews = reviewDAO.findBySanPham_danhGia(isbn);
+
+		int numberOfReview = reviews.size();
+
+		// Tính điểm đánh giá trung bình
+        double averageRating = calculateAverageRating(reviews);
+
+		// Khởi tạo mảng chứa số lượng đánh giá cho mỗi điểm đánh giá (từ 1 đến 5)
+        int[] numberOfRatings = new int[5];
+
+        // Tính số lượng đánh giá cho mỗi điểm đánh giá
+        for (DanhGia review : reviews) {
+            int rating = review.getRating();
+            numberOfRatings[rating - 1]++;
+        }
+
 		ArrayList<SanPham> relatedProducts = new ArrayList<>();
 		relatedProducts.addAll(relatedType);
 		relatedProducts.addAll(relatedNXB);
@@ -107,6 +128,10 @@ public class HomeController {
 		}
 
 		model.addAttribute("product", product);
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("numberOfReview", numberOfReview);
+		model.addAttribute("averageRating", averageRating);
+		model.addAttribute("numberOfRatings", numberOfRatings);
 		model.addAttribute("title", "Knotrea - " + product.getTenSach());
 
 		return "shop/detail-item";
@@ -142,4 +167,14 @@ public class HomeController {
 		return "shop/complete-order";
 	}
 
+	// Phương thức tính điểm đánh giá trung bình
+    private double calculateAverageRating(List<DanhGia> reviews) {
+        double totalRating = 0.0;
+        for (DanhGia review : reviews) {
+            totalRating += review.getRating();
+        }
+        return reviews.isEmpty() ? 0.0 : totalRating / reviews.size();
+    }
 }
+
+

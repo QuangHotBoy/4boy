@@ -108,14 +108,16 @@
         <div class="pt-3">
             <div class="row">
                 <div class="col-3">
-                    <p class="fs-5 border border-dark p-2 rounded-3">Đánh Giá Sản Phẩm</p>
+                    <p class="fs-5 border p-2 rounded-3 border-warning text-warning fw-bold">Đánh Giá Sản Phẩm</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-12 mb-3 border-end">
                     <div class="row mb-2">
-                        <div class="col-md-6">Số lượng đánh giá: 12 Đánh giá</div>
-                        <div class="col-md-6">Tổng điểm đánh giá: 4.5 <i class="bi bi-star-fill"></i></div>
+                        <div class="col-md-6" th:utext="'Số lượng đánh giá: ' + ${numberOfReview} + ' Đánh giá'"></div>
+                        <div class="col-md-6"
+                            th:utext="'Tổng điểm đánh giá: ' + ${averageRating} + ' <i class=&quot;bi bi-star-fill&quot;></i>'">
+                        </div>
                     </div>
                     <p>Số lượng đánh giá:</p>
                     <div class="container">
@@ -123,24 +125,25 @@
                             <div class="col-8">
                                 <ul class="list-unstyled">
                                     <li class="mb-2">
-                                        Đánh giá: <span class="text-warning ms-1">★★★★★</span> <span class="ms-1"> 5
-                                            đánh giá</span>
+                                        Đánh giá: <span class="text-warning ms-1">★★★★★</span> <span class="ms-1"
+                                            th:text="${numberOfRatings[4]} + ' đánh giá'"></span>
                                     </li>
                                     <li class="mb-2">
-                                        Đánh giá: <span class="text-warning ms-1">★★★★☆</span> <span class="ms-1"> 4
-                                            đánh giá</span>
+                                        Đánh giá: <span class="text-warning ms-1">★★★★☆</span> <span class="ms-1"
+                                            th:text="${numberOfRatings[3]} + ' đánh giá'"></span>
                                     </li>
                                     <li class="mb-2">
-                                        Đánh giá: <span class="text-warning ms-1">★★★☆☆</span> <span class="ms-1"> 3
-                                            đánh giá</span>
+                                        Đánh giá: <span class="text-warning ms-1">★★★☆☆</span> <span class="ms-1"
+                                            th:text="${numberOfRatings[2]} + ' đánh giá'"></span>
                                     </li>
                                     <li class="mb-2">
-                                        Đánh giá: <span class="text-warning ms-1">★★☆☆☆</span> <span class="ms-1"> 2
-                                            đánh giá</span>
+                                        Đánh giá: <span class="text-warning ms-1">★★☆☆☆</span> <span class="ms-1"
+                                            th:text="${numberOfRatings[1]} + ' đánh giá'"></span>
                                     </li>
                                     <li class="mb-2">
-                                        Đánh giá: <span class="text-warning ms-1">★☆☆☆☆</span> <span class="ms-1"> 1
-                                            đánh giá</span>
+                                        Đánh giá: <span class="text-warning ms-1">★☆☆☆☆</span> <span class="ms-1"
+                                            th:text="${numberOfRatings[0]} + ' đánh giá'">
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -179,14 +182,14 @@
                                     <input type="radio" id="star1" name="rating" value="1" ng-model="rating" /><label
                                         for="star1" title="1 star"></label>
                                 </div>
-    
+
                                 <br />
-    
+
                                 <textarea name="review" ng-model="comment" placeholder="Đánh giá" class="w-75 p-2"
                                     rows="3"></textarea>
-    
+
                                 <br />
-    
+
                                 <button ng-click="submitReview()" id="submitReviewBtn"
                                     class="p-1 rounded-3 btn btn-outline-warning float-end">Đánh
                                     giá</button>
