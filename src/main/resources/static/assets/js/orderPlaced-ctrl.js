@@ -3,6 +3,7 @@ var app = angular.module('orderPlacedApp', []);
 app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
     $scope.orderPlaces = [];
     $scope.form = {};
+    $scope.selectedStatus = '';
 
     // Function to initialize the controller
     $scope.initialize = function () {
@@ -198,13 +199,19 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
         return false;
     });
 };
-$scope.filterByStatus = function(orderPlace) {
-    // Nếu không có trạng thái được chọn, hiển thị tất cả đơn hàng
-    if (!$scope.selectedStatusId) return true;
+ $scope.filterByStatus = function() {
+        // Kiểm tra nếu không có trạng thái được chọn, hiển thị tất cả đơn hàng
+        if (!$scope.selectedStatus) {
+            $scope.initialize(); // Giả sử initialize() là hàm để load lại danh sách đơn hàng
+            return;
+        }
 
-    // Kiểm tra nếu ID trạng thái của đơn hàng khớp với ID đã chọn
-    return orderPlace.trangThaiId === $scope.selectedStatusId;
-};
+        // Lọc danh sách đơn hàng dựa trên trạng thái đã chọn
+        $scope.orderPlaces = $scope.orderPlaces.filter(function(orderPlace) {
+            return orderPlace.trangThai_donDatHang.id == $scope.selectedStatus;
+        });
+    };
+
 
 
     $scope.pager = {
