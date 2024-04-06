@@ -110,18 +110,22 @@ app.controller("voucher-ctrl", function($scope, $http){
     
     $scope.update = function() {
         // Lưu trữ id ban đầu của voucher
-    
         var voucher = angular.copy($scope.form);
+        
+        // Chuyển đổi ID sang chuỗi
+        voucher.id = String(voucher.id);
     
         $http.put('/rest/vouchers/' + voucher.id, voucher)
             .then(function(resp) {
                 // Tìm và cập nhật thông tin mã giảm giá trong $scope.vouchers
                 var index = $scope.vouchers.findIndex(function(item) {
-                    return item.id === voucher.id;
+                    // Chuyển đổi item.id sang chuỗi để so sánh nếu cần thiết
+                    return String(item.id) === voucher.id;
                 });
     
                 if (index !== -1) {
-                    $scope.vouchers[index] = angular.copy(voucher);
+                    // Cập nhật thông tin mã giảm giá trong $scope.vouchers
+                    $scope.vouchers[index] = angular.copy(resp.data); // Giả sử resp.data chứa dữ liệu mã giảm giá đã được cập nhật
                 }
     
                 $scope.reset(); // Đặt lại form
@@ -130,15 +134,12 @@ app.controller("voucher-ctrl", function($scope, $http){
                 // loadData();
             })
             .catch(function(error) {
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi cập nhật sản phẩm: " + error.statusText);
                 console.log("Error", error);
             });
     };
     
     
-    
-    
-
     //xoa mgg
     $scope.delete = function(voucher) {
         if (confirm("Bạn muốn xóa sản phẩm này?")) {

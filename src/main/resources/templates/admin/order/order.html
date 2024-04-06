@@ -54,6 +54,22 @@
         cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
         transition: background-color 0.3s ease;
     }
+    #marquee-text {
+    font-size: 10px;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0%, 100% {
+        transform: translateX(50%);
+    }
+    50% {
+        transform: translateX(0%);
+    }
+}
+
+
   </style>
   <body>
     <div class="container-scroller" ng-app="orderPlacedApp" ng-controller="orderPlacedCtrl">
@@ -307,7 +323,8 @@
                                               <form>
                                                 <div class="mb-3">
                                                     <label for="tenTrangThai" class="col-form-label">Trạng thái:
-                                                      <p style="font-size: 10px;border-radius: 5px; border: 1px solid red;"> Chờ xác nhận --> Đã xác nhận --> Đang xử lý --> Đã gửi đi --->Đã nhận hàng</p> </label>
+                                                      <p id="marquee-text">Chờ xác nhận --> Đã xác nhận --> Đang xử lý --> Đã gửi đi --->Đã nhận hàng</p>
+
                                                     <input class="form-control" name="tenTrangThai" id="tenTrangThai" ng-model="form.trangThai_donDatHang.tenTrangThai" disabled></input>
                                                 </div>
                                             </form>                                            
