@@ -20,9 +20,11 @@
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/information">Thông tin cá nhân</a>
                         <a class="list-group-item list-group-item-action active" data-toggle="list"
-                            href="/shop/auth/address">Địa chỉ</a>
+                            href="/shop/auth/address">Địa chỉ</a>   
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/invoice">Đơn Hàng</a>
+                        <a class="list-group-item list-group-item-action"
+                            href="/shop/auth/favorite/{{ info_user[0].tenDangNhap}}">Yêu thích</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -144,12 +146,14 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-6">
                                                                         <label class="form-label">Tên người nhận</label>
-                                                                        <input type="text" ng-model="form_address.hoTen"
+                                                                        <input type="text"
+                                                                            ng-model="form_addressTrue.hoTen"
                                                                             class="form-control">
                                                                     </div>
                                                                     <div class="col-lg-6">
                                                                         <label class="form-label">Số điện thoại</label>
-                                                                        <input type="text" ng-model="form_address.sdt"
+                                                                        <input type="text"
+                                                                            ng-model="form_addressTrue.sdt"
                                                                             class="form-control">
                                                                     </div>
                                                                 </div>
@@ -157,16 +161,17 @@
                                                                     <div class="col-lg-12">
                                                                         <label class="form-label">Địa chỉ</label>
                                                                         <input type="text"
-                                                                            ng-model="form_address.diaChi"
+                                                                            ng-model="form_addressTrue.diaChi"
                                                                             class="form-control">
                                                                     </div>
-                                                               </div> 
+                                                                </div>
                                                             </form>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-warning "
-                                                            ng-click="add_address()">Thêm</button>
+                                                            ng-click="updateTrueAddress(form_addressTrue.id)">Cập
+                                                            nhập</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,7 +183,7 @@
                                             <div class="row" ng-repeat="adr in addresss">
                                                 <div class="col-12 col-md-8 ">
                                                     <div class="d-flex justify-content-start">
-                                                        <h6> {{adr.hoTen}}| &nbsp;</h6>
+                                                        <h6> {{adr.hoTen}} | &nbsp;</h6>
                                                         <h6>{{adr.sdt}}</h6>
                                                     </div>
                                                     <div class="d-flex justify-content-start">
@@ -222,12 +227,14 @@
                                                                 <div class="row">
                                                                     <div class="col-lg-6">
                                                                         <label class="form-label">Tên người nhận</label>
-                                                                        <input type="text" ng-model="form_address.hoTen"
+                                                                        <input type="text"
+                                                                            ng-model="form_addressfase.hoTen"
                                                                             class="form-control">
                                                                     </div>
                                                                     <div class="col-lg-6">
                                                                         <label class="form-label">Số điện thoại</label>
-                                                                        <input type="text" ng-model="form_address.sdt"
+                                                                        <input type="text"
+                                                                            ng-model="form_addressfase.sdt"
                                                                             class="form-control">
                                                                     </div>
                                                                 </div>
@@ -235,7 +242,7 @@
                                                                     <div class="col-lg-12">
                                                                         <label class="form-label">Địa chỉ</label>
                                                                         <input type="text"
-                                                                            ng-model="form_address.diaChi"
+                                                                            ng-model="form_addressfase.diaChi"
                                                                             class="form-control">
                                                                     </div>
                                                                 </div>
@@ -245,18 +252,18 @@
                                                                     <div class="row ms-1">
                                                                         <div class="form-check col-lg-3">
                                                                             <input class="form-check-input" type="radio"
-                                                                                ng-model="form_address.macDinh"
+                                                                                ng-model="form_addressfase.macDinh"
                                                                                 ng-value="true"
                                                                                 ng-checked="form.active">
-                                                                            <label class="form_address.macDinh"
+                                                                            <label class="form_addressfase.macDinh"
                                                                                 for="flexRadioDefault1">
                                                                                 Có </label>
                                                                         </div>
                                                                         <div class="form-check col-lg-6">
                                                                             <input class="form-check-input" type="radio"
-                                                                                ng-model="form_address.macDinh"
+                                                                                ng-model="form_addressfase.macDinh"
                                                                                 ng-value="false"
-                                                                                ng-checked="!form_address.macDinh">
+                                                                                ng-checked="!form_addressfase.macDinh">
                                                                             <label class="form_address.macDinh"
                                                                                 for="flexRadioDefault2">
                                                                                 Không
@@ -269,7 +276,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-warning "
-                                                            ng-click="add_address()">Thêm</button>
+                                                            ng-click="updateFalseAddress()">Cập nhập</button>
                                                     </div>
                                                 </div>
                                             </div>

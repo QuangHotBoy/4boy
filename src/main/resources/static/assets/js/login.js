@@ -6,7 +6,8 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     $scope.login = {
         tenDangNhap: '', matKhau: '',
     }
-    $scope.accounts = []
+    $scope.accounts = [];
+    $scope.diachi = [];
 
     // đăng ký
 
@@ -124,9 +125,9 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     }
 
 
-    console.log($scope.birthday); 
-     // lấy đơn đặt hàng của tài khỏan
-     $scope.get_invoice = function () {
+    console.log($scope.birthday);
+    // lấy đơn đặt hàng của tài khỏan
+    $scope.get_invoice = function () {
         var tenDangNhap = $scope.info_user[0].tenDangNhap;
         $http.get("/rest/auth/invoice/" + tenDangNhap).then(resp => {
             $scope.invoices = [];
@@ -159,63 +160,155 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     }
 
-
-    $scope.editinfomation = function(tenDangNhap){
-		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{
-			$scope.form_info = resp.data; 
-			$scope.form.ngaySinh = new Date($scope.form.ngaySinh);
-			  // Hiển thị modal chỉnh sửa
-			  $('#editinfo').modal('show');
-		}).catch(error=>{
-			console.log("Error",error)
-		})
-	}
-
-    $scope.editpass = function(tenDangNhap){
-		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{ 
-			  // Hiển thị modal chỉnh sửa
-			  $('#editpass').modal('show');
-		}).catch(error=>{
-			console.log("Error",error)
-		})
-	}
-
-
-    $scope.addaddress = function(){
-		$http.get("/rest/account/editmember/"+tenDangNhap).then(resp=>{ 
-			  // Hiển thị modal chỉnh sửa
-			  $('#editpass').modal('show');
-		}).catch(error=>{
-			console.log("Error",error)
-		})
-	}
-
-    $scope.edittrueAddress = function(id){
-		$http.get("/rest/getaddress/"+id).then(resp=>{ 
-            $scope.form_address = resp.data;
-            console.log($scope.form_address )   
+    //gọi form cập nhập thông tin tài khoản
+    $scope.editinfomation = function () {
+        $http.get("/rest/account/editmember/" + $scope.info_user[0].tenDangNhap).then(resp => {
+            $scope.form_info = resp.data;
+            $scope.form.ngaySinh = new Date($scope.form.ngaySinh);
             // Hiển thị modal chỉnh sửa
-			  $('#edittrueAddress').modal('show');
-		}).catch(error=>{
-			console.log("Error",error)
-		})
-	}
+            $('#editinfo').modal('show');
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+    // cập nhập thông tin tài khoản
+    $scope.updateinfo = function () {
+        $scope.form_info.ngaySinh = new Date($scope.birthday).toISOString();
+        var item = angular.copy($scope.form_info);
+        $http.put("/rest/account/update/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
+            var index = $scope.accounts.findIndex(item => item.tenDangNhap === $scope.form_info.tenDangNhap);
+            $scope.accounts[index] = resp.data;
+
+            // Cập nhật lại thông tin tài khoản trong localStorage
+            var account = JSON.parse(localStorage.getItem("account")) || [];
+            account = account.map(acc => {
+                if (acc.tenDangNhap === $scope.form_info.tenDangNhap) {
+                    return resp.data;
+                }
+                return acc;
+            });
+            localStorage.setItem("account", JSON.stringify(account));
+
+            // Load lại trang
+            location.reload();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    };
 
 
-    $scope.editfalseAddress = function(id){
-		$http.get("/rest/getaddress/"+id).then(resp=>{ 
-            $scope.form_address = resp.data;
-            console.log($scope.form_address )   
+
+
+
+    // gọi form cập nhập mật khẩu
+    $scope.editpass = function () {
+        $http.get("/rest/account/editmember/" + $scope.info_user[0].tenDangNhap).then(resp => {
+            $scope.form_info = resp.data;
             // Hiển thị modal chỉnh sửa
-			  $('#editfalseAddress').modal('show');
-		}).catch(error=>{
-			console.log("Error",error)
-		})
-	}
- 
+            $('#editpass').modal('show');
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
 
-    $scope.get_addressTrue();
-    $scope.get_addressFalse();
-    $scope.get_invoice();
+    //cập nhập mật khẩu
+    $scope.updatepass = function () {
+        var matkhauhientai = $scope.form_pass.matKhau;
+        var matkhaumoi = $scope.form_pass.pass1;
+        var xnmk = $scope.form_pass.pass2;
+        var tendangnhap = $scope.info_user[0].tenDangNhap
+        if (matkhauhientai != $scope.info_user[0].matKhau) {
+            return alert("Sai mật khẩu")
+
+        }
+        if (matkhaumoi != xnmk) {
+            return alert("Mật khẩu nhập lại không khớp")
+        }
+        $http.put("/rest/account/updatepass/" + tendangnhap, null, { params: { pass1: matkhaumoi } }).then(resp => {
+            var index = $scope.accounts.findIndex(item => $scope.form_pass.tenDangNhap === $scope.info_user[0].tenDangNhap);
+            $scope.accounts[index] = resp.data;
+
+            // Cập nhật lại thông tin tài khoản trong localStorage
+            var account = JSON.parse(localStorage.getItem("account")) || [];
+            account = account.map(acc => {
+                if (acc.tenDangNhap === $scope.form_info.tenDangNhap) {
+                    return resp.data;
+                }
+                return acc;
+            });
+            localStorage.setItem("account", JSON.stringify(account));
+            // load lại trang
+            location.reload();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+
+    // gọi form cập nhập địa chỉ mặc định
+    $scope.edittrueAddress = function (id) {
+        $http.get("/rest/getaddress/" + id).then(resp => {
+            $scope.form_addressTrue = []
+            $scope.form_addressTrue = resp.data;
+            console.log($scope.form_addressTrue)
+            // Hiển thị modal chỉnh sửa
+            $('#edittrueAddress').modal('show');
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+    // gọi form cập nhập các địa chỉ thường
+    $scope.editfalseAddress = function (id) {
+        $http.get("/rest/getaddress/" + id).then(resp => {
+            $scope.form_addressfase = resp.data;
+            console.log($scope.form_address)
+            // Hiển thị modal chỉnh sửa
+            $('#editfalseAddress').modal('show');
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+    // cập nhập địa chỉ mặc định
+    $scope.updateTrueAddress = function () {
+        var item = angular.copy($scope.form_addressTrue)
+        $http.put("/rest/address/updateTrue/" + item.id, item).then(resp => {
+            var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressTrue.tenDangNhap);
+            $scope.diachi[index] = resp.data;
+            // Load lại trang
+            location.reload();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+    // cập nhập địa chỉ thường
+    $scope.updateFalseAddress = function () {
+        var item = angular.copy($scope.form_addressfase)
+        $http.put("/rest/address/updateFalse/" + item.id, item).then(resp => {
+            var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressfase.tenDangNhap);
+            $scope.diachi[index] = resp.data;
+            console.log(item);
+            // Load lại trang
+            location.reload();
+            console.log("Success", resp);
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+
+var aaa= localStorage.getItem("account") || null;
+    if (aaa != null) {
+        $scope.get_addressTrue();
+        $scope.get_addressFalse();
+        $scope.get_invoice();
+    }  
+
+
 
 })

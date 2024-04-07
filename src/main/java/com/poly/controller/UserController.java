@@ -1,6 +1,9 @@
 package com.poly.controller;
- 
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DonDatHangDAO;
+import com.poly.dao.SachYeuThichDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DonDatHang;
- 
+import com.poly.model.SachYeuThich;
 
 @Controller
 public class UserController {
@@ -24,8 +28,11 @@ public class UserController {
     @Autowired
     DonDatHangDAO donDatHangDAO;
 
-    @Autowired 
+    @Autowired
     ChiTietDonDatHangDAO CTDDHDao;
+
+    @Autowired
+    SachYeuThichDAO SachYeuThichDAO;
 
     @RequestMapping("shop/auth/index")
     public String index(Model model) {
@@ -68,7 +75,8 @@ public class UserController {
 
         List<ChiTietDonDatHang> listDetail = CTDDHDao.findByDonDatHang(invoice);
 
-        // boolean isTrangThaiCancell = "7".equals(invoice.getTrangThai_donDatHang().getTenTrangThai());
+        // boolean isTrangThaiCancell =
+        // "7".equals(invoice.getTrangThai_donDatHang().getTenTrangThai());
 
         // // model.addAttribute("isTrangThaiCancell", isTrangThaiCancell);
         model.addAttribute("invoice", invoice);
@@ -77,14 +85,22 @@ public class UserController {
         return "shop/layout/user/detail-invoice";
     }
 
-    @RequestMapping("shop/auth/favorite")
-    public String favorite(Model model) {
-        return "shop/layout/user/favorites";
-    }
+    @RequestMapping("shop/auth/favorite/{tenDangNhap}")
+    public String favorite(Model model, @PathVariable("tenDangNhap") String tenDangNhap) {
+ 
+        List<SachYeuThich> sachYT = SachYeuThichDAO.findByTNDSYT(tenDangNhap);
 
-    @RequestMapping("shop/auth/demo")
-    public String demo(Model model) {
-        return "shop/layout/user/demo";
+        List<SachYeuThich> list = new ArrayList<>();
+
+        Set<Long> isbnSet = new HashSet();
+
+        for (SachYeuThich sach : sachYT) {
+            if (isbnSet.add(sach.getSanPham_yeuThich().getIsbn())) {
+                list.add(sach);
+            }
+        } 
+        model.addAttribute("SachYT", list);
+        return "shop/layout/user/favorites";
     }
 
 }

@@ -68,4 +68,11 @@ public class AccountServiceImpl implements AccountService {
 		return TKDao.save(taiKhoan);
 	}
 
+	@Override
+	public TaiKhoan updatePass(TaiKhoan taiKhoan, String matKhau) { 
+		
+	    taiKhoan.setMatKhau(matKhau);  
+	    return TKDao.save(taiKhoan);
+	}
+
 }

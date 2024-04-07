@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="/shop/layout/head :: head">
-  
+
 </head>
 
-<body class="gradient-custom-user"  ng-app="loginApp" ng-controller="loginCtrl">
+<body class="gradient-custom-user" ng-app="loginApp" ng-controller="loginCtrl">
   <!-- Navigation -->
   <div th:replace="/shop/layout/navigation :: nav"></div>
 
@@ -21,14 +21,15 @@
       <!-- Main content -->
       <div class="row">
         <div class="col-lg-8">
-          <!-- Details --> 
-          <div class="card mb-4" >
+          <!-- Details -->
+          <div class="card mb-4">
             <div class="card-body">
               <div class="mb-3 d-flex justify-content-between">
                 <div>
-                  <span class="me-3" th:text="${#dates.format(invoice.ngayDatHang, 'dd/MM/yyyy')}"></span> 
+                  <span class="me-3" th:text="${#dates.format(invoice.ngayDatHang, 'dd/MM/yyyy')}"></span>
                   <span class="me-3" th:text="${invoice.maDonHang}"></span>
-                  <span class="badge rounded-pill bg-info" th:text="${invoice.trangThai_donDatHang.tenTrangThai}"> </span>
+                  <span class="badge rounded-pill bg-info" th:text="${invoice.trangThai_donDatHang.tenTrangThai}">
+                  </span>
                 </div>
                 <div class="d-flex">
                   <a href="/shop/auth/invoice" type="button"><i class="bi bi-x-square"></i></a>
@@ -36,51 +37,57 @@
               </div>
               <table class="table table-borderless">
                 <!-- <tbody>  -->
-                    <tr th:each="detail : ${listDetail}">
-                      <td>
-                        <div class="d-flex mb-2">
-                          <div class="flex-shrink-0">
-                            <img th:src="@{|/assets/images/products/${detail.sanPham_donDatHang.hinhAnh }|}" alt=""
-                              class="avatar-lg">
-                          </div>
-                          <div class="flex-lg-grow-1 ms-3" style="width: 180px;">
-                            <h6 class="small mb-0  ht-3"><a href="#" class="text-reset" th:text="${detail.sanPham_donDatHang.tenSach}">    </a></h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td > x <span th:text="${detail.soLuong}"></span></td>
-                      <td class="text-end" >
-                        <span th:text="${#numbers.formatDecimal(detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
+                <tr th:each="detail : ${listDetail}">
+                  <td>
+                    <div class="d-flex mb-2">
+                      <div class="flex-shrink-0">
+                        <img th:src="@{|/assets/images/products/${detail.sanPham_donDatHang.hinhAnh }|}" alt=""
+                          class="avatar-lg">
+                      </div>
+                      <div class="flex-lg-grow-1 ms-3" style="width: 180px;">
+                        <h6 class="small mb-0  ht-3"><a href="#" class="text-reset"
+                            th:text="${detail.sanPham_donDatHang.tenSach}"> </a></h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td> x <span th:text="${detail.soLuong}"></span></td>
+                  <td class="text-end">
+                    <span
+                      th:text="${#numbers.formatDecimal(detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
 
-                        </span>
-                      </td>
-                    </tr> 
-                  
-                <!-- </tbody> -->
-                <!-- <tfoot> -->
-                  <!-- <tr>
-                    <td colspan="2">Tạm tính</td>
-                    <td class="text-end" > <span th:text="${#numbers.formatDecimal(detail.soLuong * detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Phí vận chuyển</td>
-                    <td class="text-end">30.000 đ</td>
-                  </tr> -->
-                  <!-- <tr>
-                    <td colspan="2">Giảm giá (<span th:text="${invoice.maGiamGia.tenMa}"></span>)</td>
-                    <td class="text-danger text-end" >- <span th:text="${#numbers.formatDecimal(invoice.maGiamGia.soTienGiam, 3, 'POINT', 0, 'POINT')} + ' đ'"></span> </td>
-                  </tr> -->
-                  <!-- <tr class="fw-bold">
-                    <td colspan="2">Tổng tiền</td>
-                    <td class="text-end">
-                      <span th:text="${#numbers.formatDecimal((detail.soLuong * detail.sanPham_donDatHang.giaBan)+(30000)-(invoice.maGiamGia.soTienGiam), 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
-                    </td>
-                  </tr>
-                </tfoot> -->
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <!-- <tr>
+                  <td colspan="2">Tạm tính</td>
+                  <td class="text-end"> <span
+                      th:text="${#numbers.formatDecimal(invoice.soLuong * detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                  </td>
+                </tr> -->
+                <tr>
+                  <td colspan="2">Phí vận chuyển</td>
+                  <td class="text-end">30.000 đ</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Giảm giá (<span th:text="${invoice.maGiamGia.tenMa}"></span>)</td>
+                  <td class="text-danger text-end">- <span
+                      th:text="${#numbers.formatDecimal(invoice.maGiamGia.soTienGiam, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                  </td>
+                </tr>
+                <tr class="fw-bold">
+                  <td colspan="2">Tổng tiền</td>
+                  <td class="text-end">
+                    <span
+                      th:text="${#numbers.formatDecimal(invoice.tongTien, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                  </td>
+                </tr>
+              </tfoot> 
               </table>
             </div>
           </div>
-       
+
           <!-- Customer Notes -->
           <div class="card mb-4">
             <div class="card-body">
@@ -96,14 +103,14 @@
               <div class="row">
                 <div class="col-lg-6">
                   <h3 class="h6">Phương thức thanh toán</h3>
-                 <span th:text="${invoice.phuongThucThanhToan.tenPhuongThuc}"></span>
-                   
+                  <span th:text="${invoice.phuongThucThanhToan.tenPhuongThuc}"></span>
+
                 </div>
                 <div class="col-lg-6">
                   <h3 class="h6">Địa chỉ nhận hàng</h3>
                   <address>
-                    <strong th:text="${invoice.hoTen}" ></strong><br>
-                    <span  th:text="${invoice.diaChiNhanHang}" ></span> <br>
+                    <strong th:text="${invoice.hoTen}"></strong><br>
+                    <span th:text="${invoice.diaChiNhanHang}"></span> <br>
                     <abbr title="Phone">P:</abbr> <span th:text="${invoice.soDienThoai}"></span>
                   </address>
                 </div>

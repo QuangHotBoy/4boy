@@ -1,73 +1,77 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="/shop/layout/head :: head">
 </head>
 
-<body class="gradient-custom-user">  
-     
-    <div th:replace="/shop/layout/navigation :: nav"></div> 
-    
+<body class="gradient-custom-user">
+  <!-- Navigation -->
+  <div th:replace="/shop/layout/navigation :: nav"></div>
   <hr class="container">
-    <div class="container light-style flex-grow-1 container-p-y mt-5">
-        <div class="card overflow-hidden" style="min-height: 500px">
-          <div class="row no-gutters row-bordered row-border-light">
-            <div class="col-md-3 pt-0 border-end">
-              <div class="list-group list-group-flush account-settings-links">
-                <a class="list-group-item list-group-item-action " data-toggle="list" href="/shop/auth/index">Tổng
-                  Quan</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/information">Thông tin
-                  cá nhân</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/address">Địa chỉ</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/shop/auth/invoice">Đơn Hàng</a>
-                <a class="list-group-item list-group-item-action active" data-toggle="list" href="/shop/auth/favorite">Yêu
-                  Thích</a>
+
+  <div class="container px-4 px-lg-5 ">
+    <div class="row pb-3">
+      <div class="col-lg-3">
+        <div class="fs-5 fw-bolder p-2 border border-dark rounded-3 gradient-custom-user">SẢN PHẨM YÊU THÍCH</div>
+      </div>
+      <div class="col-lg-5"></div>
+      <div class="col-lg-2 text-center">
+      </div>
+    </div>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4  ">
+      <div class="product" th:each="SachYT : ${SachYT}">
+        <div class="col mb-5">
+          <div class="card h-100">
+            <!-- Product image-->
+            <div class="image-container">
+              <img class="card-img-top mx-auto" th:src="@{|/assets/images/products/${SachYT.sanPham_yeuThich.hinhAnh }|}" alt="..." />
+            </div>
+            <!-- Product details-->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">
+                  <span th:text="${SachYT.sanPham_yeuThich.tenSach}"></span>
+                </h5>
+                <!-- Product reviews-->
+                <div class="d-flex justify-content-center small text-warning mb-2">
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                  <div class="bi-star-fill"></div>
+                </div>
+                <!-- Product price-->
+                <span th:text="${#numbers.formatDecimal(SachYT.sanPham_yeuThich.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'">
+                </span>
               </div>
             </div>
-            <div class="col-md-9">
-              <div class="tab-content">
-                <div class="tab-pane fade active show" id="account-general">
-    
-                  <hr class="border-light m-0">
-                  <div class="card-body">
-                    <h5 class="fw-bold">Sản phẩm yêu thích</h5>
-                     
-                  </div>
-    
-                </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center">
+                <a class="btn btn-outline-dark mt-auto" th:href="@{|/shop/product/${SachYT.sanPham_yeuThich.isbn}|}">View
+                  options</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
 
-    
+
+
+
+
+
+
+    <!-- Footer-->
+    <div th:replace="/shop/layout/footer :: footer"></div>
+
+    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-   
+    <!-- Core theme JS-->
     <script th:src="@{/shop/js/scripts.js}"></script>
 </body>
 
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/shop/layout/head :: head">
-</head>
-<body class="gradient-custom-user">
-	<!-- Navigation -->
-	<div th:replace="/shop/layout/navigation :: nav"></div>
-  <hr class="container">
-	<!-- Section - Danh sách sản phẩm bán chạy -->
-	<div th:replace="/shop/layout/user/spyeuthich/popular :: popular"></div>
- 
-	<!-- Footer-->
-	<div th:replace="/shop/layout/footer :: footer"></div>
-
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script th:src="@{/shop/js/scripts.js}"></script>
-</body>
 </html>

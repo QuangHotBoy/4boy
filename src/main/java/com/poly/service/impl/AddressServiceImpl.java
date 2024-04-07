@@ -30,18 +30,29 @@ public class AddressServiceImpl  implements AddressService{
 
 	@Override
 	public DiaChi_TaiKhoan update(DiaChi_TaiKhoan diachi) { 
-		return null;
+		if(diachi.getMacDinh()== true){
+			String tenDangNhap = diachi.getTaiKhoan_diaChi().getTenDangNhap();
+			DiaChi_TaiKhoan dchi = dChiDao.findByTaiKhoan(tenDangNhap);
+			dchi.setMacDinh(false);
+			return dChiDao.save(diachi);
+		} 
+		return dChiDao.save(diachi);
 	}
 
 	@Override
 	public DiaChi_TaiKhoan getTrueAddress(String tenDangNhap) { 
+		
 		return dChiDao.findByTaiKhoan(tenDangNhap);
 	}
 
 	@Override
-	public DiaChi_TaiKhoan findbyId(Long id) {
-		 
+	public DiaChi_TaiKhoan findbyId(Long id) { 
 		return dChiDao.findById(id).get();
+	}
+
+	@Override
+	public DiaChi_TaiKhoan findDCTrue() { 
+		return dChiDao.findALLDCTrue();
 	}
 
 }

@@ -26,7 +26,8 @@ public interface TaiKhoanDAO extends JpaRepository<TaiKhoan, String> {
 
     @Query("SELECT tk FROM TaiKhoan tk WHERE tk.tenDangNhap = :tenDangNhap")
     TaiKhoan findByTenDangNhap(@Param("tenDangNhap") String tenDangNhap);
-
+ 
+    
     TaiKhoan findByTenDangNhapAndEmail(String tenDangNhap, String email);
 
    
