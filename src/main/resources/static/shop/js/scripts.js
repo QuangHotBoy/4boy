@@ -215,15 +215,15 @@ var app = angular.module("myApp", []);
 //   };
 // }]);
 
-// Controller thứ hai
-angular.module('myApp').controller('HomeCtrl', ['$scope', 'ExitPathService', function($scope, ExitPathService) {
-  $scope.checkExit = function() {
-      if (ExitPathService.checkExitPath()) {
-          console.log('Người dùng đã thoát khỏi đường dẫn /shop/* từ Controller2');
-          // Thực hiện các hành động tương ứng
-      }
-  };
-}]);
+// // Controller thứ hai
+// angular.module('myApp').controller('HomeCtrl', ['$scope', 'ExitPathService', function($scope, ExitPathService) {
+//   $scope.checkExit = function() {
+//       if (ExitPathService.checkExitPath()) {
+//           console.log('Người dùng đã thoát khỏi đường dẫn /shop/* từ Controller2');
+//           // Thực hiện các hành động tương ứng
+//       }
+//   };
+// }]);
 
 app.controller("HomeCtrl", function ($scope, $http, $window) {
 

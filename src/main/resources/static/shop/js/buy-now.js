@@ -145,13 +145,17 @@ app.controller("BuynowController", function ($scope, $http) {
   $scope.checkVoucher = function () {
     var voucherCode = $scope.voucherCode; // Lấy giá trị mã giảm giá từ model
     var total = $scope.subpayment; // Thay bằng giá trị tổng tiền thực tế
+    var user = $scope.info_user[0].tenDangNhap;
 
     // Gửi yêu cầu POST đến backend
     $http
-      .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total)
+      .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total + "&user=" + user)
       .then(function (response) {
         // Xử lý dữ liệu từ phản hồi
         var data = response.data;
+
+        console.log(data);
+
         if (data.isValid) {
           if (data.isActive) {
             if (data.isUse) {

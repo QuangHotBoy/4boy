@@ -7,6 +7,7 @@ import com.poly.model.DonDatHang;
 import com.poly.model.GioHang;
 import com.poly.service.CartService;
 import com.poly.service.OrderService;
+import com.poly.service.ReviewService;
 import com.poly.service.VoucherService;
 
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class OrderRestController {
 
     @Autowired
     CartService cartService;
+
+    @Autowired
+    ReviewService reviewService;
 
     @PostMapping("/orders")
     public DonDatHang purchase(@RequestBody JsonNode orderData) {
@@ -74,5 +78,11 @@ public class OrderRestController {
                 "Quấy rối", "Bạo lực", "Nội dung không phù hợp", "Tự tử", "Fraud", "Scam", "Illegal", "Offensive",
                 "Personal attack", "Harassment", "Violence", "Inappropriate content", "Hate speech", "Suicide");
         return resultList;
+    }
+
+    @GetMapping("/review-check/{user}/{id}")
+    @ResponseBody
+    public Map<String, Object> checkUserReview(@PathVariable("user") String user, @PathVariable("id") Long isbn){
+        return reviewService.checkUserReview(user, isbn);
     }
 }

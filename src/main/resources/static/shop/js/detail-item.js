@@ -169,55 +169,111 @@ $(document).ready(function () {
     // Lưu lại giỏ hàng vào Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
   }
+
 });
+
+function submitReview() {
+  // Lấy giá trị đánh giá từ input radio đã được chọn
+  var rating = $("input[name='rating']:checked").val();
+  if (!rating) {
+    // Hiển thị thông báo thành công
+    iziToast.warning({
+      title: 'Thông báo',
+      message: 'Vui lòng chọn điểm đánh giá.',
+      position: 'topRight'
+    });
+    return; // Không tiếp tục nếu không có đánh giá được chọn
+  }
+
+  // Lấy giá trị nhận xét từ textarea
+  var comment = $("#comment").val();
+  var isbn = $("#productId").val();
+  var user_id = JSON.parse(localStorage.getItem("account")) || null;
+
+  // Kiểm tra nếu nhận xét chứa từ cấm
+  $.ajax({
+    url: "/rest/banned-word",
+    type: "GET",
+    success: function (bannedWords) {
+      // Lấy danh sách từ cấm từ response
+      var bannedWordsList = bannedWords.map(function (word) {
+        return word.toLowerCase(); // Chuyển tất cả các từ thành chữ thường để so sánh
+      });
+
+      // Kiểm tra xem nhận xét có chứa từ cấm không
+      var containsBannedWord = bannedWordsList.some(function (word) {
+        return comment.toLowerCase().includes(word);
+      });
+
+      if (containsBannedWord) {
+        // Hiển thị thông báo nếu nhận xét chứa từ cấm
+        iziToast.warning({
+          title: 'Thông báo',
+          message: 'Nhận xét của bạn chứa từ cấm.',
+          position: 'topRight'
+        });
+      } else {
+        // Gửi dữ liệu đánh giá lên máy chủ sử dụng jQuery AJAX nếu không có từ cấm
+        $.ajax({
+          url: "/rest/review/" + isbn + "/" + rating + "/" + comment + "/" + user_id[0].tenDangNhap,
+          type: "POST",
+          success: function (response) {
+            // Xử lý kết quả trả về từ máy chủ
+            $("#comment").val(""); // Xóa giá trị của textarea
+            $("input[name='rating']").prop("checked", false); // Xóa giá trị của rating
+            // Hiển thị thông báo thành công
+            iziToast.success({
+              title: 'Thông báo',
+              message: 'Đã thêm đánh giá thành công.',
+              position: 'topRight'
+            });
+            location.reload();
+          },
+          error: function (error) {
+            console.error("Error:", error);
+          }
+        });
+      }
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    }
+  });
+}
 
 var app = angular.module("myApp", []);
 
-app.controller("DetailproductCtrl", function ($scope, $http) {
+app.controller("DetailproductCtrl", function ($scope, $http, $filter) {
 
   $scope.user = JSON.parse(localStorage.getItem("account")) || null;
-
-  $scope.submitReview = function () {
-    // Lấy giá trị đánh giá từ input radio đã được chọn
-    if (!$scope.rating) {
-      // Hiển thị thông báo thành công
-      iziToast.warning({
-        title: 'Thông báo',
-        message: 'Vui lòng chọn điểm đánh giá.',
-        position: 'topRight'
-      });
-    } else {
-      // Lấy giá trị nhận xét từ textarea
-      var comment = $scope.comment;
-      var isbn = $("#productId").val();
-      var user_id = $scope.user[0].tenDangNhap;
-
-      // Gửi dữ liệu đánh giá lên máy chủ sử dụng $http.post
-      $http
-        .post("/rest/review/" + isbn + "/" + $scope.rating + "/" + comment + "/" + user_id)
-        .then(function (response) {
-          // Xử lý kết quả trả về từ máy chủ
-          $scope.comment = ""; // Xóa giá trị của textarea
-          $scope.rating = ""; // Xóa giá trị của rating
-          // Hiển thị thông báo thành công
-          iziToast.success({
-            title: 'Thông báo',
-            message: 'Đã thêm đánh giá thành công.',
-            position: 'topRight'
-          });
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    }
-  };
 
   $scope.checkOrder = function () {
     var isbn = $("#productId").val();
     $http.get("/rest/order/check/" + $scope.user[0].tenDangNhap + "/" + isbn).then(function (resp) {
       $scope.orderCheck = resp.data;
+      console.log(resp.data);
     })
   }
+
+  $scope.checkUserReview = function () {
+
+    var isbn = $("#productId").val();
+
+    if ($scope.user[0].tenDangNhap !== null) {
+      $http.get("/rest/review-check/" + $scope.user[0].tenDangNhap + "/" + isbn).then((resp) => {
+        $scope.reviewCheck = resp.data;
+        // Chuyển đổi chuỗi ngày thành đối tượng Date
+        var dateObject = new Date($scope.reviewCheck.date);
+
+        // Định dạng ngày thành chuỗi "dd/MM/yyyy"
+        $scope.formattedDate = $filter('date')(dateObject, 'dd/MM/yyyy');
+        console.log(resp.data);
+      })
+    }
+  }
   $scope.checkOrder();
+
+  $scope.checkUserReview();
+
 
 });

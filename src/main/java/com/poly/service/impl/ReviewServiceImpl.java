@@ -1,6 +1,8 @@
 package com.poly.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import com.poly.model.SanPham;
 import com.poly.service.ReviewService;
 
 @Service
-public class ReviewServiceImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     DanhGiaDAO reviewDAO;
@@ -32,8 +34,27 @@ public class ReviewServiceImpl implements ReviewService{
         SanPham product = productDAO.findById(id).get();
 
         List<DanhGia> reviews = reviewDAO.findBySanPham_danhGia(product.getIsbn());
-        
+
         return reviews;
     }
-    
+
+    @Override
+    public Map<String, Object> checkUserReview(String user, Long id) {
+        // TODO Auto-generated method stub
+        Map<String, Object> data = new HashMap<>();
+
+        DanhGia checked = reviewDAO.findByTaiKhoan_danhGia(user, id);
+
+        if (checked != null) {
+            data.put("isTrue", true);
+            data.put("rating", checked.getRating());
+            data.put("review", checked.getNoiDung());
+            data.put("date", checked.getNgayDanhGia());
+        } else {
+            data.put("isTrue", false);
+        }
+
+        return data;
+    }
+
 }
