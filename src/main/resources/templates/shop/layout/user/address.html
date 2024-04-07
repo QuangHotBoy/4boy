@@ -20,7 +20,7 @@
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/information">Thông tin cá nhân</a>
                         <a class="list-group-item list-group-item-action active" data-toggle="list"
-                            href="/shop/auth/address">Địa chỉ</a>   
+                            href="/shop/auth/address">Địa chỉ</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="/shop/auth/invoice">Đơn Hàng</a>
                         <a class="list-group-item list-group-item-action"
@@ -58,14 +58,14 @@
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label class="form-label">Số điện thoại</label>
-                                                                <input type="text" ng-model="form_info.sdt"
+                                                                <input type="text" ng-model="form_address.sdt"
                                                                     class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col-lg-6">
                                                                 <label class="form-label">Địa chỉ</label>
-                                                                <input type="text" ng-model="form_info.diaChi"
+                                                                <input type="text" ng-model="form_address.diaChi"
                                                                     class="form-control">
                                                             </div>
                                                         </div>
@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning "
-                                                    ng-click="add_address()">Thêm</button>
+                                                    ng-click="addAddress()">Thêm</button>
                                             </div>
                                         </div>
                                     </div>
@@ -198,16 +198,16 @@
                                                             Chỉnh sửa thông tin <i class="bi bi-pencil-square"></i>
                                                         </a>
                                                     </div>
-                                                    <hr>
+
                                                     <div class="d-flex justify-content-end">
-                                                        <a class="text-danger text-decoration-none"
-                                                            href="/shop/auth/information/address/delete/${item.id}">
+                                                        <a class="text-danger text-decoration-none" type="button" ng-click="delete(adr.id)">
                                                             Xóa địa chỉ <i class="bi bi-trash"></i>
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <hr>
                                             </div>
-                                            <hr>
+
                                         </div>
                                         <!-- form edit false address -->
                                         <div class="modal fade" id="editfalseAddress" tabindex="-1"

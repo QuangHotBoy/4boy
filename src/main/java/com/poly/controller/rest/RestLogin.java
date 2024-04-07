@@ -3,7 +3,7 @@ package com.poly.controller.rest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,11 +23,12 @@ import com.poly.service.AccountService;
 import com.poly.service.AddressService;
 import com.poly.service.DetailOrderService;
 import com.poly.service.OrderService;
-import com.poly.service.favoritesService;
+import com.poly.service.FavoritesService;
 
 import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,7 +68,7 @@ public class RestLogin {
 	DetailOrderService detailOrderService;
 
 	@Autowired
-	favoritesService favoriteService;
+	FavoritesService favoriteService;
 
 	@GetMapping("/rest/login")
 	public Map<String, Object> findall() {
@@ -96,7 +97,7 @@ public class RestLogin {
 	List<DiaChi_TaiKhoan> getAll(@PathVariable("tenDangNhap") String tenDangNhap) {
 		return addressImp.getDCFalse(tenDangNhap);
 	}
-  
+
 	@GetMapping("/rest/auth/editpass/{tenDangNhap}")
 	TaiKhoan editstaff(@PathVariable("tenDangNhap") String tenDangNhap) {
 		return AccountService.FindById(tenDangNhap);
@@ -113,8 +114,8 @@ public class RestLogin {
 	}
 
 	@PutMapping("/rest/account/updatepass/{tenDangNhap}")
-	TaiKhoan updatepass(@PathVariable("tenDangNhap") String tenDangNhap, @RequestParam("pass1") String matKhaumoi) { 
-		 TaiKhoan tk = AccountService.FindById(tenDangNhap);
+	TaiKhoan updatepass(@PathVariable("tenDangNhap") String tenDangNhap, @RequestParam("pass1") String matKhaumoi) {
+		TaiKhoan tk = AccountService.FindById(tenDangNhap);
 		return AccountService.updatePass(tk, matKhaumoi);
 	}
 
@@ -124,9 +125,21 @@ public class RestLogin {
 	}
 
 	@PutMapping("/rest/address/updateFalse/{id}")
-	DiaChi_TaiKhoan updateFalse(@PathVariable("id") Integer id, @RequestBody DiaChi_TaiKhoan diachi) { 
+	DiaChi_TaiKhoan updateFalse(@PathVariable("id") Integer id, @RequestBody DiaChi_TaiKhoan diachi) {
 		return addressImp.update(diachi);
-		
+
+	}
+
+	@PostMapping("/rest/address/add/{tenDangNhap}")
+	DiaChi_TaiKhoan post(@PathVariable("tenDangNhap") String tenDangNhap, @RequestBody DiaChi_TaiKhoan diachi) {
+		TaiKhoan tk = AccountService.FindById(tenDangNhap);
+		diachi.setTaiKhoan_diaChi(tk);
+		return addressImp.create(diachi);
+	}
+
+	@DeleteMapping("/rest/address/delete/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		addressImp.delete(id);
 	}
 
 	@PostMapping("/rest/register")
@@ -148,7 +161,5 @@ public class RestLogin {
 		return taiKhoan;
 
 	}
-
-	 
 
 }
