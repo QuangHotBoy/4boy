@@ -75,11 +75,12 @@ public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
     @Query("SELECT MONTH(dh.ngayDatHang) AS thang, SUM(dh.tongTien) AS doanhThu, SUM(ct.soLuong) AS soLuongBan " +
             "FROM DonDatHang dh " +
             "LEFT JOIN ChiTietDonDatHang ct ON dh.maDonHang = ct.donDatHang.maDonHang " +
-            "WHERE dh.trangThai_donDatHang.id = 5 " +
+            "WHERE dh.trangThai_donDatHang.id = 6 " +
             "GROUP BY MONTH(dh.ngayDatHang)")
     List<Object[]> thongKeDoanhThuTheoThang();
 
     // thống kê doanh thu nhập vào
-    @Query("SELECT SUM(d.tongTien) FROM DonDatHang d WHERE d.ngayDatHang BETWEEN :startDate AND :endDate")
+    @Query("SELECT SUM(d.tongTien) FROM DonDatHang d WHERE d.ngayDatHang BETWEEN :startDate AND :endDate AND d.trangThai_donDatHang.id = 6")
     BigDecimal getTotalRevenueByDateRange(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
+
 }
