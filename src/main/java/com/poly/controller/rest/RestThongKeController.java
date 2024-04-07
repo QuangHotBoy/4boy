@@ -1,7 +1,9 @@
 package com.poly.controller.rest;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,9 +51,12 @@ public class RestThongKeController {
     public BigDecimal getDoanhThuByDateRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        Timestamp startTimestamp = Timestamp.valueOf(startDate.atStartOfDay());
-        Timestamp endTimestamp = Timestamp.valueOf(endDate.atStartOfDay());
-        BigDecimal totalRevenue = thongKeService.getTotalRevenueByDateRange(startTimestamp, endTimestamp);
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        BigDecimal totalRevenue = thongKeService.getTotalRevenueByDateRange(
+                Timestamp.valueOf(startDateTime),
+                Timestamp.valueOf(endDateTime));
         return totalRevenue;
     }
+
 }

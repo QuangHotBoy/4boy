@@ -20,5 +20,5 @@ public interface ThongKeService {
     List<Object[]> thongKeDoanhThuTheoThang();
 
     BigDecimal getTotalRevenueByDateRange(Timestamp startDate, Timestamp endDate);
-
+    
 }

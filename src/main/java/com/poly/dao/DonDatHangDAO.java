@@ -72,9 +72,8 @@ public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
     List<DonDatHang> findLatestOrders();
 
     // thống kê doanh thu tháng
-    @Query("SELECT MONTH(dh.ngayDatHang) AS thang, SUM(dh.tongTien) AS doanhThu, SUM(ct.soLuong) AS soLuongBan " +
+    @Query("SELECT MONTH(dh.ngayDatHang) AS thang, SUM(dh.tongTien) AS doanhThu " +
             "FROM DonDatHang dh " +
-            "LEFT JOIN ChiTietDonDatHang ct ON dh.maDonHang = ct.donDatHang.maDonHang " +
             "WHERE dh.trangThai_donDatHang.id = 6 " +
             "GROUP BY MONTH(dh.ngayDatHang)")
     List<Object[]> thongKeDoanhThuTheoThang();
