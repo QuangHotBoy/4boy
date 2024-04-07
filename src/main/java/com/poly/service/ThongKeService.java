@@ -1,6 +1,7 @@
 package com.poly.service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface ThongKeService {
 
     List<Object[]> thongKeDoanhThuTheoThang();
 
-    BigDecimal sumTotalRevenueByDateRange(LocalDate startDate, LocalDate endDate);
-    
+    BigDecimal getTotalRevenueByDateRange(Timestamp startDate, Timestamp endDate);
+
 }

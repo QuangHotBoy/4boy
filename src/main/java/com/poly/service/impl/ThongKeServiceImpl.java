@@ -1,6 +1,7 @@
 package com.poly.service.impl;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import com.poly.dao.ChiTietDonDatHangDAO;
@@ -37,8 +38,7 @@ public class ThongKeServiceImpl implements ThongKeService {
         return donDatHangDAO.thongKeDoanhThuTheoThang();
     }
 
-    public BigDecimal sumTotalRevenueByDateRange(LocalDate startDate, LocalDate endDate) {
-        // Triển khai logic để gọi phương thức từ DonDatHangDAO
-        return donDatHangDAO.sumTotalRevenueByDateRange(startDate, endDate);
+    public BigDecimal getTotalRevenueByDateRange(Timestamp startDate, Timestamp endDate) {
+        return donDatHangDAO.getTotalRevenueByDateRange(startDate, endDate);
     }
 }

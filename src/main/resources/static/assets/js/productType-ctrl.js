@@ -71,7 +71,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             // Chờ 3 giây trước khi thực hiện reload
             setTimeout(function () {
                 location.reload();
-            }, 2000);
+            }, 1000);
         }).catch(error => {
             iziToast.warning({
                 title: 'Thông báo',
@@ -111,7 +111,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             // Chờ 3 giây trước khi thực hiện reload
             setTimeout(function () {
                 location.reload();
-            }, 2000);
+            }, 1000);
         }).catch(error => {
             iziToast.warning({
                 title: 'Thông báo',

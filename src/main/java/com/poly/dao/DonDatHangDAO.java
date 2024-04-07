@@ -81,6 +81,5 @@ public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
 
     // thống kê doanh thu nhập vào
     @Query("SELECT SUM(d.tongTien) FROM DonDatHang d WHERE d.ngayDatHang BETWEEN :startDate AND :endDate")
-    BigDecimal sumTotalRevenueByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
+    BigDecimal getTotalRevenueByDateRange(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 }

@@ -159,27 +159,31 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="startDate" class="form-label">Từ ngày:</label>
-                                                <input type="date" id="startDate" name="startDate" class="form-control" ng-model="startDate">
+                                                <input type="date" id="startDate" name="startDate" class="form-control"
+                                                    ng-model="startDate">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="endDate" class="form-label">Đến ngày:</label>
-                                                <input type="date" id="endDate" name="endDate" class="form-control" ng-model="endDate">
+                                                <input type="date" id="endDate" name="endDate" class="form-control"
+                                                    ng-model="endDate">
                                             </div>
                                         </div>
                                         <div class="col-md-10"></div>
                                         <div class="col-sm-2">
                                             <div class="text-right">
-                                                <button type="submit" class="btn btn-primary" ng-click="getRevenue()">Thống kê</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    ng-click="getDoanhThuByDateRange()">Thống kê</button>
                                                 <br> <br>
-                                                <span class="ag-courses-item_date">Doanh thu:
-                                                    <span ng-bind="displayedRevenue"></span>
-                                                </span>
+                                                <span class="ag-courses-item_date" style="white-space: nowrap;">Doanh
+                                                    thu: <strong>{{ displayedRevenue | vnCurrency }}</strong></span>
+
                                             </div>
                                         </div>
                                     </div>
-                                    
+
+
 
 
 
@@ -258,6 +262,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
 

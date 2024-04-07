@@ -186,10 +186,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
     //hàm cập nhật
     $scope.update = function () {
-        // if (!validateForm1()) {
-        //     // Nếu form không hợp lệ, không tiến hành cập nhật
-        //     return;
-        // }
+       
 
        
         // copy dữ liệu ra 1 bản khác
@@ -389,84 +386,84 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         return false; // Nếu không trùng, trả về false
     }
     // bắt lỗi cập nhật
-    function validateForm1() {
-        var tenSach = document.getElementById("tensach").value;
-        var namXuatBan = document.getElementById("namXuatBan").value;
-        var tacGia = document.getElementById("tacGia").value;
-        var kieuBia = document.getElementById("loaibia").value;
-        var giaBan = document.getElementById("giaGocc").value;
-        var soLuong = document.getElementById("soluong").value;
-        var moTa = document.getElementById("mota").value;
-        var hinhAnhInput = document.getElementById("image");
-        // var selectElement = document.getElementById("loaiSach");
+    // function validateForm1() {
+    //     var tenSach = document.getElementById("tensach").value;
+    //     var namXuatBan = document.getElementById("namXuatBan").value;
+    //     var tacGia = document.getElementById("tacGia").value;
+    //     var kieuBia = document.getElementById("loaibia").value;
+    //     var giaBan = document.getElementById("giaGocc").value;
+    //     var soLuong = document.getElementById("soluong").value;
+    //     var moTa = document.getElementById("mota").value;
+    //     var hinhAnhInput = document.getElementById("image");
+    //     // var selectElement = document.getElementById("loaiSach");
 
 
-        // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
-        if (tenSach.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập tên sách.',
-                position: 'topRight'
-            });
-            return false;
-        }
+    //     // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
+    //     if (tenSach.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập tên sách.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
 
 
        
 
-        if (tacGia.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập tác giả.',
-                position: 'topRight'
-            });
-            return false;
-        }
+    //     if (tacGia.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập tác giả.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
 
-        if (kieuBia.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập loại bìa.',
-                position: 'topRight'
-            });
-            return false;
-        }
+    //     if (kieuBia.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập loại bìa.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
 
-        if (giaBan.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập giá bán.',
-                position: 'topRight'
-            });
-            return false;
-        }
+    //     if (giaBan.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập giá bán.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
 
-        if (soLuong.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập số lượng.',
-                position: 'topRight'
-            });
-            return false;
-        }
+    //     if (soLuong.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập số lượng.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
 
-        if (moTa.trim() == "") {
-            iziToast.warning({
-                title: 'Thông báo',
-                message: 'Vui lòng nhập mô tả.',
-                position: 'topRight'
-            });
-            return false;
-        }
-        // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
-        if (hinhAnhInput.files.length === 0) {
-            document.getElementById("imageError").style.display = "block";
-            return false;
-        }
+    //     if (moTa.trim() == "") {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Vui lòng nhập mô tả.',
+    //             position: 'topRight'
+    //         });
+    //         return false;
+    //     }
+    //     // Kiểm tra xem người dùng đã chọn hình ảnh hay chưa
+    //     if (hinhAnhInput.files.length === 0) {
+    //         document.getElementById("imageError").style.display = "block";
+    //         return false;
+    //     }
 
-        // Trả về true nếu không có lỗi
-        return true;
-    }
+    //     // Trả về true nếu không có lỗi
+    //     return true;
+    // }
 
 
 

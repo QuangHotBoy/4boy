@@ -1,9 +1,16 @@
 var app = angular.module('myApp', []);
-app.controller("thongkeCtrl", function ($scope, $http, $timeout) {
+app.filter('vnCurrency', function () {
+    return function (input) {
+        if (isNaN(input)) return input;
+        return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    };
+});
+app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
     $scope.thongkes = [];
     $scope.toptonkho = [];
     $scope.top10 = [];
     $scope.thongke = [];
+    // $scope.displayedRevenue=[];
     function getRandomColor(colorsUsed) {
         var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
         if (colorsUsed.includes(color)) {
@@ -142,7 +149,7 @@ app.controller("thongkeCtrl", function ($scope, $http, $timeout) {
             .catch(function (error) {
                 console.error('Error fetching data:', error);
             });
-        /////// thống kê doanh thu
+        /////// thống kê doanh thu từng tháng
         $http.get("/rest/topByTinhTrang/thongke")
             .then(function (response) {
                 var data = response.data.map(function (item) {
@@ -202,19 +209,40 @@ app.controller("thongkeCtrl", function ($scope, $http, $timeout) {
 
     }
     // thống kê tính doanh thu
-    $scope.getRevenue = function () {
-        var startDate = $scope.startDate.toISOString().split('T')[0]; // Chuyển đổi startDate thành chuỗi định dạng ISO
-        var endDate = $scope.endDate.toISOString().split('T')[0]; // Chuyển đổi endDate thành chuỗi định dạng ISO
+    $scope.getDoanhThuByDateRange = function () {
+        // Chuyển đổi startDate và endDate sang định dạng dd-MM-yyyy
+        var startDate = new Date($scope.startDate);
+        var endDate = new Date($scope.endDate);
 
-        $http.get("/rest/topByTinhTrang/doanhthu?startDate=" + startDate + "&endDate=" + endDate)
+        var startDateFormatted = formatDate(startDate);
+        var endDateFormatted = formatDate(endDate);
+
+        // Gọi API từ backend để lấy doanh thu
+        $http.get('/rest/topByTinhTrang/doanhthu', {
+            params: {
+                startDate: startDateFormatted,
+                endDate: endDateFormatted
+            }
+        })
             .then(function (response) {
-                $scope.totalRevenue = response.data;
-                $scope.displayedRevenue = $scope.totalRevenue.toLocaleString('en-US', { style: 'currency', currency: 'VND' });
-            })
-            .catch(function (error) {
-                console.error('Error fetching data:', error);
+                // Xử lý kết quả trả về từ backend
+                $scope.displayedRevenue = response.data;
+            }, function (error) {
+                // Xử lý lỗi nếu có
+                console.error('Error fetching revenue:', error);
             });
     };
+
+    // Hàm để định dạng lại ngày thành dd-MM-yyyy
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    }
+
+
+
 
 
 

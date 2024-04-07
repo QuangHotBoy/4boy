@@ -1,5 +1,5 @@
 package com.poly.controller.rest;
-
+import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +49,9 @@ public class RestThongKeController {
     public BigDecimal getDoanhThuByDateRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return thongKeService.sumTotalRevenueByDateRange(startDate, endDate);
+        Timestamp startTimestamp = Timestamp.valueOf(startDate.atStartOfDay());
+        Timestamp endTimestamp = Timestamp.valueOf(endDate.atStartOfDay());
+        BigDecimal totalRevenue = thongKeService.getTotalRevenueByDateRange(startTimestamp, endTimestamp);
+        return totalRevenue;
     }
-
 }
