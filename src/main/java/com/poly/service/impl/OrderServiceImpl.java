@@ -105,16 +105,26 @@ public class OrderServiceImpl implements OrderService {
 
 		List<DonDatHang> order = orderDAO.findByTDN(id);
 
-		List<ChiTietDonDatHang> detailOrder = new ArrayList();
+		System.out.println(order);
+
+		List<ChiTietDonDatHang> detailOrders = new ArrayList();
 		
 		for (DonDatHang o : order) {
-			detailOrder = orderDetailDAO.findByDonDatHang(o);
+			List<ChiTietDonDatHang> detailOrder= orderDetailDAO.findByDonDatHang(o);
+
+			for (ChiTietDonDatHang dc : detailOrder) {
+				detailOrders.add(dc);
+			}
 		}
 
-		for (ChiTietDonDatHang dc : detailOrder) {
+		System.out.println(detailOrders);
+
+		for (ChiTietDonDatHang dc : detailOrders) {
 			if(dc.getSanPham_donDatHang().getIsbn() == isbn){
 				data.put("isTrue", true);
+				break;
 			}else{
+				
 				data.put("isTrue", false);
 			}
 		}

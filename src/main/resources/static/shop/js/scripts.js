@@ -58,22 +58,6 @@ $(document).ready(function () {
   }
 });
 
-var isBuyNowPage = false;
-
-// Kiểm tra khi trang sắp được thoát
-$(window).on("beforeunload", function () {
-  if (isBuyNowPage) {
-    localStorage.removeItem("buynow");
-  }
-});
-
-// Kiểm tra đường dẫn mỗi khi đường dẫn thay đổi
-$(document).ready(function () {
-  var currentPath = window.location.pathname;
-  console.log(currentPath);
-  isBuyNowPage = currentPath === "/shop/buy-now";
-});
-
 $(document).ready(function () {
   // Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
   $(".btn-outline-warning.add-to-cart").click(function () {
@@ -153,6 +137,8 @@ $(document).ready(function () {
         quantity: quantity,
       };
 
+      localStorage.removeItem("buynow");
+
       // Lấy danh sách sản phẩm từ LocalStorage (nếu có)
       var cart = JSON.parse(localStorage.getItem("buynow")) || [];
 
@@ -222,12 +208,12 @@ $(document).ready(function () {
 
 var app = angular.module("myApp", []);
 
-// Tạo một service chứa logic kiểm tra thoát khỏi đường dẫn
-angular.module('myApp').service('ExitPathService', ['$location', function($location) {
-  this.checkExitPath = function() {
-      return !$location.path().startsWith('/shop');
-  };
-}]);
+// // Tạo một service chứa logic kiểm tra thoát khỏi đường dẫn
+// angular.module('myApp').service('ExitPathService', ['$location', function($location) {
+//   this.checkExitPath = function() {
+//       return !$location.path().startsWith('/shop');
+//   };
+// }]);
 
 // Controller thứ hai
 angular.module('myApp').controller('HomeCtrl', ['$scope', 'ExitPathService', function($scope, ExitPathService) {

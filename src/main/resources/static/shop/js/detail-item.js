@@ -169,70 +169,6 @@ $(document).ready(function () {
     // Lưu lại giỏ hàng vào Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
   }
-
-  $("#submitReviewBtn").click(function () {
-    // Lấy giá trị đánh giá từ input radio đã được chọn
-    var rating = $("input[name='rating']:checked").val();
-
-    console.log(1);
-
-    if (!rating) {
-        // Hiển thị thông báo thành công
-        console.log(rating);
-        iziToast.warning({
-            title: 'Thông báo',
-            message: 'Vui lòng chọn điểm đánh giá.',
-            position: 'topRight'
-        });
-    } else {
-      console.log(rating);
-        // Lấy giá trị nhận xét từ textarea
-        var comment = $("#comment").val();
-        var isbn = $("#productId").val();
-        var user_id = $scope.user[0].tenDangNhap;
-
-        // Gửi yêu cầu GET để lấy danh sách từ localhost
-        $.get("/rest/banned-word", function (noiDungList) {
-            // Kiểm tra xem comment có chứa từ nào trong noiDungList không
-            var containsRestrictedWord = false;
-            for (var i = 0; i < noiDungList.length; i++) {
-                if (comment.includes(noiDungList[i])) {
-                    containsRestrictedWord = true;
-                    break;
-                }
-            }
-
-            if (containsRestrictedWord) {
-                // Hiển thị thông báo cảnh báo
-                iziToast.warning({
-                    title: 'Cảnh báo',
-                    message: 'Nội dung nhận xét không được chứa các từ không phù hợp.',
-                    position: 'topRight'
-                });
-            } else {
-                // Gửi dữ liệu đánh giá lên máy chủ sử dụng $.post
-                $.post("/rest/review/" + isbn + "/" + rating + "/" + comment + "/" + user_id, function () {
-                    // Xử lý kết quả trả về từ máy chủ
-                    $("#comment").val(""); // Xóa giá trị của textarea
-                    $("input[name='rating']").prop("checked", false); // Xóa chọn input radio
-                    // Hiển thị thông báo thành công
-                    iziToast.success({
-                        title: 'Thông báo',
-                        message: 'Đã thêm đánh giá thành công.',
-                        position: 'topRight'
-                    });
-                })
-                .fail(function (error) {
-                    console.error("Error:", error);
-                });
-            }
-        })
-        .fail(function (error) {
-            console.error("Error:", error);
-        });
-    }
-});
-
 });
 
 var app = angular.module("myApp", []);
@@ -240,6 +176,41 @@ var app = angular.module("myApp", []);
 app.controller("DetailproductCtrl", function ($scope, $http) {
 
   $scope.user = JSON.parse(localStorage.getItem("account")) || null;
+
+  $scope.submitReview = function () {
+    // Lấy giá trị đánh giá từ input radio đã được chọn
+    if (!$scope.rating) {
+      // Hiển thị thông báo thành công
+      iziToast.warning({
+        title: 'Thông báo',
+        message: 'Vui lòng chọn điểm đánh giá.',
+        position: 'topRight'
+      });
+    } else {
+      // Lấy giá trị nhận xét từ textarea
+      var comment = $scope.comment;
+      var isbn = $("#productId").val();
+      var user_id = $scope.user[0].tenDangNhap;
+
+      // Gửi dữ liệu đánh giá lên máy chủ sử dụng $http.post
+      $http
+        .post("/rest/review/" + isbn + "/" + $scope.rating + "/" + comment + "/" + user_id)
+        .then(function (response) {
+          // Xử lý kết quả trả về từ máy chủ
+          $scope.comment = ""; // Xóa giá trị của textarea
+          $scope.rating = ""; // Xóa giá trị của rating
+          // Hiển thị thông báo thành công
+          iziToast.success({
+            title: 'Thông báo',
+            message: 'Đã thêm đánh giá thành công.',
+            position: 'topRight'
+          });
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    }
+  };
 
   $scope.checkOrder = function () {
     var isbn = $("#productId").val();

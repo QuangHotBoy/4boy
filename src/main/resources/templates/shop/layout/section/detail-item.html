@@ -167,7 +167,7 @@
                     <input type="text" id="productId" th:value="${product.isbn}" hidden>
                     <div ng-hide="$scope.user">
                         <div ng-if="orderCheck && orderCheck.isTrue">
-                            <form>
+                            <form method="post">
                                 <h4>Thêm một bài đánh giá</h4>
                                 <p>Đánh giá của bạn :</p>
                                 <div class="rating">
@@ -185,12 +185,12 @@
 
                                 <br />
 
-                                <textarea name="review" id="comment" placeholder="Đánh giá" class="w-75 p-2"
+                                <textarea name="review" ng-model="comment" placeholder="Đánh giá" class="w-75 p-2"
                                     rows="3"></textarea>
 
                                 <br />
 
-                                <button id="submitReviewBtn"
+                                <button ng-click="submitReview()" id="submitReviewBtn"
                                     class="p-1 rounded-3 btn btn-outline-warning float-end">Đánh
                                     giá</button>
                             </form>
