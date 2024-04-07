@@ -83,7 +83,8 @@ app.controller("AccountCtrl", function ($scope, $http) {
 		 var taiKhoan = angular.copy($scope.form);
 		 $http.post("/rest/account/addmember",taiKhoan).then(function(resp){
 			$scope.member.push(taiKhoan); 
-			alert("Thêm mới sách thành công!");
+			alert("Tạo mới tài khoản thành công!");
+			console.log($scope.form);
 			location.reload();
 		 }).catch(error=>{
 			console.log("Error", error);

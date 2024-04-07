@@ -1,6 +1,8 @@
 package com.poly.service.impl;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public TaiKhoan create(TaiKhoan taiKhoan, String id) {
-		TaiKhoan taikhoan = TKDao.save(taiKhoan);
+	 
+		taiKhoan.setActive(true);
+		TaiKhoan taikhoan = TKDao.save(taiKhoan); 
 		// them quyen
 		Quyen quyen = quyenDao.findById(id).get();
 		Quyen_TaiKhoan qTK = new Quyen_TaiKhoan();
@@ -69,12 +73,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public TaiKhoan updatePass(TaiKhoan taiKhoan, String matKhau) { 
-		
-	    taiKhoan.setMatKhau(matKhau);  
-	    return TKDao.save(taiKhoan);
-	}
+	public TaiKhoan updatePass(TaiKhoan taiKhoan, String matKhau) {
 
-	 
+		taiKhoan.setMatKhau(matKhau);
+		return TKDao.save(taiKhoan);
+	}
 
 }
