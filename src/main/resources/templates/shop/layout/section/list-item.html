@@ -15,13 +15,13 @@
 						<!-- Product image-->
 						<div class="image-container">
 							<img class="card-img-top mx-auto" th:src="@{|/shop/image/product/${p.hinhAnh}|}"
-								alt="..." />
+								alt="..." loading="lazy"/>
 						</div>
 						<!-- Product details-->
 						<div class="card-body p-4 h-75">
 							<div class="text-start">
 								<!-- Product name-->
-								<a th:href="@{|/shop/product/${p.isbn}|}" loading="lazy"
+								<a th:href="@{|/shop/product/${p.isbn}|}"
 									class="text-decoration-none text-black">
 									<h5 class="fw-bolder ht-2" th:utext="${p.tenSach}"></h5>
 								</a>

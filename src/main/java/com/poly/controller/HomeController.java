@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DanhGiaDAO;
 import com.poly.dao.NhaXuatBanDAO;
 import com.poly.dao.PhanLoaiDAO;
@@ -34,6 +35,9 @@ public class HomeController {
 	@Autowired
 	DanhGiaDAO reviewDAO;
 
+	@Autowired
+	ChiTietDonDatHangDAO detailOrderDAO;
+
 	@RequestMapping("")
 	public String home() {
 		return "redirect:/shop/home";
@@ -44,10 +48,9 @@ public class HomeController {
 
 		List<SanPham> products = productDAO.findAllSapXep();
 		List<SanPham> top8Product = products.subList(0, Math.min(products.size(), 8));
-		List<SanPham> productsSale = productDAO.findByTinhTrangSanPham(3);
-		List<SanPham> top8Sale = productsSale.subList(0, Math.min(productsSale.size(), 4));
+		List<Object[]> top8Popular = detailOrderDAO.getTop8SachByTinhTrang();
 
-		model.addAttribute("sale", top8Sale);
+		model.addAttribute("popular", top8Popular);
 		model.addAttribute("top8Product", top8Product);
 		model.addAttribute("title", "Knotrea - Trang chủ");
 

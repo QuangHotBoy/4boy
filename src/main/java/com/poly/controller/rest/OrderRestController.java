@@ -45,6 +45,11 @@ public class OrderRestController {
     public DonDatHang purchase(@RequestBody JsonNode orderData) {
         return orderService.create(orderData);
     }
+    
+    @GetMapping("/top-8-ban-chay")
+    public List<Object[]> getTop8SachBanChay(){
+    	return orderService.getTopSachByTinhTrang();
+    }
 
     @GetMapping("/voucher")
     @ResponseBody

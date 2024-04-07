@@ -14,5 +14,6 @@ public interface OrderService {
     public Map<String, Object> checkOrder(String id, Long isbn);
 
     List<DonDatHang> findByTDN(String tenDangNhap);
-     
+    
+    List<Object[]> getTopSachByTinhTrang();
 }

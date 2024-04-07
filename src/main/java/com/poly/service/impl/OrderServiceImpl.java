@@ -137,6 +137,12 @@ public class OrderServiceImpl implements OrderService {
 	public DonDatHang findbyId(Integer maDonHang) { 
 		return orderDAO.findById(maDonHang).get();
 	}
+
+	@Override
+	public List<Object[]> getTopSachByTinhTrang() {
+		// TODO Auto-generated method stub
+		return orderDetailDAO.getTop8SachByTinhTrang();
+	}
   
 	 
 
