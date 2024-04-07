@@ -142,24 +142,6 @@ public class RestLogin {
 		addressImp.delete(id);
 	}
 
-	@PostMapping("/rest/register")
-	public TaiKhoan register(@RequestBody TaiKhoan taiKhoan) {
-		TKDao.save(taiKhoan);
-		System.out.println(taiKhoan);
-		// them quyen
-		Quyen quyen = quyenDao.findById("CUST").get();
-		Quyen_TaiKhoan QTK = new Quyen_TaiKhoan();
-		QTK.setQuyen(quyen);
-		QTK.setTaiKhoan_quyen(taiKhoan);
-		// them dia chi
-		DiaChi_TaiKhoan diaChi = new DiaChi_TaiKhoan();
-		diaChi.setTaiKhoan_diaChi(taiKhoan);
-		diaChi.setHoTen(taiKhoan.getHoTen());
-		diaChi.setDiaChi("Chưa có địa chỉ");
-		diaChi.setMacDinh(true);
-		dChiDao.save(diaChi);
-		return taiKhoan;
-
-	}
+	 
 
 }

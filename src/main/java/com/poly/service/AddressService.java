@@ -16,6 +16,8 @@ public interface AddressService {
 	DiaChi_TaiKhoan create(DiaChi_TaiKhoan diaChi);
 	
 	DiaChi_TaiKhoan update(DiaChi_TaiKhoan diachi);
+	 
+	DiaChi_TaiKhoan delete(Long id);
 	
 	DiaChi_TaiKhoan findbyId(Long id);
 

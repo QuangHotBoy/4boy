@@ -13,8 +13,8 @@ public interface AccountService {
 
 	TaiKhoan FindById(String tenDangNhap);
 
-	TaiKhoan create(TaiKhoan taiKhoan, String id);
-
+	TaiKhoan create(TaiKhoan taiKhoan, String id); 
+	
 	TaiKhoan update(TaiKhoan taiKhoan); 
 
 	TaiKhoan updatePass(TaiKhoan taiKhoan,String matKhau);
