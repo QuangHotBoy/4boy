@@ -29,7 +29,8 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                         account.push($scope.accounts.users[i]);
                         for (var i = 0; i < $scope.accounts.address.length; i++) {
                             var b = $scope.accounts.address[i];
-                            if (b.taiKhoan_diaChi.tenDangNhap === a.tenDangNhap && b.macDinh === true) {
+                            console.log(b);
+                            if (b.taiKhoan_diaChi.tenDangNhap === a.tenDangNhap && b.macDinh === true) { 
                                 account.push($scope.accounts.address[i]);
                             }
                         }
@@ -47,7 +48,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 alert("Tài khoản hoặc mật khẩu không đúng");
             }
         }).catch(error => {
-            alert("Loi")
+            console.log("Error", error)
         })
     };
 
@@ -278,6 +279,15 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         $http.put("/rest/address/updateTrue/" + item.id, item).then(resp => {
             var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressTrue.tenDangNhap);
             $scope.diachi[index] = resp.data;
+            // Cập nhật lại thông tin tài khoản trong localStorage
+            var accounts = JSON.parse(localStorage.getItem("account")) || [];
+            var updatedAccounts = accounts.map(acc => {
+                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                    acc.diaChi = resp.data.diaChi;
+                }
+                return acc;
+            });
+            localStorage.setItem("account", JSON.stringify(updatedAccounts));
             // Load lại trang
             location.reload();
             console.log("Success", resp);
@@ -292,7 +302,16 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         $http.put("/rest/address/updateFalse/" + item.id, item).then(resp => {
             var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressfase.tenDangNhap);
             $scope.diachi[index] = resp.data;
-            console.log(item);
+
+            // Cập nhật lại thông tin tài khoản trong localStorage
+            var accounts = JSON.parse(localStorage.getItem("account")) || [];
+            var updatedAccounts = accounts.map(acc => {
+                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                    acc.diaChi = resp.data.diaChi;
+                }
+                return acc;
+            });
+            localStorage.setItem("account", JSON.stringify(updatedAccounts));
             // Load lại trang
             location.reload();
             console.log("Success", resp);
@@ -302,12 +321,45 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     }
 
 
-var aaa= localStorage.getItem("account") || null;
+    // thêm địa chỉ
+    $scope.addAddress = function () {
+        var item = angular.copy($scope.form_address)
+        var tenDangNhap = $scope.info_user[0].tenDangNhap;
+        $http.post("/rest/address/add/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
+            $scope.diachi.push(item);
+            // Cập nhật lại thông tin tài khoản trong localStorage
+            var accounts = JSON.parse(localStorage.getItem("account")) || [];
+            var updatedAccounts = accounts.map(acc => {
+                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                    acc.diaChi = resp.data.diaChi;
+                }
+                return acc;
+            });
+            localStorage.setItem("account", JSON.stringify(updatedAccounts));
+            // Load lại trang
+            location.reload();
+            console.log("Success", resp);
+        })
+    }
+
+    $scope.delete = function (id) {
+        var id = id;
+        $http.delete("/rest/address/delete/" + id).then(resp => {
+            var index = $scope.diachi.findIndex(item => item.id == id);
+            $scope.diachi.splice(index, 1);
+
+            // Load lại trang
+            location.reload();
+            console.log("Success", resp);
+        })
+    }
+
+    var aaa = localStorage.getItem("account") || null;
     if (aaa != null) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
-    }  
+    }
 
 
 
