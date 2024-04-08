@@ -203,111 +203,38 @@ $(document).ready(function () {
 
 		// Hiển thị số lượng sản phẩm lên website
 		$("#cart-count").text(cartCount);
-
-		//addLocalStorageToCart();
 	}
 
-	// function addLocalStorageToCart() {
-	// 	// Đăng xuất lưu lại cart từ localStorage vào database
-	// 	var carts = JSON.parse(localStorage.getItem("cart")) || [];
-
-	// 	var user = JSON.parse(localStorage.getItem("account")) || null;
-
-	// 	var cart = [];
-
-	// 	for (let i = 0; i < carts.length; i++) {
-	// 		if (carts[i].user === user[0].tenDangNhap) {
-	// 			cart.push(carts[i]);
-	// 		}
-	// 	}
-
-	// 	// Xác định các sản phẩm cần xóa khỏi localStorage
-	// 	var productsToRemove = cart.map(function (product) {
-	// 		return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
-	// 	});
-
-	// 	function removeFromLocalStorage(productsToRemove) {
-	// 		var carts = JSON.parse(localStorage.getItem("cart")) || [];
-
-	// 		// Loại bỏ các sản phẩm đã xác định khỏi mảng carts
-	// 		carts = carts.filter(function (product) {
-	// 			return !productsToRemove.includes(product.id);
-	// 		});
-
-	// 		// Lưu mảng đã cập nhật vào localStorage
-	// 		localStorage.setItem("cart", JSON.stringify(carts));
-	// 	}
-
-	// 	var addCart = {
-	// 		taiKhoan_gioHang: { tenDangNhap: user[0].tenDangNhap },
-	// 		gioHang: cart.map((item) => {
-	// 			return {
-	// 				sanPham_gioHang: { isbn: item.id },
-	// 				soLuong: item.quantity
-	// 			}
-	// 		}),
-	// 		add: function () {
-	// 			var cart = $.extend({}, this);
-	// 			$.post("/rest/add-cart", cart)
-	// 				.then(function (resp) {
-	// 					// Xử lý kết quả ở đây nếu cần
-	// 				})
-	// 				.catch(function (error) {
-	// 					// Xử lý lỗi ở đây nếu cần
-	// 				});
-	// 		}
-	// 	};
-
-	// 	addCart.add();
-	// }
 });
 
 var app = angular.module("myApp", []);
 
 app.controller("HomeCtrl", function ($scope, $http, $window) {
 
-	$scope.initialize = function () {
-		$http.get("/rest/top-8-ban-chay").then(resp => {
-			$scope.items = resp.data.slice(0, 8).map(function (item, index) {
-				return {
-					TenSach: item[0],
-					HinhAnh: item[2],
-					DonGia: item[3],
-					Id: item[4]
-				};
-			});
-		})
-	}
+	var user = JSON.parse(localStorage.getItem("account")) || null;
 
-	$scope.format = function () {
+	var user_id = user[0].tenDangNhap;
 
-	}
-
-	$scope.initialize();
-
-	$scope.cart = function (user_id) {
+	$scope.cart = function () {
 		$http.get("/rest/cart/" + user_id).then(function (resp) {
 
-			var cart = localStorage.getItem("cart") || [];
+			var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
 
-			$scope.data = resp.data;
-
-			for (var i = 0; i < Object.keys($scope.data).length; i++) {
-				// Gọi hàm chuyển đổi
-				var convertedData = arrayToObject($scope.data[i]);
-
-				cart.push(convertedData);
-
-				localStorage.setItem("cart", JSON.stringify(cart))
+			var data = resp.data;
+		
+			// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
+			for (var key in data) {
+				if (data.hasOwnProperty(key)) {
+					var convertedData = arrayToObject(data[key]);
+					cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
+				}
 			}
+		
+			localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
 		})
 	}
 
-	var user = JSON.parse(localStorage.getItem("account")) || [];
-
-	if (user !== null) {
-		$scope.cart(user[0].tenDangNhap);
-	}
+	$scope.cart();
 
 	// Hàm chuyển đổi từ mảng con sang đối tượng
 	function arrayToObject(arr) {
@@ -319,5 +246,14 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 		}
 		return obj;
 	}
+
+	$scope.checkLogin = function () {
+        var account = localStorage.getItem("account") || null;
+        if (account === null) {
+            location.href = "/shop/login"; 
+        } else {
+            location.href = "/shop/auth/index"; 
+        }
+    }
 
 })

@@ -41,4 +41,5 @@ public interface ChiTietDonDatHangDAO extends JpaRepository<ChiTietDonDatHang, I
 			+ "GROUP BY s.tenSach, s.hinhAnh, s.giaBan, s.isbn "
 			+ "ORDER BY SUM(ct.soLuong) DESC")
 	List<Object[]> getTop8SachByTinhTrang();
+
 }
