@@ -25,7 +25,7 @@
 								<h5 class="fw-bolder ht-2" th:text="${item[0]}"></h5>
 							</a>
 							<!-- Product price-->
-							<p class="text-warning fw-bold" th:text="${item[3]} + ' đ'"></p>
+							<p class="text-warning fw-bold" th:text="${#numbers.formatDecimal(item[3], 3, 'POINT', 0, 'POINT')} + ' đ'"></p>
 						</div>
 					</div>
 					<!-- Product actions-->

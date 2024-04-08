@@ -1,12 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
 
 	if ("IntersectionObserver" in window) {
-		let lazyImageObserver = new IntersectionObserver(function(
+		let lazyImageObserver = new IntersectionObserver(function (
 			entries,
 			observer
 		) {
-			entries.forEach(function(entry) {
+			entries.forEach(function (entry) {
 				if (entry.isIntersecting) {
 					let lazyImage = entry.target;
 					lazyImage.src = lazyImage.dataset.src;
@@ -16,20 +16,20 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		});
 
-		lazyImages.forEach(function(lazyImage) {
+		lazyImages.forEach(function (lazyImage) {
 			lazyImageObserver.observe(lazyImage);
 		});
 	} else {
 		// Fallback for browsers that don't support IntersectionObserver
 		// Load all images immediately
-		lazyImages.forEach(function(lazyImage) {
+		lazyImages.forEach(function (lazyImage) {
 			lazyImage.src = lazyImage.dataset.src;
 			lazyImage.classList.remove("lazy");
 		});
 	}
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	var user = JSON.parse(localStorage.getItem("account") || null);
 
 	if (user === null) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
 		}
 
 		// Đếm số lượng sản phẩm trong giỏ hàng
-		var cartCount = cart.reduce(function(total, product) {
+		var cartCount = cart.reduce(function (total, product) {
 			return total + product.quantity;
 		}, 0);
 
@@ -58,9 +58,9 @@ $(document).ready(function() {
 	}
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	// Xử lý sự kiện khi người dùng nhấn vào nút "Thêm vào giỏ hàng"
-	$(".btn-outline-warning.add-to-cart").click(function() {
+	$(".btn-outline-warning.add-to-cart").click(function () {
 		var account = JSON.parse(localStorage.getItem("account")) || null;
 
 		if (account === null) {
@@ -105,7 +105,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$(".text-bg-warning.buynow").click(function() {
+	$(".text-bg-warning.buynow").click(function () {
 		var account = JSON.parse(localStorage.getItem("account")) || null;
 
 		if (account === null) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
 		var found = false;
 
 		// Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-		$.each(carts, function(index, item) {
+		$.each(carts, function (index, item) {
 			if (item.user === productId.user && item.id === parseInt(productId.id)) {
 				item.quantity++; // Tăng số lượng nếu sản phẩm đã tồn tại
 				found = true;
@@ -197,40 +197,96 @@ $(document).ready(function() {
 		}
 
 		// Đếm số lượng sản phẩm trong giỏ hàng
-		var cartCount = cart.reduce(function(total, product) {
+		var cartCount = cart.reduce(function (total, product) {
 			return total + product.quantity;
 		}, 0);
 
 		// Hiển thị số lượng sản phẩm lên website
 		$("#cart-count").text(cartCount);
+
+		//addLocalStorageToCart();
 	}
+
+	// function addLocalStorageToCart() {
+	// 	// Đăng xuất lưu lại cart từ localStorage vào database
+	// 	var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+	// 	var user = JSON.parse(localStorage.getItem("account")) || null;
+
+	// 	var cart = [];
+
+	// 	for (let i = 0; i < carts.length; i++) {
+	// 		if (carts[i].user === user[0].tenDangNhap) {
+	// 			cart.push(carts[i]);
+	// 		}
+	// 	}
+
+	// 	// Xác định các sản phẩm cần xóa khỏi localStorage
+	// 	var productsToRemove = cart.map(function (product) {
+	// 		return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
+	// 	});
+
+	// 	function removeFromLocalStorage(productsToRemove) {
+	// 		var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+	// 		// Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+	// 		carts = carts.filter(function (product) {
+	// 			return !productsToRemove.includes(product.id);
+	// 		});
+
+	// 		// Lưu mảng đã cập nhật vào localStorage
+	// 		localStorage.setItem("cart", JSON.stringify(carts));
+	// 	}
+
+	// 	var addCart = {
+	// 		taiKhoan_gioHang: { tenDangNhap: user[0].tenDangNhap },
+	// 		gioHang: cart.map((item) => {
+	// 			return {
+	// 				sanPham_gioHang: { isbn: item.id },
+	// 				soLuong: item.quantity
+	// 			}
+	// 		}),
+	// 		add: function () {
+	// 			var cart = $.extend({}, this);
+	// 			$.post("/rest/add-cart", cart)
+	// 				.then(function (resp) {
+	// 					// Xử lý kết quả ở đây nếu cần
+	// 				})
+	// 				.catch(function (error) {
+	// 					// Xử lý lỗi ở đây nếu cần
+	// 				});
+	// 		}
+	// 	};
+
+	// 	addCart.add();
+	// }
 });
 
 var app = angular.module("myApp", []);
 
-app.controller("HomeCtrl", function($scope, $http, $window) {
+app.controller("HomeCtrl", function ($scope, $http, $window) {
 
-	$scope.initialize = function() {
+	$scope.initialize = function () {
 		$http.get("/rest/top-8-ban-chay").then(resp => {
-			$scope.items = resp.data.slice(0,8).map(function (item, index) {
-                return {
-                    TenSach: item[0],
-                    HinhAnh: item[2],
-                    DonGia: item[3],
-                    Id: item[4]
-                };
-            });
+			$scope.items = resp.data.slice(0, 8).map(function (item, index) {
+				return {
+					TenSach: item[0],
+					HinhAnh: item[2],
+					DonGia: item[3],
+					Id: item[4]
+				};
+			});
 		})
 	}
 
-	$scope.format = function(){
-		
+	$scope.format = function () {
+
 	}
 
 	$scope.initialize();
 
-	$scope.cart = function(user_id) {
-		$http.get("/rest/cart/" + user_id).then(function(resp) {
+	$scope.cart = function (user_id) {
+		$http.get("/rest/cart/" + user_id).then(function (resp) {
 
 			var cart = localStorage.getItem("cart") || [];
 

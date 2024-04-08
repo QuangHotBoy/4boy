@@ -1,8 +1,8 @@
 package com.poly.controller;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.config.VNPayService;
+import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DonDatHangDAO;
+import com.poly.dao.SanPhamDAO;
 import com.poly.dao.TinhTrangDonDatHangDAO;
+import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DonDatHang;
+import com.poly.model.SanPham;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -26,6 +30,12 @@ public class VNPaymentController {
 
     @Autowired
     DonDatHangDAO orderDAO;
+
+    @Autowired
+    ChiTietDonDatHangDAO detailOrderDAO;
+
+    @Autowired
+    SanPhamDAO productDAO;
 
     @Autowired
     TinhTrangDonDatHangDAO statusDAO;
@@ -77,6 +87,16 @@ public class VNPaymentController {
 
         if(paymentStatus == 1){
             order.setTrangThai_donDatHang(statusDAO.findById(1).get());
+        }else{
+            List<ChiTietDonDatHang> list = detailOrderDAO.findByDonDatHang(order);
+
+            for (ChiTietDonDatHang dc : list) {
+                SanPham product = productDAO.findById(dc.getSanPham_donDatHang().getIsbn()).get();
+
+                product.setSoLuong(product.getSoLuong() + dc.getSoLuong());
+
+                productDAO.save(product);
+            }
         }
 
         orderDAO.save(order);
