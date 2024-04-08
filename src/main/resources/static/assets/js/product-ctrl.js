@@ -209,17 +209,6 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             return tinhtrang.tenTinhTrang === tenTinhTrang;
         });
 
-        // Kiểm tra xem nhà xuất bản đã được chọn có tồn tại trong danh sách suppliers không
-        if (!selectedSupplier) {
-            alert("Nhà xuất bản không hợp lệ!");
-            return;
-        }
-        if (!selectedType) {
-            alert("Phân loại không hợp lệ!");
-            return;
-        }
-
-
         // Gán giá trị nhà xuất bản từ đối tượng được chọn
         item.nhaXuatBan = selectedSupplier;
         item.phanLoai = selectedType;

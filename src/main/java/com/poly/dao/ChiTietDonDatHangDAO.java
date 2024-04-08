@@ -21,15 +21,24 @@ public interface ChiTietDonDatHangDAO extends JpaRepository<ChiTietDonDatHang, I
 	List<ChiTietDonDatHang> findByMaDonDatHang(@Param("idOrder") Integer idOrder);
 
 	// top 5 sản phẩm bán chạy
+	// @Query("SELECT s.tenSach AS TenSach, SUM(ct.soLuong) AS TongSoLuongDaBan,
+	// SUM(ct.soLuong * ct.donGia) AS TongDoanhThu "
+	// + "FROM ChiTietDonDatHang ct " + "INNER JOIN ct.sanPham_donDatHang s " +
+	// "INNER JOIN ct.donDatHang ddh "
+	// + "INNER JOIN ddh.trangThai_donDatHang tt " + "WHERE tt.id = 6 " + "GROUP BY
+	// s.tenSach "
+	// + "ORDER BY SUM(ct.soLuong) DESC")
+	// List<Object[]> getTopSachByTinhTrang();
 	@Query("SELECT s.tenSach AS TenSach, SUM(ct.soLuong) AS TongSoLuongDaBan, SUM(ct.soLuong * ct.donGia) AS TongDoanhThu "
 			+ "FROM ChiTietDonDatHang ct " + "INNER JOIN ct.sanPham_donDatHang s " + "INNER JOIN ct.donDatHang ddh "
 			+ "INNER JOIN ddh.trangThai_donDatHang tt " + "WHERE tt.id = 6 " + "GROUP BY s.tenSach "
-			+ "ORDER BY SUM(ct.soLuong) DESC")
+			+ "ORDER BY SUM(ct.soLuong) DESC " + "LIMIT 5")
 	List<Object[]> getTopSachByTinhTrang();
 
 	@Query("SELECT s.tenSach AS TenSach, SUM(ct.soLuong) AS TongSoLuongDaBan, s.hinhAnh AS HinhAnh, s.giaBan AS DonGia, s.isbn AS Id "
 			+ "FROM ChiTietDonDatHang ct " + "INNER JOIN ct.sanPham_donDatHang s " + "INNER JOIN ct.donDatHang ddh "
-			+ "INNER JOIN ddh.trangThai_donDatHang tt " + "WHERE tt.id = 6 " + "GROUP BY s.tenSach, s.hinhAnh, s.giaBan, s.isbn "
+			+ "INNER JOIN ddh.trangThai_donDatHang tt " + "WHERE tt.id = 6 "
+			+ "GROUP BY s.tenSach, s.hinhAnh, s.giaBan, s.isbn "
 			+ "ORDER BY SUM(ct.soLuong) DESC")
 	List<Object[]> getTop8SachByTinhTrang();
 }

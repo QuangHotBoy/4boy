@@ -81,74 +81,74 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                 });
                 console.log($scope.toptonkho);
 
-                // // Initialize DataTable
-                // angular.element(document).ready(function () {
-                //     $('#table1').DataTable({
-                //         "language": {
-                //             "url": "/assets/json/vietnam.json"
-                //         }
-                //     });
-                // });
-            })
-            .catch(function (error) {
-                console.error('Error fetching data:', error);
-            });
-        $http.get("/rest/topByTinhTrang/top10")
-            .then(function (response) {
-                $scope.top10 = response.data.map(function (item) {
-                    return {
-                        maSanPham: item[0],
-                        tenSach: item[1],
-                        soLuongSachTonKho: item[2],
-                        loaiSach: item[3]
-                    };
-                });
-
-                // Lấy dữ liệu từ $scope.top10 để vẽ biểu đồ
-                var labels = [];
-                var data = [];
-                var backgroundColors = []; // Mảng chứa màu cho từng cột
-
-                $scope.top10.forEach(function (item) {
-                    labels.push(item.tenSach);
-                    data.push(item.soLuongSachTonKho);
-
-                    // Tạo màu ngẫu nhiên cho mỗi cột
-                    var randomColor = 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', 0.6)';
-                    backgroundColors.push(randomColor);
-                });
-
-                // Vẽ biểu đồ cột
-                var ctx = document.getElementById('bar-chart').getContext('2d');
-                var chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Tồn kho nhiều nhất',
-                            data: data,
-                            backgroundColor: backgroundColors, // Sử dụng mảng màu đã tạo
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+                // Initialize DataTable
+                angular.element(document).ready(function () {
+                    $('#table1').DataTable({
+                        "language": {
+                            "url": "/assets/json/vietnam.json"
                         }
-                    }
+                    });
                 });
-                // Đặt kích thước của canvas
-                document.getElementById('bar-chart').style.width = '400px';
-                document.getElementById('bar-chart').style.height = '300px';
             })
             .catch(function (error) {
                 console.error('Error fetching data:', error);
             });
+        // $http.get("/rest/topByTinhTrang/top10")
+        //     .then(function (response) {
+        //         $scope.top10 = response.data.map(function (item) {
+        //             return {
+        //                 maSanPham: item[0],
+        //                 tenSach: item[1],
+        //                 soLuongSachTonKho: item[2],
+        //                 loaiSach: item[3]
+        //             };
+        //         });
+
+        //         // Lấy dữ liệu từ $scope.top10 để vẽ biểu đồ
+        //         var labels = [];
+        //         var data = [];
+        //         var backgroundColors = []; // Mảng chứa màu cho từng cột
+
+        //         $scope.top10.forEach(function (item) {
+        //             labels.push(item.tenSach);
+        //             data.push(item.soLuongSachTonKho);
+
+        //             // Tạo màu ngẫu nhiên cho mỗi cột
+        //             var randomColor = 'rgba(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', 0.6)';
+        //             backgroundColors.push(randomColor);
+        //         });
+
+        //         // Vẽ biểu đồ cột
+        //         var ctx = document.getElementById('bar-chart').getContext('2d');
+        //         var chart = new Chart(ctx, {
+        //             type: 'bar',
+        //             data: {
+        //                 labels: labels,
+        //                 datasets: [{
+        //                     label: 'Tồn kho nhiều nhất',
+        //                     data: data,
+        //                     backgroundColor: backgroundColors, // Sử dụng mảng màu đã tạo
+        //                     borderColor: 'rgba(54, 162, 235, 1)',
+        //                     borderWidth: 1
+        //                 }]
+        //             },
+        //             options: {
+        //                 scales: {
+        //                     yAxes: [{
+        //                         ticks: {
+        //                             beginAtZero: true
+        //                         }
+        //                     }]
+        //                 }
+        //             }
+        //         });
+        //         // Đặt kích thước của canvas
+        //         document.getElementById('bar-chart').style.width = '400px';
+        //         document.getElementById('bar-chart').style.height = '300px';
+        //     })
+        //     .catch(function (error) {
+        //         console.error('Error fetching data:', error);
+        //     });
         /////// thống kê doanh thu từng tháng
         $http.get("/rest/topByTinhTrang/thongke")
             .then(function (response) {
