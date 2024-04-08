@@ -52,6 +52,16 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     };
 
+    $scope.checkLogin = function () {
+        var account = localStorage.getItem("account") || null;
+        if (account === null) {
+            location.href = "/shop/login";
+            console.log(1)
+        } else {
+            location.href = "/shop/auth/index";
+            console.log(2);
+        }
+    }
 
     // đăng xuất
     $scope.logout = function () {

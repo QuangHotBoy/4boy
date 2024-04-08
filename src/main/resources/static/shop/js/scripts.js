@@ -320,4 +320,13 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 		return obj;
 	}
 
+	$scope.checkLogin = function () {
+        var account = localStorage.getItem("account") || null;
+        if (account === null) {
+            location.href = "/shop/login"; 
+        } else {
+            location.href = "/shop/auth/index"; 
+        }
+    }
+
 })
