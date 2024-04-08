@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.dao.DiaChi_TaiKhoanDAO;
+import com.poly.dao.GioHangDAO;
 import com.poly.dao.QuyenDAO;
 import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.DiaChi_TaiKhoan;
+import com.poly.model.GioHang;
 import com.poly.model.Quyen;
 import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.TaiKhoan;
@@ -35,6 +37,9 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	DiaChi_TaiKhoanDAO dctkDAO;
 
+	@Autowired
+	GioHangDAO gioHangDao;
+
 	@Override
 	public List<TaiKhoan> FindAll() {
 		return TKDao.findAll();
@@ -47,7 +52,6 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public TaiKhoan create(TaiKhoan taiKhoan, String id) {
-	 
 		taiKhoan.setActive(true);
 		TaiKhoan taikhoan = TKDao.save(taiKhoan); 
 		// them quyen
@@ -64,6 +68,10 @@ public class AccountServiceImpl implements AccountService {
 		dctk.setSdt(taikhoan.getSdt());
 		dctk.setMacDinh(true);
 		dctkDAO.save(dctk);
+		//them gio hang
+		GioHang gioHang = new GioHang();
+		gioHang.setTaiKhoan_gioHang(taikhoan);
+		gioHangDao.save(gioHang);
 		return null;
 	}
 

@@ -52,6 +52,14 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     };
 
+
+    // đăng xuất
+    $scope.logout = function () {
+        $scope.addToCart();
+        localStorage.removeItem("account");
+        // location.href = "/shop/home";
+    }
+
     //lay ra thong tin sau khi dang nhap
     $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
 
@@ -83,7 +91,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         $scope.cart = [];
 
         for (let i = 0; i < carts.length; i++) {
-            if (carts[i].user === user_id) {
+            if (carts[i].user === $scope.info_user[0].tenDangNhap) {
                 $scope.cart.push(carts[i]);
             }
         }
@@ -120,6 +128,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             add() {
                 var cart = angular.copy(this);
                 $http.post("/rest/add-cart", cart).then((resp) => {
+                    console.log(resp.data);
                 }).catch((error) => {
                     ;
                 })

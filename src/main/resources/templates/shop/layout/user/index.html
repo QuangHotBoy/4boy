@@ -63,9 +63,12 @@
                         <td>{{invoice.ngayDatHang | date:'dd/MM/yyyy'}}</td>
                         <td>{{invoice.tongTien}}</td>
                         <td>{{invoice.trangThai_donDatHang.tenTrangThai}}</td>
-                        <td></td>
+                        <td>
+                          <a href="/shop/auth/invoice/detail-invoice/{{invoice.maDonHang}}">Xem chi tiết</a>
+                        </td>
                       </tr>
                     </table>
+                    <button ng-click="logout()">Dang xuast</button>
                   </div>
                 </div>
               </div>
