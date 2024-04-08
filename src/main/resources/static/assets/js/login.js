@@ -33,6 +33,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                                 account.push($scope.accounts.address[i]);
                             }
                         }
+                        var cart = 
                         localStorage.setItem("account", JSON.stringify(account));
                         check = true;
                         break;
@@ -136,12 +137,14 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             add() {
                 var cart = angular.copy(this);
                 $http.post("/rest/add-cart", cart).then((resp) => {
-                    console.log(resp.data);
+                    removeFromLocalStorage(productsToRemove);
                 }).catch((error) => {
                     ;
                 })
             }
         }
+
+        $scope.addCart.add();
     }
 
 
@@ -216,10 +219,6 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             console.log("Error", error)
         });
     };
-
-
-
-
 
     // gọi form cập nhập mật khẩu
     $scope.editpass = function () {
@@ -373,13 +372,30 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     }
 
-    var aaa = localStorage.getItem("account") || null;
+    $scope.cart = function (user_id) {
+		$http.get("/rest/cart/" + user_id).then(function (resp) {
+
+			var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
+
+			var data = resp.data;
+		
+			// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
+			for (var key in data) {
+				if (data.hasOwnProperty(key)) {
+					var convertedData = arrayToObject(data[key]);
+					cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
+				}
+			}
+		
+			localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
+		})
+	}
+
+    var aaa = JSON.parse(localStorage.getItem("account")) || null;
     if (aaa != null) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
+	    $scope.cart(aaa[0].tenDangNhap);
     }
-
-
-
 })

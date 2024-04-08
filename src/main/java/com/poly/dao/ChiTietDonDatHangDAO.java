@@ -32,4 +32,5 @@ public interface ChiTietDonDatHangDAO extends JpaRepository<ChiTietDonDatHang, I
 			+ "INNER JOIN ddh.trangThai_donDatHang tt " + "WHERE tt.id = 6 " + "GROUP BY s.tenSach, s.hinhAnh, s.giaBan, s.isbn "
 			+ "ORDER BY SUM(ct.soLuong) DESC")
 	List<Object[]> getTop8SachByTinhTrang();
+
 }
