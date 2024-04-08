@@ -50,7 +50,9 @@ public class HomeController {
 		List<SanPham> top8Product = products.subList(0, Math.min(products.size(), 8));
 		List<Object[]> top8Popular = detailOrderDAO.getTop8SachByTinhTrang();
 
-		model.addAttribute("popular", top8Popular);
+		List<Object[]>popular = top8Popular.subList(0, Math.min(top8Popular.size(), 8));
+
+		model.addAttribute("popular", popular);
 		model.addAttribute("top8Product", top8Product);
 		model.addAttribute("title", "Knotrea - Trang chủ");
 

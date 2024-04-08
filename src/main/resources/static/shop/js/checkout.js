@@ -15,6 +15,8 @@ app.controller("CheckoutController", function ($scope, $http) {
     }
   }
 
+  console.log($scope.cart);
+
   // Xác định các sản phẩm cần xóa khỏi localStorage
   var productsToRemove = $scope.cart.map(function (product) {
     return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
@@ -118,7 +120,7 @@ app.controller("CheckoutController", function ($scope, $http) {
             console.log(resp.data);
             if (resp.data.phuongThucThanhToan.id === 1) {
               removeFromLocalStorage(productsToRemove);
-              location.href = "/shop/order/thank-for-order";
+              //location.href = "/shop/order/thank-for-order";
             } else {
               removeFromLocalStorage(productsToRemove);
               location.href =
