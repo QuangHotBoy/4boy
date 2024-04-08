@@ -249,6 +249,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 
 	$scope.checkLogin = function () {
         var account = localStorage.getItem("account") || null;
+		console.log(1);
         if (account === null) {
             location.href = "/shop/login"; 
         } else {

@@ -28,8 +28,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                         location.href = "/shop/home";
                         account.push($scope.accounts.users[i]);
                         for (var i = 0; i < $scope.accounts.address.length; i++) {
-                            var b = $scope.accounts.address[i];
-                            console.log(b);
+                            var b = $scope.accounts.address[i]; 
                             if (b.taiKhoan_diaChi.tenDangNhap === a.tenDangNhap && b.macDinh === true) {
                                 account.push($scope.accounts.address[i]);
                             }
@@ -55,12 +54,11 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
 
     $scope.checkLogin = function () {
         var account = localStorage.getItem("account") || null;
+		console.log(2);
         if (account === null) {
-            location.href = "/shop/login";
-            console.log(1)
+            location.href = "/shop/login"; 
         } else {
-            location.href = "/shop/auth/index";
-            console.log(2);
+            location.href = "/shop/auth/index"; 
         }
     }
 

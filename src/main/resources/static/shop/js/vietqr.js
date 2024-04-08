@@ -10,7 +10,22 @@ app.controller("QRController", function ($scope) {
   };
 
   
+  $scope.checkLogin = function () {
+    var account = localStorage.getItem("account") || null;
+console.log(2);
+    if (account === null) {
+        location.href = "/shop/login"; 
+    } else {
+        location.href = "/shop/auth/index"; 
+    }
+}
 
+// đăng xuất
+$scope.logout = function () {
+    $scope.addToCart();
+    localStorage.removeItem("account");
+    location.href = "/shop/home";
+}
   console.log($scope.bank);
 
 //   let QRCode = `https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${MY_BANK.AMOUNT}`;
