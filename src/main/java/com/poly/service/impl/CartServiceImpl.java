@@ -17,7 +17,6 @@ import com.poly.dao.GioHangDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.ChiTietGioHang;
 import com.poly.model.GioHang;
-import com.poly.model.TaiKhoan;
 import com.poly.service.CartService;
 
 @Service
@@ -37,21 +36,15 @@ public class CartServiceImpl implements CartService {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        GioHang check = cartDAO.findByTenDangNhap(cartData.get("taiKhoan_gioHang").asText());
-
         GioHang cart = mapper.convertValue(cartData, GioHang.class);
 
-        if (check == null) {
-            cartDAO.save(cart);
-        }else{
-            cart.setId(check.getId());
-        }
+        GioHang findCart = cartDAO.findByTenDangNhap(cart.getTaiKhoan_gioHang().getTenDangNhap());
 
         TypeReference<List<ChiTietGioHang>> type = new TypeReference<List<ChiTietGioHang>>() {
         };
 
         List<ChiTietGioHang> details = mapper.convertValue(cartData.get("gioHang"), type).stream()
-                .peek(c -> c.setGioHang(cart)).collect(Collectors.toList());
+                .peek(c -> c.setGioHang(findCart)).collect(Collectors.toList());
 
         detailDAO.saveAll(details);
 
@@ -77,8 +70,6 @@ public class CartServiceImpl implements CartService {
             arrays.add(new String[]{"price", dc.getSanPham_gioHang().getGiaBan() + ""});
             arrays.add(new String[]{"quantity", dc.getSoLuong() + ""});
             arrays.add(new String[]{"image", "/shop/image/product/" + dc.getSanPham_gioHang().getHinhAnh()});
-
-            detailDAO.delete(dc);
 
             data.put(key++, arrays);
         }
