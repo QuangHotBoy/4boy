@@ -123,4 +123,21 @@ app.controller("CartController", function ($scope, $http, $window) {
       });
     }
   }
+
+  $scope.checkLogin = function () {
+    var account = localStorage.getItem("account") || null;
+    console.log(2);
+    if (account === null) {
+      location.href = "/shop/login";
+    } else {
+      location.href = "/shop/auth/index";
+    }
+  }
+
+  // đăng xuất
+  $scope.logout = function () {
+    $scope.addToCart();
+    localStorage.removeItem("account");
+    location.href = "/shop/home";
+  }
 });
