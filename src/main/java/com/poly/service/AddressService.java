@@ -22,4 +22,6 @@ public interface AddressService {
 	DiaChi_TaiKhoan findbyId(Long id);
 
 	DiaChi_TaiKhoan findDCTrue();
+
+	List<DiaChi_TaiKhoan> getAllByUser(String user);
 }

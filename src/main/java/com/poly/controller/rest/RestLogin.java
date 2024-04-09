@@ -142,6 +142,9 @@ public class RestLogin {
 		addressImp.delete(id);
 	}
 
-	 
+	@GetMapping("/rest/address/all-of-user/{id}")
+	public List<DiaChi_TaiKhoan> findAllByUser(@PathVariable("id") String id){
+		return addressImp.getAllByUser(id);
+	}
 
 }

@@ -1,33 +1,38 @@
-function incrementQuantity() {
-  var quantityInput = $("#quantity");
-  var currentValue = parseInt(quantityInput.val());
-  var maxQuantity = parseInt(quantityInput.attr("max"));
+$(document).ready(function () {
+  var user = JSON.parse(localStorage.getItem("account") || null);
 
-  console.log(maxQuantity);
-
-  if (currentValue + 1 > maxQuantity) {
-    iziToast.warning({
-      title: 'Thông báo',
-      message: 'Số lượng đạt tối đa hiện có.',
-      position: 'topRight'
-    });
+  if (user === null) {
+    $("#cart-count").text(0);
   } else {
-    quantityInput.val(currentValue + 1);
-  }
-}
+    var user_id = user[0].tenDangNhap;
 
-function decrementQuantity() {
-  var quantityInput = $("#quantity");
-  var newValue = parseInt(quantityInput.val()) - 1;
-  quantityInput.val(newValue >= 1 ? newValue : 1);
-}
+    // Lấy danh sách sản phẩm từ localStorage
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    var cart = [];
+
+    for (var i = 0; i < carts.length; i++) {
+      if (carts[i].user === user_id) {
+        cart.push(carts[i]);
+      }
+    }
+
+    // Đếm số lượng sản phẩm trong giỏ hàng
+    var cartCount = cart.reduce(function (total, product) {
+      return total + parseInt(product.quantity);
+    }, 0);
+
+    // Hiển thị số lượng sản phẩm lên website
+    $("#cart-count").text(cartCount);
+  }
+});
 
 var app = angular.module("myApp", []);
 
 app.filter('vnCurrency', function () {
   return function (input) {
-      if (isNaN(input)) return input;
-      return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    if (isNaN(input)) return input;
+    return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   };
 });
 
@@ -74,20 +79,39 @@ app.controller("CartController", function ($scope, $http, $window) {
 
     $scope.cartCount = $scope.calculateCartCount();
 
-    // Hàm giảm số lượng sản phẩm
     $scope.decrementQuantity = function (index) {
       if ($scope.cart[index].quantity > 1) {
         $scope.cart[index].quantity--;
         $scope.cartCount = $scope.calculateCartCount();
         updateLocalStorage();
+        $("#cart-count").text($scope.calculateCartCount());
       }
-    };
+    };    
 
-    // Hàm tăng số lượng sản phẩm
     $scope.incrementQuantity = function (index) {
-      $scope.cart[index].quantity++;
-      $scope.cartCount = $scope.calculateCartCount();
-      updateLocalStorage();
+      var quantityInput = $("input[name='maSP']").eq(index);
+
+      $http.get("/rest/products/" + quantityInput.val()).then((resp) => {
+        var maxQuantity = resp.data.soLuong; // Số lượng tối đa từ resp.data.soLuong
+
+        // Kiểm tra nếu giá trị hiện tại của quantity đã đạt tới giới hạn
+        if ($scope.cart[index].quantity === maxQuantity) {
+          iziToast.warning({
+            title: 'Thông báo',
+            message: 'Số lượng đã đạt tối đa.',
+            position: 'topRight'
+          });
+          return; // Không làm gì nữa nếu đã đạt tối đa
+        }
+
+        // Tăng giá trị quantity nếu chưa đạt tối đa
+        $scope.cart[index].quantity++;
+        $scope.cartCount = $scope.calculateCartCount();
+        updateLocalStorage();
+        $("#cart-count").text($scope.calculateCartCount());
+      }).catch((error) => {
+        console.error("Error retrieving max quantity:", error);
+      });
     };
 
     // Hàm xóa sản phẩm
@@ -95,6 +119,7 @@ app.controller("CartController", function ($scope, $http, $window) {
       $scope.cart.splice(index, 1);
       $scope.cartCount = $scope.calculateCartCount();
       updateLocalStorage();
+      $("#cart-count").text($scope.calculateCartCount());
     };
 
     // Hàm cập nhật localStorage
@@ -122,9 +147,13 @@ app.controller("CartController", function ($scope, $http, $window) {
       return formatPrice(subtotal);
     };
 
-    $scope.price = function (price) {
-      return formatPrice(price);
-    }
+    $scope.formatPrice = function (price) {
+      price = parseInt(price);
+      return price.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      });
+    };
 
     // Hàm định dạng giá
     function formatPrice(price) {

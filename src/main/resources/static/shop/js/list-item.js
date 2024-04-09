@@ -21,13 +21,13 @@ function sortProducts(option) {
         var priceA = parseFloat(
           a
             .querySelector(".text-warning.fw-bold")
-            .textContent.replace(" vnđ", "")
+            .textContent.replace(" đ", "")
             .replace(/\./g, "")
         );
         var priceB = parseFloat(
           b
             .querySelector(".text-warning.fw-bold")
-            .textContent.replace(" vnđ", "")
+            .textContent.replace(" đ", "")
             .replace(/\./g, "")
         );
         return priceA - priceB;

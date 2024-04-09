@@ -8,7 +8,9 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.poly.dao.DiaChi_TaiKhoanDAO;
+import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.DiaChi_TaiKhoan;
+import com.poly.model.TaiKhoan;
 import com.poly.service.AddressService;
 
 import jakarta.transaction.Transactional;
@@ -19,6 +21,9 @@ public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	DiaChi_TaiKhoanDAO dChiDao;
+
+	@Autowired
+	TaiKhoanDAO accountDAO;
 
 	@Override
 	public List<DiaChi_TaiKhoan> getDCFalse(String tenDangNhap) {
@@ -68,6 +73,15 @@ public class AddressServiceImpl implements AddressService {
 
 		dChiDao.deleteById(id);
 		return null;
+	}
+
+	@Override
+	public List<DiaChi_TaiKhoan> getAllByUser(String user_id) {
+		// TODO Auto-generated method stub
+
+		List<DiaChi_TaiKhoan> list = dChiDao.findByTaiKhoan_diaChi(user_id);
+
+		return list;
 	}
 
 }

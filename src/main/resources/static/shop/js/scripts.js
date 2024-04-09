@@ -158,7 +158,7 @@ $(document).ready(function () {
 
 		// Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 		$.each(carts, function (index, item) {
-			if (item.user === productId.user && item.id === parseInt(productId.id)) {
+			if (item.user === productId.user && parseInt(item.id)=== parseInt(productId.id)) {
 				item.quantity++; // Tăng số lượng nếu sản phẩm đã tồn tại
 				found = true;
 				return false; // Dừng vòng lặp khi tìm thấy sản phẩm
@@ -198,7 +198,7 @@ $(document).ready(function () {
 
 		// Đếm số lượng sản phẩm trong giỏ hàng
 		var cartCount = cart.reduce(function (total, product) {
-			return total + product.quantity;
+			return total + parseInt(product.quantity);
 		}, 0);
 
 		// Hiển thị số lượng sản phẩm lên website

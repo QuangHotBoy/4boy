@@ -63,6 +63,27 @@ app.controller("CheckoutController", function ($scope, $http) {
 
   $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
 
+  $scope.selectedAddress = function () {
+    $http.get("/rest/address/all-of-user/" + $scope.info_user[0].tenDangNhap).then((resp) => {
+      $scope.addresses = resp.data; // Lưu trữ dữ liệu địa chỉ từ resp vào biến addresses
+    });
+  };
+
+  $scope.addressChanged = function () {
+    console.log($scope.selectedAddress); // Log ra ID của địa chỉ được chọn
+
+    // Lấy ra địa chỉ được chọn từ danh sách địa chỉ
+    var selectedAddress = $scope.addresses.find(address => address.id === $scope.selectedAddress);
+
+    // Cập nhật các thông tin của $scope.info_user[1] tương ứng với địa chỉ mới
+    $scope.order.hoTen = selectedAddress.hoTen;
+    $scope.order.diaChiNhanHang = selectedAddress.diaChi;
+    $scope.order.diaChi = { id: selectedAddress.id };
+    $scope.order.soDienThoai = selectedAddress.sdt;
+  };
+
+  $scope.selectedAddress();
+
   $scope.order = {
     get taiKhoan_donHang() {
       return { tenDangNhap: $scope.info_user[0].tenDangNhap };
@@ -186,11 +207,11 @@ app.controller("CheckoutController", function ($scope, $http) {
             } else {
               // Tài khoản đã sử dụng mã giảm giá
               // Hiển thị thông báo thành công
-            iziToast.info({
-              title: 'Thông báo',
-              message: 'Tài khoản đã sử dụng mã giảm giá.',
-              position: 'topRight'
-            });
+              iziToast.info({
+                title: 'Thông báo',
+                message: 'Tài khoản đã sử dụng mã giảm giá.',
+                position: 'topRight'
+              });
               console.log("Tài khoản đã sử dụng mã giảm giá.");
             }
           } else {
@@ -240,19 +261,19 @@ app.controller("CheckoutController", function ($scope, $http) {
 
   $scope.checkLogin = function () {
     var account = localStorage.getItem("account") || null;
-console.log(2);
+    console.log(2);
     if (account === null) {
-        location.href = "/shop/login"; 
+      location.href = "/shop/login";
     } else {
-        location.href = "/shop/auth/index"; 
+      location.href = "/shop/auth/index";
     }
-}
+  }
 
-// đăng xuất
-$scope.logout = function () {
+  // đăng xuất
+  $scope.logout = function () {
     $scope.addToCart();
     localStorage.removeItem("account");
     location.href = "/shop/home";
-}
+  }
 
 });

@@ -59,6 +59,40 @@ app.controller("BuynowController", function ($scope, $http) {
 
   $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
 
+  $scope.addresses = []; // Khởi tạo mảng để lưu trữ danh sách địa chỉ
+
+  $scope.selectedAddress = ""; // Khởi tạo biến để lưu trữ ID của địa chỉ được chọn
+
+  $scope.selectedAddress = function () {
+    $http.get("/rest/address/all-of-user/" + $scope.info_user[0].tenDangNhap).then((resp) => {
+      $scope.addresses = resp.data; // Lưu trữ dữ liệu địa chỉ từ resp vào biến addresses
+    });
+  };
+
+  $scope.addressChanged = function () {
+    console.log($scope.selectedAddress); // Log ra ID của địa chỉ được chọn
+
+    // Lấy ra địa chỉ được chọn từ danh sách địa chỉ
+    var selectedAddress = $scope.addresses.find(address => address.id === $scope.selectedAddress);
+
+    // Cập nhật các thông tin của $scope.info_user[1] tương ứng với địa chỉ mới
+    $scope.order.hoTen = selectedAddress.hoTen;
+    $scope.order.diaChiNhanHang = selectedAddress.diaChi;
+    $scope.order.diaChi = { id: selectedAddress.id };
+    $scope.order.soDienThoai = selectedAddress.sdt;
+  };
+
+  // Sắp xếp mảng addresses sao cho địa chỉ có macDinh là true đầu tiên
+  $scope.sortedAddresses = $scope.addresses.sort((a, b) => b.macDinh - a.macDinh);
+
+  // Chọn địa chỉ đầu tiên trong mảng đã sắp xếp
+  if ($scope.sortedAddresses.length > 0) {
+    $scope.selectedAddress = $scope.sortedAddresses[0].id;
+  }
+
+
+  $scope.selectedAddress();
+
   $scope.order = {
     get taiKhoan_donHang() {
       return { tenDangNhap: $scope.info_user[0].tenDangNhap };
@@ -216,18 +250,18 @@ app.controller("BuynowController", function ($scope, $http) {
   };
   $scope.checkLogin = function () {
     var account = localStorage.getItem("account") || null;
-console.log(2);
+    console.log(2);
     if (account === null) {
-        location.href = "/shop/login"; 
+      location.href = "/shop/login";
     } else {
-        location.href = "/shop/auth/index"; 
+      location.href = "/shop/auth/index";
     }
-}
+  }
 
-// đăng xuất
-$scope.logout = function () {
+  // đăng xuất
+  $scope.logout = function () {
     $scope.addToCart();
     localStorage.removeItem("account");
     location.href = "/shop/home";
-}
+  }
 });

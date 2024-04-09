@@ -31,7 +31,7 @@
                                     <p><strong>{{product.name}}</strong></p>
                                     <div class="d-flex mb-4 row">
                                         <div class="col-md-6">
-                                            <p class="text-start"><strong>Giá tiền: {{product.price || currency}} đ</strong>
+                                            <p class="text-start"><strong>Giá tiền: <span ng-bind="formatPrice(product.price)"></span></strong>
                                             </p>
                                         </div>
                                         <div class="col-md-4 col-lg-4">
@@ -41,7 +41,8 @@
                                                     <i class="fas fa-minus"></i>
                                                 </button>
                                                 <input type="text" class="text-center rounded-3" style="width: 60px"
-                                                    ng-model="product.quantity" readonly min="1" max="10"/>
+                                                    ng-model="cart[$index].quantity" id="quantity_{{$index}}" readonly
+                                                    min="1" max="10" />
                                                 <input type="text" name="maSP" ng-value="product.id" hidden />
                                                 <button class="btn btn-primary ms-1"
                                                     ng-click="incrementQuantity($index)">
@@ -100,6 +101,10 @@
 
     <!-- Footer-->
     <div th:replace="/shop/layout/footer :: footer"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     <script th:src="@{/shop/js/cart.js}"></script>
 </body>

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.poly.model.DiaChi_TaiKhoan;
+import com.poly.model.TaiKhoan;
 
 public interface DiaChi_TaiKhoanDAO extends JpaRepository<DiaChi_TaiKhoan, Long> {
 	// Các phương thức tùy chỉnh nếu cần
@@ -20,4 +21,7 @@ public interface DiaChi_TaiKhoanDAO extends JpaRepository<DiaChi_TaiKhoan, Long>
 
 	@Query("SELECT a FROM DiaChi_TaiKhoan a WHERE a.macDinh = true")
 	DiaChi_TaiKhoan findALLDCTrue();
+
+	@Query("SELECT a FROM DiaChi_TaiKhoan a WHERE a.taiKhoan_diaChi.tenDangNhap = :id")
+	List<DiaChi_TaiKhoan> findByTaiKhoan_diaChi(@Param("id") String id);
 }
