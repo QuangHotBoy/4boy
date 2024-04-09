@@ -100,7 +100,9 @@ app.controller("BuynowController", function ($scope, $http) {
     hoTen: $scope.info_user[1].hoTen,
     diaChiNhanHang: $scope.info_user[1].diaChi,
     get diaChi() {
-      return { id: $scope.info_user[1].id };
+      // Lấy ID của địa chỉ từ combo box nếu có, nếu không thì lấy từ $scope.info_user[1]
+      var selectedAddressId = $scope.selectedAddress ? $scope.selectedAddress : $scope.info_user[1].id;
+      return { id: selectedAddressId };
     },
     soDienThoai: $scope.info_user[1].sdt,
     mail: $scope.info_user[0].email,
