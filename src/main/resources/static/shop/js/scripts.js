@@ -221,7 +221,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 			var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
 
 			var data = resp.data;
-		
+
 			// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
 			for (var key in data) {
 				if (data.hasOwnProperty(key)) {
@@ -229,12 +229,12 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 					cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
 				}
 			}
-		
+
 			localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
 		})
 	}
 
-	$scope.cart();
+	// $scope.cart();
 
 	// Hàm chuyển đổi từ mảng con sang đối tượng
 	function arrayToObject(arr) {
@@ -248,13 +248,22 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 	}
 
 	$scope.checkLogin = function () {
-        var account = localStorage.getItem("account") || null;
-		console.log(1);
-        if (account === null) {
-            location.href = "/shop/login"; 
-        } else {
-            location.href = "/shop/auth/index"; 
-        }
+		var account = localStorage.getItem("account") || null;
+		console.log(account);
+		if (account === null) {
+			location.href = "/shop/login";
+			console.log("1", account)
+		} else {
+			location.href = "/shop/auth/index";
+			console.log("2", account)
+		}
+	}
+
+	// đăng xuất
+    $scope.logout = function () {
+        $scope.addToCart();
+        localStorage.removeItem("account");
+        location.href = "/shop/home";
     }
 
 })
