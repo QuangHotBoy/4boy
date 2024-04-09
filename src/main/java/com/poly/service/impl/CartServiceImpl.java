@@ -74,6 +74,10 @@ public class CartServiceImpl implements CartService {
             data.put(key++, arrays);
         }
 
+        for (ChiTietGioHang chiTietGioHang : list) {
+                detailDAO.delete(chiTietGioHang);
+        }
+
         return data;
     }
 

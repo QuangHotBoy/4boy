@@ -24,6 +24,13 @@ function decrementQuantity() {
 
 var app = angular.module("myApp", []);
 
+app.filter('vnCurrency', function () {
+  return function (input) {
+      if (isNaN(input)) return input;
+      return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  };
+});
+
 app.controller("CartController", function ($scope, $http, $window) {
   // Lấy danh sách sản phẩm từ localStorage
 
@@ -114,6 +121,10 @@ app.controller("CartController", function ($scope, $http, $window) {
       });
       return formatPrice(subtotal);
     };
+
+    $scope.price = function (price) {
+      return formatPrice(price);
+    }
 
     // Hàm định dạng giá
     function formatPrice(price) {
