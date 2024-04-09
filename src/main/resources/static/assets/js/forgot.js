@@ -1,6 +1,6 @@
 var app = angular.module('forgotApp', []);
 
-app.controller("forgotCtrl", function ($scope, $http, $window) {
+app.controller("forgotCtrl", function ($scope, $http, $window, $timeout) {
 
     $scope.form = {
         tenDangNhap: '', // Thêm trường tenDangNhap vào form
@@ -73,7 +73,57 @@ app.controller("forgotCtrl", function ($scope, $http, $window) {
                 alert("Lỗi lấy dữ liệu sản phẩm!");
             });
     };
-    
-   
+    $scope.codeInput = ['', '', '', '', '', ''];
 
+    $scope.focusNext = function(event, index) {
+        // Kiểm tra nếu ký tự nhập vào là số và chỉ cho phép nhập một ký tự
+        if (event.keyCode >= 48 && event.keyCode <= 57 && $scope.codeInput[index].length === 1) {
+            // Chuyển focus sang ô kế tiếp
+            var nextIndex = index + 1;
+            if (nextIndex < $scope.codeInput.length) {
+                $timeout(function() {
+                    var nextInput = document.querySelector('.code-input:nth-child(' + (index + 2) + ')');
+                    nextInput.focus();
+                });
+            }
+        }
+    };
+
+    $scope.verifyCode = function() {
+        var code = $scope.codeInput.join('');
+        
+        // Lấy giá trị email từ input ẩn
+        var email = $scope.email;
+        var tendangnhap = $scope.tenDangNhap;
+    
+        // Ensure maxacnhan is not empty before sending the request
+        if (code.trim() === '') {
+            console.error('Maxacnhan is empty');
+            return;
+        }
+    
+        // Create an object to hold the data to be sent
+        var postData = {
+            maxacnhan: code,
+            email: email,
+            tendangnhap: tendangnhap // Assuming tendangnhap is also needed
+        };
+    
+        // Send POST request with data
+        $http.post('/kiemtrama', postData)
+            .then(function(response) {
+                // Xử lý phản hồi từ máy chủ sau khi kiểm tra mã xác nhận
+                // Ví dụ: chuyển hướng hoặc hiển thị thông báo
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                // Xử lý lỗi nếu có
+                console.error('Error:', error);
+            });
+    };
+    
+    
+    
+    
+    
 });

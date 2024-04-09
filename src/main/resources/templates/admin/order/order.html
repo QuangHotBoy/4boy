@@ -116,7 +116,7 @@
                                     <th > Lí do hủy đơn </th> 
                                     <th > Trạng thái  </th>
                                     <th>Hành động</th>
-                            
+                                    <th></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -157,6 +157,12 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td>
+                                      <a ng-href="/shop/admin/order_detail/{{ orderPlace.maDonHang }}" class="btn btn-gradient-success btn-rounded btn-icon">
+                                          <i class="mdi mdi-delete-forever"></i>
+                                      </a>
+                                  </td>
+                                  
                                 </tr>
                                 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">

@@ -16,4 +16,9 @@ public interface OrderService {
     List<DonDatHang> findByTDN(String tenDangNhap);
     
     List<Object[]> getTopSachByTinhTrang();
+
+    public static DonDatHang getOrderById(String madonhangId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOrderById'");
+    }
 }
