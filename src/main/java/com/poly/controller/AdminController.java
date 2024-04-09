@@ -8,11 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.MaGiamGiaDAO;
+import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DonDatHang;
 import com.poly.model.MaGiamGia;
 
@@ -25,6 +29,9 @@ public class AdminController {
 
 	@Autowired
 	DonDatHangDAO ddhDAO;
+
+	@Autowired
+	ChiTietDonDatHangDAO ctddhDAO;
 
     @RequestMapping("admin/dashboard")
 	public String index() {
@@ -63,6 +70,14 @@ public class AdminController {
 		model.addAttribute("ddhs", ddhs);
 		return "admin/order/order";
 	}
+	  @GetMapping("/shop/admin/order_detail{madonhang}")
+    public String orderDetail(Model model) {
+		List<DonDatHang> ddhs = ddhDAO.findAll();	
+		model.addAttribute("orderPlaceDetails", ddhs);
+		List<ChiTietDonDatHang>  hdct = ctddhDAO.findAll();
+		model.addAttribute("orderPlaceDetails", hdct);
+        return "admin/order/order_detail";
+    }
 	@RequestMapping("shop/admin/information")
 	public String information(){
 			return "admin/information/information";

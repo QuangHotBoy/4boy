@@ -1,6 +1,6 @@
 var app = angular.module('orderPlacedApp', []);
 
-app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
+app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, $window) {
     $scope.orderPlaces = [];
     $scope.form = {};
     $scope.selectedStatus = '';
@@ -46,6 +46,22 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout) {
                 console.error('Error fetching data for editing:', error);
                 // Optionally, you can initialize $scope.form here to avoid undefined errors
                 $scope.form = {};
+            });
+    };
+    $scope.viewOrderDetail = function(maDonHang) {
+        // Construct the URL for the order detail page
+        var url = '/shop/admin/order_detail/' + maDonHang;
+        
+        // Send a GET request to the server to fetch order detail
+        $http.get(url)
+            .then(function(response) {
+                // Redirect to the order detail page if request is successful
+                window.location.href = url;
+                $scope.form = response.data;
+            })
+            .catch(function(error) {
+                // Handle error if request fails
+                console.error('Error fetching order detail:', error);
             });
     };
     $scope.edittt = function(maDonHang) {

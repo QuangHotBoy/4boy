@@ -41,9 +41,7 @@ public class LoginController {
     }
 
     @GetMapping("shop/log-out")
-    public String logout(Model model){
-
-
+    public String logout(Model model) {
 
         return "redirect:/shop/home";
     }
@@ -57,6 +55,7 @@ public class LoginController {
     public String forgot(Model model) {
         return "shop/layout/login/forgot";
     }
+
     @RequestMapping("shop/forgot1")
     public String forgo1t(Model model) {
         return "shop/layout/login/forgot_xacnhan";
@@ -78,6 +77,7 @@ public class LoginController {
 
         return sb.toString();
     }
+
     String randomString = generateRandomString(10);
     String Subject = "███ Nhà Sách Trực Tuyến Knotrea Xin Chào, Đây là mã xác nhận của bạn ███";
     String icon1 = "Mã xác nhận email của bạn là: <h>&#x1F338;<strong>" + randomString + "</strong>&#x1F338;</h>\n";
@@ -87,8 +87,9 @@ public class LoginController {
         sessionService_quenmatkhau.set("maxacnhan_email", randomString); // Lưu mã xác nhận vào session
         String styledIcon1 = icon1.replace("\n", "<br>");
         mailer.send(email, Subject, styledIcon1); // Gửi email xác nhận
-        return "shop/layout/login/forgot";
+        return "shop/layout/login/forgot_xacnhan";
     }
+
     @RequestMapping("kiemtraemail")
     public String kiemtraemail(
             Model model,
@@ -119,43 +120,43 @@ public class LoginController {
         return "redirect:/sendemail/" + email;
     }
 
-    
-
-    String emailthaydoimatkhau = ""; // Biến để lưu email khi xác nhận mã thành công
-
     @RequestMapping("kiemtrama")
-    public String kiemtrama(Model model, @RequestParam("maxacnhan") String maxacnhan, @PathVariable("email") String email) {
-        if (maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
-            // Nếu mã xác nhận đúng, chuyển hướng đến trang tiếp theo
-            emailthaydoimatkhau = email;
-            return "redirect:/thaydoimatkhau";
-        } else {
-            // Nếu mã xác nhận không đúng, hiển thị thông báo lỗi hoặc xử lý khác
-            return "shop/layout/login/forgot";
-        }
+public String kiemtrama(Model model, @RequestParam("maxacnhan") String maxacnhan,
+                         @RequestParam("email") String email) {
+    if (maxacnhan.equals(sessionService_quenmatkhau.get("maxacnhan_email"))) {
+        // Nếu mã xác nhận đúng, chuyển hướng đến trang tiếp theo
+        emailthaydoimatkhau = email;
+        return "redirect:/thaydoimatkhau";
+    } else {
+        // Nếu mã xác nhận không đúng, hiển thị thông báo lỗi hoặc xử lý khác
+        return "shop/layout/login/forgot_xacnhan";
     }
+}
 
+String thongbaothaydoimatkhau_tendangnhap = "";
+String thongbaothaydoimatkhau_matkhau = "";
+String matk = "";
+String emailthaydoimatkhau; // Define emailthaydoimatkhau variable
 
-
-    String thongbaothaydoimatkhau_tendangnhap = "";
-    String thongbaothaydoimatkhau_matkhau = "";
-    String matk = "";
-
-    @RequestMapping("thaydoimatkhau")
-    public String thaydoimatkhau(Model model) {
-        // Check if kiemTraTaiKhoanEmail is not null before using it
+@RequestMapping("thaydoimatkhau")
+public String thaydoimatkhau(Model model) {
+    // Check if emailthaydoimatkhau is not null before using it
+    if (emailthaydoimatkhau != null) {
+        // Get TaiKhoan by email
         TaiKhoan kiemTraTaiKhoanEmail = tkDao.findByEmail(emailthaydoimatkhau);
         if (kiemTraTaiKhoanEmail != null) {
-            // Add attributes only if kiemTraTaiKhoanEmail is not null
+            // Add attributes if kiemTraTaiKhoanEmail is not null
             model.addAttribute("tenDangNhap", kiemTraTaiKhoanEmail.getTenDangNhap());
             model.addAttribute("email", emailthaydoimatkhau);
             model.addAttribute("matk", matk);
         } else {
             System.err.println("TaiKhoan with email " + emailthaydoimatkhau + " not found");
         }
-        return "shop/layout/login/create_user";
+    } else {
+        System.err.println("Email is null");
     }
-    
+    return "shop/layout/login/create_user";
+}
 
     @RequestMapping("xacnhanthaydoimatkhau/{email}")
     public String xacnhanthaydoimatkhau(
@@ -163,23 +164,23 @@ public class LoginController {
             @PathVariable("email") String email,
             @RequestParam("matKhau") String matKhau,
             @RequestParam("xacnhanmatkhau") String xacNhanMatKhau) {
-    
+
         // Check if passwords match
         if (!matKhau.equals(xacNhanMatKhau)) {
             model.addAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
             return "redirect:/error-page"; // Redirect to error page or appropriate view
         }
         TaiKhoan kiemTraTaiKhoanEmail = tkDao.findByEmail(email);
-        
+
         // Check if the TaiKhoan object exists
         if (kiemTraTaiKhoanEmail == null) {
             model.addAttribute("error", "Không tìm thấy tài khoản với email này.");
             return "redirect:/error-page"; // Redirect to error page or appropriate view
         }
-    
+
         // Set the new password
         kiemTraTaiKhoanEmail.setMatKhau(matKhau);
-    
+
         // Save the updated TaiKhoan object
         try {
             tkDao.save(kiemTraTaiKhoanEmail);
@@ -187,10 +188,9 @@ public class LoginController {
             model.addAttribute("error", "Lỗi khi cập nhật mật khẩu. Vui lòng thử lại sau.");
             return "redirect:/error-page"; // Redirect to error page or appropriate view
         }
-    
+
         return "redirect:/shop/login"; // Redirect to login page or appropriate view
     }
-    
 
     @RequestMapping("shop/create_user")
     public String create_user(Model model) {
