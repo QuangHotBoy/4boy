@@ -128,7 +128,7 @@
                                     <td>{{ orderPlace.ghiChu }}</td>
                                     <td>{{ orderPlace.trangThai_donDatHang.tenTrangThai }}</td>
                                     <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" ng-click="edittt(orderPlace.maDonHang)"  ng-hide="orderPlace.trangThai_donDatHang.id === 5">
+                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" ng-click="edittt(orderPlace.maDonHang)"  ng-hide="orderPlace.trangThai_donDatHang.id === 6">
                                           <i class="mdi mdi-border-color"></i>
                                       </button>
                                       <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" ng-click="edit(orderPlace.maDonHang)"data-bs-target="#exampleModal" data-bs-whatever="@mdo"  ng-if="orderPlace.trangThai_donDatHang.id === 1">
@@ -158,12 +158,45 @@
                                         </div>
                                     </td>
                                     <td>
-                                      <a ng-href="/shop/admin/order_detail/{{ orderPlace.maDonHang }}" class="btn btn-gradient-success btn-rounded btn-icon">
-                                          <i class="mdi mdi-delete-forever"></i>
-                                      </a>
-                                  </td>
-                                  
+                                      <button  ng-click="edit2(form.maDonHang)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Open modal for @mdo</button>
+
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết đơn hàng</h1>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <!-- <table class="table table-striped" id="table">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Mã chi tiết</th>
+                                                              <th>Số lượng</th>
+                                                              <th>Đơn giá</th>      
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                          <tr ng-repeat="orderPlacesDetails in orderPlacesDetails">
+                                                              <td>{{ orderPlacesDetails.maChiTiet }}</td>
+                                                              <td>{{ orderPlacesDetails.soLuong }}</td>
+                                                              <td>{{ orderPlacesDetails.donGia }}</td>
+                                                          </tr>
+                                                      </tbody>
+                                                  </table> -->
+                                                  <input type="text" name="madonhang" ng-model="form.maDonHang">
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>                                      
+</td>
                                 </tr>
+                                <!-- Modal for displaying order detail -->
+
+
                                 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
@@ -241,5 +274,6 @@
     <!-- Datatable -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="/assets/js/orderPlacedDetail-ctrl.js"></script>
   </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DonDatHang;
 
 public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
@@ -82,5 +83,6 @@ public interface DonDatHangDAO extends JpaRepository<DonDatHang, Integer> {
     // thống kê doanh thu nhập vào
     @Query("SELECT SUM(d.tongTien) FROM DonDatHang d WHERE d.ngayDatHang BETWEEN :startDate AND :endDate AND d.trangThai_donDatHang.id = 6")
     BigDecimal getTotalRevenueByDateRange(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
+
 
 }

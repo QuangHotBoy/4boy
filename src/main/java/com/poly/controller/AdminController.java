@@ -70,14 +70,20 @@ public class AdminController {
 		model.addAttribute("ddhs", ddhs);
 		return "admin/order/order";
 	}
-	  @GetMapping("/shop/admin/order_detail{madonhang}")
-    public String orderDetail(Model model) {
-		List<DonDatHang> ddhs = ddhDAO.findAll();	
-		model.addAttribute("orderPlaceDetails", ddhs);
-		List<ChiTietDonDatHang>  hdct = ctddhDAO.findAll();
-		model.addAttribute("orderPlaceDetails", hdct);
-        return "admin/order/order_detail";
-    }
+	@GetMapping("/shop/admin/order_detail")
+public String orderDetail(Model model) {
+    // Truy vấn danh sách chi tiết đơn hàng từ cơ sở dữ liệu
+    List<ChiTietDonDatHang> listDetail = ctddhDAO.findAll();
+    
+    // Đưa danh sách chi tiết đơn hàng vào model để hiển thị trên giao diện
+    model.addAttribute("listDetail", listDetail);
+    
+    return "admin/order/order_detail";
+}
+
+
+	
+
 	@RequestMapping("shop/admin/information")
 	public String information(){
 			return "admin/information/information";

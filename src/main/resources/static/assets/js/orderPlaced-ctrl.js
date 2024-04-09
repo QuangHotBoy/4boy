@@ -2,27 +2,40 @@ var app = angular.module('orderPlacedApp', []);
 
 app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, $window) {
     $scope.orderPlaces = [];
+    $scope.orderPlacesDetails = [];
     $scope.form = {};
     $scope.selectedStatus = '';
 
     // Function to initialize the controller
-    $scope.initialize = function () {
-        $http.get("/rest/orderPlaces").then(resp => {
-            $scope.orderPlaces = resp.data;
-            $timeout(function () {
-                $('#table1').DataTable({
-                    "language": {
-                        "url": "/assets/json/vietnam.json"
-                    }
-                });
-            });
-            $scope.orderPlaces.sort((a, b) => new Date(b.ngayDatHang) - new Date(a.ngayDatHang));
-            console.log($scope.orderPlaces);
-            // Initialize DataTable after data is loaded
-
+$scope.initialize = function() {
+    $http.get("/rest/orderPlaces").then(function(resp1) {
+        $scope.orderPlaces = resp1.data;
+        // Gọi hàm lấy dữ liệu cho orderPlacesDetail
+        $http.get("/rest/orderPlacesDetail").then(function(resp2) {
+            $scope.orderPlacesDetails = resp2.data;
+            // Gọi hàm khởi tạo DataTable khi đã lấy đủ dữ liệu
+            initializeDataTable();
+        }).catch(function(error2) {
+            console.error("Lỗi khi lấy dữ liệu từ /rest/orderPlacesDetail:", error2);
         });
-    }
+    }).catch(function(error1) {
+        console.error("Lỗi khi lấy dữ liệu từ /rest/orderPlaces:", error1);
+    });
+};
 
+
+// Gọi hàm initialize khi controller được khởi tạo
+$scope.initialize();
+
+function initializeDataTable() {
+    $timeout(function() {
+        $('#table1').DataTable({
+            "language": {
+                "url": "/assets/json/vietnam.json"
+            }
+        });
+    });
+}
     $scope.initialize();
 
     // Function to reset the form
@@ -47,23 +60,7 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, 
                 // Optionally, you can initialize $scope.form here to avoid undefined errors
                 $scope.form = {};
             });
-    };
-    $scope.viewOrderDetail = function(maDonHang) {
-        // Construct the URL for the order detail page
-        var url = '/shop/admin/order_detail/' + maDonHang;
-        
-        // Send a GET request to the server to fetch order detail
-        $http.get(url)
-            .then(function(response) {
-                // Redirect to the order detail page if request is successful
-                window.location.href = url;
-                $scope.form = response.data;
-            })
-            .catch(function(error) {
-                // Handle error if request fails
-                console.error('Error fetching order detail:', error);
-            });
-    };
+    }; 
     $scope.edittt = function(maDonHang) {
         // Send a GET request to the API to fetch data for the specified ID
         $http.get('/rest/orderPlaces/' + maDonHang)
@@ -119,6 +116,8 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, 
             orderPlace.trangThai_donDatHang.id = 4;
         }else if(orderPlace.trangThai_donDatHang.id === 4){
             orderPlace.trangThai_donDatHang.id = 5;
+        }else if(orderPlace.trangThai_donDatHang.id === 5){
+            orderPlace.trangThai_donDatHang.id = 6;
         }
     
         // Gửi yêu cầu PUT để cập nhật thông tin đơn hàng
@@ -271,5 +270,40 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, 
         }
         return pageNumbers;
     }
+    $scope.getChiTietDonHang = function(maDonHang) {
+        $http.get("/shop/admin/order_detail")
+            .then(function(response) {
+                // Xử lý dữ liệu phản hồi từ máy chủ
+                $scope.listDetail = response.data.listDetail;
+                // Ví dụ: có thể hiển thị thông tin chi tiết đơn hàng trong một modal
+                $('#exampleModal2').modal('show');
+            })
+            .catch(function(error) {
+                // Xử lý lỗi nếu có
+                console.error("Lỗi khi lấy chi tiết đơn hàng:", error);
+            });
+    
+        // Gọi hàm edit2 để lấy thông tin đơn hàng cụ thể
+        $scope.edit2(maDonHang);
+    };
+    
+    $scope.edit2 = function(maDonHang) {
+        // Send a GET request to the API to fetch data for the specified ID
+        $http.get('/rest/orderPlaces/' + maDonHang)
+            .then(function(response) {
+                // Copy the fetched data to $scope.form
+                $scope.form = response.data;
+                // Convert the ISO date string to a JavaScript Date object
+                // Show the modal
+                $('#exampleModal2').modal('show');
+                console.log(maDonHang);
+            })
+            .catch(function(error) {
+                // Handle errors
+                console.error('Error fetching data for editing:', error);
+                // Optionally, you can initialize $scope.form here to avoid undefined errors
+                $scope.form = {};
+            });
+    };
     
 });

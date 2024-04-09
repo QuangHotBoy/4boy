@@ -99,14 +99,7 @@
                                 <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span><i class="bi bi-filter-square-fill"></i></span>
-                                            <select ng-model="selectedStatus" ng-change="filterByStatus()">
-                                                <option value="">Tất cả trạng thái</option>
-                                                <option value="1">Chờ xác nhận</option>
-                                                <option value="2">Đã xác nhận</option>
-                                                <option value="3">Đang xử lí</option>
-                                                <!-- Thêm các trạng thái khác nếu cần -->
-                                            </select>
+                                          
                                             <input type="text" class="search-input" ng-model="searchTerm"
                                                    ng-change="search()" placeholder="Tìm kiếm">
                                             <table class="table table-striped" id="table">
