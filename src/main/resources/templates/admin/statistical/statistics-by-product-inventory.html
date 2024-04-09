@@ -27,72 +27,124 @@
 </head>
 
 <style>
-	.card-body {
-		min-height: 600px;
-		/* Đặt chiều cao tối thiểu của card-body */
+	/*  */
+	.filter-container {
+		margin-bottom: 20px;
+
 	}
 
-	/* Thiết lập font chữ */
+	.filter-container label {
+		margin-right: 10px;
+	}
+
+	.filter-container select {
+		padding: 8px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		font-size: 14px;
+		outline: none;
+	}
+
 	.product-table {
-		font-family: Arial, sans-serif;
-		border-collapse: collapse;
 		width: 100%;
+		border-collapse: collapse;
 	}
 
-	/* Định dạng header của bảng */
-	.product-table thead th {
+	.product-table th,
+	.product-table td {
+		padding: 10px;
+
+		border: 1px solid #ddd;
+	}
+
+	.product-table th {
 		background-color: #f2f2f2;
-		border: 1px solid #dddddd;
-		padding: 8px;
-		text-align: left;
+		font-weight: bold;
 	}
 
-	/* Định dạng hàng dữ liệu */
-	.product-table tbody td {
-		border: 1px solid #dddddd;
-		padding: 8px;
-		text-align: left;
-	}
-
-	/* Định dạng hàng xen kẽ */
 	.product-table tbody tr:nth-child(even) {
-		background-color: #f2f2f2;
+		background-color: #f9f9f9;
 	}
 
-	/* Định dạng hover khi di chuột vào hàng */
 	.product-table tbody tr:hover {
-		background-color: #ddd;
-	}
-
-	/* Định dạng cột đầu tiên */
-	.product-table tbody td:first-child {
-		width: 2%;
-	}
-
-	/* Định dạng cột thứ hai */
-	.product-table tbody td:nth-child(2) {
-		width: 50%;
-	}
-
-	/* Định dạng cột thứ ba */
-	.product-table tbody td:nth-child(3) {
-		width: 5%;
-	}
-
-	/* Định dạng cột cuối cùng */
-	.product-table tbody td:last-child {
-		width: 5%;
+		background-color: #f2f2f2;
 	}
 
 	/* CSS */
 	.product-table thead {
-
 		position: sticky;
 		top: 0;
 		background-color: #fff;
 		/* Tùy chỉnh màu nền cho thẻ thead */
 		z-index: 1;
+		/* Đảm bảo thẻ thead luôn hiển thị trên cùng */
+	}
 
+	#table1 img {
+		max-width: 80%;
+		/* Ensure images fit within their containers */
+		height: 100px;
+		/* Maintain aspect ratio of images */
+		display: block;
+		/* Display images as block elements */
+		margin: 0 auto;
+		/* Center align images horizontally */
+	}
+
+	/* CSS cho các phần tử select */
+	.custom-select {
+		width: 200px;
+		/* Đặt độ rộng là 200px */
+		padding: 10px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+
+	/* Tùy chỉnh kiểu đổ bóng khi chọn select */
+	.custom-select:focus {
+		border-color: #80bdff;
+		outline: 0;
+		box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+	}
+
+	/* Custom CSS */
+	.product-table {
+		width: 100%;
+	}
+
+	.product-table th,
+	.product-table td {
+
+		vertical-align: middle;
+	}
+
+	/* Thanh hiển thị */
+	.dataTables_length,
+	.dataTables_filter,
+	.dataTables_info,
+	.dataTables_paginate {
+		margin-bottom: 10px;
+		/* Khoảng cách giữa các thành phần */
+	}
+
+	/* Thanh tìm kiếm */
+	.dataTables_filter {
+		float: right;
+		/* Đặt thanh tìm kiếm bên phải */
+		margin-top: 10px;
+	}
+
+	.dataTables_filter label {
+		margin-right: 5px;
+		/* Khoảng cách giữa nhãn và ô nhập */
+	}
+
+	.dataTables_length label {
+		margin-right: 10px;
+		/* Khoảng cách giữa nhãn và dropdown */
 	}
 </style>
 
@@ -150,32 +202,44 @@
 
 
 							<div class="row">
-								
+
 
 								<br>
 								<br>
 								<br>
 								<div class="col-sm-12">
-									<h4 class="card-title">Danh sách các sản phẩm tồn kho</h4>
+
 									<div style="height: 550px; overflow: auto;">
+										<h4 class="card-title">Danh sách các sản phẩm tồn kho</h4>
+
 										<style>
 											/* Hide scrollbar */
 											::-webkit-scrollbar {
 												display: none;
 											}
 										</style>
-										
-										<table class="product-table" id="table1" >
-											<thead>
+										<div style="margin-bottom: 10px;">
+											<label for="loaiSachFilter">Chọn loại sách:</label>
+											<select id="loaiSachFilter" ng-model="selectedLoaiSach"
+												ng-change="filterByLoaiSach()"
+												style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+												<option value="">Tất cả</option>
+												<option ng-repeat="sach in uniqueLoaiSach" value="{{sach}}">{{sach}}
+												</option>
+											</select>
+										</div>
+
+										<table class="table product-table" id="table1">
+											<thead class="thead-dark">
 												<tr>
-													<th>Mã sách</th>
-													<th>Tên sản phẩm</th>
-													<th>SL tồn kho</th>
-													<th>Loại sách</th>
+													<th scope="col">Mã sách</th>
+													<th scope="col">Tên sản phẩm</th>
+													<th scope="col">SL tồn kho</th>
+													<th scope="col">Loại sách</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="sach in toptonkho">
+												<tr ng-repeat="sach in filteredToptonkho">
 													<td>{{ sach.Ma }}</td>
 													<td>{{ sach.TenSach }}</td>
 													<td>{{ sach.SoLuongTonKho }}</td>
@@ -183,9 +247,10 @@
 												</tr>
 											</tbody>
 										</table>
-										
-
 									</div>
+
+
+
 									<!-- <table class="product-table">
 										<thead>
 											<tr>
@@ -215,9 +280,9 @@
 									<canvas id="bar-chart" style="width: 100%; height: 500px;"></canvas>
 								</div> -->
 								<div class="card">
-									
+
 								</div>
-								
+
 
 
 

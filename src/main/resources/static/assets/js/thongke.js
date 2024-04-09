@@ -36,20 +36,19 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
             var backgroundColor = [];
             var borderColor = [];
 
-            var colorsUsed = [];
+            var colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#62B832", "#D4526E", "#EF5777", "#FFC542"];
 
-            $scope.thongkes.forEach(function (thongke) {
+            $scope.thongkes.forEach(function (thongke, index) {
                 labels.push(thongke.TenSach);
                 data.push(thongke.TongSoLuongDaBan);
-                var randomColor = getRandomColor(colorsUsed);
-                backgroundColor.push(randomColor);
-                borderColor.push(randomColor);
-                colorsUsed.push(randomColor);
+                var colorIndex = index % colors.length; // lặp lại màu nếu hết màu trong mảng
+                backgroundColor.push(colors[colorIndex]);
+                borderColor.push(colors[colorIndex]);
             });
 
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie', // Loại biểu đồ cột
                 data: {
                     labels: labels,
                     datasets: [{
@@ -61,14 +60,40 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                     }]
                 },
                 options: {
+                    legend: {
+                        display: true, // Hiển thị chú thích
+                        position: 'bottom' // Đặt vị trí chú thích ở dưới
+                    }
                     // Cấu hình thêm nếu bạn muốn
                 }
             });
+            
 
             // Cấu hình kích thước biểu đồ
-            ctx.canvas.width = 400;
-            ctx.canvas.height = 400;
+            ctx.canvas.width = 20;
+            ctx.canvas.height = 20;
         });
+
+        ///
+        $scope.selectedLoaiSach = ''; // Khởi tạo biến chứa loại sách được chọn
+        $scope.filteredToptonkho = []; // Khởi tạo mảng chứa dữ liệu được lọc
+
+        $scope.filterByLoaiSach = function () {
+            if ($scope.selectedLoaiSach === "") {
+                // Nếu chọn "Tất cả", hiển thị tất cả các sản phẩm
+                $scope.filteredToptonkho = $scope.toptonkho;
+            } else {
+                // Nếu có loại sách được chọn, lọc và hiển thị chỉ các sản phẩm có loại sách tương ứng
+                $scope.filteredToptonkho = $scope.toptonkho.filter(function (sach) {
+                    return sach.LoaiSach === $scope.selectedLoaiSach;
+                });
+            }
+        };
+
+
+
+
+
         $http.get("/rest/topByTinhTrang/toptonkho")
             .then(function (response) {
                 $scope.toptonkho = response.data.map(function (item) {
@@ -79,6 +104,14 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                         LoaiSach: item[3]
                     };
                 });
+
+                // Lọc ra các giá trị LoaiSach duy nhất
+                var uniqueLoaiSach = [...new Set($scope.toptonkho.map(item => item.LoaiSach))];
+
+                // Gán dữ liệu cho combobox
+                $scope.uniqueLoaiSach = uniqueLoaiSach;
+
+                $scope.filteredToptonkho = $scope.toptonkho; // Khởi tạo dữ liệu được lọc với toàn bộ dữ liệu ban đầu
                 console.log($scope.toptonkho);
 
                 // Initialize DataTable
@@ -93,6 +126,8 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
             .catch(function (error) {
                 console.error('Error fetching data:', error);
             });
+
+
         // $http.get("/rest/topByTinhTrang/top10")
         //     .then(function (response) {
         //         $scope.top10 = response.data.map(function (item) {
