@@ -62,7 +62,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                     } else {
                         check = false;
                     }
-                } 
+                }
                 if (!check) {
                     iziToast.warning({
                         title: 'Thông báo',
@@ -356,48 +356,87 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     // cập nhập địa chỉ mặc định
     $scope.updateTrueAddress = function () {
         var item = angular.copy($scope.form_addressTrue)
-        $http.put("/rest/address/updateTrue/" + item.id, item).then(resp => {
-            var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressTrue.tenDangNhap);
-            $scope.diachi[index] = resp.data;
-            // Cập nhật lại thông tin tài khoản trong localStorage
-            var accounts = JSON.parse(localStorage.getItem("account")) || [];
-            var updatedAccounts = accounts.map(acc => {
-                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
-                    acc.diaChi = resp.data.diaChi;
-                }
-                return acc;
+
+        var ten = item.hoTen;
+        var sdt = item.sdt;
+        var dc = item.diaChi;
+        if (ten.trim() == "" || sdt.trim() == "" || dc.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Không được để trống !',
+                position: 'topRight'
             });
-            localStorage.setItem("account", JSON.stringify(updatedAccounts));
-            // Load lại trang
-            location.reload();
-            console.log("Success", resp);
-        }).catch(error => {
-            console.log("Error", error)
-        })
+        } else {
+            $http.put("/rest/address/updateTrue/" + item.id, item).then(resp => {
+                var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressTrue.tenDangNhap);
+                $scope.diachi[index] = resp.data;
+                // Cập nhật lại thông tin tài khoản trong localStorage
+                var accounts = JSON.parse(localStorage.getItem("account")) || [];
+                var updatedAccounts = accounts.map(acc => {
+                    if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                        acc.diaChi = resp.data.diaChi;
+                    }
+                    return acc;
+                });
+                localStorage.setItem("account", JSON.stringify(updatedAccounts));
+                iziToast.info({
+                    title: 'Thông báo',
+                    message: 'Cập nhập địa chỉ thành công !',
+                    position: 'topRight'
+                });
+
+                // Chờ 3 giây trước khi thực hiện reload
+                setTimeout(function () {
+                    location.reload();
+                }, 3000)
+                console.log("Success", resp);
+            }).catch(error => {
+                console.log("Error", error)
+            })
+        }
     }
 
     // cập nhập địa chỉ thường
     $scope.updateFalseAddress = function () {
         var item = angular.copy($scope.form_addressfase)
-        $http.put("/rest/address/updateFalse/" + item.id, item).then(resp => {
-            var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressfase.tenDangNhap);
-            $scope.diachi[index] = resp.data;
-
-            // Cập nhật lại thông tin tài khoản trong localStorage
-            var accounts = JSON.parse(localStorage.getItem("account")) || [];
-            var updatedAccounts = accounts.map(acc => {
-                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
-                    acc.diaChi = resp.data.diaChi;
-                }
-                return acc;
+        var ten = item.hoTen;
+        var sdt = item.sdt;
+        var dc = item.diaChi;
+        if (ten.trim() == "" || sdt.trim() == "" || dc.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Không được để trống !',
+                position: 'topRight'
             });
-            localStorage.setItem("account", JSON.stringify(updatedAccounts));
-            // Load lại trang
-            location.reload();
-            console.log("Success", resp);
-        }).catch(error => {
-            console.log("Error", error)
-        })
+        } else {
+            $http.put("/rest/address/updateFalse/" + item.id, item).then(resp => {
+                var index = $scope.diachi.findIndex(item => item.tenDangNhap === $scope.form_addressfase.tenDangNhap);
+                $scope.diachi[index] = resp.data;
+
+                // Cập nhật lại thông tin tài khoản trong localStorage
+                var accounts = JSON.parse(localStorage.getItem("account")) || [];
+                var updatedAccounts = accounts.map(acc => {
+                    if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                        acc.diaChi = resp.data.diaChi;
+                    }
+                    return acc;
+                });
+                localStorage.setItem("account", JSON.stringify(updatedAccounts));
+                iziToast.info({
+                    title: 'Thông báo',
+                    message: 'Cập nhập địa chỉ thành công !',
+                    position: 'topRight'
+                });
+
+                // Chờ 3 giây trước khi thực hiện reload
+                setTimeout(function () {
+                    location.reload();
+                }, 3000)
+                console.log("Success", resp);
+            }).catch(error => {
+                console.log("Error", error)
+            })
+        }
     }
 
 
@@ -405,6 +444,16 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     $scope.addAddress = function () {
         var item = angular.copy($scope.form_address)
         var tenDangNhap = $scope.info_user[0].tenDangNhap;
+        var ten = item.hoTen; 
+        var sdt = item.sdt;
+        var dc = item.diaChi;
+        if (ten.trim() == "" || sdt.trim()=="" || dc.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Không được để trống !',
+                position: 'topRight'
+            });
+        } else {
         $http.post("/rest/address/add/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
             $scope.diachi.push(item);
             // Cập nhật lại thông tin tài khoản trong localStorage
@@ -416,10 +465,19 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 return acc;
             });
             localStorage.setItem("account", JSON.stringify(updatedAccounts));
-            // Load lại trang
-            location.reload();
+                iziToast.info({
+                    title: 'Thông báo',
+                    message: 'Thêm địa chỉ thành công !',
+                    position: 'topRight'
+                });
+
+                // Chờ 3 giây trước khi thực hiện reload
+                setTimeout(function () {
+                    location.reload();
+                }, 3000)
             console.log("Success", resp);
         })
+    }
     }
 
     $scope.delete = function (id) {

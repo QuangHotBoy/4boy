@@ -65,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
 		dctk.setTaiKhoan_diaChi(taikhoan);
 		dctk.setHoTen(taikhoan.getHoTen());
 		dctk.setDiaChi("Chưa có địa chỉ");
-		dctk.setSdt(taikhoan.getSdt());
+		dctk.setSdt(null);
 		dctk.setMacDinh(true);
 		dctkDAO.save(dctk);
 		//them gio hang
