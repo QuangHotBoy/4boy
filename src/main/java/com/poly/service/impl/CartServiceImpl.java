@@ -40,6 +40,11 @@ public class CartServiceImpl implements CartService {
 
         GioHang findCart = cartDAO.findByTenDangNhap(cart.getTaiKhoan_gioHang().getTenDangNhap());
 
+        List<ChiTietGioHang> detailCarts = detailDAO.findByGioHang(findCart.getId());
+        
+        for (ChiTietGioHang dc : detailCarts) {
+            detailDAO.delete(dc);
+        }
         TypeReference<List<ChiTietGioHang>> type = new TypeReference<List<ChiTietGioHang>>() {
         };
 
@@ -74,9 +79,9 @@ public class CartServiceImpl implements CartService {
             data.put(key++, arrays);
         }
 
-        for (ChiTietGioHang chiTietGioHang : list) {
-                detailDAO.delete(chiTietGioHang);
-        }
+        // for (ChiTietGioHang chiTietGioHang : list) {
+        //         detailDAO.delete(chiTietGioHang);
+        // }
 
         return data;
     }

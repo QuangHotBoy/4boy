@@ -27,7 +27,7 @@
 				</button>
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item" ng-click="checkLogin()">Thông tin</a> </li>
-					<li ng-if="!account"><a class="dropdown-item" ng-click="logout()">Đăng xuất</a></li>
+					<li ng-show="!account"><a class="dropdown-item" ng-click="logout()">Đăng xuất</a></li>
 				</ul>
 			</div>
 		</div>

@@ -44,6 +44,8 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                                     position: 'topRight'
                                 });
                             } else {
+                                $scope.cart(a.tenDangNhap);
+
                                 location.href = "/shop/home";
                                 account.push($scope.accounts.users[i]);
                                 for (var i = 0; i < $scope.accounts.address.length; i++) {
@@ -52,8 +54,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                                         account.push($scope.accounts.address[i]);
                                     }
                                 }
-                                var cart =
-                                    localStorage.setItem("account", JSON.stringify(account));
+                                localStorage.setItem("account", JSON.stringify(account));
                                 break;
                             }
                         } else {
@@ -133,7 +134,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         var productsToRemove = $scope.cart.map(function (product) {
             return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
         });
-
+        
         function removeFromLocalStorage(productsToRemove) {
             var carts = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -327,7 +328,6 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         }
     }
 
-
     // gọi form cập nhập địa chỉ mặc định
     $scope.edittrueAddress = function (id) {
         $http.get("/rest/getaddress/" + id).then(resp => {
@@ -439,32 +439,31 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         }
     }
 
-
     // thêm địa chỉ
     $scope.addAddress = function () {
         var item = angular.copy($scope.form_address)
         var tenDangNhap = $scope.info_user[0].tenDangNhap;
-        var ten = item.hoTen; 
+        var ten = item.hoTen;
         var sdt = item.sdt;
         var dc = item.diaChi;
-        if (ten.trim() == "" || sdt.trim()=="" || dc.trim() == "") {
+        if (ten.trim() == "" || sdt.trim() == "" || dc.trim() == "") {
             iziToast.warning({
                 title: 'Thông báo',
                 message: 'Không được để trống !',
                 position: 'topRight'
             });
         } else {
-        $http.post("/rest/address/add/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
-            $scope.diachi.push(item);
-            // Cập nhật lại thông tin tài khoản trong localStorage
-            var accounts = JSON.parse(localStorage.getItem("account")) || [];
-            var updatedAccounts = accounts.map(acc => {
-                if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
-                    acc.diaChi = resp.data.diaChi;
-                }
-                return acc;
-            });
-            localStorage.setItem("account", JSON.stringify(updatedAccounts));
+            $http.post("/rest/address/add/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
+                $scope.diachi.push(item);
+                // Cập nhật lại thông tin tài khoản trong localStorage
+                var accounts = JSON.parse(localStorage.getItem("account")) || [];
+                var updatedAccounts = accounts.map(acc => {
+                    if (acc.tenDangNhap === $scope.info_user.tenDangNhap) {
+                        acc.diaChi = resp.data.diaChi;
+                    }
+                    return acc;
+                });
+                localStorage.setItem("account", JSON.stringify(updatedAccounts));
                 iziToast.info({
                     title: 'Thông báo',
                     message: 'Thêm địa chỉ thành công !',
@@ -475,9 +474,9 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 setTimeout(function () {
                     location.reload();
                 }, 3000)
-            console.log("Success", resp);
-        })
-    }
+                console.log("Success", resp);
+            })
+        }
     }
 
     $scope.delete = function (id) {
@@ -493,6 +492,18 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     }
 
     $scope.cart = function (user_id) {
+
+        // Hàm chuyển đổi từ mảng con sang đối tượng
+        function arrayToObject(arr) {
+            var obj = {};
+            for (var i = 0; i < arr.length; i++) {
+                var key = arr[i][0];
+                var value = arr[i][1];
+                obj[key] = value;
+            }
+            return obj;
+        }
+
         $http.get("/rest/cart/" + user_id).then(function (resp) {
 
             var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
@@ -507,6 +518,8 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 }
             }
 
+            console.log(cart);
+
             localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
         })
     }
@@ -516,6 +529,5 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
-        $scope.cart(aaa[0].tenDangNhap);
     }
 })

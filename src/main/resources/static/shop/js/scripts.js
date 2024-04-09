@@ -50,7 +50,7 @@ $(document).ready(function () {
 
 		// Đếm số lượng sản phẩm trong giỏ hàng
 		var cartCount = cart.reduce(function (total, product) {
-			return total + product.quantity;
+			return total + parseInt(product.quantity);
 		}, 0);
 
 		// Hiển thị số lượng sản phẩm lên website
@@ -215,24 +215,24 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 
 	var user_id = user[0].tenDangNhap;
 
-	$scope.cart = function () {
-		$http.get("/rest/cart/" + user_id).then(function (resp) {
+	// $scope.cart = function () {
+	// 	$http.get("/rest/cart/" + user_id).then(function (resp) {
 
-			var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
+	// 		var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
 
-			var data = resp.data;
+	// 		var data = resp.data;
 
-			// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
-			for (var key in data) {
-				if (data.hasOwnProperty(key)) {
-					var convertedData = arrayToObject(data[key]);
-					cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
-				}
-			}
+	// 		// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
+	// 		for (var key in data) {
+	// 			if (data.hasOwnProperty(key)) {
+	// 				var convertedData = arrayToObject(data[key]);
+	// 				cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
+	// 			}
+	// 		}
 
-			localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
-		})
-	}
+	// 		localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
+	// 	})
+	// }
 
 	// $scope.cart();
 
@@ -260,10 +260,84 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 	}
 
 	// đăng xuất
-    $scope.logout = function () {
-        $scope.addToCart();
-        localStorage.removeItem("account");
-        location.href = "/shop/home";
-    }
+	$scope.logout = function () {
+		$scope.addToCart();
+		localStorage.removeItem("account");
+		location.href = "/shop/home";
+	}
 
+	if ($scope.info_user !== null) {
+		//  dịnh dạng ngày
+		$scope.birthday = new Date($scope.info_user[0].ngaySinh);
+
+		//infomation.form
+		$scope.form = JSON.parse(localStorage.getItem("account")) || null;
+
+		$scope.get_invoice = function () {
+			var tenDangNhap = $scope.info_user[0].tenDangNhap;
+			$http.get("/rest/auth/invoice/" + tenDangNhap).then(resp => {
+				$scope.invoices = [];
+				$scope.invoices = resp.data;
+			}).catch(error => {
+				console.log("Error", error)
+			})
+		};
+
+		$scope.get_invoice();
+
+	}
+
+	$scope.addToCart = function () {
+		// Đăng xuất lưu lại cart từ localStorage vào database
+		var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+		$scope.cart = [];
+
+		for (let i = 0; i < carts.length; i++) {
+			if (carts[i].user === $scope.info_user[0].tenDangNhap) {
+				$scope.cart.push(carts[i]);
+			}
+		}
+
+		// Xác định các sản phẩm cần xóa khỏi localStorage
+		var productsToRemove = $scope.cart.map(function (product) {
+			return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
+		});
+
+		function removeFromLocalStorage(productsToRemove) {
+			var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+			// Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+			carts = carts.filter(function (product) {
+				return !productsToRemove.includes(product.id);
+			});
+
+			// Lưu mảng đã cập nhật vào localStorage
+			localStorage.setItem("cart", JSON.stringify(carts));
+		}
+
+		$scope.addCart = {
+			get taiKhoan_gioHang() {
+				return { tenDangNhap: $scope.info_user[0].tenDangNhap };
+			},
+			get gioHang() {
+				return $scope.cart.map((item) => {
+					return {
+						sanPham_gioHang: { isbn: item.id },
+						soLuong: item.quantity
+					}
+				});
+			},
+			add() {
+				var cart = angular.copy(this);
+				$http.post("/rest/add-cart", cart).then((resp) => {
+					removeFromLocalStorage(productsToRemove);
+				}).catch((error) => {
+					;
+				})
+			}
+		}
+
+		$scope.addCart.add();
+	}
 })
