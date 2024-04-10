@@ -492,7 +492,6 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     }
 
     $scope.cart = function (user_id) {
-
         // Hàm chuyển đổi từ mảng con sang đối tượng
         function arrayToObject(arr) {
             var obj = {};
@@ -503,26 +502,39 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             }
             return obj;
         }
-
+    
         $http.get("/rest/cart/" + user_id).then(function (resp) {
-
+    
             var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
-
+    
             var data = resp.data;
-
+    
             // Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     var convertedData = arrayToObject(data[key]);
-                    cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
+    
+                    // Kiểm tra xem mục đã tồn tại trong giỏ hàng chưa (theo user và id)
+                    var exists = false;
+                    for (var i = 0; i < cart.length; i++) {
+                        if (cart[i].user === convertedData.user && parseInt(cart[i].id) === parseInt(convertedData.id)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+    
+                    // Nếu mục chưa tồn tại trong giỏ hàng, thêm vào
+                    if (!exists) {
+                        cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
+                    }
                 }
             }
-
+    
             console.log(cart);
-
+    
             localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
-        })
-    }
+        });
+    }    
 
     var aaa = JSON.parse(localStorage.getItem("account")) || null;
     if (aaa != null) {
