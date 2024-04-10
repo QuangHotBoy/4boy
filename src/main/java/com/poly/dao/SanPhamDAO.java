@@ -82,7 +82,7 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
         List<Object[]> getTongTien();
 
         // đơn hàng
-        @Query("SELECT COUNT(d) FROM DonDatHang d WHERE MONTH(d.ngayDatHang) = MONTH(CURRENT_DATE()) AND YEAR(d.ngayDatHang) = YEAR(CURRENT_DATE())")
+         @Query("SELECT COUNT(d) FROM DonDatHang d WHERE MONTH(d.ngayDatHang) = MONTH(CURRENT_DATE()) AND YEAR(d.ngayDatHang) = YEAR(CURRENT_DATE())")
         List<Object[]> countDonDatHangThisMonth();
 
 }
