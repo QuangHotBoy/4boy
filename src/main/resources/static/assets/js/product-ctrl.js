@@ -30,9 +30,6 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                     // After loading types, load products data
                     $http.get("/rest/products").then(resp => {
                         $scope.products = resp.data;
-
-
-
                         // Initialize DataTable after data is loaded
                         $timeout(function () {
                             $('#table1').DataTable({
@@ -49,7 +46,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
 
 
-    // Call the initialize function when the controller is instantiated
+    // Gọi hàm khởi tạo
     $scope.initialize();
     // Xử lý khi người dùng thay đổi hình ảnh
     $scope.imageChanged = function (files) {
