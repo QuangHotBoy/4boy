@@ -108,13 +108,13 @@ function initializeDataTable() {
         // Kiểm tra nếu id trạng thái đang là 1, thực hiện chuyển qua id = 2
         if (orderPlace.trangThai_donDatHang.id === 1) {
             orderPlace.trangThai_donDatHang.id = 2;
-        }else if(orderPlace.trangThai_donDatHang.id === 2){
+        } else if (orderPlace.trangThai_donDatHang.id === 2) {
             orderPlace.trangThai_donDatHang.id = 3;
-        }else if(orderPlace.trangThai_donDatHang.id === 3){
+        } else if (orderPlace.trangThai_donDatHang.id === 3) {
             orderPlace.trangThai_donDatHang.id = 4;
-        }else if(orderPlace.trangThai_donDatHang.id === 4){
+        } else if (orderPlace.trangThai_donDatHang.id === 4) {
             orderPlace.trangThai_donDatHang.id = 5;
-        }else if(orderPlace.trangThai_donDatHang.id === 5){
+        } else if (orderPlace.trangThai_donDatHang.id === 5) {
             orderPlace.trangThai_donDatHang.id = 6;
         }
     
@@ -139,6 +139,9 @@ function initializeDataTable() {
     
                 // Thông báo cập nhật thành công
                 alert("Cập nhật trạng thái thành công!");
+    
+                // Load lại trang
+                $window.location.reload();
             })
             .catch(function(error) {
                 // Xử lý lỗi nếu có
@@ -146,6 +149,7 @@ function initializeDataTable() {
                 console.error("Error", error);
             });
     };
+    
     
     $scope.tinhTrangDonDatHangs = [];
 

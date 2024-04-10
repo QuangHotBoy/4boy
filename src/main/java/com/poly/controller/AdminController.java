@@ -71,11 +71,17 @@ public class AdminController {
 		return "admin/order/order";
 	}
 	@GetMapping("/shop/admin/order_detail/{maDonHang}")
-		public String orderDetail(Model model) {
+		public String orderDetail(Model model, @PathVariable("maDonHang") Integer madonhang) {
 			// Truy vấn danh sách chi tiết đơn hàng từ cơ sở dữ liệu
-			List<ChiTietDonDatHang> listDetail = ctddhDAO.findAll();
-			
-			// Đưa danh sách chi tiết đơn hàng vào model để hiển thị trên giao diện
+			DonDatHang orderPlaces = ddhDAO.findById(madonhang).get();
+
+			List<ChiTietDonDatHang> listDetail = ctddhDAO.findByDonDatHang(orderPlaces);
+	
+			// boolean isTrangThaiCancell =
+			// "7".equals(invoice.getTrangThai_donDatHang().getTenTrangThai());
+	
+			// // model.addAttribute("isTrangThaiCancell", isTrangThaiCancell);
+			model.addAttribute("orderPlaces", orderPlaces);
 			model.addAttribute("listDetail", listDetail);
 			
 			return "admin/order/order_detail";
