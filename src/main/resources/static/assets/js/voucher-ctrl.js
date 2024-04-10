@@ -62,6 +62,20 @@ app.controller("voucher-ctrl", function($scope, $http){
             alert("Mã giảm giá đã tồn tại. Vui lòng chọn mã khác.");
             return;
         }
+        if (new Date($scope.form.ngayBatDau) >= new Date($scope.form.ngayKetThuc)) {
+            alert("Ngày bắt đầu phải trước ngày kết thúc!");
+            return;
+        }
+        if ($scope.form.soLuong <= 0 || $scope.form.dieuKien <= 0 || $scope.form.soTienGiam <= 0) {
+            alert("Số lượng phải là số dương!");
+            return;
+        }
+        var regex = /^\d+$/;
+        if (!regex.test($scope.form.soLuong) || !regex.test($scope.form.dieuKien) || !regex.test($scope.form.soTienGiam)) {
+            alert("Vui lòng nhập số!");
+            return;
+        }
+        
         if ($scope.isCreating) {
             // Nếu đang ở trang thêm mới, gán ngày bắt đầu là giờ hiện tại
             $scope.form.ngayBatDau = $scope.getCurrentDateTime();
@@ -113,29 +127,33 @@ app.controller("voucher-ctrl", function($scope, $http){
     $scope.update = function() {
         // Lưu trữ id ban đầu của voucher
         var voucher = angular.copy($scope.form);
-        
+    
         // Chuyển đổi ID sang chuỗi
         voucher.id = String(voucher.id);
     
+        // Gọi API để cập nhật mã giảm giá
         $http.put('/rest/vouchers/' + voucher.id, voucher)
             .then(function(resp) {
                 // Tìm và cập nhật thông tin mã giảm giá trong $scope.vouchers
                 var index = $scope.vouchers.findIndex(function(item) {
-                    // Chuyển đổi item.id sang chuỗi để so sánh nếu cần thiết
-                    return String(item.id) === voucher.id;
+                    // So sánh ID ban đầu với ID trong danh sách
+                    return item.id === voucher.id;
                 });
     
                 if (index !== -1) {
                     // Cập nhật thông tin mã giảm giá trong $scope.vouchers
-                    $scope.vouchers[index] = angular.copy(resp.data); // Giả sử resp.data chứa dữ liệu mã giảm giá đã được cập nhật
+                    $scope.vouchers[index] = angular.copy(resp.data);
                 }
     
-                $scope.reset(); // Đặt lại form
+                // Đặt lại form và hiển thị thông báo cập nhật thành công
+                $scope.reset();
                 alert("Cập nhật sản phẩm thành công!");
-                // Optional, load data again if needed
-                // loadData();
+    
+                // Optional: load lại dữ liệu nếu cần
+                // $scope.initialize();
             })
             .catch(function(error) {
+                // Hiển thị thông báo lỗi nếu cập nhật không thành công
                 alert("Lỗi cập nhật sản phẩm: " + error.statusText);
                 console.log("Error", error);
             });
@@ -217,7 +235,38 @@ app.controller("voucher-ctrl", function($scope, $http){
         this.page = pageNumber;
     }
 }
-
+$scope.pager1 = {
+    page: 0,
+    size: 5,
+    get vouchers() {
+        if (this.page1 < 0) {
+            this.last();
+        }
+        if (this.page1 >= this.count) {
+            this.first();
+        }
+        var start = this.page * this.size;
+        return $scope.vouchers.slice(start, start + this.size)
+    },
+    get count() {
+        return Math.ceil(1.0 * $scope.vouchers.length / this.size);
+    },
+    first() {
+        this.page1 = 0;
+    },
+    last() {
+        this.page1 = this.count - 1;
+    },
+    next() {
+        this.page1++;
+    },
+    prev() {
+        this.page1--;
+    },
+    setPage(pageNumber) {
+        this.page1 = pageNumber;
+    }
+}
 $scope.getPageNumbers = function() {
     var totalPages = $scope.pager.count;
     var pageNumbers = [];
@@ -242,6 +291,28 @@ $scope.getPageNumbers = function() {
             $scope.startDateError = false;
         }
     };
+    $scope.isStartDateInvalid = function(startDate, endDate) {
+        // Chuyển đổi chuỗi ngày thành đối tượng Date
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        // Kiểm tra nếu ngày bắt đầu lớn hơn hoặc bằng ngày kết thúc
+        return start >= end;
+    };
     
+    $scope.isEndDateInvalid = function(endDate, startDate) {
+        // Chuyển đổi chuỗi ngày thành đối tượng Date
+        var end = new Date(endDate);
+        var start = new Date(startDate);
+        // Kiểm tra nếu ngày kết thúc nhỏ hơn hoặc bằng ngày bắt đầu
+        return end <= start;
+    };
+    $scope.isExpired = function(endDate) {
+        // Chuyển đổi chuỗi ngày thành đối tượng Date
+        var end = new Date(endDate);
+        // Lấy ngày hiện tại
+        var today = new Date();
+        // Kiểm tra nếu ngày kết thúc đã qua
+        return end < today;
+    };
     
 })

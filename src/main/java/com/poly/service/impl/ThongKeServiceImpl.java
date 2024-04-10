@@ -2,15 +2,17 @@ package com.poly.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
+
 import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.SanPhamDAO;
+import com.poly.model.SanPham;
 import com.poly.service.ThongKeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -40,5 +42,15 @@ public class ThongKeServiceImpl implements ThongKeService {
 
     public BigDecimal getTotalRevenueByDateRange(Timestamp startDate, Timestamp endDate) {
         return donDatHangDAO.getTotalRevenueByDateRange(startDate, endDate);
+    }
+
+    public List<Object[]> getTongSoLuongSanPham() {
+        return sanPhamDAO.getTongSoLuongSanPham();
+    }
+    public List<Object[]> getTongTien() {
+        return sanPhamDAO.getTongTien();
+    }
+    public List<Object[]> countDonDatHangThisMonth() {
+        return sanPhamDAO.countDonDatHangThisMonth();
     }
 }

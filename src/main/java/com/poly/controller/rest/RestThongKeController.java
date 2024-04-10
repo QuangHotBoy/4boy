@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.model.SanPham;
 import com.poly.service.ThongKeService;
 
 @CrossOrigin("*")
@@ -59,4 +60,17 @@ public class RestThongKeController {
         return totalRevenue;
     }
 
+    @GetMapping("/tong-so-luong-san-pham")
+    public List<Object[]> getTongSoLuongSanPham() {
+        return thongKeService.getTongSoLuongSanPham();
+    }
+    @GetMapping("/tong-tien")
+    public List<Object[]> getTongTien() {
+        return thongKeService.getTongTien();
+    }
+
+    @GetMapping("/donhangcount")
+    public List<Object[]> countDonDatHangThisMonth() {
+        return thongKeService.countDonDatHangThisMonth();
+    }
 }

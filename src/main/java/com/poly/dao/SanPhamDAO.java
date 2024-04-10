@@ -48,8 +48,8 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
         // List<Object[]> thongKeSanPhamBanDuocTop8(Pageable pageable);
 
         // tổng số lượng tồn
-        @Query("SELECT SUM(sp.soLuong) FROM SanPham sp")
-        Long getTongSoLuongSanPham();
+        // @Query("SELECT SUM(sp.soLuong) FROM SanPham sp")
+        // Long getTongSoLuongSanPham();
 
         // Thống kê sản phẩm bán được
         // @Query("SELECT s.id AS maSach, s.tenSach, COALESCE(SUM(ctdh.soLuong), 0) AS
@@ -72,5 +72,17 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Long> {
                         "ORDER BY p.soLuong DESC " +
                         "LIMIT 10")
         List<Object[]> findTop10Products();
+
+        /// tổng sản phẩm
+        @Query("SELECT SUM(sp.soLuong) AS SoLuong FROM SanPham sp")
+        List<Object[]> getTongSoLuongSanPham();
+
+        // tổng doanh thu
+        @Query("SELECT SUM(t.tongTien) AS Tien FROM DonDatHang t")
+        List<Object[]> getTongTien();
+
+        // đơn hàng
+        @Query("SELECT COUNT(d) FROM DonDatHang d WHERE MONTH(d.ngayDatHang) = MONTH(CURRENT_DATE()) AND YEAR(d.ngayDatHang) = YEAR(CURRENT_DATE())")
+        List<Object[]> countDonDatHangThisMonth();
 
 }

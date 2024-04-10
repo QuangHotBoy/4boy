@@ -49,8 +49,8 @@
   }
 </style>
 
-<body>
-  <div class="container-scroller">
+<body ng-controller="thongkeCtrl">
+  <div class="container-scroller" ng-app="myApp" ng-controller="thongkeCtrl">
 
 
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -103,9 +103,9 @@
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
 
-                  <h4 class="font-weight-normal mb-3">Doanh thu <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  <h4 class="font-weight-normal mb-3">Tổng Doanh thu <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="mb-5">$ 15,0000</h2>
+                  <h2 class="mb-5" ng-repeat="tiens in tongtien">{{tiens.Tien | vnCurrency }}</h2>
 
                 </div>
               </div>
@@ -114,10 +114,10 @@
               <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
 
-                  <h4 class="font-weight-normal mb-3">Sản phẩm <i
+                  <h4 class="font-weight-normal mb-3">Tổng Sản phẩm <i
                       class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="mb-5">45,6334</h2>
+                  <h2 class="mb-5"  ng-repeat="tongs in tongsp">{{tongs.SoLuong}}</h2>
 
                 </div>
               </div>
@@ -126,10 +126,10 @@
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
                   <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                  <h4 class="font-weight-normal mb-3">Visitors Online <i
+                  <h4 class="font-weight-normal mb-3">Đơn hàng trong tháng<i
                       class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="mb-5">95,5741</h2>
+                  <h2 class="mb-5"ng-repeat="donn in donhang">{{donn.Don}}</h2>
 
                 </div>
               </div>
@@ -226,6 +226,7 @@
               input.click(); // Simulate a click on the hidden input element
           }
       </script> -->
+      <script src="/assets/js/thongke.js"></script>
 
 </body>
 
