@@ -37,11 +37,6 @@ public class AdminController {
 	public String index() {
 		return "index";
 	}
-	
-    // @RequestMapping({"/admin","admin/dashboard"})
-	// public String index() {
-	// 	return "/index";
-	// }
 	@RequestMapping("shop/admin/voucher")
 	public String voucher(Model model) {
 		List<MaGiamGia> mggs = mggDAO.findAll();	
@@ -53,6 +48,12 @@ public class AdminController {
 		List<MaGiamGia> mggs = mggDAO.findAll();	
 		model.addAttribute("mggs", mggs);
 		return "admin/voucher/voucher_used";
+	}
+	@RequestMapping("shop/admin/voucher_expired")
+	public String voucher_expired(Model model) {
+		List<MaGiamGia> mggs = mggDAO.findAll();	
+		model.addAttribute("mggs", mggs);
+		return "admin/voucher/voucher_expired";
 	}
 	@RequestMapping("shop/admin/addnew_mgg")
 	public String add_voucher_new(){
@@ -76,20 +77,12 @@ public class AdminController {
 			DonDatHang orderPlaces = ddhDAO.findById(madonhang).get();
 
 			List<ChiTietDonDatHang> listDetail = ctddhDAO.findByDonDatHang(orderPlaces);
-	
-			// boolean isTrangThaiCancell =
-			// "7".equals(invoice.getTrangThai_donDatHang().getTenTrangThai());
-	
-			// // model.addAttribute("isTrangThaiCancell", isTrangThaiCancell);
+
 			model.addAttribute("orderPlaces", orderPlaces);
 			model.addAttribute("listDetail", listDetail);
 			
 			return "admin/order/order_detail";
 		}
-
-
-	
-
 	@RequestMapping("shop/admin/information")
 	public String information(){
 			return "admin/information/information";

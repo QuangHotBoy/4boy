@@ -106,25 +106,23 @@
                         <div class="card">
                             <div class="card-body">  
                               <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
-                              <table class="table table-striped" id="table1">
+                              <table class="table table-striped" style="font-weight: bold;" id="table1">
                                     <thead>
                                         <tr>
                                             <th>Mã giảm giá</th>
                                             <th>Tên mã giảm giá</th>
-                                            <th>Số lượng còn lại</th>
-                                            <th>Số lượng đã sử dụng</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <tr ng-repeat="voucher in pager.vouchers">
-                                        <td>{{ voucher.id }}</td>
-                                        <td>{{ voucher.tenMa }}</td>
-                                        <td>{{ voucher.soLuong }}</td>
-                                        <td>{{ voucher.daSuDung }}</td>
-                                    </tr>
-                                                              
+                                      <tr ng-repeat="voucher in pager1.vouchers" ng-if="isExpired(voucher.ngayKetThuc)">
+                                        <td style="color: red;">{{ voucher.id }}</td>
+                                        <td style="color: red;">{{ voucher.tenMa }}</td>
+                                        <td ng-class="{ 'text-danger': isStartDateInvalid(voucher.ngayBatDau, voucher.ngayKetThuc) }">{{ voucher.ngayBatDau | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td ng-class="{ 'text-danger': isEndDateInvalid(voucher.ngayKetThuc, voucher.ngayBatDau) }">{{ voucher.ngayKetThuc | date:'dd/MM/yyyy HH:mm' }}</td>
+                                    </tr>                          
                                   </tbody>
-                                  
                                 </table>
                                 <div class="btn-group my-2" style="margin-left: 40%;" role="group" aria-label="Basic example">
                                   <button ng-repeat="pageNumber in getPageNumbers()" ng-click="pager.setPage(pageNumber)" class="btn btn-success">

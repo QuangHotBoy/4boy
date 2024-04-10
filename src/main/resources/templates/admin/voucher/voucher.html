@@ -96,9 +96,10 @@
                   <div class="card-body"  >
                     <form class="form-sample">
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                           <a href="/shop/admin/addnew_mgg"  class="btn btn-gradient-primary btn-fw">Thêm mã giảm giá</a>
-                          <a href="/shop/admin/voucher_used" type="button" class="btn btn-gradient-danger btn-icon-text">Đóng</a>
+                          <a href="/shop/admin/voucher_used" type="button" class="btn btn-gradient-danger btn-icon-text">Số lượng mã giảm giá</a>
+                          <a href="/shop/admin/voucher_expired" type="button" class="btn btn-gradient-info btn-icon-text">Mã giảm giá hết hạn</a>
                         </div>
                         </div>
                       </div>
@@ -107,7 +108,7 @@
                         <div class="card">
                             <div class="card-body">  
                               <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
-                              <table class="table table-striped" id="table1">
+                              <table class="table table-striped" style="font-family: Arial, Helvetica, sans-serif;" id="table1">
                                     <thead>
                                         <tr>
                                             <th>Mã giảm giá</th>
