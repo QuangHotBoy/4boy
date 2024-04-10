@@ -19,9 +19,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         localStorage.removeItem("account");
         var account = JSON.parse(localStorage.getItem("account")) || [];
         var username = $scope.login.tenDangNhap
-        var pass = $scope.login.matKhau
-        var checkur = false;
-        var checkpass = false;
+        var pass = $scope.login.matKhau 
         $http.get('/rest/login').then(resp => {
             $scope.accounts = resp.data;
             var check = true;
@@ -231,12 +229,11 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         var item = angular.copy($scope.form_info);
         var hoTen = item.hoTen;
         var sdt = item.sdt;
-        console.log(hoTen)
         if (hoTen.trim() == "" || sdt.trim() == "") {
             //    thông báo
             iziToast.warning({
                 title: 'Thông báo',
-                message: 'Thất bại !',
+                message: 'Không được để trống  !',
                 position: 'topRight'
             });
         } else {
@@ -269,6 +266,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             });
         }
     }
+
     // gọi form cập nhập mật khẩu
     $scope.editpass = function (tenDangNhap) {
         $http.get("/rest/account/editmember/" + tenDangNhap).then(resp => {
