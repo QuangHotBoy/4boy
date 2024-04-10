@@ -39,4 +39,8 @@ public class FavoriteServiceImpl implements FavoritesService {
 		return SYTDao.save(sachYeuThich);
 	}
 
+
+
+	 
+
 }

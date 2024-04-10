@@ -245,9 +245,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 			obj[key] = value;
 		}
 		return obj;
-	}
- 
-
+	} 
 	$scope.isUserLoggedIn = function() {
         var account = localStorage.getItem("account");
         return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
@@ -340,4 +338,8 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 		// Hiển thị số lượng sản phẩm lên website
 		$("#cart-count").text(0);
 	}
+
+ 
+
 })
+	

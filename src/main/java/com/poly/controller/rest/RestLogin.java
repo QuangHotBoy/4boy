@@ -11,21 +11,17 @@ import com.poly.dao.DiaChi_TaiKhoanDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.QuyenDAO;
 import com.poly.dao.Quyen_TaiKhoanDAO;
-import com.poly.dao.TaiKhoanDAO;
-import com.poly.model.ChiTietDonDatHang;
+import com.poly.dao.TaiKhoanDAO; 
 import com.poly.model.DiaChi_TaiKhoan;
-import com.poly.model.DonDatHang;
-import com.poly.model.Quyen;
-import com.poly.model.Quyen_TaiKhoan;
+import com.poly.model.DonDatHang; 
 import com.poly.model.SachYeuThich;
+import com.poly.model.SanPham;
 import com.poly.model.TaiKhoan;
 import com.poly.service.AccountService;
 import com.poly.service.AddressService;
 import com.poly.service.DetailOrderService;
 import com.poly.service.OrderService;
-import com.poly.service.FavoritesService;
-
-import jakarta.websocket.server.PathParam;
+import com.poly.service.FavoritesService; 
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -146,5 +142,11 @@ public class RestLogin {
 	public List<DiaChi_TaiKhoan> findAllByUser(@PathVariable("id") String id){
 		return addressImp.getAllByUser(id);
 	}
+
+	@PostMapping("/rest/account/addfavorite")
+	 SachYeuThich post(@RequestParam("sanPham") SanPham sanPham, @RequestParam("taiKhoan") TaiKhoan taiKhoan){
+		return favoriteService.addSachYT(sanPham, taiKhoan);
+	 }
+	
 
 }

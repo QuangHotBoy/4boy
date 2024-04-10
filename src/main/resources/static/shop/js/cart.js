@@ -174,10 +174,15 @@ app.controller("CartController", function ($scope, $http, $window) {
     }
   }
 
-  // đăng xuất
-  $scope.logout = function () {
-    $scope.addToCart();
-    localStorage.removeItem("account");
-    location.href = "/shop/home";
-  }
+  $scope.isUserLoggedIn = function() {
+    var account = localStorage.getItem("account");
+    return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
+};
+
+// đăng xuất
+$scope.logout = function () {
+$scope.addToCart();
+localStorage.removeItem("account");
+location.href = "/shop/home";
+}
 });
