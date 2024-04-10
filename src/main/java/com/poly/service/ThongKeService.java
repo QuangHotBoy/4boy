@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.poly.dao.ChiTietDonDatHangDAO;
+import com.poly.model.SanPham;
 
 @Service
 public interface ThongKeService {
@@ -21,4 +22,9 @@ public interface ThongKeService {
 
     BigDecimal getTotalRevenueByDateRange(Timestamp startDate, Timestamp endDate);
     
+    List<Object[]> getTongSoLuongSanPham();
+
+    List<Object[]> getTongTien();
+
+    List<Object[]> countDonDatHangThisMonth();
 }

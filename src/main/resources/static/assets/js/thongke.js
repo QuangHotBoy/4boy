@@ -10,6 +10,9 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
     $scope.toptonkho = [];
     $scope.top10 = [];
     $scope.thongke = [];
+    $scope.tongsp = [];
+    $scope.tongtien = [];
+    $scope.donhang = [];
     // $scope.displayedRevenue=[];
     function getRandomColor(colorsUsed) {
         var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -21,6 +24,32 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
     }
 
     $scope.initialize = function () {
+        // tổng sp
+        $http.get("/rest/topByTinhTrang/tong-so-luong-san-pham").then(resp => {
+            $scope.tongsp = resp.data.map(function (item, index) {
+                return {
+                    SoLuong: item[0]
+                };
+            });
+        });
+        // tổng tiền
+        $http.get("/rest/topByTinhTrang/tong-tien").then(resp => {
+            $scope.tongtien = resp.data.map(function (item, index) {
+                return {
+                    Tien: item[0]
+                };
+            });
+        });
+        // tổng đơn hàng
+        $http.get("/rest/topByTinhTrang/donhangcount").then(resp => {
+            $scope.donhang = resp.data.map(function (item, index) {
+                return {
+                    Don: item[0]
+                };
+            });
+        });
+
+        //
         $http.get("/rest/topByTinhTrang/topByTinhTrang").then(resp => {
             $scope.thongkes = resp.data.map(function (item, index) {
                 return {

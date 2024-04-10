@@ -22,4 +22,5 @@ public interface ProductService {
 	SanPham create(SanPham sanPham);
 
 	SanPham update(SanPham sanPham);
+	
 }
