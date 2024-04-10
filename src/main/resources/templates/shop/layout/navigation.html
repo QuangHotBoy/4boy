@@ -20,19 +20,20 @@
 				<i class="bi-cart-fill me-1"></i> Giỏ Hàng <span class="badge bg-dark text-white ms-1 rounded-pill"
 					id="cart-count"></span>
 			</a>
-			<div class="dropdown ms-2 me-4" ng-show="!user_id">
+			<div class="dropdown ms-2 me-4" ng-if="isUserLoggedIn()">
 				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					<i class="bi bi-person-circle"></i>
 				</button>
 				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" th:href="@{/shop/auth/index}">Thông tin</a> </li>
-					<li><a class="dropdown-item" ng-click="logout()">Đăng xuất</a></li>
+					<li><a class="dropdown-item" th:href="@{/shop/auth/index}">Thông tin | <i class="bi bi-info-circle"></i> </a></li>
+					<li><a class="dropdown-item" ng-click="logout()"> Đăng xuất | <i class="bi bi-box-arrow-right"></i> </a></li> 
 				</ul>
 			</div>
-			<!-- <div ng-hide="!account">
-				<a th:href="@{/shop/login}" class="btn btn-warning ms-2 me-4"><i class="bi bi-person-circle"></i></a>
-			</div> -->
+
+			<div ng-hide="isUserLoggedIn()">
+				<a th:href="@{/shop/login}" class="btn btn-warning ms-2 me-4"><i class="bi bi-box-arrow-in-left"></i> Đăng nhập</a>
+			</div>
 		</div>
-	</div> 
+	</div>
 </header>

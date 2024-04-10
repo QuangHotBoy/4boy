@@ -246,19 +246,13 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 		}
 		return obj;
 	}
+ 
 
-	// $scope.checkLogin = function () {
-	// 	var account = localStorage.getItem("account") || null;
-	// 	console.log(account);
-	// 	if (account === null) {
-	// 		location.href = "/shop/login";
-	// 		console.log("1", account)
-	// 	} else {
-	// 		location.href = "/shop/auth/index";
-	// 		console.log("2", account)
-	// 	}
-	// }
-
+	$scope.isUserLoggedIn = function() {
+        var account = localStorage.getItem("account");
+        return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
+    };
+ 
 	// đăng xuất
 	$scope.logout = function () {
 		$scope.addToCart();

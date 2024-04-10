@@ -79,13 +79,19 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
 
     $scope.checkLogin = function () {
         var account = localStorage.getItem("account") || null;
+        console.log(account);
         console.log(2);
-        if (account === null) {
-            location.href = "/shop/login";
-        } else {
-            location.href = "/shop/auth/index";
-        }
+        // if (account === null) {
+        //     location.href = "/shop/login";
+        // } else {
+        //     location.href = "/shop/auth/index";
+        // }
     }
+
+    $scope.isUserLoggedIn = function() {
+        var account = localStorage.getItem("account");
+        return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
+    };
 
     // đăng xuất
     $scope.logout = function () {
