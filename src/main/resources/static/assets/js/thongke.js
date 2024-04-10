@@ -67,7 +67,7 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                     // Cấu hình thêm nếu bạn muốn
                 }
             });
-            
+
 
             // Cấu hình kích thước biểu đồ
             ctx.canvas.width = 20;
@@ -119,7 +119,8 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                     $('#table1').DataTable({
                         "language": {
                             "url": "/assets/json/vietnam.json"
-                        }
+                        },
+                        "order": [[2, "desc"]] // Sắp xếp cột thứ 3 (chỉ số bắt đầu từ 0, tức là cột SoLuongTonKho) giảm dần
                     });
                 });
             })

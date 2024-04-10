@@ -186,12 +186,108 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
 
     //hàm cập nhật
     $scope.update = function () {
-       
 
-       
+
+
         // copy dữ liệu ra 1 bản khác
         var item = angular.copy($scope.form);
         // Kiểm tra hợp lệ của form trước khi thực hiện cập nhật
+        // bắt lỗi lấy item từ copy gọi kt
+        var tenSach = item.tenSach
+        var namXuatBan = item.namXuatBan
+        var tacGia = item.tacGia
+        var kieuBia = item.kieuBia
+        var giaBan = item.giaBan
+        var soLuong = item.soLuong
+        var moTa = item.moTa
+
+        // Kiểm tra từng trường và hiển thị thông báo lỗi nếu trống
+        if (tenSach.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên sách.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (namXuatBan.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập năm xuất bản.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (tacGia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên tác giả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (kieuBia.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập loại bìa.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        // Kiểm tra xem giaBan có giá trị null không trước khi chuyển đổi sang chuỗi
+        if (giaBan === null || giaBan === undefined) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập giá bán.',
+                position: 'topRight'
+            });
+            return false;
+        } else if (parseInt(giaBan) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Giá bán phải lớn hơn 0.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (soLuong === null || soLuong === undefined) {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập số lượng.',
+                position: 'topRight'
+            });
+            return false;
+
+        } else if (parseInt(soLuong) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Số lượng phải lớn hơn 0.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (moTa.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập mô tả.',
+                position: 'topRight'
+            });
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
@@ -277,7 +373,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         var namXuatBan = document.getElementById("namXuatBan").value;
         var tacGia = document.getElementById("tacGia").value;
         var kieuBia = document.getElementById("loaibia").value;
-        var giaBan = document.getElementById("giaGocc").value;
+        var giaBan = document.getElementById("giaBan").value;
         var soLuong = document.getElementById("soluong").value;
         var moTa = document.getElementById("mota").value;
         var hinhAnhInput = document.getElementById("image");
@@ -328,16 +424,30 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                 position: 'topRight'
             });
             return false;
+        } else if (parseInt(giaBan) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Giá bán phải lớn hơn 0.',
+                position: 'topRight'
+            });
+            return false;
         }
-
-        if (soLuong.trim() == "") {
+        if (soLuong.trim() === "") {
             iziToast.warning({
                 title: 'Thông báo',
                 message: 'Vui lòng nhập số lượng.',
                 position: 'topRight'
             });
             return false;
+        } else if (parseInt(soLuong) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Số lượng phải lớn hơn 0.',
+                position: 'topRight'
+            });
+            return false;
         }
+
 
         if (moTa.trim() == "") {
             iziToast.warning({
@@ -398,7 +508,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
     //     }
 
 
-       
+
 
     //     if (tacGia.trim() == "") {
     //         iziToast.warning({
