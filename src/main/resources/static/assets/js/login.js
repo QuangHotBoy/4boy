@@ -75,7 +75,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         }).catch(error => {
             console.log("Error", error)
         })
-    };
+    }; 
 
     $scope.checkLogin = function () {
         var account = localStorage.getItem("account") || null;
@@ -140,7 +140,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         var productsToRemove = $scope.cart.map(function (product) {
             return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
         });
-        
+
         function removeFromLocalStorage(productsToRemove) {
             var carts = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -508,18 +508,18 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             }
             return obj;
         }
-    
+
         $http.get("/rest/cart/" + user_id).then(function (resp) {
-    
+
             var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
-    
+
             var data = resp.data;
-    
+
             // Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     var convertedData = arrayToObject(data[key]);
-    
+
                     // Kiểm tra xem mục đã tồn tại trong giỏ hàng chưa (theo user và id)
                     var exists = false;
                     for (var i = 0; i < cart.length; i++) {
@@ -528,24 +528,24 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                             break;
                         }
                     }
-    
+
                     // Nếu mục chưa tồn tại trong giỏ hàng, thêm vào
                     if (!exists) {
                         cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
                     }
                 }
             }
-    
+
             console.log(cart);
-    
+
             localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
         });
-    }    
-
+    }
+ 
     var aaa = JSON.parse(localStorage.getItem("account")) || null;
     if (aaa != null) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
-    }
+    } 
 })

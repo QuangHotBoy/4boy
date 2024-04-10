@@ -73,6 +73,14 @@ public class AccountRestController {
 		return null;
 	}
 
+	@PostMapping("/rest/register")
+	public TaiKhoan register(@RequestBody TaiKhoan taikhoan) {
+		AccountService.create(taikhoan, "CUST");
+		return null;
+	}
+
+
+
 	@PostMapping("/rest/account/addstaff")
 	public TaiKhoan postStaff(@RequestBody TaiKhoan taikhoan) {
 		AccountService.create(taikhoan,"STAF");
