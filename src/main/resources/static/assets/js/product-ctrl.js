@@ -135,14 +135,14 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         // });
 
         // Kiểm tra xem nhà xuất bản đã được chọn có tồn tại trong danh sách suppliers không
-        if (!selectedSupplier) {
-            alert("Nhà xuất bản không hợp lệ!");
-            return;
-        }
-        if (!selectedType) {
-            alert("Phân loại không hợp lệ!");
-            return;
-        }
+        // if (!selectedSupplier) {
+        //     alert("Nhà xuất bản không hợp lệ!");
+        //     return;
+        // }
+        // if (!selectedType) {
+        //     alert("Phân loại không hợp lệ!");
+        //     return;
+        // }
 
 
         // Gán giá trị nhà xuất bản từ đối tượng được chọn
@@ -275,7 +275,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
         var tenLoai = $scope.form.phanLoai.tenLoai;
         var tenTinhTrang = $scope.form.tinhTrangSanPham.tenTinhTrang;
-        // Lấy thông tin nhà xuất bản từ danh sách suppliers
+        // Lấy thông tin  từ danh sách 
         var selectedSupplier = $scope.suppliers.find(function (supplier) {
             return supplier.tenNhaXuatBan === tenNhaXuatBan;
         });
