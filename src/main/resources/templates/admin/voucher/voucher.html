@@ -19,6 +19,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
   </head>
   <style>/* Thiết lập kiểu dáng cho ô tìm kiếm */
     .search-input {
@@ -97,9 +98,9 @@
                     <form class="form-sample">
                       <div class="row">
                         <div class="col-md-12">
-                          <a href="/shop/admin/addnew_mgg"  class="btn btn-gradient-primary btn-fw">Thêm mã giảm giá</a>
-                          <a href="/shop/admin/voucher_used" type="button" class="btn btn-gradient-danger btn-icon-text">Số lượng mã giảm giá</a>
-                          <a href="/shop/admin/voucher_expired" type="button" class="btn btn-gradient-info btn-icon-text">Mã giảm giá hết hạn</a>
+                          <a style="font-family: Arial, Helvetica, sans-serif;"  href="/shop/admin/addnew_mgg"  class="btn btn-gradient-primary btn-fw">Thêm mã giảm giá</a>
+                          <a style="font-family: Arial, Helvetica, sans-serif;" href="/shop/admin/voucher_used" type="button" class="btn btn-gradient-danger btn-icon-text">Số lượng mã giảm giá</a>
+                          <a style="font-family: Arial, Helvetica, sans-serif;" href="/shop/admin/voucher_expired" type="button" class="btn btn-gradient-info btn-icon-text">Mã giảm giá hết hạn</a>
                         </div>
                         </div>
                       </div>
@@ -162,7 +163,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Số tiền giảm</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" name="sotiengiam" ng-model="form.soTienGiam" class="form-control" />
+                                                            <input type="text" name="sotiengiam" id="soTienGiam" ng-model="form.soTienGiam" class="form-control" />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -170,7 +171,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Số lượng</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" name="soluong" ng-model="form.soLuong" class="form-control" />
+                                                            <input type="text" name="soluong" id="soLuong" ng-model="form.soLuong" class="form-control" />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -199,7 +200,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Mô tả</label>
                                                           <div class="col-sm-9">             
-                                                            <textarea name="thongtin" ng-model="form.thongTin" class="form-control"></textarea>
+                                                            <textarea name="thongtin" ng-model="form.thongTin" id="thongTin" class="form-control"></textarea>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -207,7 +208,7 @@
                                                         <div class="form-group row">
                                                           <label class="col-sm-3 col-form-label">Điều kiện giảm</label>
                                                           <div class="col-sm-9">             
-                                                            <input type="text" name="dieukien" ng-model="form.dieuKien" class="form-control" />
+                                                            <input type="text" name="dieukien" id="dieuKien" ng-model="form.dieuKien" class="form-control" />
                                                           </div>
                                                         </div>
                                                       </div>
@@ -236,9 +237,6 @@
                                       {{pageNumber + 1}}
                                   </button>
                               </div>
-                              
-                              
-                              
                             </div>
                         </div>
                       </div>
@@ -275,5 +273,6 @@
     <script src="../../assets/js/file-upload.js"></script>
     <!-- End custom js for this page -->
     <script src="/assets/js/voucher-ctrl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
   </body>
 </html>

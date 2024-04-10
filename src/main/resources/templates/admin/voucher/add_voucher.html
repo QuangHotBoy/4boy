@@ -18,6 +18,7 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
   </head>
   <body>
     <div class="container-scroller" ng-app="voucherApp" ng-controller="voucher-ctrl" >
@@ -78,7 +79,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Mã giảm giá</label>
                                       <div class="col-sm-9">
-                                        <input type="text"name="magiamgia" ng-model="form.id" class="form-control" />
+                                        <input type="text"name="magiamgia" id="id" ng-model="form.id" class="form-control" />
                                       </div>
                                     </div>
                                   </div>
@@ -86,7 +87,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Tên mã giảm giá</label>
                                       <div class="col-sm-9">
-                                        <input type="text" name="tenma" ng-model="form.tenMa" class="form-control" />
+                                        <input type="text" name="tenma" id="tenMa" ng-model="form.tenMa" class="form-control" />
                                       </div>
                                     </div>
                                   </div>
@@ -96,7 +97,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Số tiền giảm</label>
                                       <div class="col-sm-9">
-                                        <input type="text" name="sotiengiam" ng-model="form.soTienGiam" class="form-control" />
+                                        <input type="text" name="sotiengiam" id="soTienGiam" ng-model="form.soTienGiam" class="form-control" />
                                       </div>
                                     </div>
                                   </div>
@@ -104,7 +105,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Số lượng</label>
                                       <div class="col-sm-3">
-                                        <input type="text" name="soluong" ng-model="form.soLuong" class="form-control" />
+                                        <input type="text" name="soluong" id="soLuong" ng-model="form.soLuong" class="form-control" />
                                       </div>
                                     </div>
                                   </div>
@@ -134,7 +135,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Mô tả</label>
                                       <div class="col-sm-9">             
-                                        <textarea name="thongtin" ng-model="form.thongTin" class="form-control"></textarea>
+                                        <textarea name="thongtin" id="thongTin" ng-model="form.thongTin" class="form-control"></textarea>
                                       </div>
                                     </div>
                                   </div>
@@ -142,7 +143,7 @@
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Đơn tối thiểu</label>
                                       <div class="col-sm-9">             
-                                        <input type="text"name="dieukien" ng-model="form.dieuKien" class="form-control" />
+                                        <input type="text"name="dieukien" id="dieuKien" ng-model="form.dieuKien" class="form-control" />
                                       </div>
                                     </div>
                                     <input type="text"name="daSuDung" ng-model="form.daSuDung" class="form-control" hidden />
@@ -190,6 +191,7 @@
     <!-- End custom js for this page -->
     <script src="/assets/js/voucher-ctrl.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.36/moment-timezone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
   </body>
 </html>
