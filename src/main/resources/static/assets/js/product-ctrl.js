@@ -274,22 +274,6 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             });
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Sử dụng giá trị đã chọn từ select box cho nhà xuất bản
         var tenNhaXuatBan = $scope.form.nhaXuatBan.tenNhaXuatBan;
         var tenLoai = $scope.form.phanLoai.tenLoai;
