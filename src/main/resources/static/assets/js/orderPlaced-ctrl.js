@@ -10,11 +10,11 @@ app.controller("orderPlacedCtrl", function($scope, $http , $timeout, $location, 
 $scope.initialize = function() {
     $http.get("/rest/orderPlaces").then(function(resp1) {
         $scope.orderPlaces = resp1.data;
+        // Sắp xếp mảng orderPlaces theo trường ngayDatHang (ngày đặt hàng)
+        $scope.orderPlaces.sort((a, b) => new Date(b.ngayDatHang) - new Date(a.ngayDatHang));
         // Gọi hàm lấy dữ liệu cho orderPlacesDetail
         $http.get("/rest/orderPlacesDetail").then(function(resp2) {
             $scope.orderPlacesDetails = resp2.data;
-            // Gọi hàm khởi tạo DataTable khi đã lấy đủ dữ liệu
-            initializeDataTable();
         }).catch(function(error2) {
             console.error("Lỗi khi lấy dữ liệu từ /rest/orderPlacesDetail:", error2);
         });
@@ -22,8 +22,6 @@ $scope.initialize = function() {
         console.error("Lỗi khi lấy dữ liệu từ /rest/orderPlaces:", error1);
     });
 };
-
-
 // Gọi hàm initialize khi controller được khởi tạo
 $scope.initialize();
 
@@ -270,40 +268,39 @@ function initializeDataTable() {
         }
         return pageNumbers;
     }
-    $scope.getChiTietDonHang = function(maDonHang) {
-        $http.get("/shop/admin/order_detail")
-            .then(function(response) {
-                // Xử lý dữ liệu phản hồi từ máy chủ
-                $scope.listDetail = response.data.listDetail;
-                // Ví dụ: có thể hiển thị thông tin chi tiết đơn hàng trong một modal
-                $('#exampleModal2').modal('show');
-            })
-            .catch(function(error) {
-                // Xử lý lỗi nếu có
-                console.error("Lỗi khi lấy chi tiết đơn hàng:", error);
-            });
-    
-        // Gọi hàm edit2 để lấy thông tin đơn hàng cụ thể
-        $scope.edit2(maDonHang);
-    };
-    
     $scope.edit2 = function(maDonHang) {
-        // Send a GET request to the API to fetch data for the specified ID
-        $http.get('/rest/orderPlaces/' + maDonHang)
+        // Gửi yêu cầu GET để lấy dữ liệu của đơn hàng dựa trên mã đơn hàng
+        $http.get('/rest/orderPlacesDetail/' + maDonHang)
             .then(function(response) {
-                // Copy the fetched data to $scope.form
+                // Sao chép dữ liệu của đơn hàng vào $scope.form
                 $scope.form = response.data;
-                // Convert the ISO date string to a JavaScript Date object
-                // Show the modal
-                $('#exampleModal2').modal('show');
-                console.log(maDonHang);
+                
+                // Tiếp tục gửi yêu cầu GET để lấy dữ liệu của các mục chi tiết đơn hàng dựa trên mã đơn hàng
+                $http.get('/rest/orderPlaces/' + maDonHang + '/rest/orderPlacesDetail')
+                    .then(function(detailResponse) {
+                        // Sao chép dữ liệu của chi tiết đơn hàng vào $scope.orderPlacesDetails
+                        $scope.orderPlacesDetails = detailResponse.data;
+                        console.log(orderPlacesDetails);
+                        // Hiển thị modal
+                        $('#exampleModal2').modal('show');
+                    })
+                    .catch(function(error) {
+                        // Xử lý lỗi khi không lấy được dữ liệu chi tiết đơn hàng
+                        console.error('Lỗi khi lấy dữ liệu chi tiết đơn hàng:', error);
+                        // Khởi tạo $scope.orderPlacesDetails để tránh lỗi không xác định
+                        $scope.orderPlacesDetails = [];
+                    });
             })
             .catch(function(error) {
-                // Handle errors
-                console.error('Error fetching data for editing:', error);
-                // Optionally, you can initialize $scope.form here to avoid undefined errors
+                // Xử lý lỗi khi không lấy được dữ liệu đơn hàng chính
+                console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+                // Hiển thị thông báo lỗi cụ thể
+                console.error('Mã lỗi:', error.status);
+                console.error('Thông báo lỗi:', error.statusText);
+                // Khởi tạo $scope.form để tránh lỗi không xác định
                 $scope.form = {};
             });
     };
+    
     
 });

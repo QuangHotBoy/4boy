@@ -158,41 +158,57 @@
                                         </div>
                                     </td>
                                     <td>
-                                      <button  ng-click="edit2(form.maDonHang)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Open modal for @mdo</button>
-
-                                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết đơn hàng</h1>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                              <div class="modal-body">
-                                                  <!-- <table class="table table-striped" id="table">
-                                                      <thead>
-                                                          <tr>
-                                                              <th>Mã chi tiết</th>
-                                                              <th>Số lượng</th>
-                                                              <th>Đơn giá</th>      
-                                                          </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                          <tr ng-repeat="orderPlacesDetails in orderPlacesDetails">
-                                                              <td>{{ orderPlacesDetails.maChiTiet }}</td>
-                                                              <td>{{ orderPlacesDetails.soLuong }}</td>
-                                                              <td>{{ orderPlacesDetails.donGia }}</td>
-                                                          </tr>
-                                                      </tbody>
-                                                  </table> -->
-                                                  <input type="text" name="madonhang" ng-model="form.maDonHang">
-                                              </div>
-                                              <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>                                      
-</td>
+                                      <button ng-click="edit2(orderPlace.maDonHang)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Edit</button>
+                                                                        
+                                      <!-- Modal for displaying order detail -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết đơn hàng {{ form.maDonHang }}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div ng-if="form">
+                  <p><strong>Mã đơn hàng:</strong> {{ form.maDonHang }}</p>
+                  <table class="table"> 
+                      <thead> 
+                          <tr>
+                              <th scope="col">Tên sản phẩm</th>
+                              <th scope="col">Mã chi tiết</th>
+                              <th scope="col">Số lượng</th>
+                              <th scope="col">Đơn giá</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="orderDetail in orderPlacesDetails">
+                              <td>{{ orderDetail.sanPham_donDatHang.tenSach }}</td>
+                              <td>{{ orderDetail.maChiTiet }}</td>
+                              <td>{{ orderDetail.soLuong }}</td>
+                              <td>{{ orderDetail.donGia }}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div ng-if="!form">
+                  <p>Không có dữ liệu đơn hàng.</p>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+                              
+                                  </td>
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
                                 </tr>
                                 <!-- Modal for displaying order detail -->
 
