@@ -25,6 +25,20 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
   </head>
   <style>
+    .hoverable-address {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Đảm bảo dòng không bị ngắt */
+}
+
+.hoverable-address:hover {
+    max-width: none; /* Bỏ giới hạn chiều rộng khi hover */
+    overflow: visible; /* Hiển thị toàn bộ nội dung khi hover */
+    text-overflow: inherit;
+    white-space: normal; /* Hiển thị nội dung trên nhiều dòng khi hover */
+}
+
     #message-text{
       height: 150px;
     }
@@ -87,7 +101,6 @@
             <div class="page-header">
               <h3 class="pag  e-title"> Đơn hàn</h3>
               <nav aria-label="breadcrumb">
-               
               </nav>
             </div>
             <div class="row">
@@ -116,14 +129,13 @@
                                     <th > Lí do hủy đơn </th> 
                                     <th > Trạng thái  </th>
                                     <th>Hành động</th>
-                                    <th></th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr ng-repeat="orderPlace in pager.orderPlaces">
                                     <td>{{ orderPlace.maDonHang }}</td>
                                     <td>{{ orderPlace.hoTen }}</td>
-                                    <td style="width: 40px;">{{ orderPlace.diaChiNhanHang }}</td>
+                                    <td class="hoverable-address">{{ orderPlace.diaChiNhanHang }}</td>
                                     <td>{{ orderPlace.ngayDatHang | date:'dd/MM/yyyy HH:mm' }}</td>
                                     <td>{{ orderPlace.ghiChu }}</td>
                                     <td>{{ orderPlace.trangThai_donDatHang.tenTrangThai }}</td>
@@ -158,57 +170,9 @@
                                         </div>
                                     </td>
                                     <td>
-                                      <button ng-click="edit2(orderPlace.maDonHang)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">Edit</button>
-                                                                        
-                                      <!-- Modal for displaying order detail -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết đơn hàng {{ form.maDonHang }}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <div ng-if="form">
-                  <p><strong>Mã đơn hàng:</strong> {{ form.maDonHang }}</p>
-                  <table class="table"> 
-                      <thead> 
-                          <tr>
-                              <th scope="col">Tên sản phẩm</th>
-                              <th scope="col">Mã chi tiết</th>
-                              <th scope="col">Số lượng</th>
-                              <th scope="col">Đơn giá</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr ng-repeat="orderDetail in orderPlacesDetails">
-                              <td>{{ orderDetail.sanPham_donDatHang.tenSach }}</td>
-                              <td>{{ orderDetail.maChiTiet }}</td>
-                              <td>{{ orderDetail.soLuong }}</td>
-                              <td>{{ orderDetail.donGia }}</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-              <div ng-if="!form">
-                  <p>Không có dữ liệu đơn hàng.</p>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-      </div>
-  </div>
-</div>
-                              
+                                      <a type="button" class="btn btn-gradient-danger btn-rounded btn-icon d-flex justify-content-center align-items-center" href="/shop/admin/order_detail/{{orderPlace.maDonHang}}">
+                                      <i class="mdi mdi-eye"></i></a>
                                   </td>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
                                 </tr>
                                 <!-- Modal for displaying order detail -->
 
