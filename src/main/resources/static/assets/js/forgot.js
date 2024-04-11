@@ -6,31 +6,109 @@ app.controller("forgotCtrl", function ($scope, $http, $window, $timeout) {
         tenDangNhap: '', // Thêm trường tenDangNhap vào form
         email: '' // Thêm trường email vào form
     };
+    $scope.accounts = [];
+    // đăng ký
     $scope.kiemtratendangnhapMessage = ""; // Khởi tạo biến thông báo
    
-    $scope.register = {
-        tenDangNhap: '', matKhau: '', nhapLaiMatKhau: ''
-    }
-    $scope.registerNewPassword = function () {
-        $http.post('/rest/login', $scope.register)
-            .then(function (response) {
-                // Handle success
-                alert("Mật khẩu mới đã được đăng ký thành công!");
-                // Redirect or perform any other actions as needed
-            })
-            .catch(function (error) {
-                // Handle error
-                alert("Có lỗi xảy ra khi đăng ký mật khẩu mới: " + error.data.message);
-            });
+    $scope.updatepass1 = {
+        tenDangNhap: '',
+        matKhau: '',
+        xacnhanmatkhau: ''
     };
+    // $scope.editpass = function (tenDangNhap) {
+    //     $http.get("/rest/account/editmember/" + tenDangNhap).then(resp => {
+    //         $scope.form_info = resp.data;
+    //         // Hiển thị modal chỉnh sửa
+    //         $('#editpass').modal('show');
+    //     }).catch(error => {
+    //         console.log("Error", error);
+    //     });
+    // };
+    
+    // $scope.updatepass = function () {
+    //     var matkhaumoi = $scope.form_info.pass1;
+    //     var xacnhanmatkhau = $scope.form_info.pass2;
+    //     var tendangnhap = $scope.info_user[0].tenDangNhap;
+    //     console.log(tenDangNhap);
+    
+    //     // Kiểm tra xác nhận mật khẩu
+    //     if (matkhaumoi !== xacnhanmatkhau) {
+    //         iziToast.warning({
+    //             title: 'Thông báo',
+    //             message: 'Mật khẩu nhập lại không đúng!',
+    //             position: 'topRight'
+    //         });
+    //         return; // Dừng hàm nếu xác nhận mật khẩu không đúng
+    //     }
+    
+    //     // Dữ liệu cần gửi
+    //     var data = {
+    //         pass1: matkhaumoi,
+    //         pass2: xacnhanmatkhau,
+    //         tenDangNhap: tendangnhap // Pass the username along with the request
+    //     };
+    
+    //     // Gửi yêu cầu PUT
+    //     $http.put("/rest/account/updatepass/" + tendangnhap, null, { params: data }).then(resp => {
+    //         // Cập nhật dữ liệu trong scope và localStorage
+    //         var index = $scope.accounts.findIndex(item => item.tenDangNhap === $scope.info_user[0].tenDangNhap);
+    //         $scope.accounts[index] = resp.data;
+    
+    //         var account = JSON.parse(localStorage.getItem("account")) || [];
+    //         account = account.map(acc => {
+    //             if (acc.tenDangNhap === $scope.form_info.tenDangNhap) {
+    //                 return resp.data;
+    //             }
+    //             return acc;
+    //         });
+    //         localStorage.setItem("account", JSON.stringify(account));
+    
+    //         // Tải lại trang sau khi cập nhật mật khẩu thành công
+    //         location.reload();
+    //         console.log("Success", resp);
+    //     }).catch(error => {
+    //         console.log("Error", error);
+    //     });
+    // };
+    
+    
+
+    function blff(){
+        var tenDangNhap = document.getElementById("tenDangNhap").value;
+        var email = document.getElementById("email").value;
+        if (tenDangNhap.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập tên đăng nhập.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        if (email.trim() == "") {
+            iziToast.warning({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập email.',
+                position: 'topRight'
+            });
+            return false;
+        }
+        return true;
+    }
 
     $scope.kiemtratendangnhap = function() {
-        if (!$scope.form.tendangnhap) { // Kiểm tra xem tên đăng nhập có tồn tại không
-            $scope.kiemtratendangnhapMessage = "<<<  Vui lòng nhập tên đăng nhập  >>>";
+        if (!blff()) {
+            // Nếu form không hợp lệ, không tiến hành thêm mới
+            return;
+        }
+        if (!$scope.form.tendangnhap) {
+            // Nếu tên đăng nhập không tồn tại, hiển thị thông báo
+            $scope.kiemtratendangnhapMessage = "Vui lòng nhập tên đăng nhập";
         } else {
-            $scope.kiemtratendangnhapMessage = ""; // Reset thông báo nếu                tên đăng nhập hợp lệ
+            // Nếu tên đăng nhập hợp lệ, reset thông báo
+            $scope.kiemtratendangnhapMessage = "cdcf";
         }
     };
+  
     
     
     $scope.reset = function () {
@@ -73,57 +151,5 @@ app.controller("forgotCtrl", function ($scope, $http, $window, $timeout) {
                 alert("Lỗi lấy dữ liệu sản phẩm!");
             });
     };
-    $scope.codeInput = ['', '', '', '', '', ''];
 
-    $scope.focusNext = function(event, index) {
-        // Kiểm tra nếu ký tự nhập vào là số và chỉ cho phép nhập một ký tự
-        if (event.keyCode >= 48 && event.keyCode <= 57 && $scope.codeInput[index].length === 1) {
-            // Chuyển focus sang ô kế tiếp
-            var nextIndex = index + 1;
-            if (nextIndex < $scope.codeInput.length) {
-                $timeout(function() {
-                    var nextInput = document.querySelector('.code-input:nth-child(' + (index + 2) + ')');
-                    nextInput.focus();
-                });
-            }
-        }
-    };
-
-    $scope.verifyCode = function() {
-        var code = $scope.codeInput.join('');
-        
-        // Lấy giá trị email từ input ẩn
-        var email = $scope.email;
-        var tendangnhap = $scope.tenDangNhap;
-    
-        // Ensure maxacnhan is not empty before sending the request
-        if (code.trim() === '') {
-            console.error('Maxacnhan is empty');
-            return;
-        }
-    
-        // Create an object to hold the data to be sent
-        var postData = {
-            maxacnhan: code,
-            email: email,
-            tendangnhap: tendangnhap // Assuming tendangnhap is also needed
-        };
-    
-        // Send POST request with data
-        $http.post('/kiemtrama', postData)
-            .then(function(response) {
-                // Xử lý phản hồi từ máy chủ sau khi kiểm tra mã xác nhận
-                // Ví dụ: chuyển hướng hoặc hiển thị thông báo
-                console.log(response.data);
-            })
-            .catch(function(error) {
-                // Xử lý lỗi nếu có
-                console.error('Error:', error);
-            });
-    };
-    
-    
-    
-    
-    
 });

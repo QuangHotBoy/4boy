@@ -18,6 +18,7 @@
     <!-- End layout styles -->
     <link rel="icon" type="image/x-icon" th:href="@{/shop/image/icon-logo.png}" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
   </head>
   <head>
     <!-- Các thẻ khác -->
@@ -44,7 +45,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="">Tên đăng nhập</label>
-                        <input type="text" class="form-control form-control-lg" name="tendangnhap" ng-model="form.tendangnhap" placeholder="Tên đăng nhập">
+                        <input type="text" class="form-control form-control-lg" name="tendangnhap" id="tenDangNhap" ng-model="form.tendangnhap" placeholder="Tên đăng nhập">
                         <div ng-show="kiemtratendangnhapMessage" style="text-align: center;">
                       </div>
                       
@@ -54,27 +55,12 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for=""> Email </label>
-                        <input type="email" class="form-control form-control-lg" name="email" ng-model="form.email"placeholder="Email">
+                        <input type="email" class="form-control form-control-lg" name="email" id="email" ng-model="form.email"placeholder="Email">
                       </div>
                     </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="">Mã xác nhận</label>
-                          <input type="text" class="form-control form-control-lg" id="" name="maxacnhan" placeholder="Mã xác nhận">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for=""></label><br>
-                          <button type="submit"  class="btn btn-inverse-warning btn-icon" style="height: 50px; width: 60px; margin-bottom: -3%;">
-                            <i class="mdi mdi-upload btn-icon-prepend"></i>
-                          </button>
-                        </div>
                     </div>
                   <div class="mt-3"> 
-                    <button type="submit" formaction="/kiemtrama" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Xác nhận</button>
+                    <button type="submit"class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Xác nhận</button>
                   </div>
                   <div class="text-center mt-4 font-weight-light"> Chưa có tài khoản? <a href="/shop/register" class="text-primary">Đăng kí</a>
                   </div>
@@ -98,6 +84,7 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/misc.js"></script>
     <script src="../../assets/js/forgot.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <!-- endinject -->
   </body>
 </html>

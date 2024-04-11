@@ -261,10 +261,15 @@ function isMaGiamGiaTrung(id) {
                 }, 1000);
             })
             .catch(function(error) {
-                // Hiển thị thông báo lỗi nếu cập nhật không thành công
-                alert("Lỗi cập nhật sản phẩm: " + error.statusText);
+                // Hiển thị thông báo lỗi bằng thư viện iziToast
+                iziToast.error({
+                    title: 'Lỗi',
+                    message: 'Cập nhật sản phẩm không thành công: ' + error.statusText,
+                    position: 'topRight'
+                });
+                console.log(voucher.id);
                 console.log("Error", error);
-            });
+            }); 
     };
     
     
@@ -273,13 +278,24 @@ function isMaGiamGiaTrung(id) {
         if (confirm("Bạn muốn xóa sản phẩm này?")) {
             $http.delete(`/rest/vouchers/${voucher.id}`).then(resp => {
                 var index = $scope.vouchers.findIndex(p => p.id == voucher.id);
-                $scope.vouchers.splice(index, 1); // Sửa từ $scope.voucher thành $scope.vouchers
+                $scope.vouchers.splice(index, 1);
                 $scope.reset();
-                alert("Xóa sản phẩm thành công!");
-            }).catch(error => {
-                alert("Lỗi xóa sản phẩm!");
+                
+                // Hiển thị thông báo thành công bằng thư viện iziToast
+                iziToast.success({
+                    title: 'Thành công',
+                    message: 'Xóa sản phẩm thành công!',
+                    position: 'topRight'
+                });                
+            }).catch(function(error) {
+                // Hiển thị thông báo lỗi bằng thư viện iziToast
+                iziToast.error({
+                    title: 'Lỗi',
+                    message: 'Cập nhật sản phẩm không thành công: ' + error.statusText,
+                    position: 'topRight'
+                });
                 console.log("Error", error);
-            })
+            }); 
         }
     }
 

@@ -46,6 +46,9 @@
         cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
         transition: background-color 0.3s ease;
     }
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+    }
     </style>
   <body  ng-controller="voucher-ctrl">
     <div class="container-scroller" ng-app="voucherApp" ng-controller="voucher-ctrl">
@@ -97,7 +100,7 @@
                     <form class="form-sample">
                       <div class="row">
                         <div class="col-md-6">
-                          <a href="/shop/admin/voucher"  class="btn btn-gradient-primary btn-fw">Quay lại</a>
+                          <a href="/shop/admin/voucher" style="font-family: Arial, Helvetica, sans-serif;" class="btn btn-gradient-primary btn-fw">Quay lại</a>
                         </div>
                         </div>
                       </div>
@@ -106,7 +109,7 @@
                         <div class="card">
                             <div class="card-body">  
                               <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
-                              <table class="table table-striped" style="font-weight: bold;" id="table1">
+                              <table class="table table-striped" style="font-weight: bold;font-family: Arial, Helvetica, sans-serif;" id="table1">
                                     <thead>
                                         <tr>
                                             <th>Mã giảm giá</th>

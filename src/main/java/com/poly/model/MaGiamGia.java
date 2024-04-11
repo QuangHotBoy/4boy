@@ -32,7 +32,7 @@ public class MaGiamGia implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", length = 10)
+    @Column(name = "id")
     // @NotBlank(message = "Mã giảm giá không được để trống!")
     private String id;
 

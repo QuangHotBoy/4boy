@@ -41,7 +41,7 @@ public class RestVoucherController {
 		return maGiamGia;
 	}
 	@PutMapping("{id}")
-	public MaGiamGia put(@PathVariable("id") Integer id, @RequestBody MaGiamGia maGiamGia) {
+	public MaGiamGia put(@PathVariable("id") String id, @RequestBody MaGiamGia maGiamGia) {
 		return voucherService.update(maGiamGia);
 	}
 	@DeleteMapping("{id}")
