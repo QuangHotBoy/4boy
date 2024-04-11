@@ -153,20 +153,44 @@ $(document).ready(function () {
 	});
 
 	$(".add-to-favorite").click(function (){
-		var account = JSON.parse(localStorage.getItem("account")) || null;
+    var account = JSON.parse(localStorage.getItem("account")) || null;
 
-		if (account === null) {
-			iziToast.warning({
-				title: 'Thông báo',
-				message: 'Vui lòng đăng nhập vào tài khoản.',
-				position: 'topRight'
-			});
-		} else {
-			var isbn = $(this).data("isbn");
+    if (account === null) {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng đăng nhập vào tài khoản.',
+            position: 'topRight'
+        });
+    } else {
+        var isbn = $(this).data("isbn");
+        var tenDangNhap = account[0].tenDangNhap;
+        var ngay = new Date().toLocaleDateString();
 
-			console.log(isbn);
-		}
-	})
+        var data = {
+            sanPham: { id: isbn }, // Chú ý định dạng của 'sanPham'
+            taiKhoan: { tenDangNhap: tenDangNhap }, // Chú ý định dạng của 'taiKhoan'
+            ngay: ngay
+        };
+
+        $.ajax({
+            url: "/rest/account/addfavorite",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(response) {
+                iziToast.success({
+                    title: 'Thông báo',
+                    message: 'Sản phẩm đã được thêm vào danh sách yêu thích.',
+                    position: 'topRight'
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Lỗi khi thêm sản phẩm vào danh sách yêu thích:", error);
+            }
+        });
+    }
+});
+
 
 	function addToCart(productId) {
 		var carts = JSON.parse(localStorage.getItem("cart")) || [];

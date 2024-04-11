@@ -1,5 +1,6 @@
 package com.poly.controller.rest;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,9 @@ import com.poly.dao.DiaChi_TaiKhoanDAO;
 import com.poly.dao.DonDatHangDAO;
 import com.poly.dao.QuyenDAO;
 import com.poly.dao.Quyen_TaiKhoanDAO;
-import com.poly.dao.TaiKhoanDAO; 
+import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.DiaChi_TaiKhoan;
-import com.poly.model.DonDatHang; 
+import com.poly.model.DonDatHang;
 import com.poly.model.SachYeuThich;
 import com.poly.model.SanPham;
 import com.poly.model.TaiKhoan;
@@ -21,7 +22,7 @@ import com.poly.service.AccountService;
 import com.poly.service.AddressService;
 import com.poly.service.DetailOrderService;
 import com.poly.service.OrderService;
-import com.poly.service.FavoritesService; 
+import com.poly.service.FavoritesService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam; 
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin("*")
 @RestController
@@ -78,7 +79,7 @@ public class RestLogin {
 
 		return data;
 	}
- 
+
 	@GetMapping("/rest/auth/invoice/{tenDangNhap}")
 	List<DonDatHang> findbyTDN(@PathVariable("tenDangNhap") String tenDangNhap) {
 		return orderImp.findByTDN(tenDangNhap);
@@ -139,14 +140,16 @@ public class RestLogin {
 	}
 
 	@GetMapping("/rest/address/all-of-user/{id}")
-	public List<DiaChi_TaiKhoan> findAllByUser(@PathVariable("id") String id){
+	public List<DiaChi_TaiKhoan> findAllByUser(@PathVariable("id") String id) {
 		return addressImp.getAllByUser(id);
 	}
 
 	@PostMapping("/rest/account/addfavorite")
-	 SachYeuThich post(@RequestParam("sanPham") SanPham sanPham, @RequestParam("taiKhoan") TaiKhoan taiKhoan){
+	public SachYeuThich post(@RequestBody SachYeuThich sachYeuThich) {
+		SanPham sanPham = sachYeuThich.getSanPham_yeuThich();
+		TaiKhoan taiKhoan = sachYeuThich.getTaiKhoan_yeuThich();
+		Timestamp ngay = sachYeuThich.getNgayThich(); 
 		return favoriteService.addSachYT(sanPham, taiKhoan);
-	 }
-	
+	}
 
 }

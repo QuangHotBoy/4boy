@@ -1,7 +1,6 @@
 package com.poly.service.impl;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.sql.Timestamp; 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class FavoriteServiceImpl implements FavoritesService {
 	@Override
 	public SachYeuThich addSachYT(SanPham sanPham, TaiKhoan taiKhoan) {
 		Timestamp ngayHienTai = new Timestamp(System.currentTimeMillis());
-		SachYeuThich sachYeuThich = new SachYeuThich();
+		SachYeuThich sachYeuThich = new SachYeuThich(); 
 	    sachYeuThich.setSanPham_yeuThich(sanPham);
 	    sachYeuThich.setTaiKhoan_yeuThich(taiKhoan);
 	    sachYeuThich.setNgayThich(ngayHienTai);
