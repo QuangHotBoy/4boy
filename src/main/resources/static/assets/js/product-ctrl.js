@@ -152,7 +152,9 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         // Gửi yêu cầu POST đến máy chủ
         $http.post('/rest/products', item)
             .then(function (response) {
+                // kiểm tra biến nó có tồn tại hay không 
                 if (!$scope.products) {
+                    // khai báo ra 1 mảng để lưu trữ dữ liệu
                     $scope.products = [];
                 }
                 $scope.products.push(response.data);
