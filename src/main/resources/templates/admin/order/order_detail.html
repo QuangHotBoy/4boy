@@ -113,6 +113,7 @@
                                                     <th style="text-align: center;">Hình ảnh</th>
                                                     <th style="text-align: center;">Số lượng</th>
                                                     <th style="text-align: center;">Đơn giá</th>
+                                                    <th style="text-align: center;">Phí vận chuyển</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -132,11 +133,14 @@
                                                         </td>
                                                         <td class="text-center"> <!-- Để căn giữa nội dung trong cột -->
                                                             <span th:text="${#numbers.formatDecimal(detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                                                        </td> 
+                                                        <td style="text-align: center;"> <!-- Để căn giữa nội dung trong cột -->
+                                                            -30.000 đ
                                                         </td>
                                                     </tr>
-                                                    
                                                 </tbody>
-                                            </table>
+                                            </table><br>
+                                            <b style="margin-left: 79%;">Tổng tiền: &nbsp; <span style="color: red;" th:text="${listDetail[0].donDatHang.tongTien}"></span></b>
                                         </div>
                                     </div>
                                 </div>

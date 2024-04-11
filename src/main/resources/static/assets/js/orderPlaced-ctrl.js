@@ -79,6 +79,9 @@ function initializeDataTable() {
     };
     $scope.update = function() {
         var orderPlace = angular.copy($scope.form);
+        if (orderPlace.trangThai_donDatHang.id === 1) {
+            orderPlace.trangThai_donDatHang.id = 7;
+        }
         $http.put('/rest/orderPlaces/' + orderPlace.maDonHang, orderPlace)
             .then(resp => {
                 // Initialize $scope.vouchers if not already initialized
@@ -96,6 +99,7 @@ function initializeDataTable() {
                 alert("Cập nhật lý do hủy đơn thành công!");
                 // Optionally, reload data
                 // loadData();
+                $window.location.reload();
             })
             .catch(error => {
                 alert("Lỗi cập nhật lý do hủy đơn!");

@@ -140,7 +140,7 @@
                                     <td>{{ orderPlace.ghiChu }}</td>
                                     <td>{{ orderPlace.trangThai_donDatHang.tenTrangThai }}</td>
                                     <td>
-                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" ng-click="edittt(orderPlace.maDonHang)"  ng-hide="orderPlace.trangThai_donDatHang.id === 6">
+                                      <button type="button" class="btn btn-gradient-danger btn-rounded btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo" ng-click="edittt(orderPlace.maDonHang)"  ng-hide="orderPlace.trangThai_donDatHang.id === 6 || orderPlace.trangThai_donDatHang.id === 7 ">
                                           <i class="mdi mdi-border-color"></i>
                                       </button>
                                       <button type="button" class="btn btn-gradient-success btn-rounded btn-icon" data-bs-toggle="modal" ng-click="edit(orderPlace.maDonHang)"data-bs-target="#exampleModal" data-bs-whatever="@mdo"  ng-if="orderPlace.trangThai_donDatHang.id === 1">

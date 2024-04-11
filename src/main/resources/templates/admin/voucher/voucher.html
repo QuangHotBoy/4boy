@@ -47,6 +47,9 @@
         cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
         transition: background-color 0.3s ease;
     }
+    a {
+    text-decoration: none;
+    }
     </style>
   <body  ng-controller="voucher-ctrl">
     <div class="container-scroller" ng-app="voucherApp" ng-controller="voucher-ctrl">
@@ -74,8 +77,8 @@
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
-      </nav>
-       <!-- partial:partials/_navbar.html -->
+        </nav>
+         <!-- partial:partials/_navbar.html -->
        <div th:replace="admin/navbar :: navbar"></div>
        <!-- partial -->
        <div class="container-fluid page-body-wrapper">
@@ -112,13 +115,28 @@
                               <table class="table table-striped" style="font-family: Arial, Helvetica, sans-serif;" id="table1">
                                     <thead>
                                         <tr>
-                                            <th>Mã giảm giá</th>
-                                            <th>Tên mã giảm giá</th>
-                                            <th>Số tiền giảm</th>
-                                            <th>Số lượng</th>
-                                            <th>Ngày bắt đầu </th>
-                                            <th>Ngày kết thúc</th>
-                                            <th >Mô tả</th>
+                                          <th>
+                                            <a ng-click="sortByField('id')">Mã giảm giá</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('tenMa')">Tên chương trình</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('soTienGiam')">Số tiền giảm</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('soLuong')">Số lượng</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('ngayBatDau')">Ngày bắt đầu</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('ngayKetThuc')">Ngày kết thúc</a>
+                                        </th>
+                                        <th>
+                                            <a ng-click="sortByField('thongTin')">Thông tin</a>
+                                        </th>
+                                        
                                             <th style="text-align: center;" colspan="2">Hành động</th>
                                         </tr>
                                     </thead>

@@ -236,6 +236,22 @@ app.controller("CheckoutController", function ($scope, $http) {
           });
           console.log("Mã giảm giá không hợp lệ.");
         }
+        if ($scope.subpayment < 0) {
+            // Nếu tổng thanh toán nhỏ hơn 0 sau khi áp dụng giảm giá, đặt lại tổng thanh toán thành 0
+            $scope.subpayment = 0;
+
+            // Hiển thị thông báo lỗi
+            iziToast.error({
+              title: 'Lỗi',
+              message: 'Số tiền giảm lớn hơn tổng thanh toán.',
+              position: 'topRight'
+            });
+          } else {
+            $('input[name="voucher"]').attr('readonly', true);
+
+            $scope.discount = formatPrice(data.discount);
+            $scope.payment = formatPrice($scope.subpayment);
+          }
       })
       .catch(function (error) {
         // Xử lý lỗi nếu có

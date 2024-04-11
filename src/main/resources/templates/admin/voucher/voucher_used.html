@@ -47,6 +47,10 @@
         cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp khi di chuột qua nút tìm kiếm */
         transition: background-color 0.3s ease;
     }
+    td, th {
+      text-align: center;
+
+    }
     </style>
   <body  ng-controller="voucher-ctrl">
     <div class="container-scroller" ng-app="voucherApp" ng-controller="voucher-ctrl">
@@ -106,14 +110,21 @@
                        <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">  
-                              <input type="text" class="search-input" ng-model="searchTerm" ng-change="search()" placeholder="Tìm kiếm">
+                              <input type="text" class="search-input" ng-model="searchTenMaTerm" ng-change="searchByTenMa()" placeholder="Tìm kiếm">
                               <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
-                                            <th>Mã giảm giá</th>
-                                            <th>Tên mã giảm giá</th>
-                                            <th>Số lượng còn lại</th>
+                                          <th>
+                                            <a ng-click="sortByField('id')">Mã giảm giá</a>
+                                        </th>
+                                        <th>
+                                          <a ng-click="sortByField('tenMa')">Tên chương trình</a>
+                                      </th>
+                                      <th>
+                                        <a ng-click="sortByField('soLuong')">Số lượng</a>
+                                    </th>
                                             <th>Số lượng đã sử dụng</th>
+                                            <th>Số lượng còn lại</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,6 +133,7 @@
                                         <td>{{ voucher.tenMa }}</td>
                                         <td>{{ voucher.soLuong }}</td>
                                         <td>{{ voucher.daSuDung }}</td>
+                                        <td><b style="color: brown;">{{ voucher.soLuong - voucher.daSuDung }}</b></td>
                                     </tr>
                                                               
                                   </tbody>

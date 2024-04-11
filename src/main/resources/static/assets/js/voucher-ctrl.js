@@ -18,10 +18,45 @@ app.controller("voucher-ctrl", function($scope, $http){
     $scope.form = {
         daSuDung: '0'
     };
-    
     //khoi dau
     $scope.initialize();
-
+    $scope.ascending = {
+        id: true,
+        tenMa: true,
+        soTienGiam: true,
+        soLuong: true,
+        ngayBatDau: true,
+        ngayKetThuc: true,
+        thongTin: true
+    };
+    
+    $scope.sortByField = function(fieldName) {
+        // Xác định biến cờ và sắp xếp mảng dựa trên trường được chọn
+        if ($scope.ascending[fieldName]) {
+            // Sắp xếp mảng theo trường tăng dần
+            $scope.vouchers.sort((a, b) => {
+                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
+                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
+                    return a[fieldName].localeCompare(b[fieldName]);
+                } else {
+                    return a[fieldName] - b[fieldName];
+                }
+            });
+        } else {
+            // Sắp xếp mảng theo trường giảm dần
+            $scope.vouchers.sort((a, b) => {
+                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
+                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
+                    return b[fieldName].localeCompare(a[fieldName]);
+                } else {
+                    return b[fieldName] - a[fieldName];
+                }
+            });
+        }
+        // Đảo ngược giá trị của biến cờ để chuyển đổi hướng sắp xếp
+        $scope.ascending[fieldName] = !$scope.ascending[fieldName];
+    };
+    
     //xoa form
     $scope.reset = function () {
         $scope.form = {};
@@ -307,7 +342,6 @@ function isMaGiamGiaTrung(id) {
         $scope.initialize(); // Giả sử initialize() là hàm để load lại danh sách mã giảm giá
         return;
     }
-
     // Thực hiện tìm kiếm trong danh sách mã giảm giá
     $scope.vouchers = $scope.vouchers.filter(function(voucher) {
         // Chuyển đổi tất cả thông tin của mã giảm giá và từ khóa tìm kiếm về chữ thường để thực hiện tìm kiếm không phân biệt chữ hoa chữ thường
@@ -322,6 +356,20 @@ function isMaGiamGiaTrung(id) {
             }
         }
         return false;
+    });
+};
+$scope.searchByTenMa = function() {
+    // Kiểm tra xem đã nhập từ khóa tìm kiếm hay chưa
+    if (!$scope.searchTenMaTerm) {
+        // Nếu không có từ khóa tìm kiếm, hiển thị lại toàn bộ danh sách mã giảm giá
+        $scope.initialize(); // Giả sử initialize() là hàm để load lại danh sách mã giảm giá
+        return;
+    }
+
+    // Thực hiện tìm kiếm trong danh sách mã giảm giá theo trường tenMa
+    $scope.vouchers = $scope.vouchers.filter(function(voucher) {
+        // Chuyển đổi tên chương trình thành chữ thường và tìm kiếm từ khóa tương ứng
+        return voucher.tenMa.toLowerCase().includes($scope.searchTenMaTerm.toLowerCase());
     });
 };
 

@@ -182,7 +182,7 @@ app.controller("BuynowController", function ($scope, $http) {
     var voucherCode = $scope.voucherCode; // Lấy giá trị mã giảm giá từ model
     var total = $scope.subpayment; // Thay bằng giá trị tổng tiền thực tế
     var user = $scope.info_user[0].tenDangNhap;
-
+    
     // Gửi yêu cầu POST đến backend
     $http
       .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total + "&user=" + user)
@@ -242,6 +242,22 @@ app.controller("BuynowController", function ($scope, $http) {
             position: 'topRight'
           });
           console.log("Mã giảm giá không hợp lệ.");
+        }
+        if ($scope.subpayment < 0) {
+          // Nếu tổng thanh toán nhỏ hơn 0 sau khi áp dụng giảm giá, đặt lại tổng thanh toán thành 0
+          $scope.subpayment = 0;
+
+          // Hiển thị thông báo lỗi
+          iziToast.error({
+            title: 'Lỗi',
+            message: 'Số tiền giảm lớn hơn tổng thanh toán.',
+            position: 'topRight'
+          });
+        } else {
+          $('input[name="voucher"]').attr('readonly', true);
+
+          $scope.discount = formatPrice(data.discount);
+          $scope.payment = formatPrice($scope.subpayment);
         }
       })
       .catch(function (error) {
