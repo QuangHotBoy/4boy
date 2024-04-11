@@ -60,9 +60,9 @@
                                         th:data-isbn="${p.isbn}"><i class="fas fa-cart-plus"></i></button>
                                 </div>
                                 <div class="text-center ms-3">
-                                    <a class="btn border border-warning mt-auto"
-                                        th:href="@{|/shop/product/add-to-favorite|}" data-isbn="${p.isbn}"><i
-                                            class="far fa-heart"></i></a>
+                                    <button class="btn border border-warning mt-auto add-to-favorite"
+                                        th:data-isbn="${p.isbn}"><i
+                                            class="far fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>

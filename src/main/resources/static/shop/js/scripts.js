@@ -152,6 +152,22 @@ $(document).ready(function () {
 		}
 	});
 
+	$(".add-to-favorite").click(function (){
+		var account = JSON.parse(localStorage.getItem("account")) || null;
+
+		if (account === null) {
+			iziToast.warning({
+				title: 'Thông báo',
+				message: 'Vui lòng đăng nhập vào tài khoản.',
+				position: 'topRight'
+			});
+		} else {
+			var isbn = $(this).data("isbn");
+
+			console.log(isbn);
+		}
+	})
+
 	function addToCart(productId) {
 		var carts = JSON.parse(localStorage.getItem("cart")) || [];
 		var found = false;
