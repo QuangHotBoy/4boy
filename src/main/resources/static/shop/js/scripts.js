@@ -166,17 +166,12 @@ $(document).ready(function () {
         var tenDangNhap = account[0].tenDangNhap;
         var ngay = new Date().toLocaleDateString();
 
-        var data = {
-            sanPham: { id: isbn }, // Chú ý định dạng của 'sanPham'
-            taiKhoan: { tenDangNhap: tenDangNhap }, // Chú ý định dạng của 'taiKhoan'
-            ngay: ngay
-        };
+		console.log(tenDangNhap);
 
         $.ajax({
-            url: "/rest/account/addfavorite",
+            url: "/rest/account/addfavorite/" + tenDangNhap + "/" + isbn,
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(data),
             success: function(response) {
                 iziToast.success({
                     title: 'Thông báo',

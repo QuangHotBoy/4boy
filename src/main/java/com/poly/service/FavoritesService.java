@@ -13,6 +13,6 @@ public interface FavoritesService {
 
 	List<SachYeuThich> getAllProduct(String tenDangNhap);
 	
-	SachYeuThich addSachYT(SanPham sanPham,TaiKhoan taiKhoan);
+	SachYeuThich addSachYT(String taiKhoan, Long isbn);
 	
 }

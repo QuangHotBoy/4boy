@@ -144,12 +144,10 @@ public class RestLogin {
 		return addressImp.getAllByUser(id);
 	}
 
-	@PostMapping("/rest/account/addfavorite")
-	public SachYeuThich post(@RequestBody SachYeuThich sachYeuThich) {
-		SanPham sanPham = sachYeuThich.getSanPham_yeuThich();
-		TaiKhoan taiKhoan = sachYeuThich.getTaiKhoan_yeuThich();
-		Timestamp ngay = sachYeuThich.getNgayThich(); 
-		return favoriteService.addSachYT(sanPham, taiKhoan);
+	@PostMapping("/rest/account/addfavorite/{user}/{product}")
+	public SachYeuThich post(@PathVariable("user") String user, @PathVariable("product") Long isbn) {
+
+		return favoriteService.addSachYT(user, isbn);
 	}
 
 }
