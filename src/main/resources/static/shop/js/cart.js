@@ -70,6 +70,12 @@ app.controller("CartController", function ($scope, $http, $window) {
       }
     }
 
+    if($scope.cart.length > 0){
+      $scope.cartCheck = true;
+    }else{
+      $scope.cartCheck = false;
+    }
+
     // Tính tổng số lượng sản phẩm trong giỏ hàng
     $scope.calculateCartCount = function () {
       return $scope.cart.reduce(function (total, product) {
