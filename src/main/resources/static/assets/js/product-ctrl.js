@@ -54,7 +54,9 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             var data = new FormData();
             data.append('file', files[0]);
             $http.post('/rest/upload/products', data, {
+                // ngăn chuyển về Json
                 transformRequest: angular.identity,
+                // tự động chuyển kiểu dữ liệu mặc định 'multipart/form-data
                 headers: { 'Content-Type': undefined }
             }).then(resp => {
                 // Kiểm tra xem 'form' đã được khởi tạo chưa
