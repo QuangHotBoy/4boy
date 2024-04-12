@@ -70,9 +70,9 @@ app.controller("CartController", function ($scope, $http, $window) {
       }
     }
 
-    if($scope.cart.length > 0){
+    if ($scope.cart.length > 0) {
       $scope.cartCheck = true;
-    }else{
+    } else {
       $scope.cartCheck = false;
     }
 
@@ -92,7 +92,7 @@ app.controller("CartController", function ($scope, $http, $window) {
         updateLocalStorage();
         $("#cart-count").text($scope.calculateCartCount());
       }
-    };    
+    };
 
     $scope.incrementQuantity = function (index) {
       var quantityInput = $("input[name='maSP']").eq(index);
@@ -133,15 +133,9 @@ app.controller("CartController", function ($scope, $http, $window) {
       localStorage.setItem("cart", JSON.stringify($scope.cart));
     }
 
-    // Hàm tính tổng tiền
-    $scope.calculateTotal = function () {
-      var total = 0;
-      $scope.cart.forEach(function (product) {
-        total += product.price * product.quantity;
-      });
-
-      total = total + 30000;
-      return formatPrice(total);
+    // Hàm tính tổng tiền của mỗi sản phẩm trong giỏ hàng
+    $scope.calculateItemTotal = function (item) {
+      return formatPrice(item.price * item.quantity);
     };
 
     // Hàm tính tổng tiền của các sản phẩm
@@ -180,15 +174,15 @@ app.controller("CartController", function ($scope, $http, $window) {
     }
   }
 
-  $scope.isUserLoggedIn = function() {
+  $scope.isUserLoggedIn = function () {
     var account = localStorage.getItem("account");
     return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
-};
+  };
 
-// đăng xuất
-$scope.logout = function () {
-$scope.addToCart();
-localStorage.removeItem("account");
-location.href = "/shop/home";
-}
+  // đăng xuất
+  $scope.logout = function () {
+    $scope.addToCart();
+    localStorage.removeItem("account");
+    location.href = "/shop/home";
+  }
 });

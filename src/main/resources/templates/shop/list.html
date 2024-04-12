@@ -28,7 +28,7 @@
             </div>
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="products">
                 <div th:each="p: ${list}">
-                    <div class="col mb-3">
+                    <div class="col mb-3 product-card">
                         <div class="card h-100">
                             <!-- Product image-->
                             <div class="image-container">
@@ -36,7 +36,7 @@
                                     alt="..." />
                             </div>
                             <!-- Product details-->
-                            <div class="card-body p-4 h-75">
+                            <div class="card-body p-4">
                                 <div class="text-start">
                                     <!-- Product name-->
                                     <a th:href="@{|/shop/product/${p.isbn}|}"
@@ -83,7 +83,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
 	<script th:src="@{/shop/js/scripts.js}"></script>
- 
 
     <script th:src="@{/shop/js/list-item.js}"></script>
 </body>

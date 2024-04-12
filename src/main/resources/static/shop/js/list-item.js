@@ -79,3 +79,30 @@ function sortProducts(option) {
     location.href = "/shop/home";
   }
 }
+
+$(document).ready(function(){
+  // Hàm search
+  $('#searchTerm').on('input', function(){
+      var searchTerm = $(this).val().trim().toLowerCase(); // Lấy từ khóa tìm kiếm và chuyển thành chữ thường
+      var productsContainKeyword = []; // Mảng chứa các sản phẩm chứa từ khóa tìm kiếm
+      var productsNotContainKeyword = []; // Mảng chứa các sản phẩm không chứa từ khóa tìm kiếm
+
+      $('.product-card').each(function(){
+          var productName = $(this).find('h5').text().trim().toLowerCase(); // Lấy tên sản phẩm và chuyển thành chữ thường
+          if (productName.includes(searchTerm)) {
+              productsContainKeyword.push($(this)); // Thêm sản phẩm vào mảng nếu chứa từ khóa tìm kiếm
+          } else {
+              productsNotContainKeyword.push($(this)); // Thêm sản phẩm vào mảng nếu không chứa từ khóa tìm kiếm
+          }
+      });
+
+      // Ghép mảng sản phẩm chứa từ khóa và không chứa từ khóa lại với nhau
+      var mergedProducts = $.merge(productsContainKeyword, productsNotContainKeyword);
+
+      // Hiển thị các sản phẩm từ mảng mới đã sắp xếp
+      $('#products').empty(); // Xóa danh sách sản phẩm hiện tại
+      mergedProducts.forEach(function(product) {
+          $('#products').append(product); // Thêm sản phẩm vào danh sách
+      });
+  });
+});
