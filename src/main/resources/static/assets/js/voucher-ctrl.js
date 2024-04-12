@@ -82,7 +82,7 @@ app.controller("voucher-ctrl", function($scope, $http){
             $scope.form = {};
         });
 };
-function validateForm(){
+function validateFormCreate(){
     var id = document.getElementById("id").value;
     var tenMa = document.getElementById("tenMa").value;
     var soTienGiam = document.getElementById("soTienGiam").value;
@@ -185,6 +185,86 @@ function validateForm(){
     // }
     return true;
 }
+function validateFormUpdate(){
+    var id = document.getElementById("id").value;
+    var tenMa = document.getElementById("tenMa").value;
+    var soTienGiam = document.getElementById("soTienGiam").value;
+    var soLuong = document.getElementById("soLuong").value;
+    var thongTin = document.getElementById("thongTin").value;
+    var dieuKien = document.getElementById("dieuKien").value;
+
+   
+    if (tenMa.trim() == "") {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng nhập tên chương trình.',
+            position: 'topRight'
+        });
+        return false;
+    }
+    if (soTienGiam.trim() == "") {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng nhập số tiền giảm.',
+            position: 'topRight'
+        });
+        return false;
+    }else if (parseInt(soTienGiam) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Số tiền giảm phải lớn hơn 0.',
+            position: 'topRight'
+        });
+        return false;
+    }
+    if (soLuong.trim() == "") {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng nhập số lượng.',
+            position: 'topRight'
+        });
+        return false;
+    }else if (parseInt(soLuong) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Số lượng phải lớn hơn 0.',
+            position: 'topRight'
+        });
+        return false;
+    }
+    if (thongTin.trim() == "") {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng nhập mô tả.',
+            position: 'topRight'
+        });
+        return false;
+    }
+    if (dieuKien.trim() == "") {
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng nhập đơn tối thiểu.',
+            position: 'topRight'
+        });
+        return false;
+    }else if (parseInt(dieuKien) <= 0) { // Kiểm tra nếu số lượng là không hoặc âm
+        iziToast.warning({
+            title: 'Thông báo',
+            message: 'Đơn tối thiểu phải lớn hơn 0.',
+            position: 'topRight'
+        });
+        return false;
+    }
+    if (!$scope.form.ngayKetThuc) {
+        alert("Vui lòng chọn ngày kết thúc!");
+        return false;
+    }
+    if (new Date($scope.form.ngayBatDau) >= new Date($scope.form.ngayKetThuc)) {
+        alert("Ngày bắt đầu phải trước ngày kết thúc!");
+        return false;
+    }
+    return true;
+}
 function isMaGiamGiaTrung(id) {
     // Lặp qua danh sách các loại mã giảm giá đã tải từ server
     for (var i = 0; i < $scope.vouchers.length; i++) {
@@ -200,7 +280,7 @@ function isMaGiamGiaTrung(id) {
     //them mgg moi
     $scope.create = function() {
         // Kiểm tra xem đã tồn tại mã giảm giá có cùng ID chưa
-        if (!validateForm()) {
+        if (!validateFormCreate()) {
             // Nếu form không hợp lệ, không tiến hành thêm mới
             return;
         }
@@ -248,14 +328,7 @@ function isMaGiamGiaTrung(id) {
     $scope.getCurrentDateTime = function() {
         // Lấy ngày và giờ hiện tại
         var currentDate = new Date();
-        
-        // Chuyển đổi sang múi giờ của Việt Nam (GMT+7)
-        var vietnamTime = new Date(currentDate.getTime() + (7 * 60 * 60 * 1000)); // Thêm 7 giờ vào ngày hiện tại
-        
-        // Format theo định dạng "YYYY-MM-DDTHH:mm"
-        var formattedDateTime = vietnamTime.toISOString().slice(0, 16);
-        
-        return formattedDateTime;
+        return currentDate;
     };
 
     
@@ -265,7 +338,10 @@ function isMaGiamGiaTrung(id) {
     $scope.update = function() {
         // Lưu trữ id ban đầu của voucher
         var voucher = angular.copy($scope.form);
-    
+        if (!validateFormUpdate()) {
+            // Nếu form không hợp lệ, không tiến hành thêm mới
+            return;
+        }
         // Chuyển đổi ID sang chuỗi
         voucher.id = String(voucher.id);
     
@@ -407,6 +483,14 @@ $scope.searchByTenMa = function() {
         this.page = pageNumber;
     }
 }
+$scope.getPageNumbers = function() {
+    var totalPages = $scope.pager.count;
+    var pageNumbers = [];
+    for (var i = 0; i < totalPages; i++) {
+        pageNumbers.push(i);
+    }
+    return pageNumbers;
+}
 $scope.pager1 = {
     page: 0,
     size: 5,
@@ -439,14 +523,8 @@ $scope.pager1 = {
         this.page1 = pageNumber;
     }
 }
-$scope.getPageNumbers = function() {
-    var totalPages = $scope.pager.count;
-    var pageNumbers = [];
-    for (var i = 0; i < totalPages; i++) {
-        pageNumbers.push(i);
-    }
-    return pageNumbers;
-}
+
+
 
     
     $scope.checkDate = function() {
