@@ -236,8 +236,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 message: 'Không được để trống  !',
                 position: 'topRight'
             });
-        } else {
-
+        } else { 
             $http.put("/rest/account/update/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
                 var index = $scope.accounts.findIndex(item => item.tenDangNhap === $scope.form_info.tenDangNhap);
                 $scope.accounts[index] = resp.data;
