@@ -1,6 +1,75 @@
 var app = angular.module("myApp", []);
 
 app.controller("BuynowController", function ($scope, $http) {
+  $scope.isUserLoggedIn = function () {
+    var account = localStorage.getItem("account");
+    return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
+  };
+
+  // đăng xuất
+  $scope.logout = function () {
+    $scope.addToCart();
+    localStorage.removeItem("account");
+    location.href = "/shop/home";
+  }
+
+  $scope.addToCart = function () {
+    // Đăng xuất lưu lại cart từ localStorage vào database
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    $scope.cart = [];
+
+    for (let i = 0; i < carts.length; i++) {
+      if (carts[i].user === $scope.info_user[0].tenDangNhap) {
+        $scope.cart.push(carts[i]);
+      }
+    }
+
+    // Xác định các sản phẩm cần xóa khỏi localStorage
+    var productsToRemove = $scope.cart.map(function (product) {
+      return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
+    });
+
+    function removeFromLocalStorage(productsToRemove) {
+      var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+      carts = carts.filter(function (product) {
+        return !productsToRemove.includes(product.id);
+      });
+
+      // Lưu mảng đã cập nhật vào localStorage
+      localStorage.setItem("cart", JSON.stringify(carts));
+    }
+
+    $scope.addCart = {
+      get taiKhoan_gioHang() {
+        return { tenDangNhap: $scope.info_user[0].tenDangNhap };
+      },
+      get gioHang() {
+        return $scope.cart.map((item) => {
+          return {
+            sanPham_gioHang: { isbn: item.id },
+            soLuong: item.quantity
+          }
+        });
+      },
+      add() {
+        var cart = angular.copy(this);
+        $http.post("/rest/add-cart", cart).then((resp) => {
+          removeFromLocalStorage(productsToRemove);
+        }).catch((error) => {
+          console.log(error);
+        })
+      }
+    }
+
+    $scope.addCart.add();
+
+    // Hiển thị số lượng sản phẩm lên website
+    $("#cart-count").text(0);
+  }
+
   var $buy = ($scope.buy = {
     item: [],
     clear() {
@@ -182,7 +251,7 @@ app.controller("BuynowController", function ($scope, $http) {
     var voucherCode = $scope.voucherCode; // Lấy giá trị mã giảm giá từ model
     var total = $scope.subpayment; // Thay bằng giá trị tổng tiền thực tế
     var user = $scope.info_user[0].tenDangNhap;
-    
+
     // Gửi yêu cầu POST đến backend
     $http
       .get("/rest/voucher?voucher=" + voucherCode + "&total=" + total + "&user=" + user)
@@ -266,15 +335,15 @@ app.controller("BuynowController", function ($scope, $http) {
         console.log(voucherCode + total);
       });
   };
-  $scope.isUserLoggedIn = function() {
+  $scope.isUserLoggedIn = function () {
     var account = localStorage.getItem("account");
     return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
-};
+  };
 
-// đăng xuất
-$scope.logout = function () {
-$scope.addToCart();
-localStorage.removeItem("account");
-location.href = "/shop/home";
-}
+  // đăng xuất
+  $scope.logout = function () {
+    $scope.addToCart();
+    localStorage.removeItem("account");
+    location.href = "/shop/home";
+  }
 });
