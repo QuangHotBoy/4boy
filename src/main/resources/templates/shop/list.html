@@ -5,7 +5,7 @@
 
 </head>
 
-<body ng-controller="myCtrl" class="gradient-custom-user">
+<body ng-controller="HomeCtrl" class="gradient-custom-user">
 
     <div th:replace="/shop/layout/navigation :: nav"></div>
     <hr class="container">
@@ -71,13 +71,19 @@
             </div>
     </section>
 
-    <div th:replace="/shop/layout/footer :: footer"></div>
+ 
+	<!-- Footer-->
+	<div th:replace="/shop/layout/footer :: footer"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
-    <script th:src="@{/shop/js/scripts.js}"></script>
+	<script th:src="@{/shop/js/scripts.js}"></script>
+ 
 
     <script th:src="@{/shop/js/list-item.js}"></script>
 </body>
