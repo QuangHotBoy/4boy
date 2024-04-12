@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.poly.config.VNPayService;
 import com.poly.dao.ChiTietDonDatHangDAO;
 import com.poly.dao.DonDatHangDAO;
+import com.poly.dao.MaGiamGiaDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.dao.TinhTrangDonDatHangDAO;
 import com.poly.model.ChiTietDonDatHang;
 import com.poly.model.DonDatHang;
+import com.poly.model.MaGiamGia;
 import com.poly.model.SanPham;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +38,9 @@ public class VNPaymentController {
 
     @Autowired
     SanPhamDAO productDAO;
+
+    @Autowired
+    MaGiamGiaDAO voucherDAO;
 
     @Autowired
     TinhTrangDonDatHangDAO statusDAO;
@@ -97,6 +102,12 @@ public class VNPaymentController {
 
                 productDAO.save(product);
             }
+
+            MaGiamGia voucher = voucherDAO.findById(order.getMaGiamGia().getId()).get();
+
+            voucher.setDaSuDung(voucher.getDaSuDung() - 1);
+
+            voucherDAO.save(voucher);
         }
 
         orderDAO.save(order);

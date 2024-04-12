@@ -59,7 +59,7 @@ public class VoucherServiceImpl implements VoucherService {
 
         if (voucher != null) {
             response.put("isValid", true);
-            if (voucher.getSoLuong() >= voucher.getDaSuDung() || voucher.getKetThuc()) {
+            if (voucher.getSoLuong() > voucher.getDaSuDung() && voucher.getKetThuc()) {
                 response.put("isActive", true);
                 if(order == null){
                     response.put("isUse", true);
