@@ -87,19 +87,19 @@ public class UserController {
 
     @RequestMapping("shop/auth/favorite/{tenDangNhap}")
     public String favorite(Model model, @PathVariable("tenDangNhap") String tenDangNhap) {
- 
-        List<SachYeuThich> sachYT = SachYeuThichDAO.findByTNDSYT(tenDangNhap);
 
-        List<SachYeuThich> list = new ArrayList<>();
+        // List<SachYeuThich> sachYT = SachYeuThichDAO.findByTNDSYT(tenDangNhap);
 
-        Set<Long> isbnSet = new HashSet();
+        // List<SachYeuThich> list = new ArrayList<>();
 
-        for (SachYeuThich sach : sachYT) {
-            if (isbnSet.add(sach.getSanPham_yeuThich().getIsbn())) {
-                list.add(sach);
-            }
-        } 
-        model.addAttribute("SachYT", list);
+        // Set<Long> isbnSet = new HashSet();
+
+        // for (SachYeuThich sach : sachYT) {
+        // if (isbnSet.add(sach.getSanPham_yeuThich().getIsbn())) {
+        // list.add(sach);
+        // }
+        // }
+        // model.addAttribute("SachYT", list);
         return "shop/layout/user/favorites";
     }
 

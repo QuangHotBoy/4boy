@@ -14,5 +14,5 @@ public interface FavoritesService {
 	List<SachYeuThich> getAllProduct(String tenDangNhap);
 	
 	SachYeuThich addSachYT(String taiKhoan, Long isbn);
-	
+	SachYeuThich deleteSach(String taiKhoan, Long isbn);
 }

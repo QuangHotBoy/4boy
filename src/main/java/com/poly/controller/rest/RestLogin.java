@@ -150,4 +150,14 @@ public class RestLogin {
 		return favoriteService.addSachYT(user, isbn);
 	}
 
+	@GetMapping("/rest/account/deletefavorite/{user}/{product}")
+	public SachYeuThich deleteFavovite(@PathVariable("user") String user, @PathVariable("product") Long isbn) { 
+		return favoriteService.deleteSach(user, isbn);
+	}
+
+	@GetMapping("/rest/accont/favorites/{tenDangNhap}")
+	List<SachYeuThich> GetAll(@PathVariable("tenDangNhap") String tenDangNhap) {
+		return favoriteService.getAllProduct(tenDangNhap);
+	}
+
 }

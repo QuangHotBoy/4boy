@@ -152,40 +152,39 @@ $(document).ready(function () {
 		}
 	});
 
-	$(".add-to-favorite").click(function (){
-    var account = JSON.parse(localStorage.getItem("account")) || null;
+	$(".add-to-favorite").click(function () {
+		var account = JSON.parse(localStorage.getItem("account")) || null;
 
-    if (account === null) {
-        iziToast.warning({
-            title: 'Thông báo',
-            message: 'Vui lòng đăng nhập vào tài khoản.',
-            position: 'topRight'
-        });
-    } else {
-        var isbn = $(this).data("isbn");
-        var tenDangNhap = account[0].tenDangNhap;
-        var ngay = new Date().toLocaleDateString();
+		if (account === null) {
+			iziToast.warning({
+				title: 'Thông báo',
+				message: 'Vui lòng đăng nhập vào tài khoản.',
+				position: 'topRight'
+			});
+		} else {
+			var isbn = $(this).data("isbn");
+			var tenDangNhap = account[0].tenDangNhap;
+			var ngay = new Date().toLocaleDateString();
 
-		console.log(tenDangNhap);
+			console.log(tenDangNhap);
 
-        $.ajax({
-            url: "/rest/account/addfavorite/" + tenDangNhap + "/" + isbn,
-            type: "POST",
-            contentType: "application/json",
-            success: function(response) {
-                iziToast.success({
-                    title: 'Thông báo',
-                    message: 'Sản phẩm đã được thêm vào danh sách yêu thích.',
-                    position: 'topRight'
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error("Lỗi khi thêm sản phẩm vào danh sách yêu thích:", error);
-            }
-        });
-    }
-});
-
+			$.ajax({
+				url: "/rest/account/addfavorite/" + tenDangNhap + "/" + isbn,
+				type: "POST",
+				contentType: "application/json",
+				success: function (response) {
+					iziToast.success({
+						title: 'Thông báo',
+						message: 'Sản phẩm đã được thêm vào danh sách yêu thích.',
+						position: 'topRight'
+					});
+				},
+				error: function (xhr, status, error) {
+					console.error("Lỗi khi thêm sản phẩm vào danh sách yêu thích:", error);
+				}
+			});
+		}
+	});
 
 	function addToCart(productId) {
 		var carts = JSON.parse(localStorage.getItem("cart")) || [];
@@ -280,12 +279,12 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 			obj[key] = value;
 		}
 		return obj;
-	} 
-	$scope.isUserLoggedIn = function() {
-        var account = localStorage.getItem("account");
-        return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
-    };
- 
+	}
+	$scope.isUserLoggedIn = function () {
+		var account = localStorage.getItem("account");
+		return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
+	};
+
 	// đăng xuất
 	$scope.logout = function () {
 		$scope.addToCart();
@@ -374,7 +373,38 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 		$("#cart-count").text(0);
 	}
 
- 
 
+	$scope.removefavorite = function (isbn) {
+		console.log(1)
+		var account = JSON.parse(localStorage.getItem("account")) || null;
+		var tenDangNhap = account[0].tenDangNhap;
+
+		$http.get("/rest/account/deletefavorite/" + tenDangNhap + "/" + isbn).then(resp => {
+			iziToast.info({
+				title: 'Thông báo',
+				message: 'Hoàn tất !',
+				position: 'topRight'
+			});
+
+			// Chờ 3 giây trước khi thực hiện reload
+			setTimeout(function () {
+				location.reload();
+			}, 3000)
+			console.log("Success", resp);
+		})
+	}
+
+	$scope.getfavorites = function () {
+		var tenDangNhap = $scope.info_user[0].tenDangNhap;
+		$http.get("/rest/accont/favorites/" + tenDangNhap).then(resp => {
+			$scope.sachYeuThich = [];
+			$scope.sachYeuThich = resp.data;
+			console.log($scope.sachYeuThich);
+			console.log("Sucess", $scope.sachYeuThich[0].sanPham_yeuThich.hinhAnh);
+
+		})
+	}
+
+
+	$scope.getfavorites();
 })
-	

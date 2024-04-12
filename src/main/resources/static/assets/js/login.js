@@ -495,6 +495,10 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     }
 
+    
+
+  
+
     $scope.cart = function (user_id) {
         // Hàm chuyển đổi từ mảng con sang đối tượng
         function arrayToObject(arr) {
@@ -545,5 +549,6 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
+   
     } 
 })
