@@ -19,6 +19,9 @@ import com.poly.dao.PhanLoaiDAO;
 import com.poly.dao.SanPhamDAO;
 import com.poly.model.DanhGia;
 import com.poly.model.SanPham;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
@@ -147,6 +150,20 @@ public class HomeController {
 
 		return "shop/detail-item";
 	}
+
+	@RequestMapping("shop/search/keyword")
+	public String search(Model model, @RequestParam("searchData") String keyword) {
+
+		List<SanPham> list = productDAO.findByTenSachContaining(keyword);
+
+		System.out.println(keyword);
+
+		model.addAttribute("list", list);
+		model.addAttribute("band", "DANH SÁCH SẢN PHẨM");
+
+		return "shop/list";
+	}
+	
 
 	@RequestMapping("shop/auth/cart")
 	public String cart(Model model) {

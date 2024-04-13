@@ -238,48 +238,13 @@ $(document).ready(function () {
 		// Hiển thị số lượng sản phẩm lên website
 		$("#cart-count").text(cartCount);
 	}
-
+	
 });
 
 var app = angular.module("myApp", []);
 
 app.controller("HomeCtrl", function ($scope, $http, $window) {
 
-	var user = JSON.parse(localStorage.getItem("account")) || null;
-
-	var user_id = user[0].tenDangNhap;
-
-	// $scope.cart = function () {
-	// 	$http.get("/rest/cart/" + user_id).then(function (resp) {
-
-	// 		var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
-
-	// 		var data = resp.data;
-
-	// 		// Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
-	// 		for (var key in data) {
-	// 			if (data.hasOwnProperty(key)) {
-	// 				var convertedData = arrayToObject(data[key]);
-	// 				cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
-	// 			}
-	// 		}
-
-	// 		localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
-	// 	})
-	// }
-
-	// $scope.cart();
-
-	// Hàm chuyển đổi từ mảng con sang đối tượng
-	function arrayToObject(arr) {
-		var obj = {};
-		for (var i = 0; i < arr.length; i++) {
-			var key = arr[i][0];
-			var value = arr[i][1];
-			obj[key] = value;
-		}
-		return obj;
-	}
 	$scope.isUserLoggedIn = function () {
 		var account = localStorage.getItem("account");
 		return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
