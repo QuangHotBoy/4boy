@@ -20,6 +20,8 @@ app.controller("voucher-ctrl", function($scope, $http){
     };
     //khoi dau
     $scope.initialize();
+
+ //sắp xếp
     $scope.ascending = {
         id: true,
         tenMa: true,
@@ -29,7 +31,7 @@ app.controller("voucher-ctrl", function($scope, $http){
         ngayKetThuc: true,
         thongTin: true
     };
-    
+   
     $scope.sortByField = function(fieldName) {
         // Xác định biến cờ và sắp xếp mảng dựa trên trường được chọn
         if ($scope.ascending[fieldName]) {
@@ -274,9 +276,6 @@ function isMaGiamGiaTrung(id) {
     }
     return false; // Nếu không trùng, trả về false
 }
-
-
-
     //them mgg moi
     $scope.create = function() {
         // Kiểm tra xem đã tồn tại mã giảm giá có cùng ID chưa
@@ -322,16 +321,11 @@ function isMaGiamGiaTrung(id) {
                 console.log("Error", error);
             }); 
     };
-    
-    
-    
     $scope.getCurrentDateTime = function() {
         // Lấy ngày và giờ hiện tại
         var currentDate = new Date();
         return currentDate;
     };
-
-    
     // Khởi tạo ngày bắt đầu với ngày và giờ hiện tại
     $scope.form.ngayBatDau = $scope.getCurrentDateTime();
     
@@ -342,9 +336,6 @@ function isMaGiamGiaTrung(id) {
             // Nếu form không hợp lệ, không tiến hành thêm mới
             return;
         }
-        // Chuyển đổi ID sang chuỗi
-        voucher.id = String(voucher.id);
-    
         // Gọi API để cập nhật mã giảm giá
         $http.put('/rest/vouchers/' + voucher.id, voucher)
             .then(function(resp) {
@@ -491,42 +482,7 @@ $scope.getPageNumbers = function() {
     }
     return pageNumbers;
 }
-$scope.pager1 = {
-    page: 0,
-    size: 5,
-    get vouchers() {
-        if (this.page1 < 0) {
-            this.last();
-        }
-        if (this.page1 >= this.count) {
-            this.first();
-        }
-        var start = this.page * this.size;
-        return $scope.vouchers.slice(start, start + this.size)
-    },
-    get count() {
-        return Math.ceil(1.0 * $scope.vouchers.length / this.size);
-    },
-    first() {
-        this.page1 = 0;
-    },
-    last() {
-        this.page1 = this.count - 1;
-    },
-    next() {
-        this.page1++;
-    },
-    prev() {
-        this.page1--;
-    },
-    setPage(pageNumber) {
-        this.page1 = pageNumber;
-    }
-}
 
-
-
-    
     $scope.checkDate = function() {
         if ($scope.form.ngayBatDau && $scope.form.ngayKetThuc) {
             var startDate = new Date($scope.form.ngayBatDau);
