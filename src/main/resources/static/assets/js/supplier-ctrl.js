@@ -71,7 +71,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             }
             $scope.suppliers.push(resp.data);
             $scope.reset();
-            iziToast.info({
+            iziToast.success({
                 title: 'Thông báo',
                 message: 'Thêm mới nhà xuất bản thành công!',
                 position: 'topRight'
@@ -115,7 +115,7 @@ app.controller("supplier-Ctrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            iziToast.info({
+            iziToast.success({
                 title: 'Thông báo',
                 message: 'Cập nhật nhà xuất bản thành công!',
                 position: 'topRight'

@@ -132,20 +132,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
         var selectedType = $scope.types.find(function (type) {
             return type.tenLoai === tenLoai;
         });
-        // var selectedTinhTrang = $scope.tinhtrangs.find(function(tinhtrang) {
-        //     return tinhtrang.tenTinhTrang === tenTinhTrang;
-        // });
-
-        // Kiểm tra xem nhà xuất bản đã được chọn có tồn tại trong danh sách suppliers không
-        // if (!selectedSupplier) {
-        //     alert("Nhà xuất bản không hợp lệ!");
-        //     return;
-        // }
-        // if (!selectedType) {
-        //     alert("Phân loại không hợp lệ!");
-        //     return;
-        // }
-
+    
 
         // Gán giá trị nhà xuất bản từ đối tượng được chọn
         item.nhaXuatBan = selectedSupplier;
@@ -161,7 +148,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
                 }
                 $scope.products.push(response.data);
                 $scope.reset();
-                iziToast.info({
+                iziToast.success({
                     title: 'Thông báo',
                     message: 'Thêm mới sách thành công!',
                     position: 'topRight'
@@ -308,7 +295,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            iziToast.info({
+            iziToast.success({
                 title: 'Thông báo',
                 message: 'Cập nhật sách bản thành công!',
                 position: 'topRight'
@@ -326,6 +313,7 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
             console.log("Error", error);
         });
     }
+    // load data
     function loadData() {
         $http.get('/rest/products/').then(resp => {
             $scope.items = resp.data;

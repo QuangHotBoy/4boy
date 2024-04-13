@@ -237,21 +237,23 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                     return item.soLuongBan;
                 });
 
-                var ctx = document.getElementById('line-chart').getContext('2d');
+                var ctx = document.getElementById('bar-chart').getContext('2d');
                 var chart = new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
                         labels: labels,
                         datasets: [{
                             label: 'Doanh thu',
                             data: doanhThu,
                             backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            yAxisID: 'y-axis-doanh-thu', // Gán id của trục y cho dataset này
                             borderColor: 'rgba(54, 162, 235, 1)',
                             borderWidth: 1
                         }, {
                             label: 'Số lượng bán',
                             data: soLuongBan,
                             backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            yAxisID: 'y-axis-so-luong-ban', // Gán id của trục y cho dataset này
                             borderColor: 'rgba(255, 99, 132, 1)',
                             borderWidth: 1
                         }]
@@ -259,6 +261,14 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
                     options: {
                         scales: {
                             yAxes: [{
+                                id: 'y-axis-doanh-thu', // Định danh cho trục y của doanh thu
+                                position: 'left', // Hiển thị bên trái
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }, {
+                                id: 'y-axis-so-luong-ban', // Định danh cho trục y của số lượng bán
+                                position: 'right', // Hiển thị bên phải
                                 ticks: {
                                     beginAtZero: true
                                 }
@@ -270,6 +280,9 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
             .catch(function (error) {
                 console.error('Error fetching data:', error);
             });
+
+
+
 
 
     }

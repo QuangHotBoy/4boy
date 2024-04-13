@@ -63,7 +63,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
 
             $scope.items.push(resp.data);
             $scope.reset();
-            iziToast.info({
+            iziToast.success({
                 title: 'Thông báo',
                 message: 'Thêm mới loại sản phẩm thành công!',
                 position: 'topRight'
@@ -103,7 +103,7 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
             }
 
             $scope.reset();
-            iziToast.info({
+            iziToast.success({
                 title: 'Thông báo',
                 message: 'Cập nhật loại sách thành công!',
                 position: 'topRight'
