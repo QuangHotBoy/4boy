@@ -194,15 +194,28 @@ app.controller("CheckoutController", function ($scope, $http) {
         !order.hoTen ||
         !order.diaChiNhanHang ||
         !order.mail ||
-        !order.soDienThoai
+        !order.soDienThoai || !$scope.isValidEmail(order.mail) || !$scope.isValidPhone(order.soDienThoai)
       ) {
-        // Hiển thị thông báo thành công
-        iziToast.warning({
-          title: 'Thông báo',
-          message: 'Vui lòng không để trống thông tin nhận hàng.',
-          position: 'topRight'
-        });
-        return;
+        if (!order.hoTen ||
+          !order.diaChiNhanHang ||
+          !order.mail ||
+          !order.soDienThoai) {
+          // Hiển thị thông báo thành công
+          iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng không để trống thông tin nhận hàng.',
+            position: 'topRight'
+          });
+          return;
+        } else {
+          // Hiển thị thông báo thành công
+          iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng kiểm tra lại số điện thoại hoặc email.',
+            position: 'topRight'
+          });
+          return;
+        }
       } else {
         $http
           .post("/rest/orders", order)
@@ -237,6 +250,18 @@ app.controller("CheckoutController", function ($scope, $http) {
       }
     },
   };
+
+  $scope.isValidPhone = function(phone) {
+    // Biểu thức chính quy để kiểm tra số điện thoại
+    var phonePattern = /^\d{10,11}$/;
+    return phonePattern.test(phone);
+};
+
+$scope.isValidEmail = function(email) {
+    // Biểu thức chính quy để kiểm tra email
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+};
 
   $scope.voucher = {
     dateEnd: "",

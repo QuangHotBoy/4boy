@@ -14,7 +14,7 @@
             <div class="container" ng-show="cartCheck" style="min-height: 494px;">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card border shadow-none" ng-repeat="product in cart">
+                        <div class="card border shadow-none cart-item" ng-repeat="product in cart">
                             <div class="card-body">
                                 <div class="d-flex align-items-start border-bottom pb-3">
                                     <div class="me-4">
@@ -64,12 +64,13 @@
                                                 <input type="text" class="text-center rounded-5 border-light"
                                                     style="width: 60px" ng-model="cart[$index].quantity"
                                                     id="quantity_{{$index}}" readonly min="1" />
-                                                <input type="text" name="maSP" ng-value="product.id" hidden />
+                                                <input type="text" name="maSP" class="maSP" ng-value="product.id" hidden />
                                                 <button class="btn btn-outline-warning ms-1"
                                                     ng-click="incrementQuantity($index)">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
+                                            <p>Số lượng sẵn có: <span class="product-quantity"></span></p>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="mt-3">

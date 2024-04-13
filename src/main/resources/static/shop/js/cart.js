@@ -25,6 +25,28 @@ $(document).ready(function () {
     // Hiển thị số lượng sản phẩm lên website
     $("#cart-count").text(cartCount);
   }
+
+  // Lặp qua từng sản phẩm trong giỏ hàng (cart-item)
+  $('.cart-item').each(function() {
+    var maSP = $(this).find('.maSP').val(); // Lấy giá trị maSP của sản phẩm
+
+    console.log(maSP);
+
+    // Thực hiện AJAX request
+    $.ajax({
+        url: '/rest/products/' + maSP, // URL để lấy dữ liệu
+        type: 'GET', // Phương thức HTTP (GET, POST, PUT, DELETE,...)
+        dataType: 'json', // Kiểu dữ liệu trả về từ server
+        success: function(data) {
+            // Xử lý dữ liệu trả về khi thành công
+            $(this).find('.product-quantity').append(data.soLuong); // Hiển thị dữ liệu soLuong
+        }.bind(this), // Dùng bind để đảm bảo ngữ cảnh (context) của 'this' trong hàm success là phần tử đang được lặp qua
+        error: function(xhr, status, error) {
+            // Xử lý lỗi khi request thất bại
+            console.error('Error:', status, error);
+        }
+    });
+});
 });
 
 var app = angular.module("myApp", []);
@@ -113,6 +135,7 @@ app.controller("CartController", function ($scope, $http, $window) {
         // Tăng giá trị quantity nếu chưa đạt tối đa
         $scope.cart[index].quantity++;
         $scope.cartCount = $scope.calculateCartCount();
+
         updateLocalStorage();
         $("#cart-count").text($scope.calculateCartCount());
       }).catch((error) => {
@@ -166,7 +189,6 @@ app.controller("CartController", function ($scope, $http, $window) {
 
   $scope.checkLogin = function () {
     var account = localStorage.getItem("account") || null;
-    console.log(2);
     if (account === null) {
       location.href = "/shop/login";
     } else {
@@ -184,5 +206,64 @@ app.controller("CartController", function ($scope, $http, $window) {
     $scope.addToCart();
     localStorage.removeItem("account");
     location.href = "/shop/home";
+  }
+
+  $scope.info_user = JSON.parse(localStorage.getItem("account")) || null;
+
+  $scope.addToCart = function () {
+    // Đăng xuất lưu lại cart từ localStorage vào database
+    var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+    $scope.cart = [];
+
+    for (let i = 0; i < carts.length; i++) {
+      if (carts[i].user === $scope.info_user[0].tenDangNhap) {
+        $scope.cart.push(carts[i]);
+      }
+    }
+
+    // Xác định các sản phẩm cần xóa khỏi localStorage
+    var productsToRemove = $scope.cart.map(function (product) {
+      return product.id; // Giả sử id là thuộc tính duy nhất định danh sản phẩm
+    });
+
+    function removeFromLocalStorage(productsToRemove) {
+      var carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Loại bỏ các sản phẩm đã xác định khỏi mảng carts
+      carts = carts.filter(function (product) {
+        return !productsToRemove.includes(product.id);
+      });
+
+      // Lưu mảng đã cập nhật vào localStorage
+      localStorage.setItem("cart", JSON.stringify(carts));
+    }
+
+    $scope.addCart = {
+      get taiKhoan_gioHang() {
+        return { tenDangNhap: $scope.info_user[0].tenDangNhap };
+      },
+      get gioHang() {
+        return $scope.cart.map((item) => {
+          return {
+            sanPham_gioHang: { isbn: item.id },
+            soLuong: item.quantity
+          }
+        });
+      },
+      add() {
+        var cart = angular.copy(this);
+        $http.post("/rest/add-cart", cart).then((resp) => {
+          removeFromLocalStorage(productsToRemove);
+        }).catch((error) => {
+          console.log(error);
+        })
+      }
+    }
+
+    $scope.addCart.add();
+
+    // Hiển thị số lượng sản phẩm lên website
+    $("#cart-count").text(0);
   }
 });

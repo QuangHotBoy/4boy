@@ -24,9 +24,10 @@
                                         <div class="feed-item-list">
                                             <div>
                                                 <select ng-model="selectedAddress"
-													ng-options="address.id as address.hoTen for address in addresses"
-													ng-change="addressChanged()" class="float-end rounded-3 p-2 align-items-center">
-												</select>
+                                                    ng-options="address.id as address.hoTen for address in addresses"
+                                                    ng-change="addressChanged()"
+                                                    class="float-end rounded-3 p-2 align-items-center">
+                                                </select>
                                                 <h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
                                                 <p class="text-muted text-truncate mb-4">Vui lòng điền đầy đủ thông tin
                                                 </p>
@@ -47,6 +48,9 @@
                                                                         điện thoại</label>
                                                                     <input type="text" class="form-control-style"
                                                                         id="billing-phone" ng-model="order.soDienThoai">
+                                                                    <span class="text-danger"
+                                                                        ng-show="!isValidPhone(order.soDienThoai)">Số
+                                                                        điện thoại không hợp lệ</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -56,15 +60,18 @@
                                                                 <label class="form-label"
                                                                     for="billing-email-address">Email</label>
                                                                 <input type="email" class="form-control-style"
-                                                                    id="billing-email-address"
-                                                                    ng-model="order.mail">
+                                                                    id="billing-email-address" ng-model="order.mail">
+                                                                <span class="text-danger"
+                                                                    ng-show="!isValidEmail(order.mail)">Email không hợp
+                                                                    lệ</span>
                                                             </div>
                                                         </div>
 
                                                         <div class="mb-3">
                                                             <label class="form-label" for="billing-address">Địa chỉ nhận
                                                                 hàng</label>
-                                                            <textarea class="form-control-style" ng-model="order.diaChiNhanHang" id="billing-address"
+                                                            <textarea class="form-control-style"
+                                                                ng-model="order.diaChiNhanHang" id="billing-address"
                                                                 rows="3"></textarea>
                                                         </div>
                                                     </div>
@@ -214,7 +221,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     <script th:src="@{/shop/js/checkout.js}"></script>

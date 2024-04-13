@@ -27,7 +27,8 @@
 											<div>
 												<select ng-model="selectedAddress"
 													ng-options="address.id as address.hoTen for address in addresses"
-													ng-change="addressChanged()" class="float-end rounded-3 p-2 align-items-center">
+													ng-change="addressChanged()"
+													class="float-end rounded-3 p-2 align-items-center">
 												</select>
 												<h5 class="font-size-16 mb-1">Thông Tin Người Nhận</h5>
 												<p class="text-muted text-truncate mb-4">Vui lòng điền
@@ -46,9 +47,13 @@
 															<div class="col-lg-6">
 																<div class="mb-3">
 																	<label class="form-label" for="billing-phone">Số
-																		điện thoại</label> <input type="text"
-																		name="dienThoai" class="form-control-style"
+																		điện thoại</label>
+																	<input type="text" name="dienThoai"
+																		class="form-control-style"
 																		ng-model="order.soDienThoai">
+																	<span class="text-danger"
+																		ng-show="!isValidPhone(order.soDienThoai)">Số
+																		điện thoại không hợp lệ</span>
 																</div>
 															</div>
 														</div>
@@ -59,6 +64,9 @@
 																	for="billing-email-address">Email</label>
 																<input type="email" class="form-control-style"
 																	name="email" ng-model="order.mail">
+																<span class="text-danger"
+																	ng-show="!isValidEmail(order.mail)">Email không hợp
+																	lệ</span>
 															</div>
 														</div>
 
