@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.dao.Quyen_TaiKhoanDAO;
-import com.poly.dao.TaiKhoanDAO;
-import com.poly.model.Quyen_TaiKhoan;
+import com.poly.dao.TaiKhoanDAO; 
 
 @Controller
 public class AccountController {

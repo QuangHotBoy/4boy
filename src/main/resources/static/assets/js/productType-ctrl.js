@@ -4,7 +4,25 @@ app.controller("myCtrl", function ($scope, $http, $timeout) {
     $scope.types = [];
     $scope.form = {};
 
+    $scope.checkrole = function () {
+        var account = JSON.parse(localStorage.getItem("account")) || [];
+        var tenDangNhap = account[0].tenDangNhap;
+        $http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+            $scope.role = [];
+            $scope.role = resp.data;
+            var quyen = $scope.role.quyen.id
+            console.log(quyen);
+            if (quyen === "CUST") {
+                location.href = "/shop/home";
+            }
+        })
+    }
+
     $scope.initialize = function () {
+
+        // check role 
+        $scope.checkrole();
+
         $http.get("/rest/types").then(resp => {
             $scope.types = resp.data;
 

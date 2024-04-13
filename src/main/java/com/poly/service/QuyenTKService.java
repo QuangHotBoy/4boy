@@ -20,4 +20,5 @@ public interface QuyenTKService {
  
 	Quyen_TaiKhoan save(String taiKhoan_quyen) ;
 	
+	Quyen_TaiKhoan findById(String tenDangNhap);
 }

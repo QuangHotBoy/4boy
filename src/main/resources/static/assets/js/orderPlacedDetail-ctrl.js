@@ -4,8 +4,26 @@ app.controller("orderPlacedDetailCtrl", function($scope, $http , $timeout) {
     $scope.orderPlacesDetails = [];
     $scope.form = {};
 
+
+    $scope.checkrole = function () {
+        var account = JSON.parse(localStorage.getItem("account")) || [];
+        var tenDangNhap = account[0].tenDangNhap;
+        $http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+            $scope.role = [];
+            $scope.role = resp.data;
+            var quyen = $scope.role.quyen.id
+            console.log(quyen);
+            if (quyen === "CUST") {
+                location.href = "/shop/home";
+            }
+        })
+    }
     // Function to initialize the controller
     $scope.initialize = function () {
+
+        // check role 
+       $scope.checkrole();
+
         $http.get("/rest/orderPlacesDetail").then(resp => {
             $scope.orderPlacesDetails = resp.data;
             // $scope.orderPlaces.sort((a, b) => new Date(b.ngayDatHang) - new Date(a.ngayDatHang));

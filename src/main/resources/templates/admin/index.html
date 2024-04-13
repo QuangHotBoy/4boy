@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+  <title>Knotrea - Quản trị</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" th:href="@{/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+</head>
+<style>
+  /* CSS cho hover màu xám nhạt */
+  .nav-link:hover {
+    background-color: #f0f0f0;
+    /* Màu xám nhạt khi di chuột vào */
+  }
+
+  #sidebar {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 200px;
+  }
+
+  #sidebar .nav-link {
+    color: #000;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  #menu-title {
+    font-family: 'Noto Sans', sans-serif;
+  }
+</style>
+
+<body ng-controller="thongkeCtrl">
+  <div class="container-scroller" ng-app="myApp" ng-controller="thongkeCtrl">
+
+
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../assets/images/logo.svg"
+            alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/logo-mini.svg"
+            alt="logo" /></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+            </div>
+          </form>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial:partials/_navbar.html -->
+    <div th:replace="admin/navbar :: navbar"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <div th:replace="admin/menu :: menu"></div>
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title"><br> <br>
+              <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-home"></i>
+              </span> Bảng điều khiển
+            </h3>
+
+          </div>
+          <div class="row">
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+
+                  <h4 class="font-weight-normal mb-3">Tổng Doanh thu <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5" ng-repeat="tiens in tongtien">{{tiens.Tien | vnCurrency }}</h2>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+
+                  <h4 class="font-weight-normal mb-3">Tổng Sản phẩm <i
+                      class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5"  ng-repeat="tongs in tongsp">{{tongs.SoLuong}}</h2>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                  <h4 class="font-weight-normal mb-3">Đơn hàng trong tháng<i
+                      class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5"ng-repeat="donn in donhang">{{donn.Don}}</h2>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- tiếng việt -->
+  <script src="http://cdn.datatables.net/plug-ins/2.0.2/i18n/vi.json"></script>
+  <!-- Modal -->
+  <script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('whatever') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-title').text('Thêm sách')
+      modal.find('.modal-body input').val(recipient)
+    })
+  </script>
+ 
+  <!--  -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+  <!-- Datatable -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+  <!-- hiện ảnh -->
+  <script>
+    function previewImage(event) {
+      var input = event.target;
+      var reader = new FileReader();
+      reader.onload = function () {
+        var imgPreview = document.getElementById('imgPreview');
+        imgPreview.src = reader.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+    function selectImage() {
+      var input = document.getElementById('imgInput');
+      input.click(); // Simulate a click on the hidden input element
+    }
+  </script>
+  <!-- <script>
+          // JavaScript function to preview the selected image
+          function previewImage() {
+              var input = document.getElementById('imgInput');
+              var preview = document.getElementById('imgPreview');
+  
+              // Ensure that a file is selected
+              if (input.files && input.files[0]) {
+                  var reader = new FileReader();
+  
+                  // Set the source of the image to the selected file
+                  reader.onload = function (e) {
+                      preview.src = e.target.result;
+                  };
+  
+                  // Read the selected file as a data URL
+                  reader.readAsDataURL(input.files[0]);
+              }
+          }
+  
+          // JavaScript function to trigger file selection when the button is clicked
+          function selectImage() {
+              var input = document.getElementById('imgInput');
+              input.click(); // Simulate a click on the hidden input element
+          }
+      </script> -->
+      <script src="/assets/js/thongke.js"></script>
+
+</body>
+
+
+
+
+</html>

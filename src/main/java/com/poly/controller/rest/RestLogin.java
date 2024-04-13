@@ -15,6 +15,7 @@ import com.poly.dao.Quyen_TaiKhoanDAO;
 import com.poly.dao.TaiKhoanDAO;
 import com.poly.model.DiaChi_TaiKhoan;
 import com.poly.model.DonDatHang;
+import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.SachYeuThich;
 import com.poly.model.SanPham;
 import com.poly.model.TaiKhoan;
@@ -22,6 +23,8 @@ import com.poly.service.AccountService;
 import com.poly.service.AddressService;
 import com.poly.service.DetailOrderService;
 import com.poly.service.OrderService;
+import com.poly.service.QuyenService;
+import com.poly.service.QuyenTKService;
 import com.poly.service.FavoritesService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,6 +70,9 @@ public class RestLogin {
 	@Autowired
 	FavoritesService favoriteService;
 
+	@Autowired
+	QuyenTKService QuyenTKService;
+
 	@GetMapping("/rest/login")
 	public Map<String, Object> findall() {
 		Map<String, Object> data = new HashMap<>();
@@ -79,6 +85,12 @@ public class RestLogin {
 
 		return data;
 	}
+ 
+
+    @GetMapping("/rest/findrole/{tenDangNhap}")
+    Quyen_TaiKhoan findbyId(@PathVariable("tenDangNhap") String tenDangnhap){
+        return QuyenTKService.findById(tenDangnhap);
+    }
 
 	@PostMapping("/rest/register")
 	TaiKhoan postMethodName(@RequestBody TaiKhoan taiKhoan) {

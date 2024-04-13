@@ -13,8 +13,24 @@ app.controller("product-Ctrl", function ($scope, $http, $timeout) {
     $scope.suppliers = [];
     $scope.tinhtrangs = [];
 
+    $scope.checkrole = function () {
+        var account = JSON.parse(localStorage.getItem("account")) || [];
+        var tenDangNhap = account[0].tenDangNhap;
+        $http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+            $scope.role = [];
+            $scope.role = resp.data;
+            var quyen = $scope.role.quyen.id
+            console.log(quyen);
+            if (quyen === "CUST") {
+                location.href = "/shop/home";
+            }
+        })
+    }
     $scope.initialize = function () {
 
+
+        // check role  
+        $scope.checkrole();
         // Load tinhtrangs data first
         $http.get("/rest/tinhtrangs").then(resp => {
             $scope.tinhtrangs = resp.data;

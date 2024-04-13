@@ -23,7 +23,34 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
         }
     }
 
+
+    $scope.checkrole = function () {
+        var account = JSON.parse(localStorage.getItem("account")) || [];
+        var tenDangNhap = account[0].tenDangNhap;
+        $http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+            $scope.role = [];
+            $scope.role = resp.data;
+            var quyen = $scope.role.quyen.id
+            console.log(quyen);
+            if (quyen === "CUST") {
+                location.href = "/shop/home";
+            }
+        })
+    }
     $scope.initialize = function () {
+        $scope.checkrole = function () {
+            var account = JSON.parse(localStorage.getItem("account")) || [];
+            var tenDangNhap = account[0].tenDangNhap;
+            $http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+                $scope.role = [];
+                $scope.role = resp.data;
+                var quyen = $scope.role.quyen.id
+                console.log(quyen);
+                if (quyen === "CUST") {
+                    location.href = "/shop/home";
+                }
+            })
+        }
         // tổng sp
         $http.get("/rest/topByTinhTrang/tong-so-luong-san-pham").then(resp => {
             $scope.tongsp = resp.data.map(function (item, index) {
@@ -318,13 +345,6 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
         var year = date.getFullYear();
         return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
     }
-
-
-
-
-
-
-
 
 
     $scope.initialize();

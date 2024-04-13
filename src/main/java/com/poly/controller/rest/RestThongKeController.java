@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.model.Quyen_TaiKhoan;
 import com.poly.model.SanPham;
+import com.poly.service.QuyenService;
+import com.poly.service.QuyenTKService;
 import com.poly.service.ThongKeService;
 
 @CrossOrigin("*")
@@ -28,6 +31,7 @@ public class RestThongKeController {
     @Autowired
     private ThongKeService thongKeService;
 
+     
     @GetMapping("/topByTinhTrang")
     public List<Object[]> getTopSachByTinhTrang() {
         return thongKeService.getTopSachByTinhTrang();

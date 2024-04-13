@@ -42,7 +42,15 @@ public class QuyenTKServiceImpl implements QuyenTKService {
 	@Override
 	public Quyen_TaiKhoan save(String taiKhoan_quyen) {
 		//  QTKDao.save(taiKhoan_quyen);
-		return null;
+		return null;	
+	}
+
+	 
+	@Override
+	public Quyen_TaiKhoan findById(String tenDangNhap) {
+		
+		
+		return QTKDao.findbyTenDangNhap(tenDangNhap);
 	}
  
 

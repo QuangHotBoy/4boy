@@ -83,30 +83,38 @@ app.controller("AccountCtrl", function ($scope, $http, $timeout) {
 
 		if (hoten.trim() == "" || sdt.trim() == "") {
 			//    thông báo
-			iziToast.warning({
+			iziToast.error({
 				title: 'Thông báo',
 				message: 'Không để trống thông tin !',
 				position: 'topRight'
 			});
 		} else {
-			$http.put("/rest/account/updatemember/" + item.tenDangNhap, item).then(resp => {
-				var index = $scope.member.findIndex(i => i.tenDangNhap = item.tenDangNhap);
-				if (index != -1) {
-					$scope.member[index] = angular.copy(item);
-					// thông báo
-					iziToast.info({
-						title: 'Thông báo',
-						message: 'Cập nhập thông tin tài khoản thành công !',
-						position: 'topRight'
-					});
-					// Chờ 3 giây trước khi thực hiện reload
-					setTimeout(function () {
-						location.reload();
-					}, 3000)
-				}
-			}).catch(error => {
-				console.log("Error", error);
-			})
+			if (!kiemTraNgayHopLe(item.ngaySinh)) {
+				iziToast.error({
+					title: 'Thông báo',
+					message: 'Ngày sinh không thể là ngày hiện tại và người dùng cần phải đủ 18 tuổi !',
+					position: 'topRight'
+				});
+			} else {
+				$http.put("/rest/account/updatemember/" + item.tenDangNhap, item).then(resp => {
+					var index = $scope.member.findIndex(i => i.tenDangNhap = item.tenDangNhap);
+					if (index != -1) {
+						$scope.member[index] = angular.copy(item);
+						// thông báo
+						iziToast.success({
+							title: 'Thông báo',
+							message: 'Cập nhập thông tin tài khoản thành công !',
+							position: 'topRight'
+						});
+						// Chờ 3 giây trước khi thực hiện reload
+						setTimeout(function () {
+							location.reload();
+						}, 1500)
+					}
+				}).catch(error => {
+					console.log("Error", error);
+				})
+			}
 		}
 	}
 
@@ -119,31 +127,39 @@ app.controller("AccountCtrl", function ($scope, $http, $timeout) {
 
 		if (hoten.trim() == "" || sdt.trim() == "") {
 			//    thông báo
-			iziToast.warning({
+			iziToast.error({
 				title: 'Thông báo',
 				message: 'Không để trống thông tin !',
 				position: 'topRight'
 			});
 		} else {
-			$http.put("/rest/account/updatestaff/" + item.tenDangNhap, item).then(resp => {
-				var index = $scope.member.findIndex(i => i.tenDangNhap = item.tenDangNhap);
-				if (index != -1) {
-					$scope.member[index] = angular.copy(item);
-					// thông báo
-					iziToast.info({
-						title: 'Thông báo',
-						message: 'Cập nhập thông tin tài khoản thành công !',
-						position: 'topRight'
-					});
-					// Chờ 3 giây trước khi thực hiện reload
-					setTimeout(function () {
-						location.reload();
-					}, 3000)
-				}
-			}).catch(error => {
-				console.log("Error", error);
-			})
+			if (!kiemTraNgayHopLe($scope.form.ngaySinh)) {
+				iziToast.error({
+					title: 'Thông báo',
+					message: 'Ngày sinh không thể là ngày hiện tại và người dùng cần phải đủ 18 tuổi !',
+					position: 'topRight'
+				});
+			} else {
+				$http.put("/rest/account/updatestaff/" + item.tenDangNhap, item).then(resp => {
+					var index = $scope.member.findIndex(i => i.tenDangNhap = item.tenDangNhap);
+					if (index != -1) {
+						$scope.member[index] = angular.copy(item);
+						// thông báo
+						iziToast.success({
+							title: 'Thông báo',
+							message: 'Cập nhập thông tin tài khoản thành công !',
+							position: 'topRight'
+						});
+						// Chờ 3 giây trước khi thực hiện reload
+						setTimeout(function () {
+							location.reload();
+						}, 1500)
+					}
+				}).catch(error => {
+					console.log("Error", error);
+				})
 
+			}
 		}
 	}
 
@@ -158,39 +174,55 @@ app.controller("AccountCtrl", function ($scope, $http, $timeout) {
 				break;
 			}
 		}
-		if (taiKhoan.tenDangNhap == null || taiKhoan.hoTen == null || taiKhoan.sdt == null || taiKhoan.email == null || taiKhoan.ngaySinh == null) {
+		if (taiKhoan.tenDangNhap == null || taiKhoan.matKhau == null || taiKhoan.hoTen == null || taiKhoan.sdt == null || taiKhoan.email == null || taiKhoan.ngaySinh == null) {
 			//    thông báo
-			iziToast.warning({
+			iziToast.error({
 				title: 'Thông báo',
 				message: 'Không để trống !',
 				position: 'topRight'
 			});
 		} else {
 			if (!check) {
-				iziToast.warning({
+				iziToast.error({
 					title: 'Thông báo',
 					message: 'Tên đăng nhập đã tồn tại !',
 					position: 'topRight'
 				});
 			} else {
-				$http.post("/rest/account/addmember", taiKhoan).then(function (resp) {
-					$scope.member.push(taiKhoan);
-					// thông báo
-					iziToast.info({
+				if (!kiemTraMatKhau(taiKhoan.matKhau)) {
+					iziToast.error({
 						title: 'Thông báo',
-						message: 'Thêm tài khoản thành công !',
+						message: 'Mật khẩu phải 8 ký tự ít nhất một chữa Hoa, số, kí tự đặt biệt !',
 						position: 'topRight'
 					});
-					// Chờ 3 giây trước khi thực hiện reload
-					setTimeout(function () {
-						location.reload();
-					}, 3000)
-				}).catch(error => {
-					console.log("Error", error);
-				})
+				} else {
+					if (!kiemTraNgayHopLe(taiKhoan.ngaySinh)) {
+						iziToast.error({
+							title: 'Thông báo',
+							message: 'Ngày sinh không thể là ngày hiện tại và người dùng cần phải đủ 18 tuổi !',
+							position: 'topRight'
+						});
+					} else {
+						$http.post("/rest/account/addmember", taiKhoan).then(function (resp) {
+							$scope.member.push(taiKhoan);
+							// thông báo
+							iziToast.success({
+								title: 'Thông báo',
+								message: 'Thêm tài khoản thành công !',
+								position: 'topRight'
+							});
+							// Chờ 1.5 giây trước khi thực hiện reload
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
+						}).catch(error => {
+							console.log("Error", error);
+						})
+					}
+				}
 			}
 		}
-	} 
+	}
 
 	$scope.add_staff = function () {
 		var taiKhoan = angular.copy($scope.form);
@@ -205,43 +237,139 @@ app.controller("AccountCtrl", function ($scope, $http, $timeout) {
 		}
 		if (taiKhoan.tenDangNhap == null || taiKhoan.hoTen == null || taiKhoan.sdt == null || taiKhoan.email == null || taiKhoan.ngaySinh == null) {
 			//    thông báo
-			iziToast.warning({
+			iziToast.error({
 				title: 'Thông báo',
 				message: 'Không để trống thông tin !',
 				position: 'topRight'
 			});
 		} else {
 			if (!check) {
-				iziToast.warning({
+				iziToast.error({
 					title: 'Thông báo',
 					message: 'Tên đăng nhập đã tồn tại !',
 					position: 'topRight'
 				});
 			} else {
-				$http.post("/rest/account/addstaff", taiKhoan).then(function (resp) {
-					$scope.member.push(taiKhoan);
-					// thông báo
-					iziToast.info({
+				if (!kiemTraMatKhau(taiKhoan.matKhau)) {
+					iziToast.error({
 						title: 'Thông báo',
-						message: 'Thêm tài khoản thành công !',
+						message: 'Mật khẩu phải 8 ký tự ít nhất một chữa Hoa, số, kí tự đặt biệt !',
 						position: 'topRight'
 					});
-					// Chờ 3 giây trước khi thực hiện reload
-					setTimeout(function () {
-						location.reload();
-					}, 3000)
-				}).catch(error => {
-					console.log("Error", error);
-				})
+				} else {
+					if (!kiemTraNgayHopLe(taiKhoan.ngaySinh)) {
+						iziToast.error({
+							title: 'Thông báo',
+							message: 'Ngày sinh không thể là ngày hiện tại và người dùng cần phải đủ 18 tuổi !',
+							position: 'topRight'
+						});
+					} else {
+						$http.post("/rest/account/addstaff", taiKhoan).then(function (resp) {
+							$scope.member.push(taiKhoan);
+							// thông báo
+							iziToast.success({
+								title: 'Thông báo',
+								message: 'Thêm tài khoản thành công !',
+								position: 'topRight'
+							});
+							// Chờ 3 giây trước khi thực hiện reload
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
+						}).catch(error => {
+							console.log("Error", error);
+						})
+					}
+				}
 			}
 		}
 	}
 
 
+	// kiểm tra ngày sinh
+	function kiemTraNgayHopLe(ngaySinh) {
+		// Lấy ngày hiện tại
+		var ngayHienTai = new Date();
+		var namHienTai = ngayHienTai.getFullYear();
+		var thangHienTai = ngayHienTai.getMonth() + 1;
+		var ngayHienTai = ngayHienTai.getDate();
 
+		// Chuyển đổi ngày sinh từ chuỗi ISO 8601 thành đối tượng Date
+		var ngaySinhDate = new Date(ngaySinh);
+
+		// Lấy thông tin ngày, tháng, năm từ ngày sinh
+		var ngay = ngaySinhDate.getDate();
+		var thang = ngaySinhDate.getMonth() + 1;
+		var nam = ngaySinhDate.getFullYear();
+
+		// Kiểm tra xem ngày sinh có phải là ngày hiện tại không
+		if (nam == namHienTai && thang == thangHienTai && ngay == ngayHienTai) {
+			return false; // Ngày sinh là ngày hiện tại
+		}
+
+		// Kiểm tra xem ngày sinh có lớn hơn ngày hiện tại không
+		if (nam > namHienTai || (nam == namHienTai && thang > thangHienTai) || (nam == namHienTai && thang == thangHienTai && ngay >= ngayHienTai)) {
+			return false; // Ngày sinh là tương lai
+		}
+
+		// Kiểm tra xem ngày sinh có đủ 18 tuổi không
+		var tuoi18 = new Date(namHienTai - 18, thangHienTai - 1, ngayHienTai);
+		if (ngaySinhDate > tuoi18) {
+			return false; // Người dùng không đủ 18 tuổi
+		}
+
+		return true; // Ngày hợp lệ
+	}
+
+	// Hàm kiểm tra mật khẩu
+	function kiemTraMatKhau(matKhau) {
+		// Kiểm tra độ dài của mật khẩu
+		if (matKhau.length < 8) {
+			return false;
+		}
+
+		// Kiểm tra xem mật khẩu có chứa ít nhất một ký tự số không
+		if (!/\d/.test(matKhau)) {
+			return false;
+		}
+
+		// Kiểm tra xem mật khẩu có chứa ít nhất một ký tự chữ cái viết thường không
+		if (!/[a-z]/.test(matKhau)) {
+			return false;
+		}
+
+		// Kiểm tra xem mật khẩu có chứa ít nhất một ký tự chữ cái viết hoa không
+		if (!/[A-Z]/.test(matKhau)) {
+			return false;
+		}
+
+		// Kiểm tra xem mật khẩu có chứa ít nhất một ký tự đặc biệt không
+		if (!/[^a-zA-Z0-9]/.test(matKhau)) {
+			return false;
+		}
+
+		// Nếu mật khẩu thoả mãn tất cả các điều kiện, trả về true
+		return true;
+	}
+
+
+	$scope.checkrole = function () {
+		var account = JSON.parse(localStorage.getItem("account")) || [];
+		var tenDangNhap = account[0].tenDangNhap;
+		$http.get("/rest/findrole/" + tenDangNhap).then(resp => {
+			$scope.role = [];
+			$scope.role = resp.data;
+			var quyen = $scope.role.quyen.id
+			console.log(quyen);
+			if (quyen === "CUST") {
+				location.href = "/shop/home";
+			}
+		})
+	}
 
 	var aaa = JSON.parse(localStorage.getItem("account")) || null;
 	if (aaa != null) {
+		$scope.checkrole();
 		$scope.getStaff();
 		$scope.getMana();
 		$scope.getMember();

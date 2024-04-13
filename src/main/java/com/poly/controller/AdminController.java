@@ -35,7 +35,7 @@ public class AdminController {
 
     @RequestMapping("admin/dashboard")
 	public String index() {
-		return "index";
+		return "admin/index";
 	}
 	@RequestMapping("shop/admin/voucher")
 	public String voucher(Model model) {
