@@ -108,18 +108,18 @@
                   <h3 class="h6">Địa chỉ nhận hàng</h3>
                   <span th:text="${invoice.hoTen}"></span><br>
                   <span th:text="${invoice.diaChiNhanHang}"></span> <br>
-                  <abbr title="Phone">P:</abbr> <span th:text="${invoice.soDienThoai}"></span>
+                  <span class="fw-bold">Số điện thoại</span> <span th:text="${invoice.soDienThoai}"></span>
                 </address>
               </div>
             </div>
           </div>
           <!-- Shipping information -->
-          <div th:if="${invoice.trangThai_donDatHang.id != '1' or invoice.trangThai_donDatHang.id != '2'}">
+          <div th:if="${invoice.trangThai_donDatHang.id == 1 or invoice.trangThai_donDatHang.id == 2}">
             <button class="btn btn-danger">Hủy đơn hàng
               hàng</button>
           </div> 
-          <div th:if="${invoice.trangThai_donDatHang.id == '4'}">
-            <button class="btn btn-success">Đã nhận được hàng <button>
+          <div th:if="${invoice.trangThai_donDatHang.id == 4}">
+            <button class="btn btn-success">Đã nhận được hàng</button>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script th:src="@{/shop/js/scripts.js}"></script>
+    <!-- <script th:src="@{/shop/js/scripts.js}"></script> -->
 </body>
 
 </html>
