@@ -35,7 +35,7 @@ function initializeDataTable() {
     });
 }
     $scope.initialize();
-
+  
     // Function to reset the form
     $scope.reset = function() {
         $scope.form = {};
@@ -334,6 +334,27 @@ function initializeDataTable() {
                 $scope.form = {};
             });
     };
-    
+    //định dạng màu cho tên trạng thái đơn hàng
+    $scope.getStatusColor = function(statusId) {
+        switch (statusId) {
+            case 1:
+                return { color: 'blue', border: '2px solid blue' }; // Set color to blue for status 1
+            case 2:
+                return { color: 'orange', border: '2px solid orange' }; // Set color to orange for status 2
+            case 3:
+                return { color: 'goldenrod', border: '2px solid goldenrod' }; // Set color to green for status 3
+            case 4:
+                return { color: 'darkorchid', border: '2px solid darkorchid' };
+            case 5:
+                return { color: 'peru', border: '2px solid peru' };
+            case 6:
+                return { color: 'green', border: '2px solid green' };
+            case 7:
+                return { color: 'red', border: '2px solid red' }; // Set color to green for status 3
+            // Add more cases for other statuses as needed
+            default:
+                return {}; // Default color if status ID doesn't match any case
+        }
+    };
     
 });
