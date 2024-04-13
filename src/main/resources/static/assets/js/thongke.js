@@ -99,8 +99,8 @@ app.controller("thongkeCtrl", function ($scope, $http, $filter, $timeout) {
 
 
             // Cấu hình kích thước biểu đồ
-            ctx.canvas.width = 20;
-            ctx.canvas.height = 20;
+            ctx.canvas.width = 10;
+            ctx.canvas.height = 10;
         });
 
         ///
