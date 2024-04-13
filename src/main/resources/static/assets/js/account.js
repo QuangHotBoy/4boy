@@ -190,28 +190,7 @@ app.controller("AccountCtrl", function ($scope, $http, $timeout) {
 				})
 			}
 		}
-	}
-
-	$scope.register = function () {
-		var taiKhoan = angular.copy($scope.form);
-		var check = true;
-		$http.post("/rest/register", taiKhoan).then(function (resp) {
-			$scope.member.push(taiKhoan);
-			// thông báo
-			iziToast.info({
-				title: 'Thông báo',
-				message: 'Thêm tài khoản thành công !',
-				position: 'topRight'
-			});
-			// Chờ 3 giây trước khi thực hiện reload
-			setTimeout(function () {
-				location.reload();
-			}, 3000)
-			location.href = "/shop/login";
-		}).catch(error => {
-			console.log("Error", error);
-		})
-	}
+	} 
 
 	$scope.add_staff = function () {
 		var taiKhoan = angular.copy($scope.form);

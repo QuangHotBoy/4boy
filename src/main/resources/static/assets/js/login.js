@@ -9,17 +9,99 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
     $scope.accounts = [];
     $scope.diachi = [];
 
-    // đăng ký
+    // đăng ký 
+    $scope.register = function () {
+        var item = angular.copy($scope.form);
+        var tenDangNhap = document.getElementById("tenDangNhap").value;
+        var matKhau = document.getElementById("matKhau").value;
+        var nhapLaiMatKhau = document.getElementById("nhapLaiMatKhau").value;
+        var hoTen = document.getElementById("hoTen").value;
+        var email = document.getElementById("email").value;
+        if (tenDangNhap === "" || hoTen === "" || matKhau === "" || nhapLaiMatKhau === "" || hoTen === "" || email === "") {
+            //thông báo
+            iziToast.error({
+                title: 'Thông báo',
+                message: 'Không được để trống !',
+                position: 'topRight'
+            });
+        } else {
+            if (!kiemTraMatKhau(matKhau)) {
+                //thông báo
+                iziToast.error({
+                    title: 'Thông báo',
+                    message: 'Mật Khẩu phải 8 kí tự, ít nhất một chữ hoa, số, kí tự !',
+                    position: 'topRight'
+                });
+            } else {
+                if (matKhau != nhapLaiMatKhau) {
+                    //thông báo
+                    iziToast.error({
+                        title: 'Thông báo',
+                        message: 'Xác nhận mật khẩu không trùng !',
+                        position: 'topRight'
+                    });
+                } else {
+                    $http.post("/rest/register", item).then(function (resp) {
+                        $scope.accounts.push(item);
+                        // thông báo
+                        iziToast.info({
+                            title: 'Thông báo',
+                            message: 'Thêm tài khoản thành công !',
+                            position: 'topRight'
+                        });
+                        // Chờ 3 giây trước khi thực hiện reload
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500)
+                        location.href = "/shop/login";
+                    }).catch(error => {
+                        console.log("Error", error);
+                    })
+                }
+            }
 
-    $scope.register = {
-        tenDangNhap: '', matKhau: '', hoTen: '', email: '', nhapLaiMatKhau: ''
+        }
+
+
+
+    }
+
+    // Hàm kiểm tra mật khẩu
+    function kiemTraMatKhau(matKhau) {
+        // Kiểm tra độ dài của mật khẩu
+        if (matKhau.length < 8) {
+            return false;
+        }
+
+        // Kiểm tra xem mật khẩu có chứa ít nhất một ký tự số không
+        if (!/\d/.test(matKhau)) {
+            return false;
+        }
+
+        // Kiểm tra xem mật khẩu có chứa ít nhất một ký tự chữ cái viết thường không
+        if (!/[a-z]/.test(matKhau)) {
+            return false;
+        }
+
+        // Kiểm tra xem mật khẩu có chứa ít nhất một ký tự chữ cái viết hoa không
+        if (!/[A-Z]/.test(matKhau)) {
+            return false;
+        }
+
+        // Kiểm tra xem mật khẩu có chứa ít nhất một ký tự đặc biệt không
+        if (!/[^a-zA-Z0-9]/.test(matKhau)) {
+            return false;
+        }
+
+        // Nếu mật khẩu thoả mãn tất cả các điều kiện, trả về true
+        return true;
     }
 
     $scope.login = function () {
         localStorage.removeItem("account");
         var account = JSON.parse(localStorage.getItem("account")) || [];
         var username = $scope.login.tenDangNhap
-        var pass = $scope.login.matKhau 
+        var pass = $scope.login.matKhau
         $http.get('/rest/login').then(resp => {
             $scope.accounts = resp.data;
             var check = true;
@@ -73,7 +155,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         }).catch(error => {
             console.log("Error", error)
         })
-    }; 
+    };
 
     $scope.checkLogin = function () {
         var account = localStorage.getItem("account") || null;
@@ -86,7 +168,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         // }
     }
 
-    $scope.isUserLoggedIn = function() {
+    $scope.isUserLoggedIn = function () {
         var account = localStorage.getItem("account");
         return !!account; // Trả về true nếu có giá trị trong localStorage.getItem("account")
     };
@@ -223,6 +305,42 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
             console.log("Error", error)
         })
     }
+
+    // kiểm tra ngày sinh
+    function kiemTraNgayHopLe(ngaySinh) {
+        // Lấy ngày hiện tại
+        var ngayHienTai = new Date();
+        var namHienTai = ngayHienTai.getFullYear();
+        var thangHienTai = ngayHienTai.getMonth() + 1;
+        var ngayHienTai = ngayHienTai.getDate();
+
+        // Chuyển đổi ngày sinh từ chuỗi ISO 8601 thành đối tượng Date
+        var ngaySinhDate = new Date(ngaySinh);
+
+        // Lấy thông tin ngày, tháng, năm từ ngày sinh
+        var ngay = ngaySinhDate.getDate();
+        var thang = ngaySinhDate.getMonth() + 1;
+        var nam = ngaySinhDate.getFullYear();
+
+        // Kiểm tra xem ngày sinh có phải là ngày hiện tại không
+        if (nam == namHienTai && thang == thangHienTai && ngay == ngayHienTai) {
+            return false; // Ngày sinh là ngày hiện tại
+        }
+
+        // Kiểm tra xem ngày sinh có lớn hơn ngày hiện tại không
+        if (nam > namHienTai || (nam == namHienTai && thang > thangHienTai) || (nam == namHienTai && thang == thangHienTai && ngay >= ngayHienTai)) {
+            return false; // Ngày sinh là tương lai
+        }
+
+        // Kiểm tra xem ngày sinh có đủ 18 tuổi không
+        var tuoi18 = new Date(namHienTai - 18, thangHienTai - 1, ngayHienTai);
+        if (ngaySinhDate > tuoi18) {
+            return false; // Người dùng không đủ 18 tuổi
+        }
+
+        return true; // Ngày hợp lệ
+    }
+
     // cập nhập thông tin tài khoản
     $scope.updateinfo = function () {
         $scope.form_info.ngaySinh = new Date($scope.birthday).toISOString();
@@ -231,38 +349,47 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         var sdt = item.sdt;
         if (hoTen.trim() == "" || sdt.trim() == "") {
             //    thông báo
-            iziToast.warning({
+            iziToast.error({
                 title: 'Thông báo',
                 message: 'Không được để trống  !',
                 position: 'topRight'
             });
-        } else { 
-            $http.put("/rest/account/update/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
-                var index = $scope.accounts.findIndex(item => item.tenDangNhap === $scope.form_info.tenDangNhap);
-                $scope.accounts[index] = resp.data;
-                // Cập nhật lại thông tin tài khoản trong localStorage
-                var account = JSON.parse(localStorage.getItem("account")) || [];
-                account = account.map(acc => {
-                    if (acc.tenDangNhap === $scope.form_info.tenDangNhap) {
-                        return resp.data;
-                    }
-                    return acc;
-                });
-                // thông báo
-                iziToast.info({
+        } else {
+            if (!kiemTraNgayHopLe(item.ngaySinh)) {
+                //    thông báo
+                iziToast.error({
                     title: 'Thông báo',
-                    message: 'Cập nhập thông tin tài khoản thành công !',
+                    message: 'Ngày nhập vào không thể là ngày hiện tại và phải đủ 18 tuổi !',
                     position: 'topRight'
                 });
-                localStorage.setItem("account", JSON.stringify(account));
-                // Chờ 3 giây trước khi thực hiện reload
-                setTimeout(function () {
-                    location.reload();
-                }, 3000)
-                console.log("Success", resp);
-            }).catch(error => {
-                console.log("Error", error)
-            });
+            } else {
+                $http.put("/rest/account/update/" + $scope.info_user[0].tenDangNhap, item).then(resp => {
+                    var index = $scope.accounts.findIndex(item => item.tenDangNhap === $scope.form_info.tenDangNhap);
+                    $scope.accounts[index] = resp.data;
+                    // Cập nhật lại thông tin tài khoản trong localStorage
+                    var account = JSON.parse(localStorage.getItem("account")) || [];
+                    account = account.map(acc => {
+                        if (acc.tenDangNhap === $scope.form_info.tenDangNhap) {
+                            return resp.data;
+                        }
+                        return acc;
+                    });
+                    // thông báo
+                    iziToast.info({
+                        title: 'Thông báo',
+                        message: 'Cập nhập thông tin tài khoản thành công !',
+                        position: 'topRight'
+                    });
+                    localStorage.setItem("account", JSON.stringify(account));
+                    // Chờ 3 giây trước khi thực hiện reload
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500)
+                    console.log("Success", resp);
+                }).catch(error => {
+                    console.log("Error", error)
+                });
+            }
         }
     }
 
@@ -391,7 +518,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 // Chờ 3 giây trước khi thực hiện reload
                 setTimeout(function () {
                     location.reload();
-                }, 3000)
+                }, 1500)
                 console.log("Success", resp);
             }).catch(error => {
                 console.log("Error", error)
@@ -434,7 +561,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 // Chờ 3 giây trước khi thực hiện reload
                 setTimeout(function () {
                     location.reload();
-                }, 3000)
+                }, 1500)
                 console.log("Success", resp);
             }).catch(error => {
                 console.log("Error", error)
@@ -476,7 +603,7 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                 // Chờ 3 giây trước khi thực hiện reload
                 setTimeout(function () {
                     location.reload();
-                }, 3000)
+                }, 1500)
                 console.log("Success", resp);
             })
         }
@@ -494,10 +621,6 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         })
     }
 
-    
-
-  
-
     $scope.cart = function (user_id) {
         // Hàm chuyển đổi từ mảng con sang đối tượng
         function arrayToObject(arr) {
@@ -511,16 +634,13 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
         }
 
         $http.get("/rest/cart/" + user_id).then(function (resp) {
-
             var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []; // Lấy giỏ hàng từ localStorage, nếu không có thì tạo một mảng mới
 
             var data = resp.data;
-
             // Lặp qua các phần tử trong resp.data và chuyển đổi thành đối tượng
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
                     var convertedData = arrayToObject(data[key]);
-
                     // Kiểm tra xem mục đã tồn tại trong giỏ hàng chưa (theo user và id)
                     var exists = false;
                     for (var i = 0; i < cart.length; i++) {
@@ -529,25 +649,23 @@ app.controller("loginCtrl", function ($scope, $http, $window) {
                             break;
                         }
                     }
-
                     // Nếu mục chưa tồn tại trong giỏ hàng, thêm vào
                     if (!exists) {
                         cart.push(convertedData); // Thêm đối tượng vào mảng giỏ hàng
                     }
                 }
             }
-
             console.log(cart);
 
             localStorage.setItem("cart", JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
         });
     }
- 
+
     var aaa = JSON.parse(localStorage.getItem("account")) || null;
     if (aaa != null) {
         $scope.get_addressTrue();
         $scope.get_addressFalse();
         $scope.get_invoice();
-   
-    } 
+
+    }
 })

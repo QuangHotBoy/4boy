@@ -99,36 +99,27 @@
           <!-- Payment -->
           <div class="card mb-4">
             <div class="card-body">
-              <div> 
+              <div>
                 <h3 class="h6">Phương thức thanh toán</h3>
-                <span th:text="${invoice.phuongThucThanhToan.tenPhuongThuc}"></span> 
+                <span th:text="${invoice.phuongThucThanhToan.tenPhuongThuc}"></span>
               </div>
-              <div class="mt-2">  
+              <div class="mt-2">
                 <address>
                   <h3 class="h6">Địa chỉ nhận hàng</h3>
                   <span th:text="${invoice.hoTen}"></span><br>
                   <span th:text="${invoice.diaChiNhanHang}"></span> <br>
                   <abbr title="Phone">P:</abbr> <span th:text="${invoice.soDienThoai}"></span>
                 </address>
-              </div> 
+              </div>
             </div>
-
-            <!-- <div class="card mb-4">
-             Shipping information    
-                <div class="card-body">
-                  <h3 class="h6">Shipping Information</h3>
-                  <strong>FedEx</strong>
-                  <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
-                  <hr>
-                  <h3 class="h6">Address</h3>
-                  <address>
-                    <strong>John Doe</strong><br>
-                    1355 Market St, Suite 900<br>
-                    San Francisco, CA 94103<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                  </address>
-                </div>
-              </div> -->
+          </div>
+          <!-- Shipping information -->
+          <div th:if="${invoice.trangThai_donDatHang.id != '1' or invoice.trangThai_donDatHang.id != '2'}">
+            <button class="btn btn-danger">Hủy đơn hàng
+              hàng</button>
+          </div> 
+          <div th:if="${invoice.trangThai_donDatHang.id == '4'}">
+            <button class="btn btn-success">Đã nhận được hàng <button>
           </div>
         </div>
       </div>

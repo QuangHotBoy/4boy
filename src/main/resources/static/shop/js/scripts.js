@@ -354,7 +354,7 @@ app.controller("HomeCtrl", function ($scope, $http, $window) {
 			// Chờ 3 giây trước khi thực hiện reload
 			setTimeout(function () {
 				location.reload();
-			}, 3000)
+			}, 1500)
 			console.log("Success", resp);
 		})
 	}

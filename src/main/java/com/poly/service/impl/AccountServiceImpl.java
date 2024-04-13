@@ -53,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public TaiKhoan create(TaiKhoan taiKhoan, String id) {
 		taiKhoan.setActive(true);
-		TaiKhoan taikhoan = TKDao.save(taiKhoan); 
+		TaiKhoan taikhoan = TKDao.save(taiKhoan);
 		// them quyen
 		Quyen quyen = quyenDao.findById(id).get();
 		Quyen_TaiKhoan qTK = new Quyen_TaiKhoan();
@@ -68,11 +68,11 @@ public class AccountServiceImpl implements AccountService {
 		dctk.setSdt(null);
 		dctk.setMacDinh(true);
 		dctkDAO.save(dctk);
-		//them gio hang
+		// them gio hang
 		GioHang gioHang = new GioHang();
 		gioHang.setTaiKhoan_gioHang(taikhoan);
 		gioHangDao.save(gioHang);
-		return null;
+		return taiKhoan;
 	}
 
 	@Override
@@ -85,6 +85,37 @@ public class AccountServiceImpl implements AccountService {
 
 		taiKhoan.setMatKhau(matKhau);
 		return TKDao.save(taiKhoan);
+	}
+
+	@Override
+	public TaiKhoan register(TaiKhoan taiKhoan, String id) {
+
+		TaiKhoan tk = TKDao.findByTenDangNhap(taiKhoan.getTenDangNhap());
+		if (tk != null) {
+
+		} else {
+			taiKhoan.setActive(true);
+			TaiKhoan taikhoan = TKDao.save(taiKhoan);
+			// them quyen
+			Quyen quyen = quyenDao.findById(id).get();
+			Quyen_TaiKhoan qTK = new Quyen_TaiKhoan();
+			qTK.setQuyen(quyen);
+			qTK.setTaiKhoan_quyen(taikhoan);
+			quyenTKDao.save(qTK);
+			// them dia chi
+			DiaChi_TaiKhoan dctk = new DiaChi_TaiKhoan();
+			dctk.setTaiKhoan_diaChi(taikhoan);
+			dctk.setHoTen(taikhoan.getHoTen());
+			dctk.setDiaChi("Chưa có địa chỉ");
+			dctk.setSdt(null);
+			dctk.setMacDinh(true);
+			dctkDAO.save(dctk);
+			// them gio hang
+			GioHang gioHang = new GioHang();
+			gioHang.setTaiKhoan_gioHang(taikhoan);
+			gioHangDao.save(gioHang);
+		}
+		return taiKhoan;
 	}
 
 }

@@ -80,6 +80,12 @@ public class RestLogin {
 		return data;
 	}
 
+	@PostMapping("/rest/register")
+	TaiKhoan postMethodName(@RequestBody TaiKhoan taiKhoan) {
+		AccountService.register(taiKhoan, "CUST");
+		return taiKhoan;
+	}
+
 	@GetMapping("/rest/auth/invoice/{tenDangNhap}")
 	List<DonDatHang> findbyTDN(@PathVariable("tenDangNhap") String tenDangNhap) {
 		return orderImp.findByTDN(tenDangNhap);
@@ -151,7 +157,7 @@ public class RestLogin {
 	}
 
 	@GetMapping("/rest/account/deletefavorite/{user}/{product}")
-	public SachYeuThich deleteFavovite(@PathVariable("user") String user, @PathVariable("product") Long isbn) { 
+	public SachYeuThich deleteFavovite(@PathVariable("user") String user, @PathVariable("product") Long isbn) {
 		return favoriteService.deleteSach(user, isbn);
 	}
 

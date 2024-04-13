@@ -18,6 +18,8 @@ public interface AccountService {
 	TaiKhoan update(TaiKhoan taiKhoan); 
 
 	TaiKhoan updatePass(TaiKhoan taiKhoan,String matKhau);
+	
+	TaiKhoan register(TaiKhoan taiKhoan, String id);
 
 	
 }
