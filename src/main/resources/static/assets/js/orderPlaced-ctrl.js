@@ -165,10 +165,11 @@ function initializeDataTable() {
     
                 // Đặt lại form
                 $scope.reset();
-    
-                // Thông báo cập nhật thành công
-                alert("Cập nhật trạng thái thành công!");
-    
+                iziToast.success({
+                    title: 'Thông báo',
+                    message: 'Cập nhật trạng thái đơn hàng thành công!',
+                    position: 'topRight'
+                });
                 // Load lại trang
                 $window.location.reload();
             })
@@ -178,6 +179,7 @@ function initializeDataTable() {
                 console.error("Error", error);
             });
     };
+    
     
     
     $scope.tinhTrangDonDatHangs = [];
@@ -355,6 +357,5 @@ function initializeDataTable() {
             default:
                 return {}; // Default color if status ID doesn't match any case
         }
-    };
-    
+    };  
 });

@@ -23,6 +23,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
   </head>
   <style>
     .hoverable-address {
@@ -85,6 +86,37 @@
     }
     
 }
+/* Style for the select element */
+select {
+    width: 200px; /* Adjust width as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; /* Background color */
+    color: #333; /* Text color */
+    font-size: 16px;
+    outline: none;
+}
+
+/* Style for the options within the select element */
+select option {
+    background-color: #fff; /* Background color */
+    color: #333; /* Text color */
+}
+
+/* Style for the dropdown arrow */
+select::-ms-expand {
+    display: none; /* Hide default arrow in IE */
+}
+select::after {
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333; /* Arrow color */
+}
 
 
   </style>
@@ -113,7 +145,6 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                           <div class="card">
                             <div class="card-body">
-                              <span><i class="bi bi-filter-square-fill"></i></span>
                               <select ng-model="selectedStatus" ng-change="filterByStatus()">
                                 <option value="">Tất cả trạng thái</option>
                                 <option value="1">Chờ xác nhận</option>
@@ -258,5 +289,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="/assets/js/orderPlacedDetail-ctrl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
   </body>
 </html>
