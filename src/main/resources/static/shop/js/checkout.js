@@ -160,8 +160,19 @@ app.controller("CheckoutController", function ($scope, $http) {
     hoTen: $scope.info_user[1].hoTen,
     diaChiNhanHang: $scope.info_user[1].diaChi,
     get diaChi() {
-      // Lấy ID của địa chỉ từ combo box nếu có, nếu không thì lấy từ $scope.info_user[1]
-      var selectedAddressId = $scope.selectedAddress ? $scope.selectedAddress : $scope.info_user[1].id;
+      var selectedAddressId;
+
+      if ($scope.selectedAddress()) {
+        selectedAddressId = $scope.selectedAddress();
+      } else {
+        for (var i = 0; i < $scope.addresses.length; i++) {
+          if ($scope.addresses[i].macDinh) {
+            selectedAddressId = $scope.addresses[i].id;
+            break; // Kết thúc vòng lặp sau khi tìm thấy giá trị có macDinh là true
+          }
+        }
+      }
+
       return { id: selectedAddressId };
     },
     soDienThoai: $scope.info_user[1].sdt,
@@ -251,17 +262,17 @@ app.controller("CheckoutController", function ($scope, $http) {
     },
   };
 
-  $scope.isValidPhone = function(phone) {
+  $scope.isValidPhone = function (phone) {
     // Biểu thức chính quy để kiểm tra số điện thoại
     var phonePattern = /^\d{10,11}$/;
     return phonePattern.test(phone);
-};
+  };
 
-$scope.isValidEmail = function(email) {
+  $scope.isValidEmail = function (email) {
     // Biểu thức chính quy để kiểm tra email
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
-};
+  };
 
   $scope.voucher = {
     dateEnd: "",

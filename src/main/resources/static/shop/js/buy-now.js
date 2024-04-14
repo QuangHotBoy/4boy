@@ -169,9 +169,21 @@ app.controller("BuynowController", function ($scope, $http) {
     hoTen: $scope.info_user[1].hoTen,
     diaChiNhanHang: $scope.info_user[1].diaChi,
     get diaChi() {
-      // Lấy ID của địa chỉ từ combo box nếu có, nếu không thì lấy từ $scope.info_user[1]
-      var selectedAddressId = $scope.selectedAddress ? $scope.selectedAddress : $scope.info_user[1].id;
+      var selectedAddressId;
+
+      if ($scope.selectedAddress()) {
+        selectedAddressId = $scope.selectedAddress();
+      } else {
+        for (var i = 0; i < $scope.addresses.length; i++) {
+          if ($scope.addresses[i].macDinh) {
+            selectedAddressId = $scope.addresses[i].id;
+            break; // Kết thúc vòng lặp sau khi tìm thấy giá trị có macDinh là true
+          }
+        }
+      }
+
       return { id: selectedAddressId };
+
     },
     soDienThoai: $scope.info_user[1].sdt,
     mail: $scope.info_user[0].email,
@@ -216,14 +228,14 @@ app.controller("BuynowController", function ($scope, $http) {
             position: 'topRight'
           });
           return;
-        }else{
+        } else {
           // Hiển thị thông báo thành công
-        iziToast.warning({
-          title: 'Thông báo',
-          message: 'Vui lòng kiểm tra lại số điện thoại hoặc email.',
-          position: 'topRight'
-        });
-        return;
+          iziToast.warning({
+            title: 'Thông báo',
+            message: 'Vui lòng kiểm tra lại số điện thoại hoặc email.',
+            position: 'topRight'
+          });
+          return;
         }
       } else {
         $http
