@@ -90,4 +90,14 @@ public class OrderRestController {
     public Map<String, Object> checkUserReview(@PathVariable("user") String user, @PathVariable("id") Long isbn){
         return reviewService.checkUserReview(user, isbn);
     }
+
+    @GetMapping("/cancel-invoice/{id}")
+    public DonDatHang cancelInvoice(@PathVariable("id") Integer id){
+        return orderService.cancelInvoice(id);
+    }
+
+    @GetMapping("/success-invoice/{id}")
+    public DonDatHang successInvoice(@PathVariable("id") Integer id){
+        return orderService.successInvoice(id);
+    }
 }

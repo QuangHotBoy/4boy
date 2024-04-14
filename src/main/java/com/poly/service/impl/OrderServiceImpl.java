@@ -143,6 +143,24 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderDetailDAO.getTop8SachByTinhTrang();
 	}
+
+	@Override
+	public DonDatHang cancelInvoice(Integer id) {
+		DonDatHang order = orderDAO.findById(id).get();
+
+		order.setTrangThai_donDatHang(statusDAO.findById(7).get());
+
+		return orderDAO.save(order);
+	}
+
+	@Override
+	public DonDatHang successInvoice(Integer id) {
+		DonDatHang order = orderDAO.findById(id).get();
+
+		order.setTrangThai_donDatHang(statusDAO.findById(5).get());
+
+		return orderDAO.save(order);
+	}
   
 	 
 

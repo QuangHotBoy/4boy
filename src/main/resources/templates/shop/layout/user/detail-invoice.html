@@ -115,22 +115,61 @@
           </div>
           <!-- Shipping information -->
           <div th:if="${invoice.trangThai_donDatHang.id == 1 or invoice.trangThai_donDatHang.id == 2}">
-            <button class="btn btn-danger">Hủy đơn hàng
+            <button class="btn btn-danger btn-cancel-invoice" th:data-id="${invoice.maDonHang}">Hủy đơn hàng
               hàng</button>
-          </div> 
+          </div>
           <div th:if="${invoice.trangThai_donDatHang.id == 4}">
-            <button class="btn btn-success">Đã nhận được hàng</button>
+            <button class="btn btn-success btn-success-invoice" th:data-id="${invoice.maDonHang}">Đã nhận được
+              hàng</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- angular js -->
-    <script src="/assets/js/login.js"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <!-- <script th:src="@{/shop/js/scripts.js}"></script> -->
+  <!-- angular js -->
+  <!-- <script src="/assets/js/login.js"></script> -->
+  <!-- Bootstrap core JS-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".btn-cancel-invoice").click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+          url: "/rest/cancel-invoice/" + id,
+          type: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            console.error("Lỗi khi thêm sản phẩm vào danh sách yêu thích:", error);
+          }
+        });
+      })
+
+      $(".btn-success-invoice").click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+          url: "/rest/success-invoice/" + id,
+          type: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            console.error("Lỗi khi thêm sản phẩm vào danh sách yêu thích:", error);
+          }
+        });
+      })
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 </body>
 
 </html>

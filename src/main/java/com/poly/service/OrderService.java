@@ -21,4 +21,8 @@ public interface OrderService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOrderById'");
     }
+
+    public DonDatHang cancelInvoice(Integer id);
+
+    public DonDatHang successInvoice(Integer id);
 }
