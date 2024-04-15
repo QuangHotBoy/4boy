@@ -27,6 +27,15 @@
     #message-text {
         height: 150px;
     }
+    /* CSS cho khi hover */
+.hover-full-content {
+    width: auto; /* Đặt lại chiều rộng */
+}
+
+.hover-full-content h6 {
+    white-space: normal; /* Cho phép hiển thị đầy đủ nội dung */
+}
+
 
     .search-input {
         width: 200px; /* Độ rộng của ô tìm kiếm */
@@ -69,6 +78,9 @@
             transform: translateX(0%);
         }
     }
+    a{
+        text-decoration: none;
+    }
 </style>
 <body>
 <div class="container-scroller" ng-app="orderPlaceDetaildApp" ng-controller="orderPlacedDetailCtrl">
@@ -110,7 +122,7 @@
                                             <table class="table table-striped" id="table">
                                                 <thead>
                                                 <tr>
-                                                    <th style="text-align: center;">Hình ảnh</th>
+                                                    <th style="text-align: center;width: 50px;">Hình ảnh</th>
                                                     <th style="text-align: center;">Số lượng</th>
                                                     <th style="text-align: center;">Đơn giá</th>
                                                     <th style="text-align: center;">Tên mã</th>
@@ -119,15 +131,16 @@
                                                 <tbody>
                                                     <tr th:each="detail : ${listDetail}">
                                                         <td>
-                                                            <div class="d-flex mb-2 justify-content-center align-items-center"> <!-- Để căn giữa theo chiều ngang và dọc -->
+                                                            <div class="d-flex mb-2 justify-content-center align-items-center hover-full-content"> <!-- Thêm class hover-full-content -->
                                                                 <div class="flex-shrink-0">
                                                                     <img th:src="@{|/assets/images/products/${detail.sanPham_donDatHang.hinhAnh }|}" alt="" class="avatar-lg">
                                                                 </div>
-                                                                <div class="flex-lg-grow-1 ms-3" style="width: 180px;">
+                                                                <div class="flex-lg-grow-1 ms-3" style="width: 300px;">
                                                                     <h6 class="small mb-0  ht-3"><a href="#" class="text-reset" th:text="${detail.sanPham_donDatHang.tenSach}"></a></h6>
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        
                                                         <td style="text-align: center;"> <!-- Để căn giữa nội dung trong cột -->
                                                             x <span th:text="${detail.soLuong}"></span>
                                                         </td>
