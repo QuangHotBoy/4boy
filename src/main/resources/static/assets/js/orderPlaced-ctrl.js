@@ -317,19 +317,19 @@ function initializeDataTable() {
     $scope.getStatusColor = function(statusId) {
         switch (statusId) {
             case 1:
-                return { color: 'blue', border: '2px solid blue' }; // Set color to blue for status 1
+                return { color: 'blue' }; // Set color to blue for status 1
             case 2:
-                return { color: 'orange', border: '2px solid orange' }; // Set color to orange for status 2
+                return { color: 'orange'}; // Set color to orange for status 2
             case 3:
-                return { color: 'goldenrod', border: '2px solid goldenrod' }; // Set color to green for status 3
+                return { color: 'goldenrod'}; // Set color to green for status 3
             case 4:
-                return { color: 'darkorchid', border: '2px solid darkorchid' };
+                return { color: 'darkorchid'};
             case 5:
-                return { color: 'peru', border: '2px solid peru' };
+                return { color: 'peru' };
             case 6:
-                return { color: 'green', border: '2px solid green' };
+                return { color: 'green'};
             case 7:
-                return { color: 'red', border: '2px solid red' }; // Set color to green for status 3
+                return { color: 'red'}; // Set color to green for status 3
             case 8:
                 return { color: 'red', border: '2px solid red' }; // Set color to green for status 3
             // Add more cases for other statuses as needed
