@@ -47,9 +47,15 @@
     }
 
     #table1 th {
-        background-color: #f2f2f2;
+        background-color: rgb(88, 86, 86);
         /* Add background color to header cells */
     }
+
+    #table1 thead th {
+        color: white;
+        /* Thiết lập màu chữ trắng cho các ô trong phần thead của bảng */
+    }
+
 
     #table1 img {
         max-width: 80%;
@@ -101,7 +107,7 @@
     }
 
     /* CSS */
-    .product-table thead {
+    .table-striped thead {
         position: sticky;
         top: 0;
         background-color: #fff;
@@ -281,13 +287,13 @@
                                                         display: none;
                                                     }
                                                 </style>
-                                                <table class="product-table" id="table1">
+                                                <table class="table table-striped" id="table1">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 30%;">Mã loại sách</th>
+                                                            <th style="width: 5%;">Mã loại sách</th>
                                                             <th style="width: 30%;">Tên loại sách</th>
-                                                            <th style="width: 40%;">Mô tả</th>
-                                                            <th style="width: 20%;">Sửa</th>
+                                                            <th style="width: 50%;">Mô tả</th>
+                                                            <th style="width: 5%;">Sửa</th>
 
                                                         </tr>
                                                     </thead>

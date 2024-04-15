@@ -27,8 +27,8 @@
 </head>
 
 <style>
-    /* Apply CSS to style the table */
-    #table1 {
+   /* Apply CSS to style the table */
+   #table1 {
         width: 100%;
         /* Set the table width to fill its container */
         border-collapse: collapse;
@@ -46,8 +46,13 @@
     }
 
     #table1 th {
-        background-color: #f2f2f2;
+        background-color: rgb(88, 86, 86);
         /* Add background color to header cells */
+    }
+
+    #table1 thead th {
+        color: white;
+        /* Thiết lập màu chữ trắng cho các ô trong phần thead của bảng */
     }
 
     #table1 img {
@@ -83,6 +88,7 @@
 
     /* Thanh tìm kiếm */
     .dataTables_filter {
+
         float: right;
         /* Đặt thanh tìm kiếm bên phải */
         margin-top: 10px;
@@ -99,7 +105,7 @@
     }
 
     /* CSS */
-    .product-table thead {
+    .table-striped thead {
         position: sticky;
         top: 0;
         background-color: #fff;
@@ -340,7 +346,7 @@
                                                     display: none;
                                                 }
                                             </style>
-                                            <table class="product-table" id="table1">
+                                            <table class="table table-striped" id="table1">
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 5%;">Mã</th>
@@ -358,7 +364,7 @@
                                                         <td>{{ item.tenNhaXuatBan }}</td>
                                                         <td>{{ item.moTa }}</td>
                                                         <td>
-                                                            <img class="product-image"
+                                                            <img 
                                                                 ng-src="/assets/images/products/{{ item.hinhAnh }}"
                                                                 style="height: 100px" width="150px">
                                                         </td>

@@ -46,51 +46,106 @@
 		outline: none;
 	}
 
-	.product-table {
-		width: 100%;
-		border-collapse: collapse;
-	}
+	/* Apply CSS to style the table */
+    #table1 {
+        width: 100%;
+        /* Set the table width to fill its container */
+        border-collapse: collapse;
+        /* Collapse the borders between table cells */
+    }
 
-	.product-table th,
-	.product-table td {
-		padding: 10px;
+    #table1 th,
+    #table1 td {
+        padding: 10px;
+        /* Add padding to table cells */
+        text-align: left;
+        /* Align text to the left within cells */
+        border: 1px solid #ddd;
+        /* Add border to cells */
+    }
 
-		border: 1px solid #ddd;
-	}
+    #table1 th {
+        background-color: rgb(88, 86, 86);
+        /* Add background color to header cells */
+    }
 
-	.product-table th {
-		background-color: #f2f2f2;
-		font-weight: bold;
-	}
+    #table1 thead th {
+        color: white;
+        /* Thiết lập màu chữ trắng cho các ô trong phần thead của bảng */
+    }
 
-	.product-table tbody tr:nth-child(even) {
-		background-color: #f9f9f9;
-	}
+    #table1 img {
+        max-width: 80%;
+        /* Ensure images fit within their containers */
+        height: 100px;
+        /* Maintain aspect ratio of images */
+        display: block;
+        /* Display images as block elements */
+        margin: 0 auto;
+        /* Center align images horizontally */
+    }
 
-	.product-table tbody tr:hover {
-		background-color: #f2f2f2;
-	}
+    #table1 td:last-child {
+        text-align: center;
+        /* Center align content in last column */
+    }
 
-	/* CSS */
-	.product-table thead {
-		position: sticky;
-		top: 0;
-		background-color: #fff;
-		/* Tùy chỉnh màu nền cho thẻ thead */
-		z-index: 1;
-		/* Đảm bảo thẻ thead luôn hiển thị trên cùng */
-	}
+    /* Custom DataTables CSS */
+    .dataTables_wrapper {
+        padding: 20px;
+        /* Khoảng cách xung quanh DataTables */
+    }
 
-	#table1 img {
-		max-width: 80%;
-		/* Ensure images fit within their containers */
-		height: 100px;
-		/* Maintain aspect ratio of images */
-		display: block;
-		/* Display images as block elements */
-		margin: 0 auto;
-		/* Center align images horizontally */
-	}
+    /* Thanh hiển thị */
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        margin-bottom: 10px;
+        /* Khoảng cách giữa các thành phần */
+    }
+
+    /* Thanh tìm kiếm */
+    .dataTables_filter {
+
+        float: right;
+        /* Đặt thanh tìm kiếm bên phải */
+        margin-top: 10px;
+    }
+
+    .dataTables_filter label {
+        margin-right: 5px;
+        /* Khoảng cách giữa nhãn và ô nhập */
+    }
+
+    .dataTables_length label {
+        margin-right: 10px;
+        /* Khoảng cách giữa nhãn và dropdown */
+    }
+
+    /* CSS */
+    .table-striped thead {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        /* Tùy chỉnh màu nền cho thẻ thead */
+        z-index: 1;
+        /* Đảm bảo thẻ thead luôn hiển thị trên cùng */
+    }
+
+    /* Thiết lập kích thước cố định cho các cột */
+    #table1 th:first-child,
+    #table1 td:first-child {
+        width: 5%;
+    }
+
+    #table1 th:nth-child(2),
+    #table1 td:nth-child(2) {
+        width: 40%;
+    }
+    #table1 td:nth-child(6) {
+        width: 8%;
+    }
 
 	/* CSS cho các phần tử select */
 	.custom-select {
@@ -110,42 +165,16 @@
 		box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 	}
 
-	/* Custom CSS */
-	.product-table {
-		width: 100%;
-	}
 
-	.product-table th,
-	.product-table td {
 
-		vertical-align: middle;
-	}
-
-	/* Thanh hiển thị */
-	.dataTables_length,
-	.dataTables_filter,
-	.dataTables_info,
-	.dataTables_paginate {
-		margin-bottom: 10px;
-		/* Khoảng cách giữa các thành phần */
-	}
-
-	/* Thanh tìm kiếm */
-	.dataTables_filter {
-		float: right;
-		/* Đặt thanh tìm kiếm bên phải */
-		margin-top: 10px;
-	}
+	
 
 	.dataTables_filter label {
 		margin-right: 5px;
 		/* Khoảng cách giữa nhãn và ô nhập */
 	}
 
-	.dataTables_length label {
-		margin-right: 10px;
-		/* Khoảng cách giữa nhãn và dropdown */
-	}
+	
 </style>
 
 <body ng-controller="thongkeCtrl">
@@ -209,8 +238,8 @@
 								<br>
 								<div class="col-sm-12">
 
-									<div style="height: 550px; overflow: auto;">
-										<h4 class="card-title">Danh sách các sản phẩm tồn kho</h4>
+									<div style="height: 550px; overflow: auto; ">
+										<h4 class="card-title" style="margin-left: 20px;" >Danh sách các sản phẩm tồn kho</h4>
 
 										<style>
 											/* Hide scrollbar */
@@ -218,7 +247,7 @@
 												display: none;
 											}
 										</style>
-										<div style="margin-bottom: 10px;">
+										<div style="margin-bottom: 10px; margin-left: 20px;">
 											<label for="loaiSachFilter">Chọn loại sách:</label>
 											<select id="loaiSachFilter" ng-model="selectedLoaiSach"
 												ng-change="filterByLoaiSach()"
@@ -229,8 +258,8 @@
 											</select>
 										</div>
 
-										<table class="table product-table" id="table1">
-											<thead class="thead-dark">
+										<table class="table table-striped" id="table1">
+											<thead >
 												<tr>
 													<th scope="col">Mã sách</th>
 													<th scope="col">Tên sản phẩm</th>
