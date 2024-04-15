@@ -62,7 +62,7 @@
                       <tr ng-repeat="invoice in invoices">
                         <td>{{invoice.hoTen}}</td>
                         <td>{{invoice.ngayDatHang | date:'dd/MM/yyyy'}}</td>
-                        <td>{{invoice.tongTien}}</td>
+                        <td>{{invoice.tongTien  | vnCurrency}}</td>
                         <td>{{invoice.trangThai_donDatHang.tenTrangThai}}</td>
                         <td>
                           <a href="/shop/auth/invoice/detail-invoice/{{invoice.maDonHang}}">Xem chi tiết</a>

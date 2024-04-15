@@ -32,7 +32,7 @@
                   </span>
                 </div>
                 <div class="d-flex">
-                  <a href="/shop/auth/invoice" type="button"><i class="bi bi-x-square"></i></a>
+                  <a href="/shop/auth/invoice" type="button"><i class="bi bi-box-arrow-left"></i></a>
                 </div>
               </div>
               <table class="table table-borderless">
@@ -114,7 +114,7 @@
             </div>
           </div>
           <!-- Shipping information -->
-          <div th:if="${invoice.trangThai_donDatHang.id == 1 or invoice.trangThai_donDatHang.id == 2}">
+          <div th:if="${invoice.trangThai_donDatHang.id == 1 }">
             <button class="btn btn-danger btn-cancel-invoice" th:data-id="${invoice.maDonHang}">Hủy đơn hàng
               hàng</button>
           </div>

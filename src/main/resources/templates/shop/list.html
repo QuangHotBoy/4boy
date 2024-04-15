@@ -36,7 +36,7 @@
                                     alt="..." />
                             </div>
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                            <div class="card-body">
                                 <div class="text-start">
                                     <!-- Product name-->
                                     <a th:href="@{|/shop/product/${p.isbn}|}"
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 justify-content-center border-top-0 bg-transparent d-flex">
+                            <div class="card-footer justify-content-center border-top-0 bg-transparent d-flex">
                                 <div class="text-center">
                                     <a class="btn text-bg-warning mt-auto buynow" th:href="@{/shop/buy-now}"
                                         th:data-isbn="${p.isbn}">Mua ngay</a>

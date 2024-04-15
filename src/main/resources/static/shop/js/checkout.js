@@ -160,19 +160,8 @@ app.controller("CheckoutController", function ($scope, $http) {
     hoTen: $scope.info_user[1].hoTen,
     diaChiNhanHang: $scope.info_user[1].diaChi,
     get diaChi() {
-      var selectedAddressId;
-
-      if ($scope.selectedAddress()) {
-        selectedAddressId = $scope.selectedAddress();
-      } else {
-        for (var i = 0; i < $scope.addresses.length; i++) {
-          if ($scope.addresses[i].macDinh) {
-            selectedAddressId = $scope.addresses[i].id;
-            break; // Kết thúc vòng lặp sau khi tìm thấy giá trị có macDinh là true
-          }
-        }
-      }
-
+      // Lấy ID của địa chỉ từ combo box nếu có, nếu không thì lấy từ $scope.info_user[1]
+      var selectedAddressId = $scope.selectedAddress ? $scope.selectedAddress : $scope.info_user[1].id;
       return { id: selectedAddressId };
     },
     soDienThoai: $scope.info_user[1].sdt,

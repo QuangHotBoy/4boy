@@ -1,6 +1,13 @@
 var app = angular.module('loginApp', []);
-
+app.filter('vnCurrency', function () {
+    return function (input) {
+        if (isNaN(input)) return input;
+        return input.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    };
+});
 app.controller("loginCtrl", function ($scope, $http, $window) {
+
+
 
     // đăng nhập
     $scope.login = {
