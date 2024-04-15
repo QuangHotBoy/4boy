@@ -103,7 +103,8 @@
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
 
-                  <h4 class="font-weight-normal mb-3">Tổng Doanh thu <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  <h4 class="font-weight-normal mb-3">Tổng Doanh thu <i
+                      class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
                   <h2 class="mb-5" ng-repeat="tiens in tongtien">{{tiens.Tien | vnCurrency }}</h2>
 
@@ -117,7 +118,7 @@
                   <h4 class="font-weight-normal mb-3">Tổng Sản phẩm <i
                       class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="mb-5"  ng-repeat="tongs in tongsp">{{tongs.SoLuong}}</h2>
+                  <h2 class="mb-5" ng-repeat="tongs in tongsp">{{tongs.SoLuong}}</h2>
 
                 </div>
               </div>
@@ -125,11 +126,10 @@
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
-                  
-                  <h4 class="font-weight-normal mb-3">Đơn hàng trong tháng<i
+                  <h4 class="font-weight-normal mb-3">Tổng Đơn hàng trong tháng<i
                       class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="mb-5"ng-repeat="donn in donhang">{{donn.Don}}</h2>
+                  <h2 class="mb-5" ng-repeat="donn in donhang">{{donn.Don}}</h2>
 
                 </div>
               </div>
@@ -184,49 +184,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
-  <!-- hiện ảnh -->
-  <script>
-    function previewImage(event) {
-      var input = event.target;
-      var reader = new FileReader();
-      reader.onload = function () {
-        var imgPreview = document.getElementById('imgPreview');
-        imgPreview.src = reader.result;
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-    function selectImage() {
-      var input = document.getElementById('imgInput');
-      input.click(); // Simulate a click on the hidden input element
-    }
-  </script>
-  <!-- <script>
-          // JavaScript function to preview the selected image
-          function previewImage() {
-              var input = document.getElementById('imgInput');
-              var preview = document.getElementById('imgPreview');
-  
-              // Ensure that a file is selected
-              if (input.files && input.files[0]) {
-                  var reader = new FileReader();
-  
-                  // Set the source of the image to the selected file
-                  reader.onload = function (e) {
-                      preview.src = e.target.result;
-                  };
-  
-                  // Read the selected file as a data URL
-                  reader.readAsDataURL(input.files[0]);
-              }
-          }
-  
-          // JavaScript function to trigger file selection when the button is clicked
-          function selectImage() {
-              var input = document.getElementById('imgInput');
-              input.click(); // Simulate a click on the hidden input element
-          }
-      </script> -->
-      <script src="/assets/js/thongke.js"></script>
+
+  <script src="/assets/js/thongke.js"></script>
 
 </body>
 
