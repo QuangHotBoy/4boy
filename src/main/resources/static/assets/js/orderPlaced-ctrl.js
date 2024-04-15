@@ -40,32 +40,7 @@ function initializeDataTable() {
     $scope.reset = function() {
         $scope.form = {};
     };
-    $scope.sortByField = function(fieldName) {
-        // Xác định biến cờ và sắp xếp mảng dựa trên trường được chọn
-        if ($scope.ascending[fieldName]) {
-            // Sắp xếp mảng theo trường tăng dần
-            $scope.orderPlaces.sort((a, b) => {
-                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
-                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
-                    return a[fieldName].localeCompare(b[fieldName]);
-                } else {
-                    return a[fieldName] - b[fieldName];
-                }
-            });
-        } else {
-            // Sắp xếp mảng theo trường giảm dần
-            $scope.orderPlaces.sort((a, b) => {
-                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
-                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
-                    return b[fieldName].localeCompare(a[fieldName]);
-                } else {
-                    return b[fieldName] - a[fieldName];
-                }
-            });
-        }
-        // Đảo ngược giá trị của biến cờ để chuyển đổi hướng sắp xếp
-        $scope.ascending[fieldName] = !$scope.ascending[fieldName];
-    };
+
     $scope.edit = function(maDonHang) {
         // Send a GET request to the API to fetch data for the specified ID
         $http.get('/rest/orderPlaces/' + maDonHang)
@@ -165,9 +140,12 @@ function initializeDataTable() {
     
                 // Đặt lại form
                 $scope.reset();
-                iziToast.success({
+    
+                // Thông báo cập nhật thành công
+                alert("Cập nhật trạng thái thành công!");
+                iziToast.info({
                     title: 'Thông báo',
-                    message: 'Cập nhật trạng thái đơn hàng thành công!',
+                    message: 'Thêm mới mã giảm giá thành công!',
                     position: 'topRight'
                 });
                 // Load lại trang
@@ -179,7 +157,6 @@ function initializeDataTable() {
                 console.error("Error", error);
             });
     };
-    
     
     
     $scope.tinhTrangDonDatHangs = [];
@@ -353,9 +330,38 @@ function initializeDataTable() {
                 return { color: 'green', border: '2px solid green' };
             case 7:
                 return { color: 'red', border: '2px solid red' }; // Set color to green for status 3
+            case 8:
+                return { color: 'red', border: '2px solid red' }; // Set color to green for status 3
             // Add more cases for other statuses as needed
             default:
                 return {}; // Default color if status ID doesn't match any case
         }
-    };  
+    }; 
+    $scope.sortByField = function(fieldName) {
+        // Xác định biến cờ và sắp xếp mảng dựa trên trường được chọn
+        if ($scope.ascending[fieldName]) {
+            // Sắp xếp mảng theo trường tăng dần
+            $scope.orderPlaces.sort((a, b) => {
+                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
+                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
+                    return a[fieldName].localeCompare(b[fieldName]);
+                } else {
+                    return a[fieldName] - b[fieldName];
+                }
+            });
+        } else {
+            // Sắp xếp mảng theo trường giảm dần
+            $scope.orderPlaces.sort((a, b) => {
+                // Sử dụng a[fieldName] và b[fieldName] để truy cập giá trị của trường
+                if (typeof a[fieldName] === 'string' && typeof b[fieldName] === 'string') {
+                    return b[fieldName].localeCompare(a[fieldName]);
+                } else {
+                    return b[fieldName] - a[fieldName];
+                }
+            });
+        }
+        // Đảo ngược giá trị của biến cờ để chuyển đổi hướng sắp xếp
+        $scope.ascending[fieldName] = !$scope.ascending[fieldName];
+    };
+     
 });

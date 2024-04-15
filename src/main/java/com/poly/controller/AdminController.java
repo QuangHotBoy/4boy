@@ -78,7 +78,7 @@ public class AdminController {
 
 			List<ChiTietDonDatHang> listDetail = ctddhDAO.findByDonDatHang(orderPlaces);
 
-			model.addAttribute("orderPlaces", orderPlaces);
+			model.addAttribute("listDetail", orderPlaces);
 			model.addAttribute("listDetail", listDetail);
 			
 			return "admin/order/order_detail";

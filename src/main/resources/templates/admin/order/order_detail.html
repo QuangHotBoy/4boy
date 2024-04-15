@@ -113,6 +113,7 @@
                                                     <th style="text-align: center;">Hình ảnh</th>
                                                     <th style="text-align: center;">Số lượng</th>
                                                     <th style="text-align: center;">Đơn giá</th>
+                                                    <th style="text-align: center;">Tên mã</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -132,6 +133,9 @@
                                                         </td>
                                                         <td class="text-center"> <!-- Để căn giữa nội dung trong cột -->
                                                             <span th:text="${#numbers.formatDecimal(detail.sanPham_donDatHang.giaBan, 3, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                                                        </td> 
+                                                        <td class="text-center"> <!-- Để căn giữa nội dung trong cột -->
+                                                            <span th:text="${detail.donDatHang.maGiamGia.tenMa}"></span>
                                                         </td> 
                                                     </tr>
                                                 </tbody>
